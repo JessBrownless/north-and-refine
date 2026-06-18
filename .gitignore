@@ -1,0 +1,43 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# netlify
+.netlify
+
+# stray build artifact (accidental temp distDir written into the project)
+/var
+
+# scratch/working assets — not used by the app (Next serves only /public)
+/assets
+
+# trial fonts — CoType Aeonik evaluation licence (NOT for the repo / production).
+# The Aeonik local-font loader in src/app/layout.tsx is intentionally commented
+# out; the live site uses Instrument Sans (Google). Re-download trials to A/B.
+/font-trials
+/src/fonts/*TRIAL*.otf
