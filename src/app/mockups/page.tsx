@@ -37,6 +37,26 @@ export default function MockupsIndexPage() {
               View <span aria-hidden>→</span>
             </span>
           </Link>
+
+          <Link
+            href="/mockups/showreel"
+            className="group flex flex-col md:flex-row md:items-center justify-between gap-4 py-8"
+          >
+            <div className="max-w-2xl">
+              <p className="overline text-champagne">Promoted to the homepage</p>
+              <h2 className="heading-lg mt-2 transition-opacity group-hover:opacity-70">
+                Showreel deck
+              </h2>
+              <p className="body mt-2 text-bone-dim">
+                A centred type lockup over a fanned, cycling deck of desktop screens — now the
+                live homepage hero. Cards are placeholders to be swapped for real screenshots or
+                a video showreel.
+              </p>
+            </div>
+            <span className="btn-ghost text-champagne shrink-0">
+              View <span aria-hidden>→</span>
+            </span>
+          </Link>
         </div>
       </div>
     </main>

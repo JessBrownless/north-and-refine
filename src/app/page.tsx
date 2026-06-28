@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { getFeaturedProjects } from "@/lib/work";
+import { getFeaturedProjects, getSectorLabel, WORK_SECTORS } from "@/lib/work";
 import { getAllPosts, getCategoryLabel } from "@/lib/journal";
-import PhoneMockup from "@/components/PhoneMockup";
-import BrowserMockup from "@/components/BrowserMockup";
+import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -41,9 +40,28 @@ export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 3);
 
+  // Hero deck — one card per sector: a real featured case study where we have
+  // one, an honest sector placeholder otherwise. Add `thumbImage` to a case
+  // study to swap its placeholder for a real desktop capture.
+  const featuredBySector = new Map(
+    getFeaturedProjects().map((p) => [p.frontmatter.sector, p] as const),
+  );
+  const deckSlides: DeckSlide[] = WORK_SECTORS.map((sector) => {
+    const project = featuredBySector.get(sector);
+    if (project) {
+      return {
+        title: project.frontmatter.client,
+        tag: getSectorLabel(sector),
+        screenshot: project.frontmatter.thumbImage,
+        screenshotAlt: project.frontmatter.thumbImageAlt,
+      };
+    }
+    return { title: getSectorLabel(sector), tag: "Selected work" };
+  });
+
   return (
     <main className="bg-ink text-bone">
-      {/* ── Hero — immersive, asymmetric: copy left, one dynamic device ── */}
+      {/* ── Hero — centred type lockup over the cycling showreel deck ── */}
       <section className="scene-ink grain relative overflow-hidden">
         {/* Ambient champagne orbs — slow-drifting depth behind everything */}
         <div
@@ -55,102 +73,47 @@ export default function HomePage() {
           className="absolute bottom-[-10%] left-[-12%] h-[400px] w-[400px] rounded-full bg-champagne/10 blur-3xl"
         />
 
-        <div className="shell-wide relative z-10 pt-40 pb-20 md:pt-48 md:pb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-16 lg:gap-x-8 items-center">
-            {/* Copy — fades up on load */}
-            <div className="lg:col-span-5 relative z-20">
-              <h1
-                className="display opacity-0 animate-fade-in-up"
-                style={{ animationDelay: "0.1s" }}
-              >
-                The studio behind the practices patients trust.
-              </h1>
-              <p
-                className="lede body-lg text-bone-dim opacity-0 animate-fade-in-up"
-                style={{ animationDelay: "0.3s" }}
-              >
-                Considered brands and high-performing, SEO-led websites for cosmetic surgeons,
-                medical aesthetic clinics and dermatology practices.
-              </p>
-              <div
-                className="mt-10 flex flex-wrap gap-4 opacity-0 animate-fade-in-up"
-                style={{ animationDelay: "0.5s" }}
-              >
-                <Link href="/work" className="btn btn-primary-dark">
-                  See the work
-                  <span aria-hidden>→</span>
-                </Link>
-                <Link href="/contact" className="btn btn-secondary-dark">
-                  Start a project
-                </Link>
-              </div>
-            </div>
-
-            {/* Device cluster — desktop browser anchored, phone overlapping its
-                corner: a responsive showcase that fills the width and bridges
-                back toward the copy. Resolves last. */}
-            <div
-              className="lg:col-span-7 relative opacity-0 animate-fade-in"
-              style={{ animationDelay: "0.7s", animationDuration: "1.6s" }}
+        <div className="shell-wide relative z-10 pt-40 pb-16 text-center md:pt-48 md:pb-20">
+          {/* Type lockup — headline with an OmenFlex-style corner label */}
+          <div className="relative mx-auto max-w-3xl">
+            <h1
+              className="display opacity-0 animate-fade-in-up"
+              style={{ animationDelay: "0.1s" }}
             >
-              {/* Ambient glow behind the cluster */}
-              <div
-                aria-hidden
-                className="absolute inset-0 -m-10 rounded-[40%] bg-champagne/15 blur-3xl"
-              />
+              The studio behind the practices patients trust.
+            </h1>
+            <span className="overline absolute right-0 top-2 hidden text-bone-dim lg:block">
+              Cosmetic &amp; aesthetic
+            </span>
+          </div>
 
-              {/* Desktop cluster — lg and up */}
-              <div className="relative hidden lg:block lg:translate-x-6 xl:translate-x-12">
-                <div className="animate-float-slow">
-                  <BrowserMockup
-                    name="Dr Yalda Jamali"
-                    specialty="Cosmetic doctor, Sydney"
-                    domain="dryalda.com.au"
-                    className="rotate-1"
-                  />
-                </div>
+          <p
+            className="lede body-lg mx-auto max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
+            style={{ animationDelay: "0.3s" }}
+          >
+            Considered brands and high-performing, SEO-led websites for cosmetic surgeons,
+            medical aesthetic clinics and dermatology practices.
+          </p>
 
-                {/* Phone overlapping the lower-left corner — the real capture */}
-                <div className="absolute -bottom-12 -left-12 animate-float-slower">
-                  <div className="-rotate-[8deg]">
-                    <PhoneMockup
-                      screenshot="/assets/phones/dr-yalda-hero.jpg"
-                      screenshotAlt="Dr Yalda Jamali — Sydney cosmetic doctor. Mobile site designed by North & Refine"
-                      size="sm"
-                    />
-                  </div>
-                </div>
+          {/* Showreel deck — cycles real case studies, one card per sector */}
+          <div
+            className="relative z-10 mt-14 opacity-0 animate-fade-in"
+            style={{ animationDelay: "0.5s", animationDuration: "1.4s" }}
+          >
+            <Deck slides={deckSlides} />
+          </div>
 
-                {/* Floaty capability chips */}
-                <div
-                  className="absolute -top-6 right-6 animate-float-slower"
-                  style={{ animationDelay: "0.6s" }}
-                >
-                  <span className="card-glass inline-flex px-4 py-2.5 overline text-champagne">
-                    Schema built-in
-                  </span>
-                </div>
-                <div
-                  className="absolute top-1/2 -right-6 animate-float-slow"
-                  style={{ animationDelay: "1.4s" }}
-                >
-                  <span className="card-glass inline-flex px-4 py-2.5 overline text-bone">
-                    Sub-second loads
-                  </span>
-                </div>
-              </div>
-
-              {/* Mobile — the real phone, centred */}
-              <div className="lg:hidden flex justify-center">
-                <div className="-rotate-3 animate-float-slow">
-                  <PhoneMockup
-                    screenshot="/assets/phones/dr-yalda-hero.jpg"
-                    screenshotAlt="Dr Yalda Jamali — Sydney cosmetic doctor. Mobile site designed by North & Refine"
-                    size="lg"
-                  />
-                </div>
-              </div>
-            </div>
+          <div
+            className="mt-12 flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in-up"
+            style={{ animationDelay: "0.7s" }}
+          >
+            <Link href="/work" className="btn btn-primary-dark">
+              See the work
+              <span aria-hidden>→</span>
+            </Link>
+            <Link href="/contact" className="btn btn-secondary-dark">
+              Start a project
+            </Link>
           </div>
         </div>
 

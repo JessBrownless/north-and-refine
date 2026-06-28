@@ -86,12 +86,13 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 | `JsonLd` | Renders one or many schema objects from `@/lib/schema`. |
 | `PhoneMockup` | iPhone frame holding a real `screenshot` (preferred) or a CSS clinic micro-site. Props: `name`, `specialty`, `screenshot`, `screenshotAlt`, `screen` (editorial/ink), `size` (sm/md/lg). |
 | `BrowserMockup` | macOS browser-window frame holding a real desktop `screenshot` or a CSS editorial desktop site. Props: `name`, `specialty`, `domain`, `screenshot`, `screenshotAlt`. The wide companion to `PhoneMockup`. |
+| `Deck` | **The homepage hero showreel.** A fanned, auto-cycling stack of "desktop screen" cards (the OmenFlex shape). Prop: `slides` (`DeckSlide[]` — `title`, `tag`, optional `screenshot`/`screenshotAlt`). Pauses on hover, respects reduced-motion. The homepage feeds it one card per sector (real case study where featured, sector placeholder otherwise). Born in `/mockups/showreel`. |
 
-The homepage hero composes both into an **asymmetric device cluster** (browser anchored + phone overlapping its corner) — the canonical "responsive showcase". Reuse that pattern for work/case-study heroes rather than a lone centred device.
+The homepage hero is the **`Deck` showreel** — a centred type lockup over the cycling card deck. The earlier **asymmetric device cluster** (`BrowserMockup` anchored + `PhoneMockup` overlapping its corner) remains the canonical "responsive showcase" pattern — reuse it for work/case-study heroes rather than a lone centred device.
 
 ### Design direction: Obsidian (decided 2026-06)
 
-The site's visual direction is **Obsidian** — dark-led tech luxury. Champagne-lit ink scenes (`.scene-ink`), device marquees (`PhoneMockup`), glass cards (`.card-glass`), ghost marquee text, and a bone CTA "interruption" as the close. The homepage is the canonical expression; `PageHero` carries `.scene-ink` so interior pages match. `/mockups` retains the winning mockup for reference only (noindexed, robots-disallowed). Light-topped pages, if ever added, must be listed in `LIGHT_TOP_ROUTES` in `Navbar.tsx` or the unscrolled nav is bone-on-bone (invisible).
+The site's visual direction is **Obsidian** — dark-led tech luxury. Champagne-lit ink scenes (`.scene-ink`), the cycling `Deck` showreel hero, glass cards (`.card-glass`), ghost marquee text, and a bone CTA "interruption" as the close. The homepage is the canonical expression; `PageHero` carries `.scene-ink` so interior pages match. `/mockups` retains the winning mockup for reference only (noindexed, robots-disallowed). Light-topped pages, if ever added, must be listed in `LIGHT_TOP_ROUTES` in `Navbar.tsx` or the unscrolled nav is bone-on-bone (invisible).
 
 ## Content & SEO architecture
 
