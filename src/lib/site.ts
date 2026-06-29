@@ -28,12 +28,23 @@ export interface NavItem {
   href: string;
 }
 
-// Primary navigation — also the spine of the static sitemap.
+// Primary navigation — the lean header spine (MVP). Held to the core
+// conversion path: see the work, what we do, who we are.
 export const NAV: NavItem[] = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Journal", href: "/journal" },
+];
+
+// Footer "Explore" column — fuller than the header so the secondary SEO
+// surfaces (Industries, Journal) stay internally linked and crawlable without
+// crowding the primary nav. Pricing is intentionally omitted until it carries
+// real figures (see the pre-launch checklist in CLAUDE.md).
+export const FOOTER_NAV: NavItem[] = [
+  { label: "Work", href: "/work" },
+  { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
-  { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Journal", href: "/journal" },
 ];

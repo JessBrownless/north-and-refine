@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NAV, SITE } from "@/lib/site";
+import { FOOTER_NAV, SITE } from "@/lib/site";
 
 /**
  * Site footer. Wordmark + tagline, navigation, and contact. Lives on the ink
@@ -31,7 +31,7 @@ export default function Footer() {
           <div className="md:col-span-3 md:col-start-7">
             <p className="overline text-clay">Explore</p>
             <ul className="mt-5 space-y-3">
-              {NAV.map((item) => (
+              {FOOTER_NAV.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="body text-bone-dim hover:text-bone transition-colors">
                     {item.label}

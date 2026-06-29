@@ -242,6 +242,12 @@
   .from-overline {
     margin-top: 0.7em;
   }
+  /* Oversized display headings sit closer to their overline — 0.7em of a
+     display-tier heading is a large gap in absolute terms. */
+  .display.from-overline,
+  .display-mega.from-overline {
+    margin-top: 0.35em;
+  }
 
   /* ── Emphasis helpers (opacity tracks inherited colour via color-mix) ────── */
   .text-hi {

@@ -86,43 +86,27 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
               style={style as CSSProperties}
               className="group absolute left-1/2 top-1/2 aspect-[16/10] h-full cursor-pointer transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none"
             >
-              <div
-                className={`frame h-full w-full rounded-2xl border shadow-2xl ${
-                  isActive ? "rule-dark ring-1 ring-champagne/50" : "rule-dark"
-                }`}
-              >
-                {/* macOS browser chrome — sells the "desktop screen" read */}
-                <div className="flex items-center gap-2 border-b rule-dark bg-ink-raised px-4 py-2.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-bone/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-bone/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-bone/20" />
-                  <span className="fineprint ml-3 truncate rounded-full bg-ink px-3 py-1 text-clay">
-                    {slide.tag}
-                  </span>
-                </div>
-
-                {/* Screen body */}
-                <div className="relative h-[calc(100%-2.85rem)] w-full">
-                  {slide.screenshot ? (
-                    /* Real desktop capture — fills the screen, crops top-aligned */
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={slide.screenshot}
-                      alt={slide.screenshotAlt ?? ""}
-                      className="absolute inset-0 h-full w-full object-cover object-top"
-                    />
-                  ) : (
-                    /* Placeholder slot — swap in a screenshot / video later */
-                    <div className="portrait-fill flex h-full w-full items-center justify-center">
-                      <span className="index-num text-ink/25">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="overline absolute bottom-4 left-4 text-ink/55">
-                        {slide.title}
-                      </span>
-                    </div>
-                  )}
-                </div>
+              <div className="frame h-full w-full rounded-2xl shadow-2xl">
+                {/* Just the capture — cropped to fill, no browser chrome */}
+                {slide.screenshot ? (
+                  /* Real desktop capture — fills the card, crops top-aligned */
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={slide.screenshot}
+                    alt={slide.screenshotAlt ?? ""}
+                    className="absolute inset-0 h-full w-full object-cover object-top"
+                  />
+                ) : (
+                  /* Placeholder slot — swap in a screenshot / video later */
+                  <div className="portrait-fill relative flex h-full w-full items-center justify-center">
+                    <span className="index-num text-ink/25">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="overline absolute bottom-4 left-4 text-ink/55">
+                      {slide.title}
+                    </span>
+                  </div>
+                )}
               </div>
             </button>
           );

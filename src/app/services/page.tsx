@@ -86,7 +86,7 @@ export default function ServicesPage() {
         overline="Services"
         title="Brand, web and search — built to work as one."
         lede="Three disciplines, delivered by one studio, so nothing falls between the cracks. Here's what we do and how we do it."
-        cta={{ label: "See pricing", href: "/pricing" }}
+        cta={{ label: "Start a project", href: "/contact" }}
       />
 
       {/* Service detail */}

@@ -5,13 +5,14 @@ import { getAllProjects } from "@/lib/work";
 import { INDUSTRIES } from "@/lib/industries";
 
 // Public, indexable routes. The /stylesheet design canon is intentionally
-// excluded (it's an internal reference, also blocked in robots.ts).
+// excluded (it's an internal reference, also blocked in robots.ts). /pricing
+// is parked while it carries placeholder figures — the page still resolves by
+// URL but isn't advertised here or linked in the nav until it has real numbers.
 const STATIC_ROUTES = [
   "",
   "/work",
   "/services",
   "/industries",
-  "/pricing",
   "/about",
   "/journal",
   "/contact",

@@ -9,6 +9,12 @@ import ContactCTA from "@/components/ContactCTA";
 // hero device cluster (desktop browser + overlapping phone), glass cards,
 // ghost marquee, bone CTA close.
 
+// Desktop capture shown across the hero deck cards (one shot, repeated for
+// now — swap in per-sector captures as they're produced).
+const SHOWREEL_SHOT = "/assets/desktops/dr-yalda-jamali.png";
+const SHOWREEL_SHOT_ALT =
+  "Dr Yalda Jamali — cosmetic doctor website, desktop view";
+
 const SECTORS = [
   "Cosmetic Surgery",
   "Medical Aesthetics",
@@ -40,23 +46,20 @@ export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 3);
 
-  // Hero deck — one card per sector: a real featured case study where we have
-  // one, an honest sector placeholder otherwise. Add `thumbImage` to a case
-  // study to swap its placeholder for a real desktop capture.
+  // Hero deck — one card per sector. Every card carries the same desktop
+  // capture for now; titles/tags still vary by sector (real client name where
+  // a case study is featured, sector label otherwise).
   const featuredBySector = new Map(
     getFeaturedProjects().map((p) => [p.frontmatter.sector, p] as const),
   );
   const deckSlides: DeckSlide[] = WORK_SECTORS.map((sector) => {
     const project = featuredBySector.get(sector);
-    if (project) {
-      return {
-        title: project.frontmatter.client,
-        tag: getSectorLabel(sector),
-        screenshot: project.frontmatter.thumbImage,
-        screenshotAlt: project.frontmatter.thumbImageAlt,
-      };
-    }
-    return { title: getSectorLabel(sector), tag: "Selected work" };
+    return {
+      title: project ? project.frontmatter.client : getSectorLabel(sector),
+      tag: project ? getSectorLabel(sector) : "Selected work",
+      screenshot: SHOWREEL_SHOT,
+      screenshotAlt: SHOWREEL_SHOT_ALT,
+    };
   });
 
   return (
@@ -74,31 +77,31 @@ export default function HomePage() {
         />
 
         <div className="shell-wide relative z-10 pt-40 pb-16 text-center md:pt-48 md:pb-20">
-          {/* Type lockup — headline with an OmenFlex-style corner label */}
-          <div className="relative mx-auto max-w-3xl">
+          {/* Type lockup — eyebrow over the centred headline */}
+          <div className="mx-auto max-w-3xl">
+            <p className="overline text-bone-dim opacity-0 animate-fade-in-up">
+              The studio behind
+            </p>
             <h1
-              className="display opacity-0 animate-fade-in-up"
+              className="display from-overline opacity-0 animate-fade-in-up"
               style={{ animationDelay: "0.1s" }}
             >
-              The studio behind the practices patients trust.
+              Practices patients trust
             </h1>
-            <span className="overline absolute right-0 top-2 hidden text-bone-dim lg:block">
-              Cosmetic &amp; aesthetic
-            </span>
           </div>
 
           <p
             className="lede body-lg mx-auto max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
             style={{ animationDelay: "0.3s" }}
           >
-            Considered brands and high-performing, SEO-led websites for cosmetic surgeons,
-            medical aesthetic clinics and dermatology practices.
+            Brand, web design and SEO for cosmetic surgeons, medical aesthetic
+            clinics and dermatology practices.
           </p>
 
-          {/* Showreel deck — cycles real case studies, one card per sector */}
+          {/* Showreel deck — fades in after the hero copy has settled */}
           <div
             className="relative z-10 mt-14 opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.5s", animationDuration: "1.4s" }}
+            style={{ animationDelay: "0.9s", animationDuration: "1.4s" }}
           >
             <Deck slides={deckSlides} />
           </div>
