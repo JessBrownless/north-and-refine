@@ -4,6 +4,8 @@ const config: Config = {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Root-level MDX element overrides (prose styling for Journal/Work bodies)
+    "./mdx-components.tsx",
   ],
   theme: {
     extend: {

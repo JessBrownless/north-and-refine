@@ -52,9 +52,11 @@ export const proseMdxComponents: MDXComponents = {
       {children}
     </a>
   ),
+  // Unordered lists carry the site's champagne ✦ (the sector-strip motif) as
+  // a hung bullet instead of the browser disc.
   ul: ({ children, ...props }) => (
     <ul
-      className="body-reading mt-6 list-disc list-outside pl-6 space-y-2 text-bone/90 marker:text-champagne"
+      className="body-reading mt-6 list-none space-y-3 text-bone/90 [&>li]:relative [&>li]:pl-7 [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-[0.5em] [&>li]:before:text-[10px] [&>li]:before:leading-none [&>li]:before:text-champagne [&>li]:before:content-['✦']"
       {...props}
     >
       {children}
