@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { getFeaturedProjects, getSectorLabel, WORK_SECTORS } from "@/lib/work";
+import {
+  getFeaturedProjects,
+  getSectorLabel,
+  WORK_SECTORS,
+  type WorkEntry,
+  type WorkSector,
+} from "@/lib/work";
 import { getAllPosts, getCategoryLabel } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
@@ -46,19 +52,28 @@ export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 3);
 
-  // Hero deck — one card per sector. Every card carries the same desktop
-  // capture for now; titles/tags still vary by sector (real client name where
-  // a case study is featured, sector label otherwise).
-  const featuredBySector = new Map(
-    getFeaturedProjects().map((p) => [p.frontmatter.sector, p] as const),
-  );
+  // Hero deck — one card per sector. Each card SHOWS a real desktop capture
+  // and links to the case study that owns it: the sector's own featured study
+  // where it has a capture, otherwise the newest featured study that does
+  // (today that's every card → Dr Yalda). What you see is what you land on;
+  // per-sector captures replace the fallback as they're produced. The newest
+  // featured study per sector wins (the list is date-sorted).
+  const featuredBySector = new Map<WorkSector, WorkEntry>();
+  for (const p of getFeaturedProjects()) {
+    if (!featuredBySector.has(p.frontmatter.sector)) {
+      featuredBySector.set(p.frontmatter.sector, p);
+    }
+  }
+  const captureFallback = getFeaturedProjects().find((p) => p.frontmatter.thumbImage);
   const deckSlides: DeckSlide[] = WORK_SECTORS.map((sector) => {
     const project = featuredBySector.get(sector);
+    const shown = project?.frontmatter.thumbImage ? project : captureFallback;
     return {
-      title: project ? project.frontmatter.client : getSectorLabel(sector),
-      tag: project ? getSectorLabel(sector) : "Selected work",
-      screenshot: SHOWREEL_SHOT,
-      screenshotAlt: SHOWREEL_SHOT_ALT,
+      title: shown ? shown.frontmatter.client : getSectorLabel(sector),
+      tag: shown ? getSectorLabel(shown.frontmatter.sector) : "Selected work",
+      href: shown ? `/work/${shown.slug}` : undefined,
+      screenshot: shown?.frontmatter.thumbImage ?? SHOWREEL_SHOT,
+      screenshotAlt: shown?.frontmatter.thumbImageAlt ?? SHOWREEL_SHOT_ALT,
     };
   });
 

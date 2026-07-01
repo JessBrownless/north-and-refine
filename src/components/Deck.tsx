@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 // Deck — a fanned stack of "desktop screen" cards that cycles, the homepage
@@ -14,6 +15,8 @@ export type DeckSlide = {
   title: string;
   /** Small pill label in the browser chrome — a domain or category. */
   tag: string;
+  /** When set, the FRONT card links through (e.g. to a case study). */
+  href?: string;
   /** Optional real screenshot; fills the card when present. */
   screenshot?: string;
   /** Required with `screenshot` (accessibility). */
@@ -77,7 +80,55 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
               "translate(-50%, -50%) translateX(calc(var(--pos) * var(--spread))) rotate(calc(var(--pos) * 2.5deg)) scale(calc(1 - var(--abs) * 0.08))",
           };
 
-          return (
+          const cardClass =
+            "group absolute left-1/2 top-1/2 aspect-[16/10] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none";
+
+          const face = (
+            <div className="frame h-full w-full rounded-2xl shadow-2xl">
+              {/* Just the capture — cropped to fill, no browser chrome */}
+              {slide.screenshot ? (
+                /* Real desktop capture — fills the card, crops top-aligned */
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={slide.screenshot}
+                  alt={slide.screenshotAlt ?? ""}
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                />
+              ) : (
+                /* Placeholder slot — swap in a screenshot / video later */
+                <div className="portrait-fill relative flex h-full w-full items-center justify-center">
+                  <span className="index-num text-ink/25">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="overline absolute bottom-4 left-4 text-ink/55">
+                    {slide.title}
+                  </span>
+                </div>
+              )}
+              {/* Click-through affordance — front card only, revealed on hover */}
+              {isActive && slide.href && (
+                <span className="btn btn-sm btn-secondary-dark pointer-events-none absolute bottom-5 left-1/2 z-10 -translate-x-1/2 bg-ink/50 backdrop-blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  View case study
+                  <span aria-hidden>→</span>
+                </span>
+              )}
+            </div>
+          );
+
+          // The front card links through when it has somewhere to go; the
+          // rest are buttons that bring their card forward.
+          return isActive && slide.href ? (
+            <Link
+              key={`${slide.title}-${i}`}
+              href={slide.href}
+              aria-label={`View the ${slide.title} case study`}
+              aria-current={isActive}
+              style={style as CSSProperties}
+              className={cardClass}
+            >
+              {face}
+            </Link>
+          ) : (
             <button
               key={`${slide.title}-${i}`}
               type="button"
@@ -85,30 +136,9 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
               aria-current={isActive}
               onClick={() => setActive(i)}
               style={style as CSSProperties}
-              className="group absolute left-1/2 top-1/2 aspect-[16/10] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none"
+              className={cardClass}
             >
-              <div className="frame h-full w-full rounded-2xl shadow-2xl">
-                {/* Just the capture — cropped to fill, no browser chrome */}
-                {slide.screenshot ? (
-                  /* Real desktop capture — fills the card, crops top-aligned */
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={slide.screenshot}
-                    alt={slide.screenshotAlt ?? ""}
-                    className="absolute inset-0 h-full w-full object-cover object-top"
-                  />
-                ) : (
-                  /* Placeholder slot — swap in a screenshot / video later */
-                  <div className="portrait-fill relative flex h-full w-full items-center justify-center">
-                    <span className="index-num text-ink/25">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="overline absolute bottom-4 left-4 text-ink/55">
-                      {slide.title}
-                    </span>
-                  </div>
-                )}
-              </div>
+              {face}
             </button>
           );
         })}
