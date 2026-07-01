@@ -1,4 +1,19 @@
+import { Children, isValidElement } from "react";
 import type { MDXComponents } from "mdx/types";
+
+/**
+ * Markdown wraps a standalone image line in a paragraph, but our `img`
+ * override renders a <figure> — invalid inside <p> (hydration error). True
+ * when a paragraph's only content is an image, so `p` can unwrap it.
+ */
+function isImageOnlyParagraph(children: React.ReactNode): boolean {
+  const kids = Children.toArray(children);
+  return (
+    kids.length === 1 &&
+    isValidElement(kids[0]) &&
+    typeof (kids[0].props as { src?: unknown }).src === "string"
+  );
+}
 
 /**
  * Brand-aware MDX element overrides for long-form content (Journal posts and
@@ -21,11 +36,14 @@ export const proseMdxComponents: MDXComponents = {
       {children}
     </h3>
   ),
-  p: ({ children, ...props }) => (
-    <p className="body-reading mt-6 text-bone/90" {...props}>
-      {children}
-    </p>
-  ),
+  p: ({ children, ...props }) =>
+    isImageOnlyParagraph(children) ? (
+      <>{children}</>
+    ) : (
+      <p className="body-reading mt-6 text-bone/90" {...props}>
+        {children}
+      </p>
+    ),
   a: ({ children, ...props }) => (
     <a
       className="text-champagne underline underline-offset-4 decoration-from-font transition-opacity hover:opacity-70 rounded-sm"
