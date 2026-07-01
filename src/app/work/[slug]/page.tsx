@@ -15,6 +15,8 @@ import {
 import { caseStudySchema, breadcrumbSchema } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { proseMdxComponents } from "../../../../mdx-components";
+import BrowserMockup from "@/components/BrowserMockup";
+import PhoneMockup from "@/components/PhoneMockup";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 
@@ -72,6 +74,12 @@ export default async function WorkDetailPage({
   const idx = all.findIndex((p) => p.slug === project.slug);
   const next = all[(idx + 1) % all.length];
 
+  // Address-bar label for the hero browser mockup: explicit frontmatter
+  // domain, else the live URL's host, else the client name.
+  const domainLabel =
+    fm.domain ??
+    (fm.url ? new URL(fm.url).hostname.replace(/^www\./, "") : fm.client);
+
   return (
     <main className="bg-ink">
       <JsonLd
@@ -112,16 +120,39 @@ export default async function WorkDetailPage({
         </div>
       </section>
 
-      {/* Hero image — full-width to match the open hero above it */}
+      {/* Hero media — the responsive device cluster (BrowserMockup anchored
+          right, PhoneMockup overlapping its lower-left corner). The canonical
+          showcase pattern from the original homepage hero. */}
       {fm.heroImage && (
-        <div className="shell-wide">
-          <div className="frame rounded-sm aspect-[1.7778]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={fm.heroImage}
-              alt={fm.heroImageAlt ?? fm.title}
-              className="w-full h-full object-cover"
+        <div className="shell-wide relative z-10 mb-20 md:mb-28">
+          <div className="relative">
+            {/* Ambient glow behind the cluster */}
+            <div
+              aria-hidden
+              className="absolute inset-0 -m-10 rounded-[40%] bg-champagne/15 blur-3xl"
             />
+            <div className="relative sm:ml-20 md:ml-32 lg:ml-44">
+              <BrowserMockup
+                screenshot={fm.heroImage}
+                screenshotAlt={fm.heroImageAlt ?? fm.title}
+                domain={domainLabel}
+                className="rotate-[0.5deg] reveal"
+              />
+            </div>
+            {fm.mobileImage && (
+              <div
+                className="absolute -bottom-10 left-0 hidden sm:block md:-bottom-14 reveal"
+                style={{ transitionDelay: "160ms" }}
+              >
+                <div className="-rotate-[7deg] animate-float-slower">
+                  <PhoneMockup
+                    screenshot={fm.mobileImage}
+                    screenshotAlt={fm.mobileImageAlt ?? ""}
+                    size="md"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -159,23 +190,34 @@ export default async function WorkDetailPage({
             </dd>
           </div>
         </dl>
-
-        {/* Metrics */}
-        {fm.metrics && fm.metrics.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mt-12">
-            {fm.metrics.slice(0, 3).map((m, i) => (
-              <div key={i} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-                <p className="stat text-champagne">{m.value}</p>
-                <p className="label text-bone-dim mt-2">{m.label}</p>
-              </div>
-            ))}
-          </div>
-        )}
       </section>
 
-      {/* Body */}
-      <article className="shell pb-8">
-        <div className="max-w-[720px] [&>h2]:mt-16 [&>h3]:mt-10 [&>*:first-child]:mt-0">
+      {/* Outcomes — a dedicated stats band, big champagne numerals */}
+      {fm.metrics && fm.metrics.length > 0 && (
+        <section className="border-y rule-dark bg-ink-raised/30">
+          <div className="shell py-14 md:py-20">
+            <p className="overline text-champagne reveal">The results</p>
+            <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3">
+              {fm.metrics.slice(0, 3).map((m, i) => (
+                <div
+                  key={i}
+                  className="reveal sm:border-l sm:border-ink-line sm:pl-8 sm:first:border-l-0 sm:first:pl-0"
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                >
+                  <p className="stat text-champagne">{m.value}</p>
+                  <p className="label text-bone-dim mt-3">{m.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Body — reading column with asymmetric figure breakouts: figures
+          escape the measure, alternating reach (odd wider right, even pulled
+          left) for an editorial left-right rhythm. */}
+      <article className="shell pb-8 pt-4 overflow-x-clip">
+        <div className="max-w-[720px] [&>h2]:mt-16 [&>h3]:mt-10 [&>*:first-child]:mt-0 [&>figure]:my-12 md:[&>figure]:my-16 [&>figure]:md:w-[calc(100%+8rem)] [&>figure:nth-of-type(odd)]:lg:w-[calc(100%+20rem)] [&>figure:nth-of-type(even)]:lg:w-[calc(100%+14rem)] [&>figure:nth-of-type(even)]:lg:-ml-12">
           {content}
         </div>
       </article>

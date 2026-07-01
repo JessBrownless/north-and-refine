@@ -45,8 +45,11 @@ export interface WorkFrontmatter {
   url?: string; // live site URL
   summary?: string; // one-line outcome shown on the index card
   metrics?: WorkMetric[]; // headline outcome stats
-  heroImage?: string;
+  domain?: string; // display domain for the hero browser mockup (fm.url wins)
+  heroImage?: string; // desktop capture (~16:10) — fills the hero BrowserMockup
   heroImageAlt?: string;
+  mobileImage?: string; // tall mobile capture — the overlapping PhoneMockup
+  mobileImageAlt?: string;
   thumbImage?: string;
   thumbImageAlt?: string;
   featured?: boolean; // surface on the homepage
@@ -107,6 +110,9 @@ function validate(fileName: string, data: Record<string, unknown>): void {
 
   if (data.heroImage !== undefined && !isNonEmptyString(data.heroImageAlt)) {
     errors.push(`"heroImageAlt" is required when "heroImage" is set (accessibility)`);
+  }
+  if (data.mobileImage !== undefined && !isNonEmptyString(data.mobileImageAlt)) {
+    errors.push(`"mobileImageAlt" is required when "mobileImage" is set (accessibility)`);
   }
   if (data.thumbImage !== undefined && !isNonEmptyString(data.thumbImageAlt)) {
     errors.push(`"thumbImageAlt" is required when "thumbImage" is set (accessibility)`);
