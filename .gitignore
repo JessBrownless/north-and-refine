@@ -41,3 +41,4 @@ next-env.d.ts
 # out; the live site uses Instrument Sans (Google). Re-download trials to A/B.
 /font-trials
 /src/fonts/*TRIAL*.otf
+.claude/settings.local.json
