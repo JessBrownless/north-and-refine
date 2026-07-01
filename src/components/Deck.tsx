@@ -43,7 +43,8 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
 
   useEffect(() => {
     if (paused || reduced.current || n < 2) return;
-    const id = window.setInterval(() => setActive((a) => (a + 1) % n), 3600);
+    // Unhurried dwell per card — the pace is part of the luxury read.
+    const id = window.setInterval(() => setActive((a) => (a + 1) % n), 5600);
     return () => window.clearInterval(id);
   }, [paused, n]);
 
@@ -84,7 +85,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
               aria-current={isActive}
               onClick={() => setActive(i)}
               style={style as CSSProperties}
-              className="group absolute left-1/2 top-1/2 aspect-[16/10] h-full cursor-pointer transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none"
+              className="group absolute left-1/2 top-1/2 aspect-[16/10] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none"
             >
               <div className="frame h-full w-full rounded-2xl shadow-2xl">
                 {/* Just the capture — cropped to fill, no browser chrome */}

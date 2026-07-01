@@ -77,14 +77,19 @@ export default function HomePage() {
         />
 
         <div className="shell-wide relative z-10 pt-40 pb-16 text-center md:pt-48 md:pb-20">
-          {/* Type lockup — eyebrow over the centred headline */}
-          <div className="mx-auto max-w-3xl">
-            <p className="overline text-bone-dim opacity-0 animate-fade-in-up">
+          {/* Type lockup — eyebrow over the centred headline. Deliberately a
+              tier below .display: the restraint (plus the air around it) is
+              what reads as luxury here. Wide enough for a single line on
+              desktop; wraps naturally on small screens. */}
+          {/* Load-in is a two-beat sequence: the eyebrow tracks in alone
+              first, then the rest of the copy follows, then the deck. */}
+          <div className="mx-auto max-w-5xl">
+            <p className="overline text-bone-dim opacity-0 animate-track-in">
               The studio behind
             </p>
             <h1
-              className="display from-overline opacity-0 animate-fade-in-up"
-              style={{ animationDelay: "0.1s" }}
+              className="heading-xl from-overline opacity-0 animate-fade-in-up"
+              style={{ animationDelay: "0.7s" }}
             >
               Practices patients trust
             </h1>
@@ -92,23 +97,15 @@ export default function HomePage() {
 
           <p
             className="lede body-lg mx-auto max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
-            style={{ animationDelay: "0.3s" }}
+            style={{ animationDelay: "0.9s" }}
           >
             Brand, web design and SEO for cosmetic surgeons, medical aesthetic
             clinics and dermatology practices.
           </p>
 
-          {/* Showreel deck — fades in after the hero copy has settled */}
           <div
-            className="relative z-10 mt-14 opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.9s", animationDuration: "1.4s" }}
-          >
-            <Deck slides={deckSlides} />
-          </div>
-
-          <div
-            className="mt-12 flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in-up"
-            style={{ animationDelay: "0.7s" }}
+            className="mt-10 flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in-up"
+            style={{ animationDelay: "1.1s" }}
           >
             <Link href="/work" className="btn btn-primary-dark">
               See the work
@@ -117,6 +114,15 @@ export default function HomePage() {
             <Link href="/contact" className="btn btn-secondary-dark">
               Start a project
             </Link>
+          </div>
+
+          {/* Showreel deck — a generous pocket of air separates it from the
+              copy block; it fades in last, after the copy has settled */}
+          <div
+            className="relative z-10 mt-16 md:mt-24 opacity-0 animate-fade-in"
+            style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
+          >
+            <Deck slides={deckSlides} />
           </div>
         </div>
 

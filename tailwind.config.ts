@@ -45,10 +45,18 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-14px)" },
         },
+        // Overline reveal — fades in while the letters ease apart, settling
+        // wider than the .overline default. Ends past 0.22em on purpose: the
+        // extra tracking is part of the effect, held by fill-mode forwards.
+        trackIn: {
+          "0%": { opacity: "0", letterSpacing: "0.1em" },
+          "100%": { opacity: "1", letterSpacing: "0.38em" },
+        },
       },
       animation: {
         "fade-in-up": "fadeInUp 0.8s ease-out forwards",
         "fade-in": "fadeIn 1.2s ease-out forwards",
+        "track-in": "trackIn 1.1s cubic-bezier(0.16,1,0.3,1) forwards",
         marquee: "marquee 28s linear infinite",
         // Floaty hero elements — stagger depths by mixing the two speeds.
         "float-slow": "float 7s ease-in-out infinite",
