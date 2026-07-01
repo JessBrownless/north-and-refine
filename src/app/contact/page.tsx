@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
 import { breadcrumbSchema } from "@/lib/schema";
 import JsonLd from "@/components/JsonLd";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact — Start a project",
@@ -9,9 +10,6 @@ export const metadata: Metadata = {
     "Tell us about your practice. North & Refine takes on a limited number of brand and website projects at a time for medical aesthetic and cosmetic surgery clients.",
   alternates: { canonical: "/contact" },
 };
-
-const FIELD =
-  "w-full bg-transparent border-0 border-b rule-dark py-3 text-bone placeholder:text-clay focus:outline-none focus:border-champagne transition-colors";
 
 export default function ContactPage() {
   return (
@@ -62,76 +60,10 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Form — wired for Netlify Forms. */}
+            {/* Form — Netlify Forms via the runtime-v5 pattern; the static
+                definition lives in public/__forms.html */}
             <div className="md:col-span-6 md:col-start-7">
-              <form
-                name="project-enquiry"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                action="/contact?success=1"
-                className="reveal space-y-7"
-              >
-                {/* Netlify form detection + honeypot */}
-                <input type="hidden" name="form-name" value="project-enquiry" />
-                <p className="hidden">
-                  <label>
-                    Don&rsquo;t fill this in: <input name="bot-field" />
-                  </label>
-                </p>
-
-                <div>
-                  <label htmlFor="name" className="overline text-clay">
-                    Your name
-                  </label>
-                  <input id="name" name="name" type="text" required className={FIELD} placeholder="Dr Jane Smith" />
-                </div>
-                <div>
-                  <label htmlFor="email" className="overline text-clay">
-                    Email
-                  </label>
-                  <input id="email" name="email" type="email" required className={FIELD} placeholder="you@practice.com" />
-                </div>
-                <div>
-                  <label htmlFor="practice" className="overline text-clay">
-                    Practice / clinic
-                  </label>
-                  <input id="practice" name="practice" type="text" className={FIELD} placeholder="Practice name" />
-                </div>
-                <div>
-                  <label htmlFor="interest" className="overline text-clay">
-                    What you&rsquo;re after
-                  </label>
-                  <select id="interest" name="interest" className={`${FIELD} appearance-none`}>
-                    <option className="bg-ink">Brand &amp; website</option>
-                    <option className="bg-ink">Website only</option>
-                    <option className="bg-ink">Brand only</option>
-                    <option className="bg-ink">Ongoing SEO &amp; growth</option>
-                    <option className="bg-ink">Not sure yet</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="overline text-clay">
-                    Tell us a little more
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    required
-                    className={`${FIELD} resize-none`}
-                    placeholder="Where your practice is now, and what you'd like to change."
-                  />
-                </div>
-
-                <button type="submit" className="btn btn-primary-dark">
-                  Send enquiry
-                  <span aria-hidden>→</span>
-                </button>
-                <p className="fineprint">
-                  We&rsquo;ll only use your details to reply to this enquiry.
-                </p>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </div>

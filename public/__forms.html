@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Form definitions</title>
+  </head>
+  <body>
+    <!--
+      Build-time form definitions for Netlify Forms (required by the Next.js
+      runtime v5 — forms in server-rendered pages aren't detected). The live
+      form in src/components/ContactForm.tsx POSTs url-encoded data to this
+      file's path. Field names here MUST stay in sync with that component.
+    -->
+    <form name="project-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="project-enquiry" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="practice" />
+      <select name="interest"></select>
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>
