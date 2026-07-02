@@ -173,13 +173,13 @@ export default async function WorkDetailPage({
             </div>
           </dl>
         </div>
-      </section>
 
-      {/* Hero media — the responsive device cluster (BrowserMockup anchored
-          right, PhoneMockup overlapping its lower-left corner). The canonical
-          showcase pattern from the original homepage hero. */}
-      {fm.heroImage && (
-        <div className="shell-wide relative z-10 mb-20 md:mb-28">
+        {/* Hero media — the responsive device cluster (BrowserMockup anchored
+            right, PhoneMockup overlapping its lower-left corner) lives INSIDE
+            the hero section so the scene-ink glow runs unbroken behind the
+            lockup and the mockup alike. */}
+        {fm.heroImage && (
+          <div className="shell-wide relative z-10 pb-24 md:pb-32">
           <div className="relative">
             {/* Ambient glow behind the cluster */}
             <div
@@ -209,8 +209,9 @@ export default async function WorkDetailPage({
               </div>
             )}
           </div>
-        </div>
-      )}
+          </div>
+        )}
+      </section>
 
       {/* Outcomes — a dedicated stats band, big champagne numerals */}
       {fm.metrics && fm.metrics.length > 0 && (
