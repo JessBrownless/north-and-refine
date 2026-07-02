@@ -59,7 +59,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 ### Layout helpers
 
 - `.shell` — standard max-width 1280px container with responsive padding. The **content grid** — use on all body sections so copy keeps a comfortable measure.
-- `.shell-wide` — open, near-full-width container (max 1760px, lighter padding). **Heroes only.** Heroes breathe to the edges; everything below sits on the narrower `.shell`. Don't use `.shell-wide` for body content.
+- `.shell-wide` — open, near-full-width container (max 1760px, lighter padding). **Heroes only**, with one sanctioned exception: the work/[slug] article uses it as the IMAGE canvas — figures span it (full or 6+6 pairs) while kickers/copy stay grid-indented to a reading measure. Everything else below a hero sits on the narrower `.shell`; don't use `.shell-wide` for ordinary body content.
 - `.grain` — film-grain overlay for dark hero sections (needs `position: relative` + `overflow-hidden` on the parent, and `z-10` on content above it).
 - `.frame` — media wrapper (relative, overflow-hidden, ink-raised background).
 - `animate-float-slow` / `animate-float-slower` — floaty hero elements (orbs, glass chips); stagger with inline `animationDelay`. Hero load-in uses `opacity-0 animate-fade-in-up` + delays (scroll sections use `.reveal`). A global reduced-motion guard at the end of globals.css snaps all animations to their end state.

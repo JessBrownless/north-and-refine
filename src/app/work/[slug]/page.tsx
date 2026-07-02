@@ -1,5 +1,6 @@
 // MDX rendering: next-mdx-remote/rsc — compiles the case-study body read from
 // content/work at build time inside this Server Component.
+import type { MDXComponents } from "mdx/types";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,6 +22,22 @@ import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 
 export const dynamicParams = false;
+
+// Case-study prose follows the editorial two-column pattern: each h2 renders
+// as a small kicker in the LEFT rail, sharing a grid row with the statement
+// paragraph beside it (globals' `.prose-work > h2 + p` styles the statement
+// and matches this mt-28 so their tops align).
+const workProseComponents: MDXComponents = {
+  ...proseMdxComponents,
+  h2: ({ children, ...props }) => (
+    <h2
+      className="overline text-champagne mt-16 lg:mt-28 lg:col-span-3 lg:col-start-2"
+      {...props}
+    >
+      {children}
+    </h2>
+  ),
+};
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -65,7 +82,7 @@ export default async function WorkDetailPage({
 
   const { content } = await compileMDX({
     source: project.content,
-    components: proseMdxComponents,
+    components: workProseComponents,
     options: { mdxOptions: { remarkPlugins: [remarkGfm] } },
   });
 
@@ -103,20 +120,58 @@ export default async function WorkDetailPage({
         ]}
       />
 
-      {/* Hero */}
+      {/* Hero — title left, stacked project meta right (editorial pattern) */}
       <section className="relative grain scene-ink overflow-hidden">
-        <div className="shell-wide pt-36 pb-12 md:pt-48 md:pb-16 relative z-10">
-          <p className="overline text-champagne reveal">
-            {getSectorLabel(fm.sector)} · {fm.year}
-          </p>
-          <h1 className="heading-xl text-bone from-overline max-w-4xl reveal" style={{ transitionDelay: "80ms" }}>
-            {fm.title}
-          </h1>
-          {fm.summary && (
-            <p className="lede body-lg text-bone-dim max-w-2xl reveal" style={{ transitionDelay: "160ms" }}>
-              {fm.summary}
+        <div className="shell-wide pt-36 pb-12 md:pt-48 md:pb-16 relative z-10 lg:grid lg:grid-cols-12 lg:gap-x-10">
+          <div className="lg:col-span-8">
+            <p className="overline text-champagne reveal">
+              {getSectorLabel(fm.sector)} · {fm.year}
             </p>
-          )}
+            <h1 className="heading-xl text-bone from-overline max-w-4xl reveal" style={{ transitionDelay: "80ms" }}>
+              {fm.title}
+            </h1>
+            {fm.summary && (
+              <p className="lede body-lg text-bone-dim max-w-2xl reveal" style={{ transitionDelay: "160ms" }}>
+                {fm.summary}
+              </p>
+            )}
+          </div>
+
+          {/* Meta rail */}
+          <dl
+            className="mt-12 grid grid-cols-2 gap-8 lg:mt-2 lg:block lg:space-y-7 lg:col-span-3 lg:col-start-10 reveal"
+            style={{ transitionDelay: "240ms" }}
+          >
+            <div>
+              <dt className="overline text-clay">Client</dt>
+              <dd className="body text-bone mt-1.5">{fm.client}</dd>
+            </div>
+            <div>
+              <dt className="overline text-clay">Sector</dt>
+              <dd className="body text-bone mt-1.5">{getSectorLabel(fm.sector)}</dd>
+            </div>
+            <div>
+              <dt className="overline text-clay">Services</dt>
+              <dd className="body text-bone mt-1.5">{fm.services.join(", ")}</dd>
+            </div>
+            <div>
+              <dt className="overline text-clay">{fm.url ? "Live" : "Year"}</dt>
+              <dd className="body text-bone mt-1.5">
+                {fm.url ? (
+                  <a
+                    href={fm.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-champagne underline underline-offset-4 hover:opacity-70"
+                  >
+                    Visit site →
+                  </a>
+                ) : (
+                  fm.year
+                )}
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
 
@@ -157,41 +212,6 @@ export default async function WorkDetailPage({
         </div>
       )}
 
-      {/* Project facts */}
-      <section className="shell py-12 md:py-16">
-        <dl className="grid grid-cols-2 md:grid-cols-4 gap-8 border-y rule-dark py-8">
-          <div>
-            <dt className="overline text-clay">Client</dt>
-            <dd className="body text-bone mt-2">{fm.client}</dd>
-          </div>
-          <div>
-            <dt className="overline text-clay">Sector</dt>
-            <dd className="body text-bone mt-2">{getSectorLabel(fm.sector)}</dd>
-          </div>
-          <div>
-            <dt className="overline text-clay">Services</dt>
-            <dd className="body text-bone mt-2">{fm.services.join(", ")}</dd>
-          </div>
-          <div>
-            <dt className="overline text-clay">{fm.url ? "Live" : "Year"}</dt>
-            <dd className="body text-bone mt-2">
-              {fm.url ? (
-                <a
-                  href={fm.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-champagne underline underline-offset-4 hover:opacity-70"
-                >
-                  Visit site →
-                </a>
-              ) : (
-                fm.year
-              )}
-            </dd>
-          </div>
-        </dl>
-      </section>
-
       {/* Outcomes — a dedicated stats band, big champagne numerals */}
       {fm.metrics && fm.metrics.length > 0 && (
         <section className="border-y rule-dark bg-ink-raised/30">
@@ -213,14 +233,35 @@ export default async function WorkDetailPage({
         </section>
       )}
 
-      {/* Body — reading column with asymmetric figure breakouts: figures
-          escape the measure, alternating reach (odd wider right, even pulled
-          left) for an editorial left-right rhythm. */}
-      <article className="shell pb-8 pt-4 overflow-x-clip">
-        <div className="max-w-[720px] [&>h2]:mt-16 [&>h3]:mt-10 [&>*:first-child]:mt-0 [&>figure]:my-12 md:[&>figure]:my-16 [&>figure]:md:w-[calc(100%+8rem)] [&>figure:nth-of-type(odd)]:lg:w-[calc(100%+20rem)] [&>figure:nth-of-type(even)]:lg:w-[calc(100%+14rem)] [&>figure:nth-of-type(even)]:lg:-ml-12">
+      {/* Body — editorial two-column grid on the WIDE canvas: figures span
+          the near-full-width shell (or pair 6+6), while kickers and copy sit
+          grid-indented at a reading measure. h2 kickers hold the LEFT rail;
+          statements and copy flow in the right column. */}
+      <article className="shell-wide pb-8 pt-12 md:pt-16">
+        <div className="prose-work lg:grid lg:grid-cols-12 lg:gap-x-10 [&>*:not(h2):not(figure)]:lg:col-start-7 [&>*:not(h2):not(figure)]:lg:col-span-5 [&>*:first-child]:mt-0 [&>h3]:mt-10 [&>figure]:my-12 md:[&>figure]:my-20 [&>figure]:lg:col-start-2 [&>figure]:lg:col-span-10 [&>figure:has(+figure)]:lg:col-start-2 [&>figure:has(+figure)]:lg:col-span-5 [&>figure+figure]:lg:col-start-7 [&>figure+figure]:lg:col-span-5">
           {content}
         </div>
       </article>
+
+      {/* Client testimonial — a centred interruption to the editorial
+          left-right rhythm */}
+      {fm.testimonial && (
+        <section className="relative border-t rule-dark scene-ink grain overflow-hidden">
+          <div className="shell py-20 md:py-28 text-center relative z-10">
+            <p className="overline text-champagne reveal">In the client&rsquo;s words</p>
+            <blockquote
+              className="blockquote text-bone max-w-3xl mx-auto mt-8 reveal"
+              style={{ transitionDelay: "80ms" }}
+            >
+              &ldquo;{fm.testimonial.quote}&rdquo;
+            </blockquote>
+            <p className="label text-bone-dim mt-8 reveal" style={{ transitionDelay: "160ms" }}>
+              {fm.testimonial.author}
+              {fm.testimonial.role ? ` · ${fm.testimonial.role}` : ""}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Next project */}
       <section className="shell py-16 border-t rule-dark">

@@ -31,6 +31,14 @@ export interface WorkMetric {
   label: string;
 }
 
+export interface WorkTestimonial {
+  /** The client's words — one or two sentences. */
+  quote: string;
+  author: string;
+  /** e.g. "Cosmetic doctor, Sydney" */
+  role?: string;
+}
+
 export interface WorkFrontmatter {
   title: string; // project title, e.g. "A calmer first impression for a Sydney rhinoplasty practice"
   slug?: string;
@@ -45,6 +53,7 @@ export interface WorkFrontmatter {
   url?: string; // live site URL
   summary?: string; // one-line outcome shown on the index card
   metrics?: WorkMetric[]; // headline outcome stats
+  testimonial?: WorkTestimonial; // client quote band on the detail page
   domain?: string; // display domain for the hero browser mockup (fm.url wins)
   heroImage?: string; // desktop capture (~16:10) — fills the hero BrowserMockup
   heroImageAlt?: string;
@@ -106,6 +115,13 @@ function validate(fileName: string, data: Record<string, unknown>): void {
 
   if (data.metrics !== undefined && !isMetricArray(data.metrics)) {
     errors.push(`"metrics", when set, must be an array of { value, label } objects`);
+  }
+
+  if (data.testimonial !== undefined) {
+    const t = data.testimonial as Partial<WorkTestimonial>;
+    if (!isNonEmptyString(t?.quote) || !isNonEmptyString(t?.author)) {
+      errors.push(`"testimonial", when set, needs non-empty "quote" and "author"`);
+    }
   }
 
   if (data.heroImage !== undefined && !isNonEmptyString(data.heroImageAlt)) {

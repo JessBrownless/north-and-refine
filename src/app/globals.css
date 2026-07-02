@@ -475,6 +475,32 @@
   text-decoration: none;
 }
 
+/* ── Case-study editorial statement ──────────────────────────────────────
+   In .prose-work bodies (work/[slug]), each h2 renders as a small kicker in
+   the left rail and the paragraph directly after it reads as the section's
+   opening statement. Scale mirrors .heading-lg — keep the two in sync. */
+.prose-work > h2 + p {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  /* One notch under .heading-lg — the statement sits in a narrow right-
+     anchored measure, so the full heading-lg scale would wrap to shreds.
+     The gentler vw coefficient keeps it modest at laptop widths. */
+  font-size: clamp(1.375rem, 0.7rem + 1.35vw, 2.125rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: #f2eee6;
+  margin-top: 1rem;
+}
+/* At lg the kicker and statement share a grid row (their columns don't
+   overlap, so auto-placement pairs them) — matching top margins keep their
+   tops aligned while providing the inter-section air. Mirrors the h2's
+   lg:mt-28 in work/[slug] — keep in sync. */
+@media (min-width: 1024px) {
+  .prose-work > h2 + p {
+    margin-top: 7rem;
+  }
+}
+
 /* Reduced motion: snap all keyframe animations to their end state instantly.
    Critically, this makes opacity-0 + animate-fade-in-* content visible at
    once instead of stranding it invisible. (.reveal handles itself in its own
