@@ -52,7 +52,8 @@ const MOTION: { cls: string; note: string }[] = [
   { cls: "animate-fade-in", note: "1.2s ease-out · soft load-in for large media (the hero deck)" },
   { cls: "animate-track-in", note: "1.1s expo-out · overline reveal — fades in while letter-spacing eases open to 0.38em" },
   { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — stagger with transitionDelay" },
-  { cls: ".reveal-words", note: "word-by-word statement reveal riding the same observer — pair with .reveal, stagger via inline --d per word (homepage manifesto)" },
+  { cls: ".reveal-words", note: "word-by-word statement reveal riding the same observer — pair with .reveal, stagger via inline --d per word" },
+  { cls: "PinnedStatement", note: "full-viewport bone section that pins while scroll scrubs the words in (the homepage manifesto) — the one sanctioned scroll-scrub listener" },
   { cls: "animate-marquee", note: "28s linear loop · ghost text and the sector strip" },
   { cls: "animate-float-slow / -slower", note: "7s / 11s ease loops · floaty hero elements; mix speeds for depth" },
 ];

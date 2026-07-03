@@ -19,6 +19,7 @@ const LIGHT_TOP_ROUTES: string[] = [];
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [overLight, setOverLight] = useState(false);
   const [open, setOpen] = useState(false);
 
   const lightTop =
@@ -29,11 +30,23 @@ export default function Navbar() {
   const pill = scrolled && !open;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
+    // One listener drives both states: the condensed pill, and whether the
+    // nav is currently floating over a light section (elements marked with
+    // data-nav-light, e.g. the bone manifesto and ContactCTA) so the pill
+    // can flip to ink glass instead of vanishing bone-on-bone.
+    const onScroll = () => {
+      setScrolled(window.scrollY > 48);
+      let light = false;
+      document.querySelectorAll("[data-nav-light]").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < 88 && r.bottom > 16) light = true;
+      });
+      setOverLight(light);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   // Close the drawer on route change.
   useEffect(() => setOpen(false), [pathname]);
@@ -60,7 +73,11 @@ export default function Navbar() {
           <nav
             className={`pointer-events-auto flex items-center justify-between transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
               pill
-                ? "mx-auto mt-5 h-12 max-w-4xl rounded-full border border-bone/15 bg-bone/10 px-5 shadow-xl shadow-ink/40 backdrop-blur-xl md:mt-6 md:h-14 md:px-7"
+                ? `mx-auto mt-5 h-12 max-w-4xl rounded-full border px-5 shadow-xl shadow-ink/40 backdrop-blur-xl md:mt-6 md:h-14 md:px-7 ${
+                    overLight
+                      ? "border-ink/10 bg-ink/85"
+                      : "border-bone/15 bg-bone/10"
+                  }`
                 : "mx-auto mt-0 h-20 max-w-[calc(100vw-clamp(3rem,8vw,8rem))] rounded-full border border-bone/0 bg-bone/0 px-0 backdrop-blur-0 md:h-24"
             }`}
           >

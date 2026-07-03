@@ -17,7 +17,7 @@ export default function ContactCTA({
   body = "Tell us about your practice and where you want it to be. We take on a limited number of projects at a time, so the right fit matters.",
 }: ContactCTAProps) {
   return (
-    <section className="bg-bone text-ink">
+    <section data-nav-light className="bg-bone text-ink">
       <div className="shell py-20 md:py-32">
         <div className="max-w-3xl">
           <p className="overline text-clay reveal">Start a project</p>

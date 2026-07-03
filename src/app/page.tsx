@@ -8,6 +8,7 @@ import {
 } from "@/lib/work";
 import { getAllPosts, getCategoryLabel } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
+import PinnedStatement from "@/components/PinnedStatement";
 import WorkCard from "@/components/WorkCard";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -167,23 +168,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Manifesto — the inline "/ kicker" runs into the statement's first
-          line (creating its indent), then the lines sweep the full shell.
-          Words fade up on scroll via .reveal-words (same global observer). */}
-      <section>
-        <div className="shell py-24 md:py-40">
-          <p className="statement reveal reveal-words">
-            <span className="overline text-champagne inline-block w-36 md:w-44 align-baseline">
-              / Considered
-            </span>
-            {MANIFESTO.split(" ").map((word, i) => (
-              <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
-                {word}{" "}
-              </span>
-            ))}
-          </p>
-        </div>
-      </section>
+      {/* ── Manifesto — a full-screen BONE interruption that pins while
+          scroll scrubs the statement in word by word (PinnedStatement) */}
+      <PinnedStatement kicker="/ Considered" text={MANIFESTO} />
 
       {/* ── Selected work ──────────────────────────────────────────────── */}
       <section className="border-t rule-dark">
