@@ -8,7 +8,6 @@ import {
 } from "@/lib/work";
 import { getAllPosts, getCategoryLabel } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
-import PinnedStatement from "@/components/PinnedStatement";
 import WorkCard from "@/components/WorkCard";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -87,6 +86,9 @@ export default function HomePage() {
     <main className="bg-ink text-bone">
       {/* ── Hero — centred type lockup over the cycling showreel deck ── */}
       <section className="scene-ink grain relative overflow-hidden">
+        {/* Fade-to-ink as the hero scrolls out — hands the stage to the
+            manifesto arriving beneath (scroll-driven, CSS-only) */}
+        <div aria-hidden className="hero-fade absolute inset-0 z-20 bg-ink" />
         {/* Ambient champagne orbs — slow-drifting depth behind everything */}
         <div
           aria-hidden
@@ -168,9 +170,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Manifesto — a full-screen BONE interruption that pins while
-          scroll scrubs the statement in word by word (PinnedStatement) */}
-      <PinnedStatement kicker="/ Considered" text={MANIFESTO} />
+      {/* ── Manifesto — the bone interruption, lit by the same champagne
+          field as the hero (scene-warm + drifting orbs) so the two read as
+          one continuous scene. Full-width text, words fading in staggered
+          as the section enters view. */}
+      <section data-nav-light className="relative overflow-hidden scene-warm text-ink">
+        <div
+          aria-hidden
+          className="absolute -top-44 right-[-8%] h-[480px] w-[480px] rounded-full bg-champagne/25 blur-3xl animate-float-slower"
+        />
+        <div
+          aria-hidden
+          className="absolute bottom-[-15%] left-[-10%] h-[420px] w-[420px] rounded-full bg-champagne/15 blur-3xl animate-float-slow"
+        />
+        <div className="shell-wide relative z-10 py-28 md:py-44">
+          <p className="heading-xl reveal reveal-words">
+            {MANIFESTO.split(" ").map((word, i) => (
+              <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
+                {word}{" "}
+              </span>
+            ))}
+          </p>
+        </div>
+      </section>
 
       {/* ── Selected work ──────────────────────────────────────────────── */}
       <section className="border-t rule-dark">

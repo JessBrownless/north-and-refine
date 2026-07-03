@@ -78,13 +78,12 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 
 | Component | Purpose |
 | --- | --- |
-| `Navbar` / `Footer` | Site chrome (in `layout.tsx`). One each — don't fork. |
+| `Navbar` / `Footer` | Site chrome (in `layout.tsx`). One each — don't fork. The scrolled pill flips to ink glass while floating over any element marked `data-nav-light` (the bone manifesto, `ContactCTA`) — mark new light sections the same way or the pill goes bone-on-bone. |
 | `Reveal` | Global IntersectionObserver for `.reveal`. Don't add rival scroll listeners. |
 | `PageHero` | **The interior-page hero.** Props: `overline`, `title`, `lede`, `cta`, `meta`, `size`. Extend via props; don't spawn `HeroX`. (Homepage has a bespoke hero.) |
 | `ContactCTA` | Standard "start a project" band (light section). Drop at the foot of pages. |
 | `WorkCard` | Case-study card for grids (typographic placeholder when no image). |
 | `JsonLd` | Renders one or many schema objects from `@/lib/schema`. |
-| `PinnedStatement` | Full-viewport BONE manifesto that pins while scroll scrubs a word-by-word reveal (props: `kicker`, `text`). Carries `data-nav-light` — the Navbar pill flips to ink glass over elements so marked (also on `ContactCTA`); mark any new light section the same way. Its rAF scroll listener is the one sanctioned exception to the no-rival-scroll-listeners rule (scrubbing needs continuous progress). |
 | `PhoneMockup` | iPhone frame holding a real `screenshot` (preferred) or a CSS clinic micro-site. Props: `name`, `specialty`, `screenshot`, `screenshotAlt`, `screen` (editorial/ink), `size` (sm/md/lg). |
 | `BrowserMockup` | macOS browser-window frame holding a real desktop `screenshot` or a CSS editorial desktop site. Props: `name`, `specialty`, `domain`, `screenshot`, `screenshotAlt`. The wide companion to `PhoneMockup`. |
 | `Deck` | **The homepage hero showreel.** A fanned, auto-cycling stack of "desktop screen" cards (the OmenFlex shape). Prop: `slides` (`DeckSlide[]` — `title`, `tag`, optional `href`/`screenshot`/`screenshotAlt`). Pauses on hover, respects reduced-motion. With `href`, the FRONT card is a link (hover reveals a "View case study" pill); other cards click forward. The homepage feeds it one card per sector — each card shows a real case-study capture and links to the study that owns it (the sector's own where it has a `thumbImage`, else the newest featured study with one). Born in `/mockups/showreel`. |

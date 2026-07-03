@@ -331,6 +331,36 @@
   .reveal-words.is-in > span {
     opacity: 1;
   }
+
+  /* Scroll-driven fade-to-ink for an exiting hero: place as a pointer-events-
+     none overlay INSIDE the hero section; it darkens as the hero scrolls out,
+     handing the stage to the section arriving beneath. Pure CSS (scroll-
+     driven animation) — browsers without support simply never dim. */
+  .hero-fade {
+    opacity: 0;
+    pointer-events: none;
+  }
+  @supports (animation-timeline: view()) {
+    .hero-fade {
+      animation: hero-fade-out linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 85%;
+    }
+  }
+  @keyframes hero-fade-out {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade {
+      animation: none;
+      opacity: 0;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .reveal {
       opacity: 1;
