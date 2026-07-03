@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import Link from "next/link";
 import {
   getFeaturedProjects,
@@ -45,16 +44,6 @@ const DECK_ORDER: WorkSector[] = [
   "medical-aesthetics",
   "cosmetic-surgery",
   "dermatology",
-];
-
-const SECTORS = [
-  "Cosmetic Surgery",
-  "Medical Aesthetics",
-  "Oculoplastic Surgery",
-  "Dermatology",
-  "Plastic Surgery",
-  "Dental",
-  "Wellness",
 ];
 
 // The homepage manifesto — revealed as one smooth block on scroll.
@@ -157,28 +146,35 @@ export default function HomePage() {
           <div className="grain absolute inset-0" />
         </div>
 
-      {/* ── Hero — centred type lockup over the cycling showreel deck ── */}
-      <section className="relative z-10 overflow-hidden">
+      {/* ── Hero — centred type lockup over the cycling showreel deck.
+          The fade scope wrapper exists for the .hero-fade overlay: it must
+          live OUTSIDE the section's overflow-hidden (an overflow-hidden
+          ancestor is a scroll container, which hijacks the view() timeline
+          and leaves it inactive — the fade silently never runs). ── */}
+      <div className="relative z-10">
+      <section className="relative overflow-hidden">
 
         {/* The hero runs TALLER than the viewport (min-h 120vh on desktop) so
             the deck, seated at its foot, bleeds past the fold — cropped by the
             viewport edge, not by CSS. mt-auto opens a generous pocket of air
             between the copy (held near the top) and the deck. */}
         <div className="shell-wide relative z-10 flex min-h-screen flex-col md:min-h-[120vh]">
-          {/* Type lockup — eyebrow over the centred headline. Deliberately a
-              tier below .display: the restraint (plus the air around it) is
-              what reads as luxury here. Load-in is a two-beat sequence: the
-              eyebrow tracks in alone, then the copy, then the deck. flex-1 +
-              justify-center holds the lockup at the OPTICAL centre of the gap
-              between the nav (whose height the top padding mirrors) and the
-              deck below, rather than a fixed distance from the top. */}
+          {/* Type lockup — eyebrow over the centred headline at .display
+              scale (the H1 owns the hero). Load-in is a two-beat sequence:
+              the eyebrow tracks in alone, then the copy, then the deck.
+              flex-1 + justify-center holds the lockup at the OPTICAL centre
+              of the gap between the nav (whose height the top padding
+              mirrors) and the deck below, rather than a fixed distance from
+              the top. */}
           <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
             <div className="mx-auto max-w-5xl">
               <p className="overline text-bone-dim opacity-0 animate-track-in">
                 The studio behind
               </p>
+              {/* text-balance: at laptop widths the .display size wraps —
+                  balance the two lines rather than stranding one word */}
               <h1
-                className="heading-xl from-overline opacity-0 animate-fade-in-up"
+                className="display from-overline text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.7s" }}
               >
                 Practices patients trust
@@ -226,26 +222,11 @@ export default function HomePage() {
         </div>
 
       </section>
-
-      {/* ── Sector band — a hairline-ruled ink shelf capping the clipped
-          deck: one line of type, edge to edge (.sector-line is vw-sized to
-          span the viewport). No background of its own, so the wrapper's ink
-          field and grain run straight through it; the whisper borders match
-          the nav pill's hairline (bone at 8%). ── */}
-      <section className="relative z-10 border-y border-bone/[0.08] py-10 text-center md:py-14">
-        <p className="sector-line text-bone/55">
-          {SECTORS.map((s, i) => (
-            <Fragment key={s}>
-              <span className="whitespace-nowrap">{s}</span>
-              {i < SECTORS.length - 1 && (
-                <span className="text-champagne/70" aria-hidden>
-                  {" / "}
-                </span>
-              )}
-            </Fragment>
-          ))}
-        </p>
-      </section>
+      {/* Fade-to-ink as the hero scrolls out — it dims to black rather than
+          staying fully lit while the manifesto arrives (scroll-driven,
+          CSS-only, pointer-events-none) */}
+      <div aria-hidden className="hero-fade absolute inset-0 z-20 bg-ink" />
+      </div>
 
       {/* ── Manifesto — a full-viewport ink moment on the SAME continuous
           scene as the hero (no own background). The shared glow has faded to

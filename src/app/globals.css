@@ -324,24 +324,38 @@
     opacity: 1;
     transform: none;
   }
-  /* Homepage sector band — the industries as ONE line of type, edge to edge.
-     Sized in vw on md+ so the full list spans the viewport at every width
-     (coefficient tuned to the string "Cosmetic Surgery / … / Wellness"; if
-     the sector list changes, retune). Wraps at a fixed size below md. */
-  .sector-line {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-weight: 500;
-    font-size: 1.25rem;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
+  /* Scroll-driven fade-to-ink for an exiting hero: place as a pointer-events-
+     none overlay INSIDE the hero section; it darkens as the hero scrolls out,
+     handing the stage to the section arriving beneath. Pure CSS (scroll-
+     driven animation) — browsers without support simply never dim. */
+  .hero-fade {
+    opacity: 0;
+    pointer-events: none;
   }
-  @media (min-width: 768px) {
-    .sector-line {
-      white-space: nowrap;
-      /* 1.99vw ≈ the sector string at 99.7% of the viewport width — edge to
-         edge with no horizontal overflow (measured; 2vw overflowed by 4px) */
-      font-size: 1.99vw;
-      line-height: 1.1;
+  @supports (animation-timeline: view()) {
+    .hero-fade {
+      animation: hero-fade-out linear both;
+      animation-timeline: view();
+      /* Late, concentrated fade: the hero stays fully lit until the ARRIVING
+         section covers ~55% of the viewport, then fades to ink by ~92%
+         coverage. Expressed in vh from the exit end (hero bottom at viewport
+         top) so it tracks the incoming section's coverage regardless of the
+         hero's own height. */
+      animation-range: exit calc(100% - 45vh) exit calc(100% - 8vh);
+    }
+  }
+  @keyframes hero-fade-out {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade {
+      animation: none;
+      opacity: 0;
     }
   }
 
