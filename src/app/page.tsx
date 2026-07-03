@@ -15,11 +15,33 @@ import ContactCTA from "@/components/ContactCTA";
 // hero device cluster (desktop browser + overlapping phone), glass cards,
 // ghost marquee, bone CTA close.
 
-// Desktop capture shown across the hero deck cards (one shot, repeated for
-// now — swap in per-sector captures as they're produced).
+// Desktop capture shown across the hero deck cards (fallback shot).
 const SHOWREEL_SHOT = "/assets/desktops/dr-yalda-jamali.png";
 const SHOWREEL_SHOT_ALT =
   "Dr Yalda Jamali — cosmetic doctor website, desktop view";
+
+// Concept/showcase captures for sectors without a live case study yet — they
+// give the hero deck real range across sectors. Showcase-only (no href: there
+// is no case-study page to open).
+const SECTOR_SHOWCASE: Partial<
+  Record<WorkSector, { shot: string; alt: string; label: string }>
+> = {
+  dermatology: {
+    shot: "/assets/desktops/selv.jpg",
+    alt: "selv — prescription skincare, consultant-led dermatology, desktop view",
+    label: "selv",
+  },
+  dental: {
+    shot: "/assets/desktops/aven.jpg",
+    alt: "Aven Dental Rooms — private dentistry, Marylebone, desktop view",
+    label: "Aven Dental Rooms",
+  },
+  wellness: {
+    shot: "/assets/desktops/ostra.jpg",
+    alt: "Ostra — women's health, hormones and menopause, desktop view",
+    label: "Ostra",
+  },
+};
 
 const SECTORS = [
   "Cosmetic Surgery",
@@ -57,12 +79,10 @@ export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 3);
 
-  // Hero deck — one card per sector. Each card SHOWS a real desktop capture
-  // and links to the case study that owns it: the sector's own featured study
-  // where it has a capture, otherwise the newest featured study that does
-  // (today that's every card → Dr Yalda). What you see is what you land on;
-  // per-sector captures replace the fallback as they're produced. The newest
-  // featured study per sector wins (the list is date-sorted).
+  // Hero deck — one card per sector. A sector with a real featured case study
+  // shows its capture and LINKS to it (Hawkes, Yalda); the rest show a concept
+  // showcase mockup (selv, Aven, Ostra) with no link; anything else falls back
+  // to the newest real capture.
   const featuredBySector = new Map<WorkSector, WorkEntry>();
   for (const p of getFeaturedProjects()) {
     if (!featuredBySector.has(p.frontmatter.sector)) {
@@ -72,13 +92,30 @@ export default function HomePage() {
   const captureFallback = getFeaturedProjects().find((p) => p.frontmatter.thumbImage);
   const deckSlides: DeckSlide[] = WORK_SECTORS.map((sector) => {
     const project = featuredBySector.get(sector);
-    const shown = project?.frontmatter.thumbImage ? project : captureFallback;
+    if (project?.frontmatter.thumbImage) {
+      return {
+        title: project.frontmatter.client,
+        tag: getSectorLabel(project.frontmatter.sector),
+        href: `/work/${project.slug}`,
+        screenshot: project.frontmatter.thumbImage,
+        screenshotAlt: project.frontmatter.thumbImageAlt ?? SHOWREEL_SHOT_ALT,
+      };
+    }
+    const showcase = SECTOR_SHOWCASE[sector];
+    if (showcase) {
+      return {
+        title: showcase.label,
+        tag: getSectorLabel(sector),
+        screenshot: showcase.shot,
+        screenshotAlt: showcase.alt,
+      };
+    }
     return {
-      title: shown ? shown.frontmatter.client : getSectorLabel(sector),
-      tag: shown ? getSectorLabel(shown.frontmatter.sector) : "Selected work",
-      href: shown ? `/work/${shown.slug}` : undefined,
-      screenshot: shown?.frontmatter.thumbImage ?? SHOWREEL_SHOT,
-      screenshotAlt: shown?.frontmatter.thumbImageAlt ?? SHOWREEL_SHOT_ALT,
+      title: captureFallback ? captureFallback.frontmatter.client : getSectorLabel(sector),
+      tag: captureFallback ? getSectorLabel(captureFallback.frontmatter.sector) : "Selected work",
+      href: captureFallback ? `/work/${captureFallback.slug}` : undefined,
+      screenshot: captureFallback?.frontmatter.thumbImage ?? SHOWREEL_SHOT,
+      screenshotAlt: captureFallback?.frontmatter.thumbImageAlt ?? SHOWREEL_SHOT_ALT,
     };
   });
 
