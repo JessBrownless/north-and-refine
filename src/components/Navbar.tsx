@@ -85,7 +85,7 @@ export default function Navbar() {
                 ? `mx-auto mt-5 h-12 max-w-4xl rounded-full border border-bone/[0.08] px-5 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_24px_70px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.09)] md:mt-6 md:h-14 md:px-7 ${
                     overLight ? "bg-ink/75" : "bg-ink/55"
                   }`
-                : "mx-auto mt-0 h-20 max-w-[calc(100vw-clamp(3rem,8vw,8rem))] rounded-full border border-bone/0 bg-ink/0 px-0 backdrop-blur-0 backdrop-saturate-100 shadow-[0_0_0_0_rgba(0,0,0,0),inset_0_0_0_0_rgba(255,255,255,0)] md:h-24"
+                : "mx-auto mt-0 h-24 max-w-[calc(100vw-clamp(3rem,8vw,8rem))] rounded-full border border-bone/0 bg-ink/0 px-0 backdrop-blur-0 backdrop-saturate-100 shadow-[0_0_0_0_rgba(0,0,0,0),inset_0_0_0_0_rgba(255,255,255,0)] md:h-32"
             }`}
           >
             <Link href="/" className="flex items-center gap-2 group" aria-label={`${SITE.name} home`}>

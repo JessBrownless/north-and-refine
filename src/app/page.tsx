@@ -119,50 +119,54 @@ export default function HomePage() {
             manifesto arriving beneath (scroll-driven, CSS-only) */}
         <div aria-hidden className="hero-fade absolute inset-0 z-20 bg-ink" />
 
-        <div className="shell-wide relative z-10 pt-40 pb-16 text-center md:pt-48 md:pb-20">
+        {/* The hero runs TALLER than the viewport (min-h 120vh on desktop) so
+            the deck, seated at its foot, bleeds past the fold — cropped by the
+            viewport edge, not by CSS. mt-auto opens a generous pocket of air
+            between the copy (held near the top) and the deck. */}
+        <div className="shell-wide relative z-10 flex min-h-screen flex-col md:min-h-[120vh]">
           {/* Type lockup — eyebrow over the centred headline. Deliberately a
               tier below .display: the restraint (plus the air around it) is
-              what reads as luxury here. Wide enough for a single line on
-              desktop; wraps naturally on small screens. */}
-          {/* Load-in is a two-beat sequence: the eyebrow tracks in alone
-              first, then the rest of the copy follows, then the deck. */}
-          <div className="mx-auto max-w-5xl">
-            <p className="overline text-bone-dim opacity-0 animate-track-in">
-              The studio behind
-            </p>
-            <h1
-              className="heading-xl from-overline opacity-0 animate-fade-in-up"
-              style={{ animationDelay: "0.7s" }}
+              what reads as luxury here. Load-in is a two-beat sequence: the
+              eyebrow tracks in alone, then the copy, then the deck. */}
+          <div className="pt-44 text-center md:pt-56">
+            <div className="mx-auto max-w-5xl">
+              <p className="overline text-bone-dim opacity-0 animate-track-in">
+                The studio behind
+              </p>
+              <h1
+                className="heading-xl from-overline opacity-0 animate-fade-in-up"
+                style={{ animationDelay: "0.7s" }}
+              >
+                Practices patients trust
+              </h1>
+            </div>
+
+            <p
+              className="lede body-lg mx-auto max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
+              style={{ animationDelay: "0.9s" }}
             >
-              Practices patients trust
-            </h1>
+              Brand, web design and SEO for cosmetic surgeons, medical aesthetic
+              clinics and dermatology practices.
+            </p>
+
+            <div
+              className="mt-10 flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in-up"
+              style={{ animationDelay: "1.1s" }}
+            >
+              <Link href="/work" className="btn btn-primary-dark">
+                See the work
+                <span aria-hidden>→</span>
+              </Link>
+              <Link href="/contact" className="btn btn-secondary-dark">
+                Start a project
+              </Link>
+            </div>
           </div>
 
-          <p
-            className="lede body-lg mx-auto max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
-            style={{ animationDelay: "0.9s" }}
-          >
-            Brand, web design and SEO for cosmetic surgeons, medical aesthetic
-            clinics and dermatology practices.
-          </p>
-
+          {/* Showreel deck — seated at the foot of the hero and bled past the
+              fold; the cards run off the bottom edge for depth. Fades in last. */}
           <div
-            className="mt-10 flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in-up"
-            style={{ animationDelay: "1.1s" }}
-          >
-            <Link href="/work" className="btn btn-primary-dark">
-              See the work
-              <span aria-hidden>→</span>
-            </Link>
-            <Link href="/contact" className="btn btn-secondary-dark">
-              Start a project
-            </Link>
-          </div>
-
-          {/* Showreel deck — a generous pocket of air separates it from the
-              copy block; it fades in last, after the copy has settled */}
-          <div
-            className="relative z-10 mt-16 md:mt-24 opacity-0 animate-fade-in"
+            className="relative z-10 mt-auto opacity-0 animate-fade-in"
             style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
           >
             <Deck slides={deckSlides} />
@@ -199,9 +203,13 @@ export default function HomePage() {
             (the extra 70vh of track) before releasing: anchored, not scrubbed */}
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <div className="shell relative z-10 w-full">
-            <p className="heading-xl reveal reveal-words">
+            <p className="overline text-champagne reveal">Considered</p>
+            {/* .statement (down from heading-xl) — smaller, lighter, more
+                considered. Words fade in on a slow, heavily-overlapping wave
+                (75ms stagger, 1.3s each) so it illuminates rather than fills. */}
+            <p className="statement from-overline max-w-4xl reveal reveal-words">
               {MANIFESTO.split(" ").map((word, i) => (
-                <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
+                <span key={i} style={{ "--d": `${i * 75}ms` } as React.CSSProperties}>
                   {word}{" "}
                 </span>
               ))}
