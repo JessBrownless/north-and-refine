@@ -344,7 +344,12 @@
     .hero-fade {
       animation: hero-fade-out linear both;
       animation-timeline: view();
-      animation-range: exit 0% exit 85%;
+      /* Late, concentrated fade (the reset-wellness timing): the hero stays
+         fully lit until the ARRIVING section covers ~55% of the viewport,
+         then fades to ink by ~92% coverage. Expressed in vh from the exit
+         end (hero bottom at viewport top) so it tracks the incoming
+         section's coverage regardless of the hero's own height. */
+      animation-range: exit calc(100% - 45vh) exit calc(100% - 8vh);
     }
   }
   @keyframes hero-fade-out {
