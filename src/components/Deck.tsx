@@ -75,7 +75,10 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
             "--pos": pos,
             "--abs": abs,
             zIndex: 50 - abs,
-            opacity: abs > 2 ? 0 : 1 - abs * 0.14,
+            // Cards stay opaque (no see-through — depth comes from the scrim
+            // + scale below); only the outermost visible one eases its edge,
+            // and abs>2 hides entirely.
+            opacity: abs > 2 ? 0 : abs >= 2 ? 0.85 : 1,
             transform:
               "translate(-50%, -50%) translateX(calc(var(--pos) * var(--spread))) rotate(calc(var(--pos) * 2.5deg)) scale(calc(1 - var(--abs) * 0.08))",
           };
@@ -105,6 +108,13 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
                   </span>
                 </div>
               )}
+              {/* Depth scrim — receding cards darken (staying opaque) rather
+                  than turning see-through, so no card shows through another. */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-2xl bg-ink transition-opacity duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={{ opacity: abs * 0.2 }}
+              />
               {/* Click-through affordance — front card only, revealed on hover */}
               {isActive && slide.href && (
                 <span className="btn btn-sm btn-secondary-dark pointer-events-none absolute bottom-5 left-1/2 z-10 -translate-x-1/2 bg-ink/50 backdrop-blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
