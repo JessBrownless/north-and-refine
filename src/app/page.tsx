@@ -221,7 +221,7 @@ export default function HomePage() {
               ragged bottom). The sector band's hairline sits right on the cut.
               Fades in last. */}
           <div
-            className="relative z-10 -mb-10 opacity-0 animate-fade-in md:-mb-[4.75rem]"
+            className="relative z-10 -mb-10 opacity-0 animate-fade-in md:-mb-20"
             style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
           >
             <Deck slides={deckSlides} />

@@ -69,9 +69,11 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
       onMouseLeave={() => setPaused(false)}
     >
       {/* Stage — cards are absolutely centred and fanned out by their position.
-          Sized for IMPACT: the centre card runs ~832px wide on desktop and the
-          outer edges of the fan may bleed past the viewport — intentional. */}
-      <div className="relative h-[250px] sm:h-[340px] md:h-[450px] lg:h-[520px]">
+          Sized for IMPACT: the centre card runs ~930px wide on desktop and the
+          outer edges of the fan may bleed past the viewport — intentional.
+          Heights sized so the 3/2 cards keep their old widths and gain the
+          height that lets a full capture fit. */}
+      <div className="relative h-[260px] sm:h-[360px] md:h-[530px] lg:h-[620px]">
         {slides.map((slide, i) => {
           const pos = positionOf(i);
           const abs = Math.abs(pos);
@@ -84,16 +86,20 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
             // + scale below); only the outermost visible one eases its edge,
             // and abs>2 hides entirely.
             opacity: abs > 2 ? 0 : abs >= 2 ? 0.85 : 1,
-            // Gentle falloff (2deg / 0.065 per step) keeps the outer cards'
+            // Gentle falloff (2deg / 0.06 per step) keeps the outer cards'
             // bottom corners CLOSE to the centre card's, so the hero's clip
             // line can sit just past the cards' natural feet and still cut
             // all five — cap them off right at the end.
             transform:
-              "translate(-50%, -50%) translateX(calc(var(--pos) * var(--spread))) rotate(calc(var(--pos) * 2deg)) scale(calc(1 - var(--abs) * 0.065))",
+              "translate(-50%, -50%) translateX(calc(var(--pos) * var(--spread))) rotate(calc(var(--pos) * 2deg)) scale(calc(1 - var(--abs) * 0.06))",
           };
 
+          // 3/2 — a touch TALLER than the ~16/10 site captures, so object-
+          // cover fits each capture's full height (trimming ~7% off the
+          // sides) instead of lopping its lower edge. What the hero clip
+          // takes is then the only bottom loss.
           const cardClass =
-            "group absolute left-1/2 top-1/2 aspect-[16/9] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none";
+            "group absolute left-1/2 top-1/2 aspect-[3/2] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none";
 
           const face = (
             <div className="frame h-full w-full rounded-2xl shadow-2xl">
