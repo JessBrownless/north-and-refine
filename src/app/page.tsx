@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   getFeaturedProjects,
   getSectorLabel,
-  WORK_SECTORS,
   type WorkEntry,
   type WorkSector,
 } from "@/lib/work";
@@ -42,6 +41,17 @@ const SECTOR_SHOWCASE: Partial<
     label: "Ostra",
   },
 };
+
+// Deck order tuned to a dark / light / dark / light / dark rhythm across the
+// fan, with Dr Yalda (dark) as the centred default card:
+//   selv (dark) · Hawkes (light) · Yalda (dark) · Aven (light) · Ostra (warm/dark)
+const DECK_ORDER: WorkSector[] = [
+  "dermatology",
+  "cosmetic-surgery",
+  "medical-aesthetics",
+  "dental",
+  "wellness",
+];
 
 const SECTORS = [
   "Cosmetic Surgery",
@@ -90,7 +100,7 @@ export default function HomePage() {
     }
   }
   const captureFallback = getFeaturedProjects().find((p) => p.frontmatter.thumbImage);
-  const deckSlides: DeckSlide[] = WORK_SECTORS.map((sector) => {
+  const deckSlides: DeckSlide[] = DECK_ORDER.map((sector) => {
     const project = featuredBySector.get(sector);
     if (project?.frontmatter.thumbImage) {
       return {

@@ -34,7 +34,9 @@ const DEFAULT_SLIDES: DeckSlide[] = [
 
 export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[] }) {
   const n = slides.length;
-  const [active, setActive] = useState(0);
+  // Default to the MIDDLE card so a dark/light/dark/light/dark deck opens
+  // centred on its middle (dark) card.
+  const [active, setActive] = useState(Math.floor(n / 2));
   const [paused, setPaused] = useState(false);
   const reduced = useRef(false);
 
@@ -47,7 +49,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
   useEffect(() => {
     if (paused || reduced.current || n < 2) return;
     // Unhurried dwell per card — the pace is part of the luxury read.
-    const id = window.setInterval(() => setActive((a) => (a + 1) % n), 5600);
+    const id = window.setInterval(() => setActive((a) => (a + 1) % n), 7800);
     return () => window.clearInterval(id);
   }, [paused, n]);
 
