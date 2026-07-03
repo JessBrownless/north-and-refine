@@ -121,7 +121,7 @@ export default function ServicesPage() {
       <section className="bg-bone text-ink">
         <div className="shell py-20 md:py-32">
           <p className="overline text-clay reveal">How we work</p>
-          <h2 className="heading-xl from-overline max-w-3xl reveal" style={{ transitionDelay: "80ms" }}>
+          <h2 className="heading-lg from-overline max-w-3xl reveal" style={{ transitionDelay: "80ms" }}>
             A process built on clarity, not surprises.
           </h2>
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
@@ -140,7 +140,7 @@ export default function ServicesPage() {
       <section className="bg-ink">
         <div className="shell py-20 md:py-32">
           <p className="overline text-champagne reveal">Questions</p>
-          <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
+          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
             Common questions
           </h2>
           <div className="mt-12 max-w-3xl divide-y rule-dark">

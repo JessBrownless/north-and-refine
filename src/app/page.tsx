@@ -307,7 +307,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="overline text-clay reveal">Selected work</p>
-              <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
+              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Practices we&rsquo;ve refined
               </h2>
             </div>
@@ -342,7 +342,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
             <div className="md:col-span-6">
               <p className="overline text-champagne reveal">What we do</p>
-              <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
+              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Three disciplines, one coherent result.
               </h2>
             </div>
@@ -381,7 +381,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <p className="overline text-champagne reveal">From the Journal</p>
-                <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                   Thinking, written down
                 </h2>
               </div>

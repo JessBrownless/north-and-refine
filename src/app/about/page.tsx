@@ -98,7 +98,7 @@ export default function AboutPage() {
       <section className="bg-bone text-ink">
         <div className="shell py-20 md:py-32">
           <p className="overline text-clay reveal">What we believe</p>
-          <h2 className="heading-xl from-overline max-w-3xl reveal" style={{ transitionDelay: "80ms" }}>
+          <h2 className="heading-lg from-overline max-w-3xl reveal" style={{ transitionDelay: "80ms" }}>
             Four convictions that shape every project.
           </h2>
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">

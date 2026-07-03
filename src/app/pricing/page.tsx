@@ -158,7 +158,7 @@ export default function PricingPage() {
       <section className="bg-bone text-ink">
         <div className="shell py-20 md:py-28">
           <p className="overline text-clay reveal">Questions</p>
-          <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
+          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
             Pricing questions
           </h2>
           <div className="mt-12 max-w-3xl divide-y rule-light">
