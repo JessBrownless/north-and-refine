@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import {
   getFeaturedProjects,
@@ -229,35 +230,36 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Sector strip — full-bleed marquee OVERLAID on the foot of the deck,
+        {/* Sector band — STATIC big type OVERLAID on the foot of the deck,
             capping the fan's ragged bottom edge (rotated card corners end at
-            uneven heights): a fade-to-ink gradient dissolves the cards and the
-            marquee runs across the dissolve. Negative margin pulls it up over
-            the stage; z-20 sits it above the cards. Sized at the H3 tier so it
-            holds its own between the deck and the manifesto. Slowed to keep
-            the px/s calm at this scale. Two pixel-identical halves so the -50%
-            loop point is seamless. */}
-        {/* Padding maths: the negative margin overlaps the cards, so the
-            VISIBLE gap above the text is pt minus that overlap — pt is
-            therefore overlap + pb, centring the text between the card feet
-            and the strip's bottom edge. */}
-        <div className="relative z-20 -mt-24 overflow-hidden bg-gradient-to-t from-ink via-ink/95 to-transparent pt-[9.5rem] pb-14 md:-mt-36 md:pt-[14rem] md:pb-20">
-          <div
-            className="flex w-max whitespace-nowrap animate-marquee"
-            style={{ animationDuration: "46s" }}
-          >
-            {[0, 1].map((copy) => (
-              <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
-                {SECTORS.map((s) => (
-                  <span key={s} className="heading-md flex items-center text-bone/45">
-                    <span className="pr-10">{s}</span>
-                    <span className="pr-10 text-champagne/60" aria-hidden>
-                      ✦
+            uneven heights). The overlap is deep and the gradient goes fully
+            opaque within its top quarter, so every corner has dissolved into
+            ink well before the type. No marquee — the sectors sit as one
+            wrapping block at the .statement tier, names separated by
+            champagne slashes, filling the band. Padding maths: the visible
+            gap above the type is pt minus the overlap, matched to pb. */}
+        <div
+          className="relative z-20 -mt-40 pt-[13rem] pb-12 md:-mt-64 md:pt-[22rem] md:pb-24"
+          style={{
+            background:
+              "linear-gradient(to top, var(--ink) 0%, var(--ink) 72%, transparent 100%)",
+          }}
+        >
+          <div className="shell">
+            {/* Each name is nowrap; the spaces around the slashes are the
+                break points, so lines wrap between sectors, never inside one */}
+            <p className="statement text-center text-bone/45">
+              {SECTORS.map((s, i) => (
+                <Fragment key={s}>
+                  <span className="whitespace-nowrap">{s}</span>
+                  {i < SECTORS.length - 1 && (
+                    <span className="text-champagne/60" aria-hidden>
+                      {" / "}
                     </span>
-                  </span>
-                ))}
-              </div>
-            ))}
+                  )}
+                </Fragment>
+              ))}
+            </p>
           </div>
         </div>
       </section>
