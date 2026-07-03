@@ -137,26 +137,24 @@ export default function HomePage() {
           gradient restart, no divider line, and no texture break. The hard cut
           into the bone Selected Work section below is intentional. ── */}
       <div className="relative bg-ink">
-        {/* One continuous ambient field across ALL THREE dark sections: a
-            single top-anchored glow that stays present (fading, never cut)
-            through the manifesto, three champagne orbs drifting across the
-            full span, and one grain texture. Its overflow-hidden clips the
-            orbs horizontally WITHOUT touching the manifesto's sticky — that's
-            a sibling subtree, not a descendant of this layer. */}
+        {/* One continuous ambient field across ALL THREE dark sections — but
+            RESTRAINED: the scene is ink first, lit second. A crown glow sized
+            in vh (not % of this 300vh wrapper, which washed the whole scene)
+            lights only the top of the hero, plus exactly two champagne orbs —
+            one up by the headline, one down beside the deck. Everything below
+            settles into true darkness; one grain texture spans it all. The
+            overflow-hidden clips the orbs horizontally WITHOUT touching the
+            manifesto's sticky — that's a sibling subtree, not a descendant. */}
         <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <div
-            className="absolute inset-0"
+            className="absolute inset-x-0 top-0 h-[85vh]"
             style={{
               background:
-                "radial-gradient(100% 92% at 50% 0%, color-mix(in srgb, var(--champagne) 16%, var(--ink)) 0%, var(--ink) 90%)",
+                "radial-gradient(75% 100% at 50% 0%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 100%)",
             }}
           />
-          <div className="absolute top-[5%] right-[3%] h-[540px] w-[540px] rounded-full bg-champagne/12 blur-3xl animate-float-slower" />
-          <div className="absolute top-[38%] left-[1%] h-[480px] w-[480px] rounded-full bg-champagne/[0.09] blur-3xl animate-float-slow" />
-          <div
-            className="absolute top-[70%] right-[5%] h-[500px] w-[500px] rounded-full bg-champagne/[0.07] blur-3xl animate-float-slower"
-            style={{ animationDelay: "1.5s" }}
-          />
+          <div className="absolute top-[-6vh] right-[6%] h-[480px] w-[480px] rounded-full bg-champagne/10 blur-3xl animate-float-slower" />
+          <div className="absolute top-[62vh] left-[-4%] h-[520px] w-[520px] rounded-full bg-champagne/[0.08] blur-3xl animate-float-slow" />
           <div className="grain absolute inset-0" />
         </div>
 
@@ -174,8 +172,11 @@ export default function HomePage() {
           {/* Type lockup — eyebrow over the centred headline. Deliberately a
               tier below .display: the restraint (plus the air around it) is
               what reads as luxury here. Load-in is a two-beat sequence: the
-              eyebrow tracks in alone, then the copy, then the deck. */}
-          <div className="pt-44 text-center md:pt-56">
+              eyebrow tracks in alone, then the copy, then the deck. flex-1 +
+              justify-center holds the lockup at the OPTICAL centre of the gap
+              between the nav (whose height the top padding mirrors) and the
+              deck below, rather than a fixed distance from the top. */}
+          <div className="flex flex-1 flex-col justify-center pt-24 pb-16 text-center md:pt-32">
             <div className="mx-auto max-w-5xl">
               <p className="overline text-bone-dim opacity-0 animate-track-in">
                 The studio behind
@@ -211,9 +212,10 @@ export default function HomePage() {
           </div>
 
           {/* Showreel deck — seated at the foot of the hero and bled past the
-              fold; the cards run off the bottom edge for depth. Fades in last. */}
+              fold; the cards run off the bottom edge for depth. Fades in last.
+              (The copy block's flex-1 pushes it to the foot — no mt-auto.) */}
           <div
-            className="relative z-10 mt-auto opacity-0 animate-fade-in"
+            className="relative z-10 opacity-0 animate-fade-in"
             style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
           >
             <Deck slides={deckSlides} />
@@ -222,15 +224,21 @@ export default function HomePage() {
 
         {/* Sector strip — full-bleed marquee, edge to edge under the hero. No
             top rule: it floats on the continuous scene so there's no seam line.
+            Sized at the H3 tier with generous air so it holds its own between
+            the deck and the manifesto (the old .overline strip read as a
+            zoom-level jump). Slowed to keep the px/s calm at this scale.
             Two pixel-identical halves so the -50% loop point is seamless. */}
-        <div className="relative z-10 py-5 overflow-hidden">
-          <div className="flex w-max whitespace-nowrap animate-marquee">
+        <div className="relative z-10 py-16 md:py-24 overflow-hidden">
+          <div
+            className="flex w-max whitespace-nowrap animate-marquee"
+            style={{ animationDuration: "46s" }}
+          >
             {[0, 1].map((copy) => (
               <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
                 {SECTORS.map((s) => (
-                  <span key={s} className="overline text-bone-dim flex items-center">
-                    <span className="pr-12">{s}</span>
-                    <span className="pr-12 text-champagne" aria-hidden>
+                  <span key={s} className="heading-md flex items-center text-bone/45">
+                    <span className="pr-10">{s}</span>
+                    <span className="pr-10 text-champagne/60" aria-hidden>
                       ✦
                     </span>
                   </span>

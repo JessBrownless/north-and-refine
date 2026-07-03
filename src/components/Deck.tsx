@@ -8,7 +8,8 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 // card is a SLOT: pass a real `screenshot` (a desktop capture / Screen Studio
 // loop frame) or it falls back to a styled placeholder. Pure design tokens, no
 // new globals. Auto-advances; pauses on hover; respects reduced-motion (no
-// auto-cycle). Click a card or a dot to bring it forward.
+// auto-cycle). Click a card to bring it forward (no dot controls — too busy
+// for the hero; the cards themselves are the controls).
 
 export type DeckSlide = {
   /** Big label on the card — a client/practice name or a sector. */
@@ -156,21 +157,6 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
         })}
       </div>
 
-      {/* Dot controls — jump straight to any card */}
-      <div className="mt-12 flex items-center justify-center gap-3">
-        {slides.map((slide, i) => (
-          <button
-            key={`${slide.title}-dot-${i}`}
-            type="button"
-            aria-label={`Go to ${slide.title}`}
-            aria-current={i === active}
-            onClick={() => setActive(i)}
-            className={`h-1.5 rounded-full transition-all duration-500 ${
-              i === active ? "w-8 bg-champagne" : "w-1.5 bg-bone/25 hover:bg-bone/50"
-            }`}
-          />
-        ))}
-      </div>
     </div>
   );
 }
