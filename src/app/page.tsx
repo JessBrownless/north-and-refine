@@ -170,20 +170,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Manifesto — the bone interruption, lit by the same champagne
-          field as the hero (scene-warm + drifting orbs) so the two read as
-          one continuous scene. Full-width text, words fading in staggered
-          as the section enters view. */}
-      <section data-nav-light className="relative overflow-hidden scene-warm text-ink">
+      {/* ── Manifesto — a full-viewport ink moment, continuous with the hero:
+          the same champagne field drifts down through it (orbs bleed across
+          the boundary) and the hero's fade-to-ink hands over seamlessly.
+          Words fade in staggered as the section enters view. */}
+      <section className="scene-ink relative overflow-hidden">
         <div
           aria-hidden
-          className="absolute -top-44 right-[-8%] h-[480px] w-[480px] rounded-full bg-champagne/25 blur-3xl animate-float-slower"
+          className="absolute -top-56 right-[-10%] h-[560px] w-[560px] rounded-full bg-champagne/12 blur-3xl animate-float-slower"
         />
         <div
           aria-hidden
-          className="absolute bottom-[-15%] left-[-10%] h-[420px] w-[420px] rounded-full bg-champagne/15 blur-3xl animate-float-slow"
+          className="absolute bottom-[-20%] left-[-12%] h-[460px] w-[460px] rounded-full bg-champagne/[0.08] blur-3xl animate-float-slow"
         />
-        <div className="shell-wide relative z-10 py-28 md:py-44">
+        <div className="shell-wide relative z-10 flex min-h-screen items-center py-24">
           <p className="heading-xl reveal reveal-words">
             {MANIFESTO.split(" ").map((word, i) => (
               <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
@@ -196,7 +196,7 @@ export default function HomePage() {
 
       {/* ── Selected work ──────────────────────────────────────────────── */}
       <section className="border-t rule-dark">
-        <div className="shell py-20 md:py-28">
+        <div className="shell-wide py-20 md:py-28">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="overline text-champagne reveal">Selected work</p>
@@ -229,7 +229,7 @@ export default function HomePage() {
 
       {/* ── What we do — glass bento ───────────────────────────────────── */}
       <section className="border-t rule-dark">
-        <div className="shell py-20 md:py-28">
+        <div className="shell-wide py-20 md:py-28">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
             <div className="md:col-span-6">
               <p className="overline text-champagne reveal">What we do</p>
@@ -268,7 +268,7 @@ export default function HomePage() {
       {/* ── Journal teaser ─────────────────────────────────────────────── */}
       {posts.length > 0 && (
         <section className="border-t rule-dark">
-          <div className="shell py-20 md:py-28">
+          <div className="shell-wide py-20 md:py-28">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <p className="overline text-champagne reveal">From the Journal</p>
