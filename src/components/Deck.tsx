@@ -84,8 +84,12 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
             // + scale below); only the outermost visible one eases its edge,
             // and abs>2 hides entirely.
             opacity: abs > 2 ? 0 : abs >= 2 ? 0.85 : 1,
+            // Gentle falloff (2deg / 0.065 per step) keeps the outer cards'
+            // bottom corners CLOSE to the centre card's, so the hero's clip
+            // line can sit just past the cards' natural feet and still cut
+            // all five — cap them off right at the end.
             transform:
-              "translate(-50%, -50%) translateX(calc(var(--pos) * var(--spread))) rotate(calc(var(--pos) * 2.5deg)) scale(calc(1 - var(--abs) * 0.08))",
+              "translate(-50%, -50%) translateX(calc(var(--pos) * var(--spread))) rotate(calc(var(--pos) * 2deg)) scale(calc(1 - var(--abs) * 0.065))",
           };
 
           const cardClass =

@@ -179,7 +179,7 @@ export default function HomePage() {
               justify-center holds the lockup at the OPTICAL centre of the gap
               between the nav (whose height the top padding mirrors) and the
               deck below, rather than a fixed distance from the top. */}
-          <div className="flex flex-1 flex-col justify-center pt-24 pb-16 text-center md:pt-32">
+          <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
             <div className="mx-auto max-w-5xl">
               <p className="overline text-bone-dim opacity-0 animate-track-in">
                 The studio behind
@@ -221,7 +221,7 @@ export default function HomePage() {
               ragged bottom). The sector band's hairline sits right on the cut.
               Fades in last. */}
           <div
-            className="relative z-10 -mb-14 opacity-0 animate-fade-in md:-mb-28"
+            className="relative z-10 -mb-10 opacity-0 animate-fade-in md:-mb-[4.75rem]"
             style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
           >
             <Deck slides={deckSlides} />
