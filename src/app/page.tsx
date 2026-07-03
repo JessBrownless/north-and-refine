@@ -30,6 +30,10 @@ const SECTORS = [
   "Wellness",
 ];
 
+// The homepage manifesto — split into words for the scroll-staggered reveal.
+const MANIFESTO =
+  "After years of watching brilliant clinics undersold by template websites, we built a studio that treats a practice’s digital presence with the same care as the medicine itself.";
+
 const SERVICES = [
   {
     num: "01",
@@ -156,14 +160,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Manifesto ──────────────────────────────────────────────────── */}
+      {/* ── Manifesto — the inline "/ kicker" runs into the statement's first
+          line (creating its indent), then the lines sweep the full shell.
+          Words fade up on scroll via .reveal-words (same global observer). */}
       <section>
-        <div className="shell py-20 md:py-28">
-          <p className="overline text-champagne reveal">Considered</p>
-          <p className="statement from-overline max-w-4xl reveal" style={{ transitionDelay: "80ms" }}>
-            After years of watching brilliant clinics undersold by template websites, we built a
-            studio that treats a practice&rsquo;s digital presence with the same care as the
-            medicine itself.
+        <div className="shell py-24 md:py-40">
+          <p className="statement reveal reveal-words">
+            <span className="overline text-champagne inline-block w-36 md:w-44 align-baseline">
+              / Considered
+            </span>
+            {MANIFESTO.split(" ").map((word, i) => (
+              <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
+                {word}{" "}
+              </span>
+            ))}
           </p>
         </div>
       </section>

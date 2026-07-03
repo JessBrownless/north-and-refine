@@ -316,10 +316,29 @@
     opacity: 1;
     transform: none;
   }
+  /* Word-by-word statement reveal — rides the SAME observer (.reveal.is-in):
+     the container stays put while its word <span>s fade up from dim, staggered
+     via an inline --d per word. Pair as "reveal reveal-words". */
+  .reveal-words {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-words > span {
+    opacity: 0.12;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal-words.is-in > span {
+    opacity: 1;
+  }
   @media (prefers-reduced-motion: reduce) {
     .reveal {
       opacity: 1;
       transform: none;
+      transition: none;
+    }
+    .reveal-words > span {
+      opacity: 1;
       transition: none;
     }
   }
