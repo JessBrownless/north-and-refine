@@ -64,7 +64,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
 
   return (
     <div
-      className="relative mx-auto w-full [--spread:5rem] sm:[--spread:8rem] md:[--spread:11rem] lg:[--spread:12.5rem]"
+      className="relative mx-auto w-full [--spread:5.5rem] sm:[--spread:8.75rem] md:[--spread:12rem] lg:[--spread:13.5rem]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -89,7 +89,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
           };
 
           const cardClass =
-            "group absolute left-1/2 top-1/2 aspect-[16/10] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none";
+            "group absolute left-1/2 top-1/2 aspect-[16/9] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none";
 
           const face = (
             <div className="frame h-full w-full rounded-2xl shadow-2xl">

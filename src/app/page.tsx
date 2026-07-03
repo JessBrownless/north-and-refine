@@ -64,7 +64,7 @@ const SECTORS = [
   "Wellness",
 ];
 
-// The homepage manifesto — split into words for the scroll-staggered reveal.
+// The homepage manifesto — revealed as one smooth block on scroll.
 const MANIFESTO =
   "After years of watching brilliant clinics undersold by template websites, we built a studio that treats a practice’s digital presence with the same care as the medicine itself.";
 
@@ -132,11 +132,9 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ── Dark scene: hero + sector strip + manifesto read as ONE continuous
-          ink field. A single ambient champagne glow and one grain overlay span
-          all three (absolute layers on this wrapper), so there's no per-section
-          gradient restart, no divider line, and no texture break. The hard cut
-          into the bone Selected Work section below is intentional. ── */}
+      {/* ── Dark scene: the hero and the manifesto share ONE continuous ink
+          field (single ambient glow, single grain overlay on this wrapper) —
+          interrupted midway by the bone sector band, which caps the deck. ── */}
       <div className="relative bg-ink">
         {/* One continuous ambient field across ALL THREE dark sections — but
             RESTRAINED: the scene is ink first, lit second. Built from the SAME
@@ -168,9 +166,6 @@ export default function HomePage() {
 
       {/* ── Hero — centred type lockup over the cycling showreel deck ── */}
       <section className="relative z-10 overflow-hidden">
-        {/* Fade-to-ink as the hero scrolls out — hands the stage to the
-            manifesto arriving beneath (scroll-driven, CSS-only) */}
-        <div aria-hidden className="hero-fade absolute inset-0 z-20 bg-ink" />
 
         {/* The hero runs TALLER than the viewport (min-h 120vh on desktop) so
             the deck, seated at its foot, bleeds past the fold — cropped by the
@@ -219,49 +214,40 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Showreel deck — seated at the foot of the hero and bled past the
-              fold; the cards run off the bottom edge for depth. Fades in last.
-              (The copy block's flex-1 pushes it to the foot — no mt-auto.) */}
+          {/* Showreel deck — seated at the foot of the hero and CLIPPED by it:
+              the negative bottom margin pushes the cards past the section's
+              bottom edge and its overflow-hidden cuts all five on one straight
+              line (deep enough that every rotated corner crosses it — no
+              ragged bottom). The sector band's hairline sits right on the cut.
+              Fades in last. */}
           <div
-            className="relative z-10 opacity-0 animate-fade-in"
+            className="relative z-10 -mb-14 opacity-0 animate-fade-in md:-mb-28"
             style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
           >
             <Deck slides={deckSlides} />
           </div>
         </div>
 
-        {/* Sector band — STATIC big type OVERLAID on the foot of the deck,
-            capping the fan's ragged bottom edge (rotated card corners end at
-            uneven heights). The overlap is deep and the gradient goes fully
-            opaque within its top quarter, so every corner has dissolved into
-            ink well before the type. No marquee — the sectors sit as one
-            wrapping block at the .statement tier, names separated by
-            champagne slashes, filling the band. Padding maths: the visible
-            gap above the type is pt minus the overlap, matched to pb. */}
-        <div
-          className="relative z-20 -mt-40 pt-[13rem] pb-12 md:-mt-64 md:pt-[22rem] md:pb-24"
-          style={{
-            background:
-              "linear-gradient(to top, var(--ink) 0%, var(--ink) 72%, transparent 100%)",
-          }}
-        >
-          <div className="shell">
-            {/* Each name is nowrap; the spaces around the slashes are the
-                break points, so lines wrap between sectors, never inside one */}
-            <p className="statement text-center text-bone/45">
-              {SECTORS.map((s, i) => (
-                <Fragment key={s}>
-                  <span className="whitespace-nowrap">{s}</span>
-                  {i < SECTORS.length - 1 && (
-                    <span className="text-champagne/60" aria-hidden>
-                      {" / "}
-                    </span>
-                  )}
-                </Fragment>
-              ))}
-            </p>
-          </div>
-        </div>
+      </section>
+
+      {/* ── Sector band — a hairline-ruled ink shelf capping the clipped
+          deck: one line of type, edge to edge (.sector-line is vw-sized to
+          span the viewport). No background of its own, so the wrapper's ink
+          field and grain run straight through it; the whisper borders match
+          the nav pill's hairline (bone at 8%). ── */}
+      <section className="relative z-10 border-y border-bone/[0.08] py-10 text-center md:py-14">
+        <p className="sector-line text-bone/55">
+          {SECTORS.map((s, i) => (
+            <Fragment key={s}>
+              <span className="whitespace-nowrap">{s}</span>
+              {i < SECTORS.length - 1 && (
+                <span className="text-champagne/70" aria-hidden>
+                  {" / "}
+                </span>
+              )}
+            </Fragment>
+          ))}
+        </p>
       </section>
 
       {/* ── Manifesto — a full-viewport ink moment on the SAME continuous
@@ -274,15 +260,13 @@ export default function HomePage() {
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <div className="shell relative z-10 w-full">
             <p className="overline text-champagne reveal">Considered</p>
-            {/* .statement (down from heading-xl) — smaller, lighter, more
-                considered. Words fade in on a slow, heavily-overlapping wave
-                (75ms stagger, 1.3s each) so it illuminates rather than fills. */}
-            <p className="statement from-overline max-w-4xl reveal reveal-words">
-              {MANIFESTO.split(" ").map((word, i) => (
-                <span key={i} style={{ "--d": `${i * 75}ms` } as React.CSSProperties}>
-                  {word}{" "}
-                </span>
-              ))}
+            {/* One smooth, single reveal — the whole statement fades up as a
+                block (the word-by-word highlight read as gimmick, retired). */}
+            <p
+              className="statement from-overline max-w-4xl reveal"
+              style={{ transitionDelay: "120ms" }}
+            >
+              {MANIFESTO}
             </p>
           </div>
 
