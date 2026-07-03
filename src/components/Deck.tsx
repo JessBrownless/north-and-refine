@@ -64,12 +64,14 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
 
   return (
     <div
-      className="relative mx-auto w-full [--spread:4.5rem] sm:[--spread:7rem] md:[--spread:9.5rem] lg:[--spread:11rem]"
+      className="relative mx-auto w-full [--spread:5rem] sm:[--spread:8rem] md:[--spread:11rem] lg:[--spread:12.5rem]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Stage — cards are absolutely centred and fanned out by their position */}
-      <div className="relative h-[230px] sm:h-[300px] md:h-[380px] lg:h-[430px]">
+      {/* Stage — cards are absolutely centred and fanned out by their position.
+          Sized for IMPACT: the centre card runs ~832px wide on desktop and the
+          outer edges of the fan may bleed past the viewport — intentional. */}
+      <div className="relative h-[250px] sm:h-[340px] md:h-[450px] lg:h-[520px]">
         {slides.map((slide, i) => {
           const pos = positionOf(i);
           const abs = Math.abs(pos);

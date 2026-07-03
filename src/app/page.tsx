@@ -229,13 +229,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Sector strip — full-bleed marquee, edge to edge under the hero. No
-            top rule: it floats on the continuous scene so there's no seam line.
-            Sized at the H3 tier with generous air so it holds its own between
-            the deck and the manifesto (the old .overline strip read as a
-            zoom-level jump). Slowed to keep the px/s calm at this scale.
-            Two pixel-identical halves so the -50% loop point is seamless. */}
-        <div className="relative z-10 py-16 md:py-24 overflow-hidden">
+        {/* Sector strip — full-bleed marquee OVERLAID on the foot of the deck,
+            capping the fan's ragged bottom edge (rotated card corners end at
+            uneven heights): a fade-to-ink gradient dissolves the cards and the
+            marquee runs across the dissolve. Negative margin pulls it up over
+            the stage; z-20 sits it above the cards. Sized at the H3 tier so it
+            holds its own between the deck and the manifesto. Slowed to keep
+            the px/s calm at this scale. Two pixel-identical halves so the -50%
+            loop point is seamless. */}
+        <div className="relative z-20 -mt-24 overflow-hidden bg-gradient-to-t from-ink via-ink/95 to-transparent pt-28 pb-14 md:-mt-36 md:pt-40 md:pb-20">
           <div
             className="flex w-max whitespace-nowrap animate-marquee"
             style={{ animationDuration: "46s" }}
