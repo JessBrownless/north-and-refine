@@ -72,8 +72,24 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
           Sized for IMPACT: the centre card runs ~930px wide on desktop and the
           outer edges of the fan may bleed past the viewport — intentional.
           Heights sized so the 3/2 cards keep their old widths and gain the
-          height that lets a full capture fit. */}
-      <div className="relative h-[260px] sm:h-[360px] md:h-[530px] lg:h-[620px]">
+          height that lets a full capture fit.
+          EDGE FADE: a mask (not an overlay) — card pixels fade to transparent
+          from the FRONT card's edge (--edge = its half-width per breakpoint)
+          out to the viewport edge, so only the screenshots fade; the scene
+          behind them stays untouched. The stage is widened to the viewport
+          (symmetric negative margins) so the mask's coordinate space covers
+          the fan's bleed past the shell container. */}
+      <div
+        className="relative h-[260px] sm:h-[360px] md:h-[530px] lg:h-[620px] [--edge:195px] sm:[--edge:270px] md:[--edge:398px] lg:[--edge:465px]"
+        style={{
+          width: "100vw",
+          marginInline: "calc(50% - 50vw)",
+          maskImage:
+            "linear-gradient(to right, transparent 0, #000 calc(50% - var(--edge)), #000 calc(50% + var(--edge)), transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0, #000 calc(50% - var(--edge)), #000 calc(50% + var(--edge)), transparent 100%)",
+        }}
+      >
         {slides.map((slide, i) => {
           const pos = positionOf(i);
           const abs = Math.abs(pos);
@@ -168,20 +184,6 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
           );
         })}
 
-        {/* Edge fades — a scrim each side, starting at the FRONT card's edge
-            and fading the outer cards fully into ink by the viewport edge.
-            Viewport-anchored (50vw maths) so they cover the fan's bleed past
-            this container; the inner edge tracks the per-breakpoint card
-            half-width (stage height × 3/2 ÷ 2 = 195/270/398/465px). max(0px,…)
-            collapses them when the front card already fills the screen. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 z-[60] left-[calc(50%-50vw)] w-[max(0px,calc(50vw-195px))] sm:w-[max(0px,calc(50vw-270px))] md:w-[max(0px,calc(50vw-398px))] lg:w-[max(0px,calc(50vw-465px))] bg-gradient-to-l from-transparent to-ink"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 z-[60] right-[calc(50%-50vw)] w-[max(0px,calc(50vw-195px))] sm:w-[max(0px,calc(50vw-270px))] md:w-[max(0px,calc(50vw-398px))] lg:w-[max(0px,calc(50vw-465px))] bg-gradient-to-r from-transparent to-ink"
-        />
       </div>
 
     </div>
