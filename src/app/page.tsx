@@ -24,6 +24,7 @@ const SHOWREEL_SHOT_ALT =
 const SECTORS = [
   "Cosmetic Surgery",
   "Medical Aesthetics",
+  "Oculoplastic Surgery",
   "Dermatology",
   "Plastic Surgery",
   "Dental",
@@ -145,16 +146,22 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Sector strip — full-bleed marquee, edge to edge under the hero */}
+        {/* Sector strip — full-bleed marquee, edge to edge under the hero.
+            Two pixel-identical halves so the -50% loop point is seamless
+            (a lone duplicated list leaves a mismatched seam and stutters). */}
         <div className="relative z-10 border-t rule-dark py-5 overflow-hidden">
-          <div className="flex gap-12 whitespace-nowrap animate-marquee w-max">
-            {[...SECTORS, ...SECTORS].map((s, i) => (
-              <span key={i} className="overline text-bone-dim flex items-center gap-12">
-                {s}
-                <span className="text-champagne" aria-hidden>
-                  ✦
-                </span>
-              </span>
+          <div className="flex w-max whitespace-nowrap animate-marquee">
+            {[0, 1].map((copy) => (
+              <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+                {SECTORS.map((s) => (
+                  <span key={s} className="overline text-bone-dim flex items-center">
+                    <span className="pr-12">{s}</span>
+                    <span className="pr-12 text-champagne" aria-hidden>
+                      ✦
+                    </span>
+                  </span>
+                ))}
+              </div>
             ))}
           </div>
         </div>
