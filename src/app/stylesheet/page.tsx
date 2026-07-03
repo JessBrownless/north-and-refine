@@ -24,13 +24,13 @@ const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?
   { name: "Clay", cls: "bg-clay", hex: "#8A8578", use: "Captions, fine print, meta" },
   { name: "Champagne", cls: "bg-champagne", hex: "#C2A878", use: "THE accent — use sparingly" },
   { name: "Champagne soft", cls: "bg-champagne-soft", hex: "#D8C6A4", use: "Soft accent tint", lightCard: true },
-  { name: "Ember", cls: "bg-ember", hex: "#FF5A1F", use: "The 10 of 60-30-10 — live dots only, ONE per view" },
+  { name: "Ember", cls: "bg-ember", hex: "#FF7A00", use: "The 10 of 60-30-10 — live dots only, ONE per view" },
 ];
 
 const TYPE_STYLES: { cls: string; label: string; note: string; sample: string }[] = [
   { cls: "display-mega", label: ".display-mega", note: "52→152px · marquee/billboard lockup", sample: "North & Refine" },
-  { cls: "display", label: ".display", note: "44→112px · billboard display", sample: "Considered by design" },
-  { cls: "heading-xl", label: ".heading-xl", note: "36→79px · page H1 / section H2", sample: "Brand & web design" },
+  { cls: "display", label: ".display", note: "42→100px · homepage H1 / billboard display", sample: "Considered by design" },
+  { cls: "heading-xl", label: ".heading-xl", note: "36→79px · interior-page H1", sample: "Brand & web design" },
   { cls: "statement", label: ".statement", note: "28→56px · centred editorial statement", sample: "A calmer first impression" },
   { cls: "heading-lg", label: ".heading-lg", note: "24→40px · section H2", sample: "What we do" },
   { cls: "heading-md", label: ".heading-md", note: "20→28px · card / sub-heading H3", sample: "Brand identity" },

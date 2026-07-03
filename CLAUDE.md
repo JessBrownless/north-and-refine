@@ -34,7 +34,7 @@ All in `globals.css`, mirrored at `/stylesheet` (the visual canon — keep them 
 | `rule-light` (border) | `#DAD4C8` | Hairline dividers on light |
 | `text-clay` | `#8A8578` | Captions, fine print, meta |
 | `text-champagne` / `bg-champagne` | `#C2A878` | The one accent — use sparingly |
-| `bg-ember` | `#FF5A1F` | The 10 of 60-30-10 — the `.live-dot` availability signal ONLY, one per view; never text, never fills |
+| `bg-ember` | `#FF7A00` | The 10 of 60-30-10 — the `.live-dot` availability signal ONLY, one per view; never text, never fills |
 
 Note `rule-dark` / `rule-light` set `border-color` only — pair with Tailwind `border` / `border-t` / `border-y` etc.
 
@@ -57,7 +57,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 - `.btn-sm` size modifier · `.btn-ghost` = minimal arrow text-link
 - One primary per view. The `→` is optional child markup.
 - Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
-- `.live-dot` — the pulsing ember availability signal, dropped inside ONE CTA per view (homepage hero "Start a project").
+- `.live-dot` — the pulsing ember availability signal, ONE per view (the homepage hero eyebrow: ● Available for projects).
 
 ### Layout helpers
 

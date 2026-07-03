@@ -34,7 +34,7 @@
     --champagne-soft: #d8c6a4;
     /* Signal — the 10 of the 60-30-10: a bright ember used at dot scale
        (live-availability dots, ONE per view). Never body copy, never fills. */
-    --ember: #ff5a1f;
+    --ember: #ff7a00;
   }
 
   html {
@@ -64,6 +64,10 @@
     font-weight: 500;
     letter-spacing: -0.02em;
     margin: 0;
+    /* Headings sit at 98% — a whisper of transparency softens big type on
+       ink (done via colour alpha, not opacity, so .reveal's opacity
+       animation can't override it) */
+    color: color-mix(in srgb, currentColor 98%, transparent);
   }
 
   ::selection {
@@ -95,7 +99,7 @@
   .display {
     font-family: var(--font-sans), system-ui, sans-serif;
     font-weight: 500;
-    font-size: clamp(2.75rem, 1.4rem + 6.75vw, 7rem); /* 44 → 112px */
+    font-size: clamp(2.625rem, 1.35rem + 6vw, 6.25rem); /* 42 → 100px */
     line-height: 1;
     letter-spacing: -0.035em;
   }

@@ -168,8 +168,10 @@ export default function HomePage() {
               the top. */}
           <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
             <div className="mx-auto max-w-5xl">
-              <p className="overline text-bone-dim opacity-0 animate-track-in">
-                The studio behind
+              {/* Live availability badge — the ONE ember touch in view */}
+              <p className="overline text-bone-dim flex items-center justify-center gap-3 opacity-0 animate-track-in">
+                <span className="live-dot" aria-hidden />
+                Available for projects
               </p>
               {/* text-balance: at laptop widths the .display size wraps —
                   balance the two lines rather than stranding one word */}
@@ -197,12 +199,8 @@ export default function HomePage() {
                 See the work
                 <span aria-hidden>→</span>
               </Link>
-              {/* The ember live dot — the ONE touch of signal orange in view,
-                  reading as "available now" on the project CTA */}
               <Link href="/contact" className="btn btn-secondary-dark">
-                <span className="live-dot" aria-hidden />
                 Start a project
-                <span className="sr-only">— available for new projects</span>
               </Link>
             </div>
           </div>
