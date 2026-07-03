@@ -237,7 +237,11 @@ export default function HomePage() {
             holds its own between the deck and the manifesto. Slowed to keep
             the px/s calm at this scale. Two pixel-identical halves so the -50%
             loop point is seamless. */}
-        <div className="relative z-20 -mt-24 overflow-hidden bg-gradient-to-t from-ink via-ink/95 to-transparent pt-28 pb-14 md:-mt-36 md:pt-40 md:pb-20">
+        {/* Padding maths: the negative margin overlaps the cards, so the
+            VISIBLE gap above the text is pt minus that overlap — pt is
+            therefore overlap + pb, centring the text between the card feet
+            and the strip's bottom edge. */}
+        <div className="relative z-20 -mt-24 overflow-hidden bg-gradient-to-t from-ink via-ink/95 to-transparent pt-[9.5rem] pb-14 md:-mt-36 md:pt-[14rem] md:pb-20">
           <div
             className="flex w-max whitespace-nowrap animate-marquee"
             style={{ animationDuration: "46s" }}
