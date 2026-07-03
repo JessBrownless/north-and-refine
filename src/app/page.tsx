@@ -174,37 +174,55 @@ export default function HomePage() {
           the same champagne field drifts down through it (orbs bleed across
           the boundary) and the hero's fade-to-ink hands over seamlessly.
           Words fade in staggered as the section enters view. */}
-      <section className="scene-ink relative overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute -top-56 right-[-10%] h-[560px] w-[560px] rounded-full bg-champagne/12 blur-3xl animate-float-slower"
-        />
-        <div
-          aria-hidden
-          className="absolute bottom-[-20%] left-[-12%] h-[460px] w-[460px] rounded-full bg-champagne/[0.08] blur-3xl animate-float-slow"
-        />
-        <div className="shell-wide relative z-10 flex min-h-screen items-center py-24">
-          <p className="heading-xl reveal reveal-words">
-            {MANIFESTO.split(" ").map((word, i) => (
-              <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
-                {word}{" "}
-              </span>
-            ))}
-          </p>
+      <section className="scene-ink relative h-[170vh]">
+        {/* Sticky screen — the statement holds the viewport for a short beat
+            (the extra 70vh of track) before releasing: anchored, not scrubbed */}
+        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+          <div
+            aria-hidden
+            className="absolute -top-56 right-[-10%] h-[560px] w-[560px] rounded-full bg-champagne/12 blur-3xl animate-float-slower"
+          />
+          <div
+            aria-hidden
+            className="absolute bottom-[-20%] left-[-12%] h-[460px] w-[460px] rounded-full bg-champagne/[0.08] blur-3xl animate-float-slow"
+          />
+          <div className="shell-wide relative z-10 w-full">
+            <p className="heading-xl reveal reveal-words">
+              {MANIFESTO.split(" ").map((word, i) => (
+                <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
+                  {word}{" "}
+                </span>
+              ))}
+            </p>
+          </div>
+
+          {/* Scroll anchor — nudges the page on to the work */}
+          <a
+            href="#selected-work"
+            aria-label="Scroll to selected work"
+            className="group absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+          >
+            <span className="overline text-bone-dim transition-colors group-hover:text-bone">Scroll</span>
+            <span className="text-champagne transition-transform duration-500 group-hover:translate-y-1" aria-hidden>
+              ↓
+            </span>
+          </a>
         </div>
       </section>
 
-      {/* ── Selected work ──────────────────────────────────────────────── */}
-      <section className="border-t rule-dark">
+      {/* ── Selected work — the light interruption after the ink manifesto.
+          Cards stagger: even columns sit high, odd columns drop, so no two
+          studies ever sit level. ── */}
+      <section id="selected-work" data-nav-light className="bg-bone text-ink scroll-mt-14">
         <div className="shell-wide py-20 md:py-28">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="overline text-champagne reveal">Selected work</p>
+              <p className="overline text-clay reveal">Selected work</p>
               <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Practices we&rsquo;ve refined
               </h2>
             </div>
-            <Link href="/work" className="btn-ghost text-bone reveal">
+            <Link href="/work" className="btn-ghost text-ink reveal">
               All work <span aria-hidden>→</span>
             </Link>
           </div>
@@ -212,13 +230,15 @@ export default function HomePage() {
           {featured.length > 0 ? (
             <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14">
               {featured.map((project, i) => (
-                <WorkCard key={project.slug} project={project} index={i} />
+                <div key={project.slug} className={i % 2 === 1 ? "md:mt-32" : ""}>
+                  <WorkCard project={project} index={i} tone="light" />
+                </div>
               ))}
             </div>
           ) : (
-            <p className="body text-bone-dim mt-10">
+            <p className="body text-ink/70 mt-10">
               Case studies are on the way. In the meantime,{" "}
-              <Link href="/contact" className="text-champagne underline underline-offset-4">
+              <Link href="/contact" className="text-clay underline underline-offset-4">
                 start a conversation
               </Link>
               .

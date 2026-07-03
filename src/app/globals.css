@@ -516,6 +516,13 @@
   }
 }
 
+/* Anchor links glide rather than jump (motion-safe only). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* Our .overline kicker collides with Tailwind's `overline` text-decoration
    utility, which is emitted AFTER the components layer and draws a literal
    line above every kicker. This unlayered rule lands last in the output and
