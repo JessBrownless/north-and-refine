@@ -186,7 +186,7 @@ export default function HomePage() {
             aria-hidden
             className="absolute bottom-[-20%] left-[-12%] h-[460px] w-[460px] rounded-full bg-champagne/[0.08] blur-3xl animate-float-slow"
           />
-          <div className="shell-wide relative z-10 w-full">
+          <div className="shell relative z-10 w-full">
             <p className="heading-xl reveal reveal-words">
               {MANIFESTO.split(" ").map((word, i) => (
                 <span key={i} style={{ "--d": `${i * 35}ms` } as React.CSSProperties}>
@@ -214,7 +214,7 @@ export default function HomePage() {
           Cards stagger: even columns sit high, odd columns drop, so no two
           studies ever sit level. ── */}
       <section id="selected-work" data-nav-light className="bg-bone text-ink scroll-mt-14">
-        <div className="shell-wide py-20 md:py-28">
+        <div className="shell py-20 md:py-28">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="overline text-clay reveal">Selected work</p>
@@ -249,7 +249,7 @@ export default function HomePage() {
 
       {/* ── What we do — glass bento ───────────────────────────────────── */}
       <section className="border-t rule-dark">
-        <div className="shell-wide py-20 md:py-28">
+        <div className="shell py-20 md:py-28">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
             <div className="md:col-span-6">
               <p className="overline text-champagne reveal">What we do</p>
@@ -288,7 +288,7 @@ export default function HomePage() {
       {/* ── Journal teaser ─────────────────────────────────────────────── */}
       {posts.length > 0 && (
         <section className="border-t rule-dark">
-          <div className="shell-wide py-20 md:py-28">
+          <div className="shell py-20 md:py-28">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <p className="overline text-champagne reveal">From the Journal</p>
