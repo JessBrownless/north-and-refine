@@ -138,23 +138,30 @@ export default function HomePage() {
           into the bone Selected Work section below is intentional. ── */}
       <div className="relative bg-ink">
         {/* One continuous ambient field across ALL THREE dark sections — but
-            RESTRAINED: the scene is ink first, lit second. A crown glow sized
-            in vh (not % of this 300vh wrapper, which washed the whole scene)
-            lights only the top of the hero, plus exactly two champagne orbs —
-            one up by the headline, one down beside the deck. Everything below
-            settles into true darkness; one grain texture spans it all. The
-            overflow-hidden clips the orbs horizontally WITHOUT touching the
-            manifesto's sticky — that's a sibling subtree, not a descendant. */}
+            RESTRAINED: the scene is ink first, lit second. Built from the SAME
+            recipe as .scene-ink on the interior pages (an opaque gradient that
+            mixes champagne INTO ink) — no filter-blurred divs, which band into
+            visible rings on dark and read as "badly blurred". One crown glow
+            over the headline (vh-sized, not % of this 300vh wrapper), one soft
+            gradient pool beside the deck, true darkness below; one grain
+            texture spans it all. The overflow-hidden clips the pool
+            horizontally WITHOUT touching the manifesto's sticky — that's a
+            sibling subtree, not a descendant. */}
         <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <div
-            className="absolute inset-x-0 top-0 h-[85vh]"
+            className="absolute inset-x-0 top-0 h-[90vh]"
             style={{
               background:
-                "radial-gradient(75% 100% at 50% 0%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 100%)",
+                "radial-gradient(90% 100% at 50% 0%, color-mix(in srgb, var(--champagne) 11%, var(--ink)) 0%, var(--ink) 70%)",
             }}
           />
-          <div className="absolute top-[-6vh] right-[6%] h-[480px] w-[480px] rounded-full bg-champagne/10 blur-3xl animate-float-slower" />
-          <div className="absolute top-[62vh] left-[-4%] h-[520px] w-[520px] rounded-full bg-champagne/[0.08] blur-3xl animate-float-slow" />
+          <div
+            className="absolute left-[-12%] top-[58vh] h-[64vh] w-[46vw] animate-float-slow"
+            style={{
+              background:
+                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
+            }}
+          />
           <div className="grain absolute inset-0" />
         </div>
 
