@@ -12,7 +12,7 @@ Instructions for Claude when working in this repository. Read this **before** wr
 - **Hosting:** Netlify (`@netlify/plugin-nextjs`)
 - **Fonts:** SINGLE PREMIUM SANS — **Instrument Sans** (`--font-sans`, Google, chosen for its sheared "scalpel" terminals — a brand signature, see the lowercase t) + Geist Mono (`--font-mono`) for engineered accents (`.overline`, `.index-num`, `.stat`). Aeonik Pro trial evaluated and parked (loader commented in `layout.tsx`, files in `src/fonts/`, archive in `./font-trials/`).
 - **Source of truth for the brand:** `src/app/globals.css` — all design tokens live there; rendered live at `/stylesheet`
-- **Direction:** dark / premium agency. Warm near-black (`ink`), bone off-white, one restrained champagne accent.
+- **Direction:** dark / premium agency. Warm near-black (`ink`), bone off-white, one restrained champagne accent — plus a bright `ember` signal at 60-30-10 doses (live dots only).
 
 ## How to use this file
 
@@ -34,6 +34,7 @@ All in `globals.css`, mirrored at `/stylesheet` (the visual canon — keep them 
 | `rule-light` (border) | `#DAD4C8` | Hairline dividers on light |
 | `text-clay` | `#8A8578` | Captions, fine print, meta |
 | `text-champagne` / `bg-champagne` | `#C2A878` | The one accent — use sparingly |
+| `bg-ember` | `#FF5A1F` | The 10 of 60-30-10 — the `.live-dot` availability signal ONLY, one per view; never text, never fills |
 
 Note `rule-dark` / `rule-light` set `border-color` only — pair with Tailwind `border` / `border-t` / `border-y` etc.
 
@@ -55,6 +56,8 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 - On light: `.btn-primary-light` (solid ink), `.btn-secondary-light` (outline)
 - `.btn-sm` size modifier · `.btn-ghost` = minimal arrow text-link
 - One primary per view. The `→` is optional child markup.
+- Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
+- `.live-dot` — the pulsing ember availability signal, dropped inside ONE CTA per view (homepage hero "Start a project").
 
 ### Layout helpers
 
@@ -80,6 +83,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 | --- | --- |
 | `Navbar` / `Footer` | Site chrome (in `layout.tsx`). One each — don't fork. The scrolled pill flips to ink glass while floating over any element marked `data-nav-light` (the bone manifesto, `ContactCTA`) — mark new light sections the same way or the pill goes bone-on-bone. |
 | `Reveal` | Global IntersectionObserver for `.reveal`. Don't add rival scroll listeners. |
+| `SmoothScroll` | Lenis inertial scrolling, mounted once in the root layout. Native scroll stays authoritative (sticky/IO/scroll listeners all work); skips under reduced-motion. Don't add rival smooth-scroll libs or scroll hijacking. |
 | `PageHero` | **The interior-page hero.** Props: `overline`, `title`, `lede`, `cta`, `meta`, `size`. Extend via props; don't spawn `HeroX`. (Homepage has a bespoke hero.) |
 | `ContactCTA` | Standard "start a project" band (light section). Drop at the foot of pages. |
 | `WorkCard` | Case-study card for grids (typographic placeholder when no image). |

@@ -50,7 +50,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
   useEffect(() => {
     if (paused || reduced.current || n < 2) return;
     // Unhurried dwell per card — the pace is part of the luxury read.
-    const id = window.setInterval(() => setActive((a) => (a + 1) % n), 7800);
+    const id = window.setInterval(() => setActive((a) => (a + 1) % n), 11000);
     return () => window.clearInterval(id);
   }, [paused, n]);
 
@@ -99,7 +99,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
           // sides) instead of lopping its lower edge. What the hero clip
           // takes is then the only bottom loss.
           const cardClass =
-            "group absolute left-1/2 top-1/2 aspect-[3/2] h-full cursor-pointer transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none";
+            "group absolute left-1/2 top-1/2 aspect-[3/2] h-full cursor-pointer transition-[transform,opacity] duration-[1800ms] ease-[cubic-bezier(0.65,0,0.35,1)] focus:outline-none";
 
           const face = (
             <div className="frame h-full w-full rounded-2xl shadow-2xl">
@@ -127,7 +127,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
                   than turning see-through, so no card shows through another. */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-2xl bg-ink transition-opacity duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="pointer-events-none absolute inset-0 rounded-2xl bg-ink transition-opacity duration-[1800ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
                 style={{ opacity: abs * 0.2 }}
               />
               {/* Click-through affordance — front card only, revealed on hover */}

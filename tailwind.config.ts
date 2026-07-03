@@ -22,6 +22,8 @@ const config: Config = {
         // ── Accent (single restrained metallic) ──────────────────────────
         champagne: "#C2A878", // brass/champagne — the one accent
         "champagne-soft": "#D8C6A4",
+        // ── Signal (the 10 of 60-30-10) ──────────────────────────────────
+        ember: "#FF5A1F", // bright ember — live/availability dots only, one per view
       },
       fontFamily: {
         // Single premium sans + mono accents. "display" aliases the sans so

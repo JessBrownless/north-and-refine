@@ -32,6 +32,9 @@
     /* Accent */
     --champagne: #c2a878;
     --champagne-soft: #d8c6a4;
+    /* Signal — the 10 of the 60-30-10: a bright ember used at dot scale
+       (live-availability dots, ONE per view). Never body copy, never fills. */
+    --ember: #ff5a1f;
   }
 
   html {
@@ -39,6 +42,11 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+  }
+  /* Lenis drives the scroll position frame-by-frame — native smooth
+     behaviour would fight it (it adds a .lenis class to <html> when live) */
+  html.lenis {
+    scroll-behavior: auto;
   }
 
   body {
@@ -353,7 +361,8 @@
     align-items: center;
     gap: 0.6em;
     border-radius: 9999px;
-    padding: 0.95rem 1.6rem;
+    /* Padding sits on the 8px grid — chunky by design: 16 / 32 (sm: 16 / 24) */
+    padding: 1rem 2rem;
     border: 1px solid transparent;
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 0.6875rem;
@@ -366,9 +375,32 @@
     cursor: pointer;
   }
   .btn-sm {
-    padding: 0.7rem 1.15rem;
+    padding: 1rem 1.5rem;
     font-size: 0.625rem;
     letter-spacing: 0.2em;
+  }
+
+  /* Live-availability signal — a small ember dot for ONE CTA per view
+     (the 60-30-10 "10"). Pulses a soft halo; the global reduced-motion
+     guard stills it. */
+  .live-dot {
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--ember);
+    animation: live-pulse 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  @keyframes live-pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--ember) 45%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 10px color-mix(in srgb, var(--ember) 0%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--ember) 0%, transparent);
+    }
   }
 
   /* On DARK backgrounds */

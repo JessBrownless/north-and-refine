@@ -22,7 +22,8 @@ const SHOWREEL_SHOT_ALT =
 
 // Concept/showcase captures for sectors without a live case study yet — they
 // give the hero deck real range across sectors. Showcase-only (no href: there
-// is no case-study page to open).
+// is no case-study page to open). (Aven — /assets/desktops/aven.jpg — is
+// parked on disk; Ostra retired.)
 const SECTOR_SHOWCASE: Partial<
   Record<WorkSector, { shot: string; alt: string; label: string }>
 > = {
@@ -31,27 +32,19 @@ const SECTOR_SHOWCASE: Partial<
     alt: "selv — prescription skincare, consultant-led dermatology, desktop view",
     label: "selv",
   },
-  dental: {
-    shot: "/assets/desktops/aven.jpg",
-    alt: "Aven Dental Rooms — private dentistry, Marylebone, desktop view",
-    label: "Aven Dental Rooms",
-  },
-  wellness: {
-    shot: "/assets/desktops/ostra.jpg",
-    alt: "Ostra — women's health, hormones and menopause, desktop view",
-    label: "Ostra",
-  },
 };
 
 // Deck order tuned to a dark / light / dark / light / dark rhythm across the
-// fan, with Dr Yalda (dark) as the centred default card:
-//   selv (dark) · Hawkes (light) · Yalda (dark) · Aven (light) · Ostra (warm/dark)
+// fan, with Dr Yalda (dark) as the centred default card. selv and the Hawkes
+// study REPEAT on the outer slots as tonal placeholders — their colours are
+// the target for the final captures, which will replace them later:
+//   selv (dark) · Hawkes (light) · Yalda (dark) · Hawkes (light) · selv (dark)
 const DECK_ORDER: WorkSector[] = [
   "dermatology",
   "cosmetic-surgery",
   "medical-aesthetics",
-  "dental",
-  "wellness",
+  "cosmetic-surgery",
+  "dermatology",
 ];
 
 const SECTORS = [
@@ -208,8 +201,12 @@ export default function HomePage() {
                 See the work
                 <span aria-hidden>→</span>
               </Link>
+              {/* The ember live dot — the ONE touch of signal orange in view,
+                  reading as "available now" on the project CTA */}
               <Link href="/contact" className="btn btn-secondary-dark">
+                <span className="live-dot" aria-hidden />
                 Start a project
+                <span className="sr-only">— available for new projects</span>
               </Link>
             </div>
           </div>

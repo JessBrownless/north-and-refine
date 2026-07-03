@@ -24,6 +24,7 @@ const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?
   { name: "Clay", cls: "bg-clay", hex: "#8A8578", use: "Captions, fine print, meta" },
   { name: "Champagne", cls: "bg-champagne", hex: "#C2A878", use: "THE accent — use sparingly" },
   { name: "Champagne soft", cls: "bg-champagne-soft", hex: "#D8C6A4", use: "Soft accent tint", lightCard: true },
+  { name: "Ember", cls: "bg-ember", hex: "#FF5A1F", use: "The 10 of 60-30-10 — live dots only, ONE per view" },
 ];
 
 const TYPE_STYLES: { cls: string; label: string; note: string; sample: string }[] = [
@@ -249,11 +250,12 @@ export default function StylesheetPage() {
         </div>
 
         {/* Buttons */}
-        <Sub title="Buttons" note="Compose .btn + one variant; light/dark is the background the button sits on. One primary per view; → is optional child markup." />
+        <Sub title="Buttons" note="Compose .btn + one variant; light/dark is the background the button sits on. Padding sits on the 8px grid (16/32 · sm 16/24). One primary per view; → is optional child markup. The .live-dot ember signal marks availability — ONE per view." />
         <div className="mt-6 space-y-6">
           <div className="flex flex-wrap gap-4">
             <button className="btn btn-primary-dark">Primary dark <span aria-hidden>→</span></button>
             <button className="btn btn-secondary-dark">Secondary dark</button>
+            <button className="btn btn-secondary-dark"><span className="live-dot" aria-hidden /> Live-dot CTA</button>
             <button className="btn btn-secondary-dark btn-sm">Secondary sm</button>
             <span className="btn-ghost text-bone">Ghost link <span aria-hidden>→</span></span>
           </div>
