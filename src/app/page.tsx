@@ -90,34 +90,34 @@ export default function HomePage() {
           gradient restart, no divider line, and no texture break. The hard cut
           into the bone Selected Work section below is intentional. ── */}
       <div className="relative bg-ink">
-        {/* One ambient glow — anchored to the very top and sized in vh so it
-            stays concentrated over the hero and fades to ink before the
-            manifesto, never restarting per section. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-0"
-          style={{
-            background:
-              "radial-gradient(90vw 77vh at 50% 0%, color-mix(in srgb, var(--champagne) 16%, var(--ink)) 0%, var(--ink) 62%)",
-          }}
-        />
-        {/* One grain texture across the whole dark scene */}
-        <div aria-hidden className="grain pointer-events-none absolute inset-0 z-0" />
+        {/* One continuous ambient field across ALL THREE dark sections: a
+            single top-anchored glow that stays present (fading, never cut)
+            through the manifesto, three champagne orbs drifting across the
+            full span, and one grain texture. Its overflow-hidden clips the
+            orbs horizontally WITHOUT touching the manifesto's sticky — that's
+            a sibling subtree, not a descendant of this layer. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(100% 92% at 50% 0%, color-mix(in srgb, var(--champagne) 16%, var(--ink)) 0%, var(--ink) 90%)",
+            }}
+          />
+          <div className="absolute top-[5%] right-[3%] h-[540px] w-[540px] rounded-full bg-champagne/12 blur-3xl animate-float-slower" />
+          <div className="absolute top-[38%] left-[1%] h-[480px] w-[480px] rounded-full bg-champagne/[0.09] blur-3xl animate-float-slow" />
+          <div
+            className="absolute top-[70%] right-[5%] h-[500px] w-[500px] rounded-full bg-champagne/[0.07] blur-3xl animate-float-slower"
+            style={{ animationDelay: "1.5s" }}
+          />
+          <div className="grain absolute inset-0" />
+        </div>
 
       {/* ── Hero — centred type lockup over the cycling showreel deck ── */}
       <section className="relative z-10 overflow-hidden">
         {/* Fade-to-ink as the hero scrolls out — hands the stage to the
             manifesto arriving beneath (scroll-driven, CSS-only) */}
         <div aria-hidden className="hero-fade absolute inset-0 z-20 bg-ink" />
-        {/* Ambient champagne orbs — slow-drifting depth behind everything */}
-        <div
-          aria-hidden
-          className="absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full bg-champagne/15 blur-3xl animate-float-slower"
-        />
-        <div
-          aria-hidden
-          className="absolute bottom-[-10%] left-[-12%] h-[400px] w-[400px] rounded-full bg-champagne/10 blur-3xl"
-        />
 
         <div className="shell-wide relative z-10 pt-40 pb-16 text-center md:pt-48 md:pb-20">
           {/* Type lockup — eyebrow over the centred headline. Deliberately a
@@ -198,14 +198,6 @@ export default function HomePage() {
         {/* Sticky screen — the statement holds the viewport for a short beat
             (the extra 70vh of track) before releasing: anchored, not scrubbed */}
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          <div
-            aria-hidden
-            className="absolute -top-56 right-[-10%] h-[560px] w-[560px] rounded-full bg-champagne/12 blur-3xl animate-float-slower"
-          />
-          <div
-            aria-hidden
-            className="absolute bottom-[-20%] left-[-12%] h-[460px] w-[460px] rounded-full bg-champagne/[0.08] blur-3xl animate-float-slow"
-          />
           <div className="shell relative z-10 w-full">
             <p className="heading-xl reveal reveal-words">
               {MANIFESTO.split(" ").map((word, i) => (
