@@ -84,8 +84,28 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
+      {/* ── Dark scene: hero + sector strip + manifesto read as ONE continuous
+          ink field. A single ambient champagne glow and one grain overlay span
+          all three (absolute layers on this wrapper), so there's no per-section
+          gradient restart, no divider line, and no texture break. The hard cut
+          into the bone Selected Work section below is intentional. ── */}
+      <div className="relative bg-ink">
+        {/* One ambient glow — anchored to the very top and sized in vh so it
+            stays concentrated over the hero and fades to ink before the
+            manifesto, never restarting per section. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background:
+              "radial-gradient(90vw 77vh at 50% 0%, color-mix(in srgb, var(--champagne) 16%, var(--ink)) 0%, var(--ink) 62%)",
+          }}
+        />
+        {/* One grain texture across the whole dark scene */}
+        <div aria-hidden className="grain pointer-events-none absolute inset-0 z-0" />
+
       {/* ── Hero — centred type lockup over the cycling showreel deck ── */}
-      <section className="scene-ink grain relative overflow-hidden">
+      <section className="relative z-10 overflow-hidden">
         {/* Fade-to-ink as the hero scrolls out — hands the stage to the
             manifesto arriving beneath (scroll-driven, CSS-only) */}
         <div aria-hidden className="hero-fade absolute inset-0 z-20 bg-ink" />
@@ -149,10 +169,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Sector strip — full-bleed marquee, edge to edge under the hero.
-            Two pixel-identical halves so the -50% loop point is seamless
-            (a lone duplicated list leaves a mismatched seam and stutters). */}
-        <div className="relative z-10 border-t rule-dark py-5 overflow-hidden">
+        {/* Sector strip — full-bleed marquee, edge to edge under the hero. No
+            top rule: it floats on the continuous scene so there's no seam line.
+            Two pixel-identical halves so the -50% loop point is seamless. */}
+        <div className="relative z-10 py-5 overflow-hidden">
           <div className="flex w-max whitespace-nowrap animate-marquee">
             {[0, 1].map((copy) => (
               <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
@@ -170,11 +190,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Manifesto — a full-viewport ink moment, continuous with the hero:
-          the same champagne field drifts down through it (orbs bleed across
-          the boundary) and the hero's fade-to-ink hands over seamlessly.
-          Words fade in staggered as the section enters view. */}
-      <section className="scene-ink relative h-[170vh]">
+      {/* ── Manifesto — a full-viewport ink moment on the SAME continuous
+          scene as the hero (no own background). The shared glow has faded to
+          ink by here; its champagne orbs add the local light. Words fade in
+          staggered as the section enters view. */}
+      <section className="relative z-10 h-[170vh]">
         {/* Sticky screen — the statement holds the viewport for a short beat
             (the extra 70vh of track) before releasing: anchored, not scrubbed */}
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
@@ -209,6 +229,7 @@ export default function HomePage() {
           </a>
         </div>
       </section>
+      </div>
 
       {/* ── Selected work — the light interruption after the ink manifesto.
           Cards stagger: even columns sit high, odd columns drop, so no two
