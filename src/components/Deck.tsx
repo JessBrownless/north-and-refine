@@ -167,6 +167,21 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
             </button>
           );
         })}
+
+        {/* Edge fades — a scrim each side, starting at the FRONT card's edge
+            and fading the outer cards fully into ink by the viewport edge.
+            Viewport-anchored (50vw maths) so they cover the fan's bleed past
+            this container; the inner edge tracks the per-breakpoint card
+            half-width (stage height × 3/2 ÷ 2 = 195/270/398/465px). max(0px,…)
+            collapses them when the front card already fills the screen. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 z-[60] left-[calc(50%-50vw)] w-[max(0px,calc(50vw-195px))] sm:w-[max(0px,calc(50vw-270px))] md:w-[max(0px,calc(50vw-398px))] lg:w-[max(0px,calc(50vw-465px))] bg-gradient-to-l from-transparent to-ink"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 z-[60] right-[calc(50%-50vw)] w-[max(0px,calc(50vw-195px))] sm:w-[max(0px,calc(50vw-270px))] md:w-[max(0px,calc(50vw-398px))] lg:w-[max(0px,calc(50vw-465px))] bg-gradient-to-r from-transparent to-ink"
+        />
       </div>
 
     </div>
