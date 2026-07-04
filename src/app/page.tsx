@@ -264,17 +264,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Scroll anchor — nudges the page on to the work */}
-          <a
-            href="#selected-work"
-            aria-label="Scroll to selected work"
-            className="group absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
-          >
-            <span className="overline transition-colors group-hover:text-champagne-soft">Scroll</span>
-            <span className="text-champagne transition-transform duration-500 group-hover:translate-y-1" aria-hidden>
-              ↓
-            </span>
-          </a>
         </div>
         {/* Fade-to-ink on exit — every section hands over through darkness */}
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />

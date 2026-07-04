@@ -10,27 +10,24 @@ import { useState } from "react";
  * swap the `image` paths freely.
  */
 
+// All three panels are QUIET placeholders (the brand gradient + a label)
+// until dedicated art per service lands — real photography was too loud
+// next to the big type.
 const SERVICES = [
   {
     num: "01",
     title: "Brand identity",
     body: "A considered visual language — name, mark, type, palette and tone — that signals the standard of your care before a word is read.",
-    image: "/assets/desktops/dr-elizabeth-hawkes.jpg",
-    alt: "Brand identity work — Dr Elizabeth Hawkes site, desktop view",
   },
   {
     num: "02",
     title: "Web design & build",
     body: "Fast, accessible, beautifully made websites that hold attention and turn a nervous first visit into a booked consultation.",
-    image: "/assets/desktops/dr-yalda-jamali.png",
-    alt: "Web design work — Dr Yalda Jamali site, desktop view",
   },
   {
     num: "03",
     title: "SEO & content",
     body: "Technical SEO, schema and an editorial content engine that compounds — so the right patients find you, on your own terms.",
-    image: null, // gradient + stat placeholder until dedicated art lands
-    alt: "",
   },
 ] as const;
 
@@ -85,18 +82,11 @@ export default function ServicesShowcase() {
                 i === active ? "opacity-100" : "opacity-0"
               }`}
             >
-              {s.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={s.image}
-                  alt={s.alt}
-                  className="h-full w-full object-cover object-top"
-                />
-              ) : (
-                <div className="portrait-fill flex h-full w-full items-center justify-center">
-                  <span className="stat text-ink/40">#1–3</span>
-                </div>
-              )}
+              <div className="portrait-fill relative h-full w-full">
+                <span className="overline absolute bottom-5 left-5 text-ink/50">
+                  Imagery slot — {s.title}
+                </span>
+              </div>
             </div>
           ))}
         </div>

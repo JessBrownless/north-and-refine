@@ -1,7 +1,12 @@
 import Link from "next/link";
+import TypewriterWord from "@/components/TypewriterWord";
+
+// The default heading's rotating last word — all the things a practice
+// needs its patients to do. Grammar: "…something your patients ___."
+const PATIENT_VERBS = ["trust", "book through", "remember", "recommend", "return to"];
 
 interface ContactCTAProps {
-  /** Override the default heading. */
+  /** Override the default heading (plain text — no typewriter). */
   heading?: string;
   /** Override the default supporting line. */
   body?: string;
@@ -13,7 +18,7 @@ interface ContactCTAProps {
  * a parallel CTA block.
  */
 export default function ContactCTA({
-  heading = "Let's build something your patients trust.",
+  heading,
   body = "Tell us about your practice and where you want it to be. We take on a limited number of projects at a time, so the right fit matters.",
 }: ContactCTAProps) {
   return (
@@ -45,7 +50,12 @@ export default function ContactCTA({
         <div className="max-w-3xl">
           <p className="overline text-clay reveal">Start a project</p>
           <h2 className="statement from-overline reveal" style={{ transitionDelay: "80ms" }}>
-            {heading}
+            {heading ?? (
+              <>
+                Let&rsquo;s build something your patients{" "}
+                <TypewriterWord words={PATIENT_VERBS} />
+              </>
+            )}
           </h2>
           <p className="lede body-lg text-ink/70 reveal" style={{ transitionDelay: "160ms" }}>
             {body}
