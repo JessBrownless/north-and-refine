@@ -8,8 +8,6 @@ import {
 import { getAllPosts, getCategoryLabel } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
-import BrowserMockup from "@/components/BrowserMockup";
-import PhoneMockup from "@/components/PhoneMockup";
 import ContactCTA from "@/components/ContactCTA";
 
 // Homepage — the Obsidian direction. Champagne-lit ink scene, an asymmetric
@@ -266,6 +264,27 @@ export default function HomePage() {
       </section>
       </div>
 
+      {/* ── What we do — the three disciplines as BIG editorial rows, sat
+          between the manifesto and the work: index number · title at
+          .statement scale · body on the right, hairlines between. No
+          header, no mockups — the rows ARE the statement. ── */}
+      <section className="relative border-t rule-dark">
+        <div className="shell py-16 md:py-24">
+          {SERVICES.map((s, i) => (
+            <div
+              key={s.num}
+              className="grid grid-cols-1 gap-4 border-b rule-dark py-10 md:grid-cols-12 md:items-end md:gap-8 md:py-14 reveal"
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <p className="index-num text-champagne md:col-span-1">{s.num}</p>
+              <h2 className="statement md:col-span-7">{s.title}</h2>
+              <p className="body-lg text-bone-dim md:col-span-4 md:col-start-9">{s.body}</p>
+            </div>
+          ))}
+        </div>
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+
       {/* ── Selected work — stays ON the ink scene (the hero is the style
           reference; the page reads as one continuous dark world until the
           bone CTA close). A single champagne pool drifts on the right for
@@ -317,81 +336,6 @@ export default function HomePage() {
       <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </div>
 
-      {/* ── What we do — asymmetric split: copy rail left, the canonical
-          responsive device cluster right (CSS placeholder screens on a
-          gradient pool — swap in real captures later), then the services as
-          editorial index rows. Fade-scope wrapper as above. ── */}
-      <div className="relative">
-      <section className="relative overflow-hidden border-t rule-dark">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-[30%] top-[6%] h-[70vh] w-[52vw] animate-float-slow"
-          style={{
-            background:
-              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 8%, transparent) 0%, transparent 100%)",
-          }}
-        />
-        <div className="shell relative py-24 md:py-36">
-          <div className="grid grid-cols-1 gap-16 md:grid-cols-12 md:items-center">
-            {/* Copy rail — left */}
-            <div className="md:col-span-5">
-              <p className="overline text-champagne reveal">What we do</p>
-              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                Three disciplines, one coherent result.
-              </h2>
-              <p className="body-lg lede text-bone-dim reveal" style={{ transitionDelay: "160ms" }}>
-                Brand, web and search, delivered by one studio — so nothing
-                falls between the cracks.
-              </p>
-              <div className="mt-10 reveal" style={{ transitionDelay: "240ms" }}>
-                <Link href="/services" className="btn btn-secondary-dark">
-                  How we work
-                  <span aria-hidden>→</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Device cluster — placeholder mockups (CSS screens) until real
-                project captures land; browser anchored right, phone
-                overlapping its lower-left corner */}
-            <div className="relative md:col-span-7">
-              <div className="relative sm:ml-14 md:ml-20">
-                <BrowserMockup
-                  domain="yourpractice.com.au"
-                  className="rotate-[0.5deg] reveal"
-                />
-              </div>
-              {/* Phone at sm — proportioned to the 7-col browser (the md size
-                  outgrows it at this width) */}
-              <div
-                className="absolute -bottom-8 left-0 hidden sm:block md:-bottom-10 reveal"
-                style={{ transitionDelay: "160ms" }}
-              >
-                <div className="-rotate-[7deg] animate-float-slower">
-                  <PhoneMockup screen="ink" size="sm" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Services — editorial index rows on hairlines, asymmetric grid */}
-          <div className="mt-24 border-t rule-dark md:mt-32">
-            {SERVICES.map((s, i) => (
-              <div
-                key={s.num}
-                className="grid grid-cols-1 gap-3 border-b rule-dark py-9 md:grid-cols-12 md:gap-8 md:py-12 reveal"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <p className="index-num text-champagne md:col-span-2">{s.num} /</p>
-                <h3 className="heading-md md:col-span-4">{s.title}</h3>
-                <p className="body text-bone-dim md:col-span-5 md:col-start-8">{s.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </div>
 
       {/* ── Journal teaser — no overflow-hidden here, so the exit-fade can
           live inside the section directly ── */}
