@@ -21,7 +21,7 @@ function IgTile({ tile, profile }: { tile: (typeof IG_TILES)[number]; profile: s
       target="_blank"
       rel="noreferrer"
       aria-label="North & Refine on Instagram"
-      className="group frame aspect-square w-16 shrink-0 rounded-lg sm:w-20 lg:w-24"
+      className="group frame aspect-square w-full rounded-lg"
     >
       {tile.kind === "shot" ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -52,30 +52,29 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-ink">
-      {/* ── Instagram — small tiles flanking the centred monogram ── */}
+      {/* ── Instagram — a strict SEVEN-COLUMN band spanning the content grid
+          edge to edge: three tiles · the monogram cell · three tiles. Equal
+          rhythm, flush margins — no floating cluster. Mobile stacks the
+          monogram over a 3-up tile grid. ── */}
       <div className="shell pt-16 md:pt-20">
-        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-6">
-          <div className="flex items-center gap-3 md:gap-4">
-            {IG_TILES.slice(0, 3).map((tile, i) => (
-              <IgTile key={i} tile={tile} profile={SITE.sameAs[0]} />
-            ))}
-          </div>
+        <div className="grid grid-cols-3 items-center gap-3 md:grid-cols-7 md:gap-4">
+          {IG_TILES.slice(0, 3).map((tile, i) => (
+            <IgTile key={i} tile={tile} profile={SITE.sameAs[0]} />
+          ))}
           <a
             href={SITE.sameAs[0]}
             target="_blank"
             rel="noreferrer"
-            className="group px-4 text-center md:px-8"
+            className="group order-first col-span-3 py-6 text-center md:order-none md:col-span-1 md:py-0"
           >
             <span className="font-display text-3xl tracking-tight text-bone transition-opacity group-hover:opacity-70">
               N<span className="text-champagne">&amp;</span>R
             </span>
             <span className="overline mt-2 block">@northandrefine</span>
           </a>
-          <div className="flex items-center gap-3 md:gap-4">
-            {IG_TILES.slice(3).map((tile, i) => (
-              <IgTile key={i} tile={tile} profile={SITE.sameAs[0]} />
-            ))}
-          </div>
+          {IG_TILES.slice(3).map((tile, i) => (
+            <IgTile key={i} tile={tile} profile={SITE.sameAs[0]} />
+          ))}
         </div>
       </div>
 
