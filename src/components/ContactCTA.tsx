@@ -41,9 +41,20 @@ export default function ContactCTA({
             <span className="portrait-fill absolute inset-0" />
           </div>
         </div>
-        <span className="absolute right-[10%] top-[62%] text-lg text-champagne reveal" style={{ transitionDelay: "240ms" }}>
+        <span className="absolute right-[38%] top-[10%] text-lg text-champagne reveal" style={{ transitionDelay: "240ms" }}>
           ✦
         </span>
+        {/* Third piece — a small PHONE-shaped mockup slot */}
+        <div
+          className="absolute right-[5%] top-[42%] w-20 rotate-[8deg] animate-float-slow reveal lg:w-24"
+          style={{ transitionDelay: "320ms" }}
+        >
+          <div className="relative aspect-[0.5] overflow-hidden rounded-[1.4rem] border rule-light bg-bone shadow-[0_28px_56px_-28px_rgba(12,12,13,0.35)]">
+            <span className="portrait-fill absolute inset-0" />
+            {/* speaker notch */}
+            <span className="absolute left-1/2 top-2 h-1 w-6 -translate-x-1/2 rounded-full bg-ink/15" />
+          </div>
+        </div>
       </div>
 
       <div className="shell relative py-20 md:py-32">

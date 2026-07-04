@@ -7,7 +7,7 @@ import {
 } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
-import WorkCard from "@/components/WorkCard";
+import PortfolioList from "@/components/PortfolioList";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import ManifestoStatement from "@/components/ManifestoStatement";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -273,7 +273,7 @@ export default function HomePage() {
       {/* ── What we do — BIG interactive typography: the three services at
           display scale; selecting one crossfades the image panel beside
           them. Sits between the manifesto and the work. ── */}
-      <section className="relative border-t rule-dark">
+      <section className="relative">
         <div className="shell py-24 md:py-32">
           <p className="overline reveal">[ What we do ]</p>
           <div className="mt-12 reveal" style={{ transitionDelay: "120ms" }}>
@@ -304,13 +304,22 @@ export default function HomePage() {
             </Link>
           </div>
 
+          {/* Quiet list (after Relume Portfolio 19): big centred names +
+              sector chips; hover fades the composite in behind the list */}
           {featured.length > 0 ? (
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16">
-              {featured.map((project, i) => (
-                <div key={project.slug} className={i % 2 === 1 ? "md:mt-36" : ""}>
-                  <WorkCard project={project} index={i} tone="light" />
-                </div>
-              ))}
+            <div className="mt-16 reveal">
+              <PortfolioList
+                items={featured.map((project) => ({
+                  name: project.frontmatter.client,
+                  tag: getSectorLabel(project.frontmatter.sector),
+                  href: `/work/${project.slug}`,
+                  image:
+                    project.frontmatter.cardImage ?? project.frontmatter.thumbImage,
+                  imageAlt:
+                    project.frontmatter.cardImageAlt ??
+                    project.frontmatter.thumbImageAlt,
+                }))}
+              />
             </div>
           ) : (
             <p className="body text-ink/70 mt-10">
@@ -331,7 +340,7 @@ export default function HomePage() {
           ⚠️ EVERYTHING here is VISIBLY-MARKED PLACEHOLDER until real client
           words, a real portrait and live review data exist — we never draft
           quotes on a client's behalf. Swap the content, keep the structure. */}
-      <section className="relative border-t rule-dark">
+      <section className="relative">
         <div className="shell py-20 md:py-28">
           <p className="overline text-champagne reveal">Kind words</p>
           <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
@@ -388,7 +397,7 @@ export default function HomePage() {
       {/* ── Journal teaser — no overflow-hidden here, so the exit-fade can
           live inside the section directly ── */}
       {posts.length > 0 && (
-        <section className="relative border-t rule-dark">
+        <section className="relative">
           <div className="shell py-20 md:py-28">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
@@ -450,7 +459,7 @@ export default function HomePage() {
       )}
 
       {/* ── Ghost marquee — the midnight signature ─────────────────────── */}
-      <section className="overflow-hidden border-t rule-dark py-10 md:py-16">
+      <section className="overflow-hidden py-10 md:py-16">
         <div className="flex w-max animate-marquee whitespace-nowrap">
           {[0, 1].map((i) => (
             <span key={i} className="display-mega text-ghost-on-dark pr-16">
@@ -466,7 +475,7 @@ export default function HomePage() {
       {/* ── The freebie — mailing-list capture (Netlify form "newsletter").
           Rename the checklist / rewrite the pitch freely; the form and its
           static definition in public/__forms.html stay in sync. ── */}
-      <section className="relative border-t rule-dark">
+      <section className="relative">
         <div className="shell py-20 md:py-28">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
             <div className="md:col-span-6">

@@ -27,7 +27,7 @@ export default function Footer() {
   const year = "2026"; // bump annually; kept static to avoid hydration drift
 
   return (
-    <footer className="relative bg-ink border-t rule-dark">
+    <footer className="relative bg-ink">
       {/* ── Instagram — seamless full-bleed strip, connected to the footer ── */}
       <div className="shell flex flex-wrap items-end justify-between gap-4 pt-14 pb-8 md:pt-20">
         <div>
