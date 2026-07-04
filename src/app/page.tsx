@@ -231,39 +231,42 @@ export default function HomePage() {
             (the extra 70vh of track) before releasing: anchored, not scrubbed */}
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <div className="shell relative z-10 w-full">
-            {/* Edge-anchored composition: the statement owns the LEFT of the
-                grid; the stats stack as a rail on the RIGHT edge, baselines
-                meeting at the bottom. */}
-            <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:items-end">
-              <div className="md:col-span-8">
-                <p className="overline reveal">Considered</p>
-                {/* Scroll-scrubbed word highlight — words brighten at the
-                    pace you scroll (see ManifestoStatement) */}
-                <ManifestoStatement text={MANIFESTO} />
-              </div>
+            <p className="overline reveal">Considered</p>
+            {/* Scroll-scrubbed word highlight — words brighten at the pace
+                you scroll (see ManifestoStatement) */}
+            <ManifestoStatement text={MANIFESTO} />
 
-              {/* Stats — three defensible numbers on hairlines (no invented
-                  client metrics: the ranking claim is the Hawkes study's,
-                  the rest are definitionally true) */}
-              <div className="md:col-span-3 md:col-start-10">
-                {[
-                  { value: "#1–3", label: "Google positions won for a specialist's key procedures" },
-                  { value: "100%", label: "of our work is for medical aesthetics & surgery" },
-                  { value: "12", label: "point website audit, free for practices" },
-                ].map((stat, i) => (
-                  <div
-                    key={stat.value}
-                    className={`border-t rule-dark pt-5 reveal ${i > 0 ? "mt-8" : ""}`}
-                    style={{ transitionDelay: `${200 + i * 80}ms` }}
+            {/* Stats — a full-width band UNDER the statement: one hairline,
+                three champagne numerals spread edge to edge (left / centre /
+                right). Defensible numbers only — the ranking claim is the
+                Hawkes study's, the rest are definitionally true. */}
+            <div className="mt-16 grid grid-cols-1 gap-10 border-t rule-dark pt-10 sm:grid-cols-3 md:mt-24 md:pt-12">
+              {[
+                { value: "#1–3", label: "Google positions won for a specialist's key procedures", align: "" },
+                { value: "100%", label: "of our work is for medical aesthetics & surgery", align: "sm:text-center" },
+                { value: "12", label: "point website audit, free for practices", align: "sm:text-right" },
+              ].map((stat, i) => (
+                <div
+                  key={stat.value}
+                  className={`reveal ${stat.align}`}
+                  style={{ transitionDelay: `${200 + i * 100}ms` }}
+                >
+                  <p className="stat text-champagne">{stat.value}</p>
+                  <p
+                    className={`label mt-3 max-w-[24ch] text-bone-dim ${
+                      stat.align === "sm:text-center"
+                        ? "sm:mx-auto"
+                        : stat.align === "sm:text-right"
+                          ? "sm:ml-auto"
+                          : ""
+                    }`}
                   >
-                    <p className="stat text-champagne">{stat.value}</p>
-                    <p className="label mt-2 text-bone-dim">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
-
         </div>
         {/* Fade-to-ink on exit — every section hands over through darkness */}
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
