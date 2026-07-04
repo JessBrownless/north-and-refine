@@ -222,21 +222,17 @@ export default function HomePage() {
       <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </div>
 
-      {/* ── Manifesto — a full-viewport ink moment on the SAME continuous
-          scene as the hero (no own background). The shared glow has faded to
-          ink by here; its champagne orbs add the local light. Words fade in
-          staggered as the section enters view. */}
-      <section className="relative z-10 h-[170vh]">
-        {/* Sticky screen — the statement holds the viewport for a short beat
-            (the extra 70vh of track) before releasing: anchored, not scrubbed */}
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          <div className="shell relative z-10 w-full">
-            <p className="overline reveal">Considered</p>
-            {/* Scroll-scrubbed word highlight — words brighten at the pace
-                you scroll (see ManifestoStatement); the measure runs the
-                full content grid */}
-            <ManifestoStatement text={MANIFESTO} />
-          </div>
+      {/* ── Manifesto — a normal-flow ink moment on the SAME continuous
+          scene as the hero (no own background, and NO sticky pin — the old
+          70vh dwell read as the page being stuck). The statement scrolls
+          through at reading pace while the scrub lights the words. ── */}
+      <section className="relative z-10">
+        <div className="shell py-28 md:py-40">
+          <p className="overline reveal">Considered</p>
+          {/* Scroll-scrubbed word highlight — words brighten at the pace
+              you scroll (see ManifestoStatement); the measure runs the
+              full content grid */}
+          <ManifestoStatement text={MANIFESTO} />
         </div>
         {/* Fade-to-ink on exit — every section hands over through darkness */}
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
@@ -274,7 +270,11 @@ export default function HomePage() {
               <div
                 key={stat.value}
                 className={`card-glass relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-2xl p-8 reveal md:p-10 ${stat.span}`}
-                style={{ transitionDelay: `${i * 100}ms` }}
+                style={{
+                  // Slow, staggered roll-in — softer than the stock reveal
+                  transitionDuration: "1.4s",
+                  transitionDelay: `${i * 160}ms`,
+                }}
               >
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: stat.blob }} />
                 <p className="stat relative text-champagne">{stat.value}</p>
