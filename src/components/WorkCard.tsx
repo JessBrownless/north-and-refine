@@ -24,21 +24,35 @@ export default function WorkCard({
 
   return (
     <Link href={`/work/${slug}`} className="group block reveal" style={{ transitionDelay: `${(index % 3) * 80}ms` }}>
-      {/* Thumb */}
-      <div className="frame aspect-[1.3333] rounded-sm">
-        {fm.thumbImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={fm.thumbImage}
-            alt={fm.thumbImageAlt ?? ""}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-display text-bone/20 text-6xl">{num}</span>
-          </div>
-        )}
+      {/* Thumb — a slim faux-browser (echoing BrowserMockup) so every capture
+          sits at a PROPER browser aspect (16:10 viewport) under a chrome bar.
+          Falls back to the typographic placeholder until imagery lands. */}
+      <div className="overflow-hidden rounded-xl border border-ink-line bg-ink-raised">
+        <div className="flex items-center gap-1.5 border-b rule-dark bg-ink/60 px-3.5 py-2.5">
+          <span className="h-2 w-2 rounded-full bg-clay/50" />
+          <span className="h-2 w-2 rounded-full bg-clay/35" />
+          <span className="h-2 w-2 rounded-full bg-clay/25" />
+          {fm.domain && (
+            <span className="ml-2.5 flex h-5 items-center rounded-md border border-ink-line bg-ink/70 px-2.5 font-mono text-[9px] tracking-wide text-bone-dim">
+              {fm.domain}
+            </span>
+          )}
+        </div>
+        <div className="frame aspect-[1.6] w-full">
+          {fm.thumbImage ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={fm.thumbImage}
+              alt={fm.thumbImageAlt ?? ""}
+              loading="lazy"
+              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-display text-bone/20 text-6xl">{num}</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Meta */}
