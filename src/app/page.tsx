@@ -299,38 +299,58 @@ export default function HomePage() {
       <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </div>
 
-      {/* ── Kind words — social proof: star rating + one centred client
-          quote. ⚠️ EVERYTHING here is VISIBLY-MARKED PLACEHOLDER until real
-          client words and live review data exist — we never draft quotes on
-          a client's behalf. Swap the copy, keep the structure. ── */}
+      {/* ── Kind words — social proof, split layout (after Relume
+          Testimonial 13): client portrait LEFT; stars, quote and an
+          attribution row (name/role · divider · practice wordmark) RIGHT.
+          ⚠️ EVERYTHING here is VISIBLY-MARKED PLACEHOLDER until real client
+          words, a real portrait and live review data exist — we never draft
+          quotes on a client's behalf. Swap the content, keep the structure. */}
       <section className="relative border-t rule-dark">
-        <div className="shell py-20 text-center md:py-28">
+        <div className="shell py-20 md:py-28">
           <p className="overline text-champagne reveal">Kind words</p>
-          <div
-            className="mt-7 flex items-center justify-center gap-2 text-champagne reveal"
-            style={{ transitionDelay: "80ms" }}
-            role="img"
-            aria-label="Rated five stars by clients"
-          >
-            {[0, 1, 2, 3, 4].map((i) => (
-              <span key={i} aria-hidden className="text-xl">
-                ★
-              </span>
-            ))}
+          <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
+            {/* Portrait slot — swap for a real client photo */}
+            <div className="md:col-span-5 reveal">
+              <div className="frame aspect-[4/5] rounded-xl">
+                <div className="portrait-fill absolute inset-0" />
+                <span className="overline absolute bottom-5 left-5 text-ink/55">
+                  Client portrait — placeholder
+                </span>
+              </div>
+            </div>
+
+            {/* Quote column */}
+            <div className="md:col-span-6 md:col-start-7">
+              <div
+                className="flex items-center gap-2 text-champagne reveal"
+                role="img"
+                aria-label="Rated five stars"
+              >
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <span key={i} aria-hidden className="text-lg">
+                    ★
+                  </span>
+                ))}
+              </div>
+              <blockquote className="blockquote mt-7 reveal" style={{ transitionDelay: "80ms" }}>
+                &ldquo;Placeholder — a client&rsquo;s real words will sit
+                here. We don&rsquo;t write these ourselves.&rdquo;
+              </blockquote>
+              <div
+                className="mt-9 flex items-center gap-6 reveal"
+                style={{ transitionDelay: "160ms" }}
+              >
+                <div>
+                  <p className="body font-medium text-bone">Client name</p>
+                  <p className="body text-bone-dim">Role, Practice — placeholder</p>
+                </div>
+                <div aria-hidden className="h-10 w-px bg-bone/15" />
+                <span className="font-display text-lg tracking-tight text-bone-dim">
+                  Practice wordmark
+                </span>
+              </div>
+            </div>
           </div>
-          <p className="label mt-3 text-clay reveal" style={{ transitionDelay: "120ms" }}>
-            5.0 · client reviews — placeholder until reviews are live
-          </p>
-          <blockquote
-            className="statement mx-auto mt-10 max-w-4xl reveal"
-            style={{ transitionDelay: "160ms" }}
-          >
-            &ldquo;Placeholder — a client&rsquo;s real words will sit here. We
-            don&rsquo;t write these ourselves.&rdquo;
-          </blockquote>
-          <p className="overline mt-9 text-bone-dim reveal" style={{ transitionDelay: "220ms" }}>
-            Client name · Practice, City
-          </p>
         </div>
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
