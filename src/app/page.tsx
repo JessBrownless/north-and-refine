@@ -8,6 +8,8 @@ import {
 import { getAllPosts, getCategoryLabel } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
+import BrowserMockup from "@/components/BrowserMockup";
+import PhoneMockup from "@/components/PhoneMockup";
 import ContactCTA from "@/components/ContactCTA";
 
 // Homepage — the Obsidian direction. Champagne-lit ink scene, an asymmetric
@@ -173,10 +175,11 @@ export default function HomePage() {
                 <span className="live-dot" aria-hidden />
                 Available for projects
               </p>
-              {/* text-balance: at laptop widths the .display size wraps —
-                  balance the two lines rather than stranding one word */}
+              {/* Constrained measure so the .display size wraps as TWO
+                  balanced lines at every desktop width — the stacked lockup
+                  reads more editorial than one long line */}
               <h1
-                className="display from-overline text-balance opacity-0 animate-fade-in-up"
+                className="display from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.7s" }}
               >
                 Practices patients trust
@@ -261,35 +264,44 @@ export default function HomePage() {
       </section>
       </div>
 
-      {/* ── Selected work — the light interruption after the ink manifesto.
-          Cards stagger: even columns sit high, odd columns drop, so no two
-          studies ever sit level. ── */}
-      <section id="selected-work" data-nav-light className="bg-bone text-ink scroll-mt-14">
-        <div className="shell py-20 md:py-28">
+      {/* ── Selected work — stays ON the ink scene (the hero is the style
+          reference; the page reads as one continuous dark world until the
+          bone CTA close). A single champagne pool drifts on the right for
+          asymmetric light; cards stagger so no two studies sit level. ── */}
+      <section id="selected-work" className="relative overflow-hidden scroll-mt-14">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute right-[-16%] top-[-4%] h-[64vh] w-[44vw] animate-float-slower"
+          style={{
+            background:
+              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
+          }}
+        />
+        <div className="shell relative py-24 md:py-36">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="overline text-clay reveal">Selected work</p>
+              <p className="overline text-champagne reveal">Selected work</p>
               <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Practices we&rsquo;ve refined
               </h2>
             </div>
-            <Link href="/work" className="btn-ghost text-ink reveal">
+            <Link href="/work" className="btn-ghost text-bone reveal">
               All work <span aria-hidden>→</span>
             </Link>
           </div>
 
           {featured.length > 0 ? (
-            <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14">
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16">
               {featured.map((project, i) => (
-                <div key={project.slug} className={i % 2 === 1 ? "md:mt-32" : ""}>
-                  <WorkCard project={project} index={i} tone="light" />
+                <div key={project.slug} className={i % 2 === 1 ? "md:mt-36" : ""}>
+                  <WorkCard project={project} index={i} />
                 </div>
               ))}
             </div>
           ) : (
-            <p className="body text-ink/70 mt-10">
+            <p className="body text-bone-dim mt-10">
               Case studies are on the way. In the meantime,{" "}
-              <Link href="/contact" className="text-clay underline underline-offset-4">
+              <Link href="/contact" className="text-champagne underline underline-offset-4">
                 start a conversation
               </Link>
               .
@@ -298,40 +310,75 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── What we do — glass bento ───────────────────────────────────── */}
-      <section className="border-t rule-dark">
-        <div className="shell py-20 md:py-28">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
-            <div className="md:col-span-6">
+      {/* ── What we do — asymmetric split: copy rail left, the canonical
+          responsive device cluster right (CSS placeholder screens on a
+          gradient pool — swap in real captures later), then the services as
+          editorial index rows. ── */}
+      <section className="relative overflow-hidden border-t rule-dark">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-[30%] top-[6%] h-[70vh] w-[52vw] animate-float-slow"
+          style={{
+            background:
+              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 8%, transparent) 0%, transparent 100%)",
+          }}
+        />
+        <div className="shell relative py-24 md:py-36">
+          <div className="grid grid-cols-1 gap-16 md:grid-cols-12 md:items-center">
+            {/* Copy rail — left */}
+            <div className="md:col-span-5">
               <p className="overline text-champagne reveal">What we do</p>
               <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Three disciplines, one coherent result.
               </h2>
+              <p className="body-lg lede text-bone-dim reveal" style={{ transitionDelay: "160ms" }}>
+                Brand, web and search, delivered by one studio — so nothing
+                falls between the cracks.
+              </p>
+              <div className="mt-10 reveal" style={{ transitionDelay: "240ms" }}>
+                <Link href="/services" className="btn btn-secondary-dark">
+                  How we work
+                  <span aria-hidden>→</span>
+                </Link>
+              </div>
             </div>
-            <p className="body-lg text-bone-dim md:col-span-5 md:col-start-8 reveal" style={{ transitionDelay: "160ms" }}>
-              Brand, web and search, delivered by one studio — so nothing falls between the
-              cracks.
-            </p>
+
+            {/* Device cluster — placeholder mockups (CSS screens) until real
+                project captures land; browser anchored right, phone
+                overlapping its lower-left corner */}
+            <div className="relative md:col-span-7">
+              <div className="relative sm:ml-14 md:ml-20">
+                <BrowserMockup
+                  domain="yourpractice.com.au"
+                  className="rotate-[0.5deg] reveal"
+                />
+              </div>
+              {/* Phone at sm — proportioned to the 7-col browser (the md size
+                  outgrows it at this width) */}
+              <div
+                className="absolute -bottom-8 left-0 hidden sm:block md:-bottom-10 reveal"
+                style={{ transitionDelay: "160ms" }}
+              >
+                <div className="-rotate-[7deg] animate-float-slower">
+                  <PhoneMockup screen="ink" size="sm" />
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Services — editorial index rows on hairlines, asymmetric grid */}
+          <div className="mt-24 border-t rule-dark md:mt-32">
             {SERVICES.map((s, i) => (
               <div
                 key={s.num}
-                className="card-glass p-8 reveal"
+                className="grid grid-cols-1 gap-3 border-b rule-dark py-9 md:grid-cols-12 md:gap-8 md:py-12 reveal"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                <p className="index-num text-champagne">{s.num} /</p>
-                <h3 className="heading-md mt-4">{s.title}</h3>
-                <p className="body mt-3 text-bone-dim">{s.body}</p>
+                <p className="index-num text-champagne md:col-span-2">{s.num} /</p>
+                <h3 className="heading-md md:col-span-4">{s.title}</h3>
+                <p className="body text-bone-dim md:col-span-5 md:col-start-8">{s.body}</p>
               </div>
             ))}
-          </div>
-          <div className="mt-12">
-            <Link href="/services" className="btn btn-secondary-dark">
-              How we work
-              <span aria-hidden>→</span>
-            </Link>
           </div>
         </div>
       </section>
@@ -351,12 +398,15 @@ export default function HomePage() {
                 All entries <span aria-hidden>→</span>
               </Link>
             </div>
+            {/* Cards cascade — each drops a step lower than the last */}
             <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
               {posts.map((post, i) => (
                 <Link
                   key={post.slug}
                   href={`/journal/${post.slug}`}
-                  className="group card-glass block p-8 reveal"
+                  className={`group card-glass block p-8 reveal ${
+                    i === 1 ? "md:mt-14" : i === 2 ? "md:mt-28" : ""
+                  }`}
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
                   <p className="overline text-champagne">{getCategoryLabel(post.frontmatter.category)}</p>

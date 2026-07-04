@@ -82,6 +82,15 @@ export default function Footer() {
           </p>
         </div>
       </div>
+
+      {/* The signature close — a giant NORTH cropped by the page's end.
+          translate-y (not margin) does the crop, so the footer's height ends
+          exactly at the visible glyph line. Decorative only. */}
+      <div aria-hidden className="select-none overflow-hidden pt-10 md:pt-16">
+        <p className="wordmark-giant translate-y-[0.2em] text-center text-bone/[0.13]">
+          NORTH
+        </p>
+      </div>
     </footer>
   );
 }

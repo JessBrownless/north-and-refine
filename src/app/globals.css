@@ -328,6 +328,17 @@
     opacity: 1;
     transform: none;
   }
+  /* Footer signature — the giant cropped NORTH. vw-sized to span most of the
+     viewport; crop it with an overflow-hidden parent + translate-y (transform
+     doesn't affect layout, so the footer ends exactly where the crop does). */
+  .wordmark-giant {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 500;
+    font-size: clamp(5.5rem, 20vw, 24rem);
+    line-height: 0.8;
+    letter-spacing: -0.045em;
+  }
+
   /* Scroll-driven fade-to-ink for an exiting hero: place as a pointer-events-
      none overlay INSIDE the hero section; it darkens as the hero scrolls out,
      handing the stage to the section arriving beneath. Pure CSS (scroll-

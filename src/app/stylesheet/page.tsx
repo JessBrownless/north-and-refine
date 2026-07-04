@@ -46,6 +46,7 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: string }[
   { cls: "stat text-champagne", label: ".stat", note: "40→72px · MONO stat numbers", sample: "156%" },
   { cls: "label text-clay", label: ".label", note: "13px · captions & meta", sample: "Brand · Web · SEO" },
   { cls: "fineprint", label: ".fineprint", note: "12px · fine print", sample: "© 2026 North & Refine Studio." },
+  { cls: "wordmark-giant", label: ".wordmark-giant", note: "20vw (max 384px) · the footer's cropped NORTH — pair with overflow-hidden + translate-y", sample: "NORTH" },
 ];
 
 const MOTION: { cls: string; note: string }[] = [
