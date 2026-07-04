@@ -50,24 +50,6 @@ const DECK_ORDER: WorkSector[] = [
 const MANIFESTO =
   "After years of watching brilliant clinics undersold by template websites, we built a studio that treats a practice’s digital presence with the same care as the medicine itself.";
 
-const SERVICES = [
-  {
-    num: "01",
-    title: "Brand identity",
-    body: "A considered visual language — name, mark, type, palette and tone — that signals the standard of your care before a word is read.",
-  },
-  {
-    num: "02",
-    title: "Web design & build",
-    body: "Fast, accessible, beautifully made websites that hold attention and turn a nervous first visit into a booked consultation.",
-  },
-  {
-    num: "03",
-    title: "SEO & content",
-    body: "Technical SEO, schema and an editorial content engine that compounds — so the right patients find you, on your own terms.",
-  },
-];
-
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 3);
@@ -263,27 +245,6 @@ export default function HomePage() {
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
       </div>
-
-      {/* ── What we do — the three disciplines as BIG editorial rows, sat
-          between the manifesto and the work: index number · title at
-          .statement scale · body on the right, hairlines between. No
-          header, no mockups — the rows ARE the statement. ── */}
-      <section className="relative border-t rule-dark">
-        <div className="shell py-16 md:py-24">
-          {SERVICES.map((s, i) => (
-            <div
-              key={s.num}
-              className="grid grid-cols-1 gap-4 border-b rule-dark py-10 md:grid-cols-12 md:items-end md:gap-8 md:py-14 reveal"
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <p className="index-num text-champagne md:col-span-1">{s.num}</p>
-              <h2 className="statement md:col-span-7">{s.title}</h2>
-              <p className="body-lg text-bone-dim md:col-span-4 md:col-start-9">{s.body}</p>
-            </div>
-          ))}
-        </div>
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
 
       {/* ── Selected work — stays ON the ink scene (the hero is the style
           reference; the page reads as one continuous dark world until the
