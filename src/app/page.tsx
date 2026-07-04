@@ -109,9 +109,10 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ── Dark scene: the hero and the manifesto share ONE continuous ink
-          field (single ambient glow, single grain overlay on this wrapper) —
-          interrupted midway by the bone sector band, which caps the deck. ── */}
+      {/* ── Dark scene: hero, manifesto AND stats share ONE continuous ink
+          field (single ambient glow + pools + one grain overlay on this
+          wrapper) — the intro makes the claim, the stats prove it, and no
+          seam or fade separates them. ── */}
       <div className="relative bg-ink">
         {/* One continuous ambient field across ALL THREE dark sections — but
             RESTRAINED: the scene is ink first, lit second. Built from the SAME
@@ -136,6 +137,15 @@ export default function HomePage() {
             style={{
               background:
                 "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
+            }}
+          />
+          {/* Pool spanning the manifesto→stats boundary — the bubbles carry
+              across both so the proof reads as the SAME scene */}
+          <div
+            className="absolute right-[-10%] bottom-[4%] h-[70vh] w-[48vw] animate-float-slower"
+            style={{
+              background:
+                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 8%, transparent) 0%, transparent 100%)",
             }}
           />
           <div className="grain absolute inset-0" />
@@ -234,37 +244,57 @@ export default function HomePage() {
               full content grid */}
           <ManifestoStatement text={MANIFESTO} />
         </div>
-        {/* Fade-to-ink on exit — every section hands over through darkness */}
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+        {/* No exit-fade here — the manifesto flows STRAIGHT into the stats
+            (the proof) on the same continuous scene */}
       </section>
-      </div>
 
-      {/* ── Stats — a bento row: glass cards with rounded edges, each lit
-          by its own champagne gradient blob (pure gradients — no filter
-          blur). Varied widths keep it bento rather than a strict grid.
-          Defensible numbers only — the ranking claim is the Hawkes
-          study's, the rest are definitionally true. ── */}
-      <section className="relative">
-        <div className="shell py-24 md:py-32">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
+      {/* ── Stats — THE PROOF of the manifesto, on the same continuous
+          scene (inside the shared ambient wrapper — no seam, no fade
+          between). An asymmetric bento: one tall imagery card (the work
+          behind the headline number) + four glass stat cards at varied
+          widths, each lit by its own champagne gradient blob. Numbers are
+          defensible: the ranking is the Hawkes study's, the rest are
+          definitionally true. ── */}
+      <section className="relative z-10">
+        <div className="shell pb-28 md:pb-40">
+          <p className="overline reveal">The proof</p>
+          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
+            {/* Imagery card — the work the numbers came from */}
+            <div className="frame relative min-h-[320px] rounded-2xl reveal md:col-span-5 md:row-span-2 md:min-h-0" style={{ transitionDuration: "1.4s" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/desktops/dr-elizabeth-hawkes.jpg"
+                alt="The Dr Elizabeth Hawkes website — the project behind the page-one rankings"
+                className="absolute inset-0 h-full w-full object-cover object-left-top"
+              />
+              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+              <p className="overline absolute bottom-5 left-5 text-bone">The work behind the numbers</p>
+            </div>
+
             {[
               {
                 value: "#1–3",
                 label: "Google positions won for a specialist's key procedures",
-                span: "md:col-span-5",
+                span: "md:col-span-4",
                 blob: "radial-gradient(120% 120% at 85% -10%, color-mix(in srgb, var(--champagne) 16%, transparent) 0%, transparent 70%)",
+              },
+              {
+                value: "0",
+                label: "templates used — every practice designed from scratch",
+                span: "md:col-span-3",
+                blob: "radial-gradient(130% 130% at -10% 110%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 70%)",
               },
               {
                 value: "100%",
                 label: "of our work is for medical aesthetics & surgery",
-                span: "md:col-span-4",
-                blob: "radial-gradient(130% 130% at -10% 110%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 70%)",
-              },
-              {
-                value: "12",
-                label: "point website audit, free for practices",
                 span: "md:col-span-3",
                 blob: "radial-gradient(140% 110% at 50% 120%, color-mix(in srgb, var(--champagne) 15%, transparent) 0%, transparent 72%)",
+              },
+              {
+                value: "2",
+                label: "countries our clients practise in — Sydney to London",
+                span: "md:col-span-4",
+                blob: "radial-gradient(120% 130% at 110% 40%, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 70%)",
               },
             ].map((stat, i) => (
               <div
@@ -273,7 +303,7 @@ export default function HomePage() {
                 style={{
                   // Slow, staggered roll-in — softer than the stock reveal
                   transitionDuration: "1.4s",
-                  transitionDelay: `${i * 160}ms`,
+                  transitionDelay: `${(i + 1) * 160}ms`,
                 }}
               >
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: stat.blob }} />
@@ -283,8 +313,10 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+        {/* Fade-to-ink on exit — the proof hands over through darkness */}
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
+      </div>
 
       {/* ── What we do — BIG interactive typography: the three services at
           display scale; selecting one crossfades the image panel beside
