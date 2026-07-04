@@ -56,6 +56,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 - On light: `.btn-primary-light` (solid ink), `.btn-secondary-light` (outline)
 - `.btn-sm` size modifier · `.btn-ghost` = minimal arrow text-link
 - One primary per view. The `→` is optional child markup.
+- `.btn-arrow` — the FLAGSHIP CTA (compose `.btn` + primary variant + `.btn-arrow`): label left, filled circular ↗ chip right (`<span class="btn-arrow-chip" aria-hidden>↗</span>`). One per page; it outranks the plain primary (homepage hero "See the work").
 - Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
 - `.live-dot` — the pulsing ember availability signal, ONE per view. It lives in the Navbar (`● Available for projects`, tall state only — it folds away in the condensed pill). Don't add a second elsewhere.
 

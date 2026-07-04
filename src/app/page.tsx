@@ -180,12 +180,13 @@ export default function HomePage() {
                 className="heading-xl from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.7s" }}
               >
-                Practices patients trust
+                Practices Patients Trust
               </h1>
             </div>
 
+            {/* Lede sits at 55% bone — visibly quieter than the headline */}
             <p
-              className="lede body-lg mx-auto max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
+              className="lede body-lg mx-auto max-w-2xl text-bone/55 opacity-0 animate-fade-in-up"
               style={{ animationDelay: "0.9s" }}
             >
               Brand, web design and SEO for cosmetic surgeons, medical aesthetic
@@ -196,9 +197,10 @@ export default function HomePage() {
               className="mt-10 flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in-up"
               style={{ animationDelay: "1.1s" }}
             >
-              <Link href="/work" className="btn btn-primary-dark">
+              {/* Flagship CTA — label left, circular ↗ chip right */}
+              <Link href="/work" className="btn btn-primary-dark btn-arrow">
                 See the work
-                <span aria-hidden>→</span>
+                <span className="btn-arrow-chip" aria-hidden>↗</span>
               </Link>
               <Link href="/contact" className="btn btn-secondary-dark">
                 Start a project

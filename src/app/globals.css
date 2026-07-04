@@ -419,6 +419,37 @@
     letter-spacing: 0.2em;
   }
 
+  /* Flagship CTA — a pill with the label LEFT and a filled circular ↗ chip
+     RIGHT. Compose .btn + a primary variant + .btn-arrow, with the chip as
+     child markup: <span class="btn-arrow-chip" aria-hidden>↗</span>.
+     ONE per page — it outranks the plain primary as the lead action. */
+  .btn-arrow {
+    /* Chip defines the height: slim vertical padding, chip inset 6px */
+    padding: 0.375rem 0.375rem 0.375rem 1.75rem;
+    gap: 1.1em;
+  }
+  .btn-arrow-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.375rem;
+    height: 2.375rem;
+    border-radius: 9999px;
+    font-size: 1.05rem;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-arrow:hover .btn-arrow-chip {
+    transform: translate(2px, -2px); /* the arrow leans northeast */
+  }
+  .btn-primary-dark .btn-arrow-chip {
+    background: var(--ink);
+    color: var(--bone);
+  }
+  .btn-primary-light .btn-arrow-chip {
+    background: var(--bone);
+    color: var(--ink);
+  }
+
   /* Live-availability signal — a small ember dot for ONE CTA per view
      (the 60-30-10 "10"). Pulses a soft halo; the global reduced-motion
      guard stills it. */

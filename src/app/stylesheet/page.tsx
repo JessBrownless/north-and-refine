@@ -254,6 +254,7 @@ export default function StylesheetPage() {
         <Sub title="Buttons" note="Compose .btn + one variant; light/dark is the background the button sits on. Padding sits on the 8px grid (16/32 · sm 16/24). One primary per view; → is optional child markup. The .live-dot ember signal marks availability — ONE per view." />
         <div className="mt-6 space-y-6">
           <div className="flex flex-wrap gap-4">
+            <button className="btn btn-primary-dark btn-arrow">Flagship CTA <span className="btn-arrow-chip" aria-hidden>↗</span></button>
             <button className="btn btn-primary-dark">Primary dark <span aria-hidden>→</span></button>
             <button className="btn btn-secondary-dark">Secondary dark</button>
             <button className="btn btn-secondary-dark"><span className="live-dot" aria-hidden /> Live-dot CTA</button>
