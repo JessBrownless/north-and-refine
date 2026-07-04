@@ -7,7 +7,6 @@ import {
 } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
-import PortfolioList from "@/components/PortfolioList";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import ManifestoStatement from "@/components/ManifestoStatement";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -255,17 +254,73 @@ export default function HomePage() {
           </div>
         </div>
         </div>
-        {/* No exit-fade here — the manifesto flows STRAIGHT into the stats
-            (the proof) on the same continuous scene */}
+        {/* Fade-to-ink on exit — the dark scene hands over to the bone work */}
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+      </div>
+
+      {/* ── Selected work — the bone interruption, image-led: BIG
+          composites with just a title under each (the page's rhythm:
+          texty manifesto → imagey work → the proof). Second column
+          drops for asymmetry. ── */}
+      <section
+        id="selected-work"
+        data-nav-light
+        className="relative bg-bone text-ink scroll-mt-14"
+      >
+        <div className="shell py-24 text-center md:py-36">
+          <h2 className="overline text-clay reveal">Selected work</h2>
+          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2">
+            {featured.map((project, i) => (
+              <Link
+                key={project.slug}
+                href={`/work/${project.slug}`}
+                className={`group block reveal ${i % 2 === 1 ? "md:mt-24" : ""}`}
+                style={{ transitionDelay: `${(i % 2) * 120}ms`, transitionDuration: "1.2s" }}
+              >
+                <div className="frame aspect-[4/3] rounded-xl">
+                  {project.frontmatter.cardImage || project.frontmatter.thumbImage ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.frontmatter.cardImage ?? project.frontmatter.thumbImage}
+                      alt={
+                        project.frontmatter.cardImage
+                          ? (project.frontmatter.cardImageAlt ?? "")
+                          : (project.frontmatter.thumbImageAlt ?? "")
+                      }
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <span className="font-display text-6xl text-bone/20">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </span>
+                  )}
+                </div>
+                <p className="heading-sm mt-6 text-ink transition-opacity group-hover:opacity-70">
+                  {project.frontmatter.client}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-20 reveal">
+            <Link href="/work" className="btn btn-secondary-light">
+              All work
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </section>
 
-      {/* ── Stats — THE PROOF of the manifesto, on the same continuous
-          scene (inside the shared ambient wrapper — no seam, no fade
-          between). An asymmetric bento: one tall imagery card (the work
-          behind the headline number) + four glass stat cards at varied
-          widths, each lit by its own champagne gradient blob. Numbers are
-          defensible: the ranking is the Hawkes study's, the rest are
-          definitionally true. ── */}
+      {/* ── Stats — THE PROOF, straight after the work it came from. An
+          asymmetric bento: one tall imagery card (the site behind the
+          headline number) + four glass stat cards at varied widths, each
+          lit by its own champagne gradient blob. Numbers are defensible:
+          the ranking is the Hawkes study's, the rest are definitionally
+          true. ── */}
       <section className="relative z-10">
         <div className="shell pb-28 md:pb-40">
           <p className="overline reveal">The proof</p>
@@ -327,7 +382,6 @@ export default function HomePage() {
         {/* Fade-to-ink on exit — the proof hands over through darkness */}
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
-      </div>
 
       {/* ── What we do — BIG interactive typography: the three services at
           display scale; selecting one crossfades the image panel beside
@@ -340,54 +394,6 @@ export default function HomePage() {
           </div>
         </div>
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
-
-      {/* ── Selected work — the BONE interruption: the portfolio sits on
-          light so the studies' captures carry the colour. Late exit-fade
-          (the light background shows the hand-over vividly). ── */}
-      <section
-        id="selected-work"
-        data-nav-light
-        className="relative bg-bone text-ink scroll-mt-14"
-      >
-        <div className="shell py-24 text-center md:py-36">
-          {/* One small overline only — the list IS the heading */}
-          <h2 className="overline text-clay reveal">Selected work</h2>
-
-          {/* Quiet list (after Relume Portfolio 19): big centred names +
-              sector chips; hover fades the composite in behind the list */}
-          {featured.length > 0 ? (
-            <div className="mt-12 reveal">
-              <PortfolioList
-                items={featured.map((project) => ({
-                  name: project.frontmatter.client,
-                  tag: getSectorLabel(project.frontmatter.sector),
-                  href: `/work/${project.slug}`,
-                  image:
-                    project.frontmatter.cardImage ?? project.frontmatter.thumbImage,
-                  imageAlt:
-                    project.frontmatter.cardImageAlt ??
-                    project.frontmatter.thumbImageAlt,
-                }))}
-              />
-              <div className="mt-14 reveal" style={{ transitionDelay: "120ms" }}>
-                <Link href="/work" className="btn btn-secondary-light">
-                  All work
-                  <span aria-hidden>→</span>
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <p className="body text-ink/70 mt-10">
-              Case studies are on the way. In the meantime,{" "}
-              <Link href="/contact" className="text-clay underline underline-offset-4">
-                start a conversation
-              </Link>
-              .
-            </p>
-          )}
-        </div>
-        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </section>
 
       {/* ── Kind words — social proof, split layout (after Relume
