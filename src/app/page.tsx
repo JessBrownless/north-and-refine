@@ -170,16 +170,14 @@ export default function HomePage() {
               the top. */}
           <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
             <div className="mx-auto max-w-5xl">
-              {/* Live availability badge — the ONE ember touch in view */}
-              <p className="overline text-bone-dim flex items-center justify-center gap-3 opacity-0 animate-track-in">
-                <span className="live-dot" aria-hidden />
-                Available for projects
+              <p className="overline text-bone-dim opacity-0 animate-track-in">
+                The studio behind
               </p>
-              {/* Constrained measure so the .display size wraps as TWO
-                  balanced lines at every desktop width — the stacked lockup
-                  reads more editorial than one long line */}
+              {/* Constrained measure + text-balance: the H1 wraps as TWO
+                  balanced lines — the stacked lockup reads more editorial
+                  than one long line */}
               <h1
-                className="display from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
+                className="heading-xl from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.7s" }}
               >
                 Practices patients trust

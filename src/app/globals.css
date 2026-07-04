@@ -434,9 +434,10 @@
 
   /* On DARK backgrounds */
   .btn-primary-dark {
-    background: var(--bone);
+    /* A whisper of transparency — the ink scene breathes through the fill */
+    background: color-mix(in srgb, var(--bone) 90%, transparent);
     color: var(--ink);
-    border-color: var(--bone);
+    border-color: color-mix(in srgb, var(--bone) 90%, transparent);
   }
   .btn-primary-dark:hover {
     background: var(--champagne-soft);

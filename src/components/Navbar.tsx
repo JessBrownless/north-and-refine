@@ -102,6 +102,18 @@ export default function Navbar() {
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-9">
+              {/* Availability badge — the ONE ember touch, living in the nav.
+                  The condensed pill has no width to spare, so it folds away
+                  (width + opacity) as the pill forms and returns when the
+                  tall nav does. */}
+              <span
+                className={`hidden lg:flex items-center gap-2.5 whitespace-nowrap overflow-hidden transition-all duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  pill ? "max-w-0 opacity-0 -ml-9" : "max-w-xs opacity-100 ml-0"
+                }`}
+              >
+                <span className="live-dot" aria-hidden />
+                <span className={`nav-link ${fg}`}>Available for projects</span>
+              </span>
               {NAV.map((item) => {
                 const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (

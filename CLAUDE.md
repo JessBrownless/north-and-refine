@@ -57,7 +57,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 - `.btn-sm` size modifier · `.btn-ghost` = minimal arrow text-link
 - One primary per view. The `→` is optional child markup.
 - Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
-- `.live-dot` — the pulsing ember availability signal, ONE per view (the homepage hero eyebrow: ● Available for projects).
+- `.live-dot` — the pulsing ember availability signal, ONE per view. It lives in the Navbar (`● Available for projects`, tall state only — it folds away in the condensed pill). Don't add a second elsewhere.
 
 ### Layout helpers
 
