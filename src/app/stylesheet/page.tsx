@@ -39,7 +39,7 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: string }[
   { cls: "body", label: ".body", note: "16px · default UI/body copy", sample: "The studio takes on a limited number of projects at a time." },
   { cls: "body-reading", label: ".body-reading", note: "17px · long-form reading column", sample: "A cosmetic surgery website carries unusual weight." },
   { cls: "blockquote", label: ".blockquote", note: "pull-quote", sample: "Design is the silent ambassador of the practice." },
-  { cls: "overline text-champagne", label: ".overline", note: "11px · uppercase MONO kicker", sample: "Selected work" },
+  { cls: "overline", label: ".overline", note: "11px · uppercase MONO kicker — champagne by default; text-clay on light sections", sample: "Selected work" },
   { cls: "nav-link text-bone", label: ".nav-link", note: "12px · uppercase nav item", sample: "Services" },
   { cls: "cta-label text-bone", label: ".cta-label", note: "11px · button microtype", sample: "Start a project" },
   { cls: "index-num text-champagne", label: ".index-num", note: "18→24px · MONO list numbering", sample: "01 /" },
@@ -232,7 +232,7 @@ export default function StylesheetPage() {
           <div className="card-glass px-5 py-3 animate-float-slower" style={{ animationDelay: "1.2s" }}>
             <p className="label text-bone">float-slower</p>
           </div>
-          <p className="overline text-bone-dim opacity-0 animate-track-in">Track-in overline</p>
+          <p className="overline opacity-0 animate-track-in">Track-in overline</p>
         </div>
 
         {/* ════════════════════ 02 · MOLECULES ════════════════════ */}

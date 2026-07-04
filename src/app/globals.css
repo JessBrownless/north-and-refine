@@ -170,7 +170,9 @@
   }
 
   /* Kicker / eyebrow — small uppercase tracked MONO label. The mono is what
-     makes the chrome feel engineered; use for section kickers everywhere. */
+     makes the chrome feel engineered; use for section kickers everywhere.
+     CHAMPAGNE BY DEFAULT (kickers are brand-coloured, never white) — on
+     light sections override with text-clay. */
   .overline {
     font-family: var(--font-mono), monospace;
     font-size: 0.6875rem; /* 11px */
@@ -178,6 +180,7 @@
     letter-spacing: 0.22em;
     text-transform: uppercase;
     line-height: 1.4;
+    color: var(--champagne);
   }
 
   /* Subtitle/lede beneath a heading */

@@ -44,7 +44,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 
 `.display-mega` · `.display` (homepage H1) · `.heading-xl` (interior-page H1) · `.statement` · `.heading-lg` (H2) · `.heading-md` (H3) · `.heading-sm` (H4) · `.body-lg` (lede) · `.body` · `.body-reading` (long-form prose) · `.blockquote` · `.overline` (kicker) · `.label` · `.fineprint` · `.stat` · `.index-num` · `.nav-link` · `.cta-label` · `.wordmark-giant` (the footer's cropped NORTH)
 
-- `.overline` collides with Tailwind's `overline` text-decoration utility — an **unlayered override at the end of globals.css** disables the decoration. Don't remove it or move it into a @layer.
+- `.overline` is CHAMPAGNE BY DEFAULT (kickers are brand-coloured, never white) — override with `text-clay` on light sections. It also collides with Tailwind's `overline` text-decoration utility — an **unlayered override at the end of globals.css** disables the decoration. Don't remove it or move it into a @layer.
 - **Heading-group spacing:** put the overline and heading as direct siblings and add `.from-overline` to the heading (margin scales with the heading). Use `.lede` on the subtitle. **Never** set these gaps ad-hoc with `mt-*`/`mb-*`.
 - h1–h6 default to the sans at medium (500), tight tracking. Don't override per-element without reason.
 
@@ -58,7 +58,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 - One primary per view. The `→` is optional child markup.
 - `.btn-arrow` — the FLAGSHIP CTA (compose `.btn` + primary variant + `.btn-arrow`): label left, filled circular ↗ chip right (`<span class="btn-arrow-chip" aria-hidden>↗</span>`). One per page; it outranks the plain primary (homepage hero "See the work").
 - Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
-- `.live-dot` — the pulsing ember availability signal, ONE per view. It lives in the Navbar (`● Available for projects`, tall state only — it folds away in the condensed pill). Don't add a second elsewhere.
+- `.live-dot` — the pulsing ember availability signal (PARKED: currently unused — it was the nav availability badge, removed 2026-07-04; the utility + swatch remain in the system).
 
 ### Layout helpers
 

@@ -9,6 +9,7 @@ import { getAllPosts } from "@/lib/journal";
 import { SITE } from "@/lib/site";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
+import ServicesShowcase from "@/components/ServicesShowcase";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -162,7 +163,7 @@ export default function HomePage() {
               the top. */}
           <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
             <div className="mx-auto max-w-5xl">
-              <p className="overline text-bone-dim opacity-0 animate-track-in">
+              <p className="overline opacity-0 animate-track-in">
                 The studio behind
               </p>
               {/* Constrained measure + text-balance: the H1 wraps as TWO
@@ -229,6 +230,38 @@ export default function HomePage() {
         {/* Sticky screen — the statement holds the viewport for a short beat
             (the extra 70vh of track) before releasing: anchored, not scrubbed */}
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+          {/* Composition satellites — the classic weighting: ONE big thing
+              (the statement), TWO medium (floating capture chips), a FEW tiny
+              (mono tag, champagne marks). Decorative; hidden on mobile. */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
+            <div className="absolute right-[7%] top-[14%] w-52 rotate-3 animate-float-slow reveal lg:w-60">
+              <div className="frame aspect-[4/5] rounded-xl shadow-2xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/desktops/dr-yalda-jamali.png"
+                  alt=""
+                  className="h-full w-full object-cover object-left-top"
+                />
+              </div>
+            </div>
+            <div
+              className="absolute bottom-[12%] right-[22%] w-36 -rotate-6 animate-float-slower reveal lg:w-44"
+              style={{ transitionDelay: "160ms" }}
+            >
+              <div className="frame aspect-square rounded-lg shadow-xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/desktops/dr-elizabeth-hawkes.jpg"
+                  alt=""
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+            </div>
+            <p className="overline absolute left-[6%] top-[16%] reveal">[ EST. 2026 ]</p>
+            <span className="absolute bottom-[24%] left-[10%] text-xl text-champagne/60 reveal" style={{ transitionDelay: "240ms" }}>✦</span>
+            <span className="absolute right-[4%] top-[58%] text-sm text-champagne/40 reveal" style={{ transitionDelay: "320ms" }}>✦</span>
+          </div>
+
           <div className="shell relative z-10 w-full">
             <p className="overline text-champagne reveal">Considered</p>
             {/* One smooth, single reveal — the whole statement fades up as a
@@ -247,7 +280,7 @@ export default function HomePage() {
             aria-label="Scroll to selected work"
             className="group absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
           >
-            <span className="overline text-bone-dim transition-colors group-hover:text-bone">Scroll</span>
+            <span className="overline transition-colors group-hover:text-champagne-soft">Scroll</span>
             <span className="text-champagne transition-transform duration-500 group-hover:translate-y-1" aria-hidden>
               ↓
             </span>
@@ -258,31 +291,36 @@ export default function HomePage() {
       </section>
       </div>
 
-      {/* ── Selected work — stays ON the ink scene (the hero is the style
-          reference; the page reads as one continuous dark world until the
-          bone CTA close). A single champagne pool drifts on the right for
-          asymmetric light; cards stagger so no two studies sit level.
-          Fade-scope wrapper: the exit-fade must sit outside the section's
-          overflow-hidden or its view() timeline goes inactive. ── */}
-      <div className="relative">
-      <section id="selected-work" className="relative overflow-hidden scroll-mt-14">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-[-16%] top-[-4%] h-[64vh] w-[44vw] animate-float-slower"
-          style={{
-            background:
-              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
-          }}
-        />
-        <div className="shell relative py-24 md:py-36">
+      {/* ── What we do — BIG interactive typography: the three services at
+          display scale; selecting one crossfades the image panel beside
+          them. Sits between the manifesto and the work. ── */}
+      <section className="relative border-t rule-dark">
+        <div className="shell py-24 md:py-32">
+          <p className="overline reveal">[ What we do ]</p>
+          <div className="mt-12 reveal" style={{ transitionDelay: "120ms" }}>
+            <ServicesShowcase />
+          </div>
+        </div>
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+
+      {/* ── Selected work — the BONE interruption: the portfolio sits on
+          light so the studies' captures carry the colour. Late exit-fade
+          (the light background shows the hand-over vividly). ── */}
+      <section
+        id="selected-work"
+        data-nav-light
+        className="relative bg-bone text-ink scroll-mt-14"
+      >
+        <div className="shell py-24 md:py-36">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="overline text-champagne reveal">Selected work</p>
+              <p className="overline text-clay reveal">Selected work</p>
               <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Practices we&rsquo;ve refined
               </h2>
             </div>
-            <Link href="/work" className="btn-ghost text-bone reveal">
+            <Link href="/work" className="btn-ghost text-ink reveal">
               All work <span aria-hidden>→</span>
             </Link>
           </div>
@@ -291,23 +329,22 @@ export default function HomePage() {
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16">
               {featured.map((project, i) => (
                 <div key={project.slug} className={i % 2 === 1 ? "md:mt-36" : ""}>
-                  <WorkCard project={project} index={i} />
+                  <WorkCard project={project} index={i} tone="light" />
                 </div>
               ))}
             </div>
           ) : (
-            <p className="body text-bone-dim mt-10">
+            <p className="body text-ink/70 mt-10">
               Case studies are on the way. In the meantime,{" "}
-              <Link href="/contact" className="text-champagne underline underline-offset-4">
+              <Link href="/contact" className="text-clay underline underline-offset-4">
                 start a conversation
               </Link>
               .
             </p>
           )}
         </div>
+        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </section>
-      <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </div>
 
       {/* ── Kind words — social proof, split layout (after Relume
           Testimonial 13): client portrait LEFT; stars, quote and an
