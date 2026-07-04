@@ -48,19 +48,37 @@ export default function JournalIndexPage() {
                 <Link
                   key={post.slug}
                   href={`/journal/${post.slug}`}
-                  className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 reveal items-baseline"
+                  className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 reveal md:items-center"
                   style={{ transitionDelay: `${(i % 6) * 60}ms` }}
                 >
-                  <div className="md:col-span-3">
+                  <div className="md:col-span-2">
                     <p className="overline text-champagne">{getCategoryLabel(post.frontmatter.category)}</p>
                     <p className="label text-clay mt-2">{formatDate(post.frontmatter.publishedAt)}</p>
                   </div>
-                  <div className="md:col-span-8">
-                    <h2 className="heading-md text-bone transition-opacity group-hover:opacity-70">
+                  <div className="md:col-span-6">
+                    <h2 className="heading-md text-bone line-clamp-2 transition-opacity group-hover:opacity-70">
                       {post.frontmatter.title}
                     </h2>
-                    <p className="body mt-2 text-bone-dim">{post.frontmatter.description}</p>
+                    <p className="body mt-2 line-clamp-2 text-bone-dim">{post.frontmatter.description}</p>
                     <p className="label mt-3 text-clay">{post.readingMinutes} min read</p>
+                  </div>
+                  {/* Image slot — featuredImage, or the brand gradient until one lands */}
+                  <div className="md:col-span-3 md:col-start-9">
+                    <div className="frame aspect-[1.6] rounded-lg">
+                      {post.frontmatter.featuredImage ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={post.frontmatter.featuredImage}
+                          alt={post.frontmatter.featuredImageAlt ?? ""}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        />
+                      ) : (
+                        <span className="portrait-fill absolute inset-0 flex items-center justify-center">
+                          <span className="index-num text-ink/30" aria-hidden>✦</span>
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <div className="md:col-span-1 hidden md:flex justify-end">
                     <span className="text-champagne transition-transform group-hover:translate-x-1" aria-hidden>

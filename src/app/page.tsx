@@ -371,23 +371,44 @@ export default function HomePage() {
                 All entries <span aria-hidden>→</span>
               </Link>
             </div>
-            {/* Cards cascade — each drops a step lower than the last */}
+            {/* Cards cascade — each drops a step lower than the last. Every
+                card carries an image slot (featuredImage, or the brand
+                gradient until one lands); titles and descriptions clamp to
+                two lines each with matching min-heights so all three cards
+                read the same length. */}
             <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
               {posts.map((post, i) => (
                 <Link
                   key={post.slug}
                   href={`/journal/${post.slug}`}
-                  className={`group card-glass block p-8 reveal ${
+                  className={`group card-glass flex flex-col overflow-hidden reveal ${
                     i === 1 ? "md:mt-14" : i === 2 ? "md:mt-28" : ""
                   }`}
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <p className="overline text-champagne">{getCategoryLabel(post.frontmatter.category)}</p>
-                  <h3 className="heading-md mt-3 transition-opacity group-hover:opacity-70">
-                    {post.frontmatter.title}
-                  </h3>
-                  <p className="body mt-3 text-bone-dim line-clamp-3">{post.frontmatter.description}</p>
-                  <p className="label mt-4 text-bone-dim">{post.readingMinutes} min read</p>
+                  <div className="frame aspect-[1.6]">
+                    {post.frontmatter.featuredImage ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={post.frontmatter.featuredImage}
+                        alt={post.frontmatter.featuredImageAlt ?? ""}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <span className="portrait-fill absolute inset-0 flex items-center justify-center">
+                        <span className="index-num text-ink/30" aria-hidden>✦</span>
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <p className="overline text-champagne">{getCategoryLabel(post.frontmatter.category)}</p>
+                    <h3 className="heading-md mt-3 min-h-[2.5em] line-clamp-2 transition-opacity group-hover:opacity-70">
+                      {post.frontmatter.title}
+                    </h3>
+                    <p className="body mt-3 min-h-[3.2em] line-clamp-2 text-bone-dim">{post.frontmatter.description}</p>
+                    <p className="label mt-auto pt-4 text-bone-dim">{post.readingMinutes} min read</p>
+                  </div>
                 </Link>
               ))}
             </div>
