@@ -149,7 +149,7 @@ export default function HomePage() {
         </div>
 
       {/* ── Hero — centred type lockup over the cycling showreel deck.
-          The fade scope wrapper exists for the .hero-fade overlay: it must
+          The fade scope wrapper exists for the .exit-fade overlay: it must
           live OUTSIDE the section's overflow-hidden (an overflow-hidden
           ancestor is a scroll container, which hijacks the view() timeline
           and leaves it inactive — the fade silently never runs). ── */}
@@ -224,7 +224,7 @@ export default function HomePage() {
       {/* Fade-to-ink as the hero scrolls out — it dims to black rather than
           staying fully lit while the manifesto arrives (scroll-driven,
           CSS-only, pointer-events-none) */}
-      <div aria-hidden className="hero-fade absolute inset-0 z-20 bg-ink" />
+      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </div>
 
       {/* ── Manifesto — a full-viewport ink moment on the SAME continuous
@@ -259,13 +259,18 @@ export default function HomePage() {
             </span>
           </a>
         </div>
+        {/* Fade-to-ink on exit — every section hands over through darkness */}
+        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </section>
       </div>
 
       {/* ── Selected work — stays ON the ink scene (the hero is the style
           reference; the page reads as one continuous dark world until the
           bone CTA close). A single champagne pool drifts on the right for
-          asymmetric light; cards stagger so no two studies sit level. ── */}
+          asymmetric light; cards stagger so no two studies sit level.
+          Fade-scope wrapper: the exit-fade must sit outside the section's
+          overflow-hidden or its view() timeline goes inactive. ── */}
+      <div className="relative">
       <section id="selected-work" className="relative overflow-hidden scroll-mt-14">
         <div
           aria-hidden
@@ -307,11 +312,14 @@ export default function HomePage() {
           )}
         </div>
       </section>
+      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
+      </div>
 
       {/* ── What we do — asymmetric split: copy rail left, the canonical
           responsive device cluster right (CSS placeholder screens on a
           gradient pool — swap in real captures later), then the services as
-          editorial index rows. ── */}
+          editorial index rows. Fade-scope wrapper as above. ── */}
+      <div className="relative">
       <section className="relative overflow-hidden border-t rule-dark">
         <div
           aria-hidden
@@ -380,10 +388,13 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
+      </div>
 
-      {/* ── Journal teaser ─────────────────────────────────────────────── */}
+      {/* ── Journal teaser — no overflow-hidden here, so the exit-fade can
+          live inside the section directly ── */}
       {posts.length > 0 && (
-        <section className="border-t rule-dark">
+        <section className="relative border-t rule-dark">
           <div className="shell py-20 md:py-28">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
@@ -417,6 +428,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+          <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
         </section>
       )}
 

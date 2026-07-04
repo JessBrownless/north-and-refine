@@ -339,17 +339,16 @@
     letter-spacing: -0.045em;
   }
 
-  /* Scroll-driven fade-to-ink for an exiting hero: place as a pointer-events-
-     none overlay INSIDE the hero section; it darkens as the hero scrolls out,
+  /* Scroll-driven fade-to-ink for ANY exiting section: place as a pointer-events-     none overlay INSIDE the hero section; it darkens as the hero scrolls out,
      handing the stage to the section arriving beneath. Pure CSS (scroll-
      driven animation) — browsers without support simply never dim. */
-  .hero-fade {
+  .exit-fade {
     opacity: 0;
     pointer-events: none;
   }
   @supports (animation-timeline: view()) {
-    .hero-fade {
-      animation: hero-fade-out linear both;
+    .exit-fade {
+      animation: exit-fade-out linear both;
       animation-timeline: view();
       /* Late, concentrated fade: the hero stays fully lit until the ARRIVING
          section covers ~55% of the viewport, then fades to ink by ~92%
@@ -359,7 +358,7 @@
       animation-range: exit calc(100% - 45vh) exit calc(100% - 8vh);
     }
   }
-  @keyframes hero-fade-out {
+  @keyframes exit-fade-out {
     from {
       opacity: 0;
     }
@@ -368,7 +367,7 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-fade {
+    .exit-fade {
       animation: none;
       opacity: 0;
     }

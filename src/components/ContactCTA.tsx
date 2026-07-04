@@ -17,7 +17,7 @@ export default function ContactCTA({
   body = "Tell us about your practice and where you want it to be. We take on a limited number of projects at a time, so the right fit matters.",
 }: ContactCTAProps) {
   return (
-    <section data-nav-light className="bg-bone text-ink">
+    <section data-nav-light className="relative bg-bone text-ink">
       <div className="shell py-20 md:py-32">
         <div className="max-w-3xl">
           <p className="overline text-clay reveal">Start a project</p>
@@ -38,6 +38,9 @@ export default function ContactCTA({
           </div>
         </div>
       </div>
+      {/* Fade-to-ink on exit — the bone band dims into darkness as the
+          footer arrives (scroll-driven, CSS-only, pointer-events-none) */}
+      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
     </section>
   );
 }
