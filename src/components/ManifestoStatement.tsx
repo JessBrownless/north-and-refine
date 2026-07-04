@@ -32,17 +32,18 @@ export default function ManifestoStatement({ text }: { text: string }) {
       raf = 0;
       const vh = window.innerHeight;
       const rect = section.getBoundingClientRect();
-      // Progress 0→1: starts as the statement scrolls into view (section top
-      // at 80% of the viewport) and completes while it's comfortably centred
-      // (top at ~30% of the viewport) — normal flow, no dwell required.
-      const start = vh * 0.8;
-      const end = vh * 0.3;
+      // Progress 0→1: a LONG window — starts as the statement enters
+      // (section top at 88% of the viewport) and completes only when it's
+      // high on screen (top at ~12%), so the fill takes most of a viewport
+      // of scroll to run its course.
+      const start = vh * 0.88;
+      const end = vh * 0.12;
       const p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
       const n = words.length;
       for (let i = 0; i < n; i++) {
         // Each word ramps over a short window, staggered across the run
         const t = (i / n) * 0.82;
-        const o = 0.15 + 0.85 * Math.min(1, Math.max(0, (p - t) / 0.18));
+        const o = 0.15 + 0.85 * Math.min(1, Math.max(0, (p - t) / 0.24));
         words[i].style.opacity = o.toFixed(3);
       }
     };
@@ -61,7 +62,7 @@ export default function ManifestoStatement({ text }: { text: string }) {
   }, []);
 
   return (
-    <p ref={ref} className="statement from-overline">
+    <p ref={ref} className="heading-xl from-overline">
       {text.split(" ").map((word, i) => (
         <span key={i} data-word style={{ opacity: 0.15 }}>
           {word}{" "}

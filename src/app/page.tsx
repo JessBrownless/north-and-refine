@@ -227,7 +227,7 @@ export default function HomePage() {
           70vh dwell read as the page being stuck). The statement scrolls
           through at reading pace while the scrub lights the words. ── */}
       <section className="relative z-10">
-        <div className="shell py-28 md:py-40">
+        <div className="shell py-36 md:py-56">
           <p className="overline reveal">Considered</p>
           {/* Scroll-scrubbed word highlight — words brighten at the pace
               you scroll (see ManifestoStatement); the measure runs the
