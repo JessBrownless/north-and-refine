@@ -291,23 +291,14 @@ export default function HomePage() {
         data-nav-light
         className="relative bg-bone text-ink scroll-mt-14"
       >
-        <div className="shell py-24 md:py-36">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="overline text-clay reveal">Selected work</p>
-              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                Practices we&rsquo;ve refined
-              </h2>
-            </div>
-            <Link href="/work" className="btn-ghost text-ink reveal">
-              All work <span aria-hidden>→</span>
-            </Link>
-          </div>
+        <div className="shell py-24 text-center md:py-36">
+          {/* One small overline only — the list IS the heading */}
+          <h2 className="overline text-clay reveal">Selected work</h2>
 
           {/* Quiet list (after Relume Portfolio 19): big centred names +
               sector chips; hover fades the composite in behind the list */}
           {featured.length > 0 ? (
-            <div className="mt-16 reveal">
+            <div className="mt-12 reveal">
               <PortfolioList
                 items={featured.map((project) => ({
                   name: project.frontmatter.client,
@@ -320,6 +311,12 @@ export default function HomePage() {
                     project.frontmatter.thumbImageAlt,
                 }))}
               />
+              <div className="mt-14 reveal" style={{ transitionDelay: "120ms" }}>
+                <Link href="/work" className="btn btn-secondary-light">
+                  All work
+                  <span aria-hidden>→</span>
+                </Link>
+              </div>
             </div>
           ) : (
             <p className="body text-ink/70 mt-10">

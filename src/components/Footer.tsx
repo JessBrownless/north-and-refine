@@ -1,20 +1,44 @@
 import Link from "next/link";
 import { FOOTER_NAV, SITE } from "@/lib/site";
 
-// The footer's Instagram strip — MOCKUP tiles (capture crops + brand
-// gradients) until a real feed embed exists; every tile links to the profile.
-const IG_TILES: (
-  | { kind: "shot"; src: string; pos: string }
-  | { kind: "mark" }
-  | { kind: "fill"; label: string }
-)[] = [
+// The footer's Instagram tiles — MOCKUP crops + brand gradients until a real
+// feed exists; three sit each side of the centred monogram, all linking to
+// the profile.
+const IG_TILES: ({ kind: "shot"; src: string; pos: string } | { kind: "fill"; label: string })[] = [
   { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-top" },
-  { kind: "mark" },
-  { kind: "shot", src: "/assets/desktops/dr-elizabeth-hawkes.jpg", pos: "object-left-top" },
   { kind: "fill", label: "✦" },
-  { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-bottom" },
+  { kind: "shot", src: "/assets/desktops/dr-elizabeth-hawkes.jpg", pos: "object-left-top" },
   { kind: "fill", label: "01" },
+  { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-bottom" },
+  { kind: "fill", label: "✦" },
 ];
+
+// One Instagram tile — small, rounded, linking to the profile.
+function IgTile({ tile, profile }: { tile: (typeof IG_TILES)[number]; profile: string }) {
+  return (
+    <a
+      href={profile}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="North & Refine on Instagram"
+      className="group frame aspect-square w-16 shrink-0 rounded-lg sm:w-20 lg:w-24"
+    >
+      {tile.kind === "shot" ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={tile.src}
+          alt=""
+          loading="lazy"
+          className={`h-full w-full object-cover ${tile.pos} transition-transform duration-700 group-hover:scale-[1.05]`}
+        />
+      ) : (
+        <span className="portrait-fill flex h-full w-full items-center justify-center">
+          <span className="label text-ink/30">{tile.label}</span>
+        </span>
+      )}
+    </a>
+  );
+}
 
 /**
  * Site footer. Opens with the full-bleed Instagram strip (seamless tiles,
@@ -28,52 +52,31 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-ink">
-      {/* ── Instagram — seamless full-bleed strip, connected to the footer ── */}
-      <div className="shell flex flex-wrap items-end justify-between gap-4 pt-14 pb-8 md:pt-20">
-        <div>
-          <p className="overline reveal">[ Elsewhere ]</p>
-          <p className="heading-md from-overline text-bone reveal" style={{ transitionDelay: "80ms" }}>
-            @northandrefine
-          </p>
-        </div>
-        <a
-          href={SITE.sameAs[0]}
-          target="_blank"
-          rel="noreferrer"
-          className="btn-ghost text-bone reveal"
-        >
-          Follow along <span aria-hidden>→</span>
-        </a>
-      </div>
-      <div className="grid w-full grid-cols-3 gap-px md:grid-cols-6">
-        {IG_TILES.map((tile, i) => (
+      {/* ── Instagram — small tiles flanking the centred monogram ── */}
+      <div className="shell pt-16 md:pt-20">
+        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-6">
+          <div className="flex items-center gap-3 md:gap-4">
+            {IG_TILES.slice(0, 3).map((tile, i) => (
+              <IgTile key={i} tile={tile} profile={SITE.sameAs[0]} />
+            ))}
+          </div>
           <a
-            key={i}
             href={SITE.sameAs[0]}
             target="_blank"
             rel="noreferrer"
-            aria-label="North & Refine on Instagram"
-            className="group frame aspect-square"
+            className="group px-4 text-center md:px-8"
           >
-            {tile.kind === "shot" ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={tile.src}
-                alt=""
-                loading="lazy"
-                className={`h-full w-full object-cover ${tile.pos} transition-transform duration-700 group-hover:scale-[1.04]`}
-              />
-            ) : tile.kind === "mark" ? (
-              <span className="flex h-full w-full items-center justify-center font-display text-3xl tracking-tight text-bone/25">
-                N<span className="text-champagne/40">&amp;</span>R
-              </span>
-            ) : (
-              <span className="portrait-fill flex h-full w-full items-center justify-center">
-                <span className="index-num text-ink/30">{tile.label}</span>
-              </span>
-            )}
+            <span className="font-display text-3xl tracking-tight text-bone transition-opacity group-hover:opacity-70">
+              N<span className="text-champagne">&amp;</span>R
+            </span>
+            <span className="overline mt-2 block">@northandrefine</span>
           </a>
-        ))}
+          <div className="flex items-center gap-3 md:gap-4">
+            {IG_TILES.slice(3).map((tile, i) => (
+              <IgTile key={i} tile={tile} profile={SITE.sameAs[0]} />
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="shell py-16 md:py-24">
