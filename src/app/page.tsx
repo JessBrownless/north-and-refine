@@ -6,8 +6,10 @@ import {
   type WorkSector,
 } from "@/lib/work";
 import { getAllPosts, getCategoryLabel } from "@/lib/journal";
+import { SITE } from "@/lib/site";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import ContactCTA from "@/components/ContactCTA";
 
 // Homepage — the Obsidian direction. Champagne-lit ink scene, an asymmetric
@@ -297,6 +299,41 @@ export default function HomePage() {
       <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </div>
 
+      {/* ── Kind words — social proof: star rating + one centred client
+          quote. ⚠️ EVERYTHING here is VISIBLY-MARKED PLACEHOLDER until real
+          client words and live review data exist — we never draft quotes on
+          a client's behalf. Swap the copy, keep the structure. ── */}
+      <section className="relative border-t rule-dark">
+        <div className="shell py-20 text-center md:py-28">
+          <p className="overline text-champagne reveal">Kind words</p>
+          <div
+            className="mt-7 flex items-center justify-center gap-2 text-champagne reveal"
+            style={{ transitionDelay: "80ms" }}
+            role="img"
+            aria-label="Rated five stars by clients"
+          >
+            {[0, 1, 2, 3, 4].map((i) => (
+              <span key={i} aria-hidden className="text-xl">
+                ★
+              </span>
+            ))}
+          </div>
+          <p className="label mt-3 text-clay reveal" style={{ transitionDelay: "120ms" }}>
+            5.0 · client reviews — placeholder until reviews are live
+          </p>
+          <blockquote
+            className="statement mx-auto mt-10 max-w-4xl reveal"
+            style={{ transitionDelay: "160ms" }}
+          >
+            &ldquo;Placeholder — a client&rsquo;s real words will sit here. We
+            don&rsquo;t write these ourselves.&rdquo;
+          </blockquote>
+          <p className="overline mt-9 text-bone-dim reveal" style={{ transitionDelay: "220ms" }}>
+            Client name · Practice, City
+          </p>
+        </div>
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
 
       {/* ── Journal teaser — no overflow-hidden here, so the exit-fade can
           live inside the section directly ── */}
@@ -338,6 +375,95 @@ export default function HomePage() {
           <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
         </section>
       )}
+
+      {/* ── Instagram — MOCKUP feed for now (tiles are capture crops +
+          brand gradients, all linking to the profile); swap for a real
+          feed embed later ── */}
+      <section className="relative border-t rule-dark">
+        <div className="shell py-20 md:py-28">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="overline text-champagne reveal">Elsewhere</p>
+              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                @northandrefine
+              </h2>
+            </div>
+            <a
+              href={SITE.sameAs[0]}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-ghost text-bone reveal"
+            >
+              Follow along <span aria-hidden>→</span>
+            </a>
+          </div>
+
+          <div className="mt-12 grid grid-cols-3 gap-3 md:grid-cols-6 md:gap-4">
+            {[
+              { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-top" },
+              { kind: "mark" },
+              { kind: "shot", src: "/assets/desktops/dr-elizabeth-hawkes.jpg", pos: "object-left-top" },
+              { kind: "fill", label: "✦" },
+              { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-bottom" },
+              { kind: "fill", label: "01" },
+            ].map((tile, i) => (
+              <a
+                key={i}
+                href={SITE.sameAs[0]}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="North & Refine on Instagram"
+                className="group frame aspect-square overflow-hidden rounded-lg reveal"
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                {tile.kind === "shot" ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={tile.src}
+                    alt=""
+                    loading="lazy"
+                    className={`h-full w-full object-cover ${tile.pos} transition-transform duration-700 group-hover:scale-[1.04]`}
+                  />
+                ) : tile.kind === "mark" ? (
+                  <span className="flex h-full w-full items-center justify-center font-display text-3xl tracking-tight text-bone/25">
+                    N<span className="text-champagne/40">&amp;</span>R
+                  </span>
+                ) : (
+                  <span className="portrait-fill flex h-full w-full items-center justify-center">
+                    <span className="index-num text-ink/30">{tile.label}</span>
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+
+      {/* ── The freebie — mailing-list capture (Netlify form "newsletter").
+          Rename the checklist / rewrite the pitch freely; the form and its
+          static definition in public/__forms.html stay in sync. ── */}
+      <section className="relative border-t rule-dark">
+        <div className="shell py-20 md:py-28">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
+            <div className="md:col-span-6">
+              <p className="overline text-champagne reveal">The freebie</p>
+              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                What patients check before they book
+              </h2>
+              <p className="body-lg lede text-bone-dim reveal" style={{ transitionDelay: "160ms" }}>
+                A twelve-point audit of your practice&rsquo;s website, straight
+                to your inbox — plus an occasional note on design and search
+                for clinics. No noise.
+              </p>
+            </div>
+            <div className="md:col-span-5 md:col-start-8 reveal" style={{ transitionDelay: "240ms" }}>
+              <NewsletterSignup />
+            </div>
+          </div>
+        </div>
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
 
       {/* ── Ghost marquee — the midnight signature ─────────────────────── */}
       <section className="overflow-hidden border-t rule-dark py-10 md:py-16">

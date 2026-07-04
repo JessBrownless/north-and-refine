@@ -88,6 +88,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 | `ExitFades` | Drives `.exit-fade` overlays (sections fading to ink as they exit) from one rAF-throttled scroll listener — JS, not CSS scroll-timeline, so it works in Safari too. Overlay's parent = measured scope; `.exit-fade-long` = earlier window for dark content sections. |
 | `PageHero` | **The interior-page hero.** Props: `overline`, `title`, `lede`, `cta`, `meta`, `size`. Extend via props; don't spawn `HeroX`. (Homepage has a bespoke hero.) |
 | `ContactCTA` | Standard "start a project" band (light section). Drop at the foot of pages. |
+| `NewsletterSignup` | Mailing-list capture (Netlify form `newsletter`; static definition in `public/__forms.html` — keep field names in sync). Lives in the homepage freebie band. |
 | `WorkCard` | Case-study card for grids (typographic placeholder when no image). |
 | `JsonLd` | Renders one or many schema objects from `@/lib/schema`. |
 | `PhoneMockup` | iPhone frame holding a real `screenshot` (preferred) or a CSS clinic micro-site. Props: `name`, `specialty`, `screenshot`, `screenshotAlt`, `screen` (editorial/ink), `size` (sm/md/lg). |
@@ -148,6 +149,9 @@ MDX element styling lives in `mdx-components.tsx` at the repo root (`proseMdxCom
 - [ ] Add real project imagery (`heroImage`/`thumbImage`) to the case studies.
 - [ ] Replace the seed case studies + Journal posts with real ones (current ones are illustrative).
 - [ ] Connect the Netlify form (`/contact`) and confirm submissions arrive.
+- [ ] Replace the homepage "Kind words" PLACEHOLDER quote + star-rating label with real client words and live review data (never draft these).
+- [ ] Produce the freebie ("What patients check before they book" checklist) and confirm `newsletter` form submissions arrive.
+- [ ] Replace the homepage Instagram MOCKUP tiles with a real feed (or real recent posts).
 
 ## Commands
 

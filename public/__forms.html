@@ -20,5 +20,13 @@
       <select name="interest"></select>
       <textarea name="message"></textarea>
     </form>
+
+    <!-- Homepage mailing-list capture (the freebie band) — lives in
+         src/components/NewsletterSignup.tsx -->
+    <form name="newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="newsletter" />
+      <input name="bot-field" />
+      <input type="email" name="email" />
+    </form>
   </body>
 </html>
