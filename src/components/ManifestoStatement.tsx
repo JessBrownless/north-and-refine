@@ -62,7 +62,7 @@ export default function ManifestoStatement({ text }: { text: string }) {
   }, []);
 
   return (
-    <p ref={ref} className="heading-xl from-overline">
+    <p ref={ref} className="heading-xl max-w-4xl">
       {text.split(" ").map((word, i) => (
         <span key={i} data-word style={{ opacity: 0.15 }}>
           {word}{" "}

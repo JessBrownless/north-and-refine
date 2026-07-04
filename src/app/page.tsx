@@ -59,9 +59,9 @@ function formatDate(iso: string): string {
   }).format(new Date(iso));
 }
 
-// The homepage manifesto — revealed as one smooth block on scroll.
+// The homepage manifesto — This-January length: one thought, four lines.
 const MANIFESTO =
-  "After years of watching brilliant clinics undersold by template websites, we built a studio that treats a practice’s digital presence with the same care as the medicine itself.";
+  "A studio that treats a practice’s digital presence with the same care as the medicine itself.";
 
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
@@ -236,13 +236,18 @@ export default function HomePage() {
           scene as the hero (no own background, and NO sticky pin — the old
           70vh dwell read as the page being stuck). The statement scrolls
           through at reading pace while the scrub lights the words. ── */}
-      <section className="relative z-10">
-        <div className="shell py-36 md:py-56">
-          <p className="overline reveal">Considered</p>
+      <section className="relative z-10 flex min-h-screen items-center">
+        <div className="shell w-full">
           {/* Scroll-scrubbed word highlight — words brighten at the pace
-              you scroll (see ManifestoStatement); the measure runs the
-              full content grid */}
+              you scroll (see ManifestoStatement). No kicker: the statement
+              opens cold, This-January style. */}
           <ManifestoStatement text={MANIFESTO} />
+          <div className="mt-12 reveal" style={{ transitionDelay: "160ms" }}>
+            <Link href="/about" className="btn btn-secondary-dark">
+              <span aria-hidden>↳</span>
+              Our story
+            </Link>
+          </div>
         </div>
         {/* No exit-fade here — the manifesto flows STRAIGHT into the stats
             (the proof) on the same continuous scene */}
