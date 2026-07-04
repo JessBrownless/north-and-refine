@@ -61,7 +61,7 @@ const MOTION: { cls: string; note: string }[] = [
 
 // Page-level organisms live in real routes — catalogued here, demoed there.
 const ORGANISM_INDEX: { name: string; home: string; note: string }[] = [
-  { name: "Navbar (glass pill)", home: "components/Navbar.tsx", note: "Tall transparent bar; condenses to a floating bone-glass pill past 48px of scroll. One nav — never fork it." },
+  { name: "Navbar", home: "components/Navbar.tsx", note: "Tall transparent bar at the top of the page — scrolls away (no fixed pill). One nav — never fork it." },
   { name: "Deck (showreel)", home: "components/Deck.tsx", note: "Fanned auto-cycling card stack; front card links to the case study whose capture it shows. Homepage hero." },
   { name: "PageHero", home: "components/PageHero.tsx", note: "THE interior-page hero — extend via props (overline, title, lede, cta, meta, size); don't spawn HeroX." },
   { name: "Device cluster", home: "work/[slug]/page.tsx", note: "BrowserMockup + overlapping PhoneMockup over a champagne glow — the canonical responsive showcase." },

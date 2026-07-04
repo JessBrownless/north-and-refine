@@ -82,7 +82,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 
 | Component | Purpose |
 | --- | --- |
-| `Navbar` / `Footer` | Site chrome (in `layout.tsx`). One each — don't fork. The scrolled pill flips to ink glass while floating over any element marked `data-nav-light` (the bone manifesto, `ContactCTA`) — mark new light sections the same way or the pill goes bone-on-bone. |
+| `Navbar` / `Footer` | Site chrome (in `layout.tsx`). One each — don't fork. The nav is a tall ABSOLUTE bar at the top of the page — it scrolls away (no fixed pill, no scroll transform; removed 2026-07-04). The footer's back-to-top anchor covers the return trip. `data-nav-light` markers remain on bone sections but are currently unused. |
 | `Reveal` | Global IntersectionObserver for `.reveal`. Don't add rival scroll listeners. |
 | `SmoothScroll` | Lenis inertial scrolling, mounted once in the root layout. Native scroll stays authoritative (sticky/IO/scroll listeners all work); skips under reduced-motion. Don't add rival smooth-scroll libs or scroll hijacking. |
 | `ExitFades` | Drives `.exit-fade` overlays (sections fading to ink as they exit) from one rAF-throttled scroll listener — JS, not CSS scroll-timeline, so it works in Safari too. Overlay's parent = measured scope; `.exit-fade-long` = earlier window for dark content sections. |
