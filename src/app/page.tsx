@@ -5,7 +5,7 @@ import {
   type WorkEntry,
   type WorkSector,
 } from "@/lib/work";
-import { getAllPosts, getCategoryLabel } from "@/lib/journal";
+import { getAllPosts } from "@/lib/journal";
 import { SITE } from "@/lib/site";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
@@ -47,6 +47,16 @@ const DECK_ORDER: WorkSector[] = [
   "cosmetic-surgery",
   "dermatology",
 ];
+
+// Bracketed editorial date for the Journal teaser cards — [ 26 June 2026 ].
+function formatDate(iso: string): string {
+  return new Intl.DateTimeFormat("en-AU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(iso));
+}
 
 // The homepage manifesto — revealed as one smooth block on scroll.
 const MANIFESTO =
@@ -362,7 +372,7 @@ export default function HomePage() {
           <div className="shell py-20 md:py-28">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="overline text-champagne reveal">From the Journal</p>
+                <p className="overline text-champagne reveal">[ Journal ]</p>
                 <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                   Thinking, written down
                 </h2>
@@ -371,22 +381,20 @@ export default function HomePage() {
                 All entries <span aria-hidden>→</span>
               </Link>
             </div>
-            {/* Cards cascade — each drops a step lower than the last. Every
-                card carries an image slot (featuredImage, or the brand
-                gradient until one lands); titles and descriptions clamp to
-                two lines each with matching min-heights so all three cards
-                read the same length. */}
-            <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Editorial teaser grid (after the reference layout): bare
+                cards — image, bracketed date, title with a circular ↗ chip.
+                Image aspects ALTERNATE (landscape / portrait / landscape) so
+                the text lines stagger naturally; all images share one top
+                line. featuredImage when set, brand gradient until then. */}
+            <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post, i) => (
                 <Link
                   key={post.slug}
                   href={`/journal/${post.slug}`}
-                  className={`group card-glass flex flex-col overflow-hidden reveal ${
-                    i === 1 ? "md:mt-14" : i === 2 ? "md:mt-28" : ""
-                  }`}
+                  className="group reveal"
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <div className="frame aspect-[1.6]">
+                  <div className={`frame rounded-lg ${i % 2 === 1 ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
                     {post.frontmatter.featuredImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -401,13 +409,17 @@ export default function HomePage() {
                       </span>
                     )}
                   </div>
-                  <div className="flex flex-1 flex-col p-8">
-                    <p className="overline text-champagne">{getCategoryLabel(post.frontmatter.category)}</p>
-                    <h3 className="heading-md mt-3 min-h-[2.5em] line-clamp-2 transition-opacity group-hover:opacity-70">
+                  <p className="overline mt-6 text-clay">[ {formatDate(post.frontmatter.publishedAt)} ]</p>
+                  <div className="mt-3 flex items-start justify-between gap-5">
+                    <h3 className="heading-sm max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
                       {post.frontmatter.title}
                     </h3>
-                    <p className="body mt-3 min-h-[3.2em] line-clamp-2 text-bone-dim">{post.frontmatter.description}</p>
-                    <p className="label mt-auto pt-4 text-bone-dim">{post.readingMinutes} min read</p>
+                    <span
+                      aria-hidden
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bone/10 text-bone transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    >
+                      ↗
+                    </span>
                   </div>
                 </Link>
               ))}
