@@ -243,35 +243,42 @@ export default function HomePage() {
       </section>
       </div>
 
-      {/* ── Stats — their own quiet band: one hairline, three champagne
-          numerals spread edge to edge (left / centre / right). Defensible
-          numbers only — the ranking claim is the Hawkes study's, the rest
-          are definitionally true. ── */}
+      {/* ── Stats — a bento row: glass cards with rounded edges, each lit
+          by its own champagne gradient blob (pure gradients — no filter
+          blur). Varied widths keep it bento rather than a strict grid.
+          Defensible numbers only — the ranking claim is the Hawkes
+          study's, the rest are definitionally true. ── */}
       <section className="relative">
         <div className="shell py-24 md:py-32">
-          <div className="grid grid-cols-1 gap-10 border-t rule-dark pt-10 sm:grid-cols-3 md:pt-12">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
             {[
-              { value: "#1–3", label: "Google positions won for a specialist's key procedures", align: "" },
-              { value: "100%", label: "of our work is for medical aesthetics & surgery", align: "sm:text-center" },
-              { value: "12", label: "point website audit, free for practices", align: "sm:text-right" },
+              {
+                value: "#1–3",
+                label: "Google positions won for a specialist's key procedures",
+                span: "md:col-span-5",
+                blob: "radial-gradient(120% 120% at 85% -10%, color-mix(in srgb, var(--champagne) 16%, transparent) 0%, transparent 70%)",
+              },
+              {
+                value: "100%",
+                label: "of our work is for medical aesthetics & surgery",
+                span: "md:col-span-4",
+                blob: "radial-gradient(130% 130% at -10% 110%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 70%)",
+              },
+              {
+                value: "12",
+                label: "point website audit, free for practices",
+                span: "md:col-span-3",
+                blob: "radial-gradient(140% 110% at 50% 120%, color-mix(in srgb, var(--champagne) 15%, transparent) 0%, transparent 72%)",
+              },
             ].map((stat, i) => (
               <div
                 key={stat.value}
-                className={`reveal ${stat.align}`}
+                className={`card-glass relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-2xl p-8 reveal md:p-10 ${stat.span}`}
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                <p className="stat text-champagne">{stat.value}</p>
-                <p
-                  className={`label mt-3 max-w-[24ch] text-bone-dim ${
-                    stat.align === "sm:text-center"
-                      ? "sm:mx-auto"
-                      : stat.align === "sm:text-right"
-                        ? "sm:ml-auto"
-                        : ""
-                  }`}
-                >
-                  {stat.label}
-                </p>
+                <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: stat.blob }} />
+                <p className="stat relative text-champagne">{stat.value}</p>
+                <p className="label relative mt-10 max-w-[26ch] text-bone-dim">{stat.label}</p>
               </div>
             ))}
           </div>
