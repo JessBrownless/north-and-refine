@@ -339,49 +339,21 @@
     letter-spacing: -0.045em;
   }
 
-  /* Scroll-driven fade-to-ink for ANY exiting section: place as a pointer-
-     events-none overlay INSIDE the section (but never inside an
-     overflow-hidden ancestor — that's a scroll container and the view()
-     timeline goes inactive); it darkens as the section scrolls out, handing
-     the stage to the one arriving beneath. Pure CSS (scroll-driven
-     animation) — browsers without support simply never dim. */
+  /* Fade-to-ink for ANY exiting section: a pointer-events-none overlay whose
+     opacity is DRIVEN BY JS (<ExitFades /> in the root layout) — CSS
+     scroll-driven animations were unreliable across browsers (no Safari
+     support at all), so the rect maths live in one rAF-throttled listener
+     that works everywhere and stays in sync with Lenis. Place the overlay
+     directly inside its section (its parent element is the measured scope).
+     .exit-fade       — late window: lit until the arriving section covers
+                        ~55% of the viewport, ink by ~92% (for sections whose
+                        foot is a full-bleed visual: the hero, the bone CTA).
+     .exit-fade-long  — earlier window (bottom 78vh → 14vh) for dark CONTENT
+                        sections, whose ink-on-ink background can't show a
+                        late fade. */
   .exit-fade {
     opacity: 0;
     pointer-events: none;
-  }
-  @supports (animation-timeline: view()) {
-    .exit-fade {
-      animation: exit-fade-out linear both;
-      animation-timeline: view();
-      /* Late, concentrated fade: the section stays fully lit until the
-         ARRIVING one covers ~55% of the viewport, then fades to ink by ~92%
-         coverage. Expressed in vh from the exit end (section bottom at
-         viewport top) so it tracks the incoming section's coverage
-         regardless of the exiting section's own height. Right for sections
-         whose FOOT is a full-bleed visual (the hero's deck, the bone CTA). */
-      animation-range: exit calc(100% - 45vh) exit calc(100% - 8vh);
-    }
-    /* Earlier, longer window for dark CONTENT sections: their ink-on-ink
-       background can't show the fade, so the content itself must dim while
-       still meaningfully on screen — the late window would fade little but
-       bottom padding. */
-    .exit-fade-long {
-      animation-range: exit calc(100% - 78vh) exit calc(100% - 14vh);
-    }
-  }
-  @keyframes exit-fade-out {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .exit-fade {
-      animation: none;
-      opacity: 0;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

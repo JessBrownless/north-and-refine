@@ -54,7 +54,7 @@ const MOTION: { cls: string; note: string }[] = [
   { cls: "animate-fade-in", note: "1.2s ease-out · soft load-in for large media (the hero deck)" },
   { cls: "animate-track-in", note: "1.1s expo-out · overline reveal — fades in while letter-spacing eases open to 0.38em" },
   { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — stagger with transitionDelay" },
-  { cls: ".exit-fade", note: "scroll-driven fade-to-ink overlay on an EXITING section — every homepage section (and the CTA band) hands over through darkness; must sit outside overflow-hidden; CSS-only, no-ops in unsupporting browsers" },
+  { cls: ".exit-fade", note: "fade-to-ink overlay on an EXITING section — every homepage section (and the CTA band) hands over through darkness. JS-driven by the global <ExitFades /> (works in every browser, Lenis-synced); .exit-fade-long = earlier window for dark content sections" },
   { cls: "animate-marquee", note: "28s linear loop · ghost display text" },
   { cls: "animate-float-slow / -slower", note: "7s / 11s ease loops · floaty hero elements; mix speeds for depth" },
 ];

@@ -85,6 +85,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 | `Navbar` / `Footer` | Site chrome (in `layout.tsx`). One each — don't fork. The scrolled pill flips to ink glass while floating over any element marked `data-nav-light` (the bone manifesto, `ContactCTA`) — mark new light sections the same way or the pill goes bone-on-bone. |
 | `Reveal` | Global IntersectionObserver for `.reveal`. Don't add rival scroll listeners. |
 | `SmoothScroll` | Lenis inertial scrolling, mounted once in the root layout. Native scroll stays authoritative (sticky/IO/scroll listeners all work); skips under reduced-motion. Don't add rival smooth-scroll libs or scroll hijacking. |
+| `ExitFades` | Drives `.exit-fade` overlays (sections fading to ink as they exit) from one rAF-throttled scroll listener — JS, not CSS scroll-timeline, so it works in Safari too. Overlay's parent = measured scope; `.exit-fade-long` = earlier window for dark content sections. |
 | `PageHero` | **The interior-page hero.** Props: `overline`, `title`, `lede`, `cta`, `meta`, `size`. Extend via props; don't spawn `HeroX`. (Homepage has a bespoke hero.) |
 | `ContactCTA` | Standard "start a project" band (light section). Drop at the foot of pages. |
 | `WorkCard` | Case-study card for grids (typographic placeholder when no image). |

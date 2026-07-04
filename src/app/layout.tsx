@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SmoothScroll from "@/components/SmoothScroll";
+import ExitFades from "@/components/ExitFades";
 
 // Premium-sans system: Instrument Sans (variable) everywhere — chosen for its
 // sheared "scalpel" terminals (the t especially) — with Geist Mono for the
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Site-wide structured data: the studio + the website node. */}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <SmoothScroll />
+        <ExitFades />
         <Reveal />
         <Navbar />
         {children}
