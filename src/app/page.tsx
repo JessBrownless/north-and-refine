@@ -260,7 +260,7 @@ export default function HomePage() {
           </a>
         </div>
         {/* Fade-to-ink on exit — every section hands over through darkness */}
-        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
       </div>
 
@@ -312,7 +312,7 @@ export default function HomePage() {
           )}
         </div>
       </section>
-      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
+      <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </div>
 
       {/* ── What we do — asymmetric split: copy rail left, the canonical
@@ -388,7 +388,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
+      <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </div>
 
       {/* ── Journal teaser — no overflow-hidden here, so the exit-fade can
@@ -428,7 +428,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
+          <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
         </section>
       )}
 

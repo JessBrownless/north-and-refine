@@ -339,9 +339,12 @@
     letter-spacing: -0.045em;
   }
 
-  /* Scroll-driven fade-to-ink for ANY exiting section: place as a pointer-events-     none overlay INSIDE the hero section; it darkens as the hero scrolls out,
-     handing the stage to the section arriving beneath. Pure CSS (scroll-
-     driven animation) — browsers without support simply never dim. */
+  /* Scroll-driven fade-to-ink for ANY exiting section: place as a pointer-
+     events-none overlay INSIDE the section (but never inside an
+     overflow-hidden ancestor — that's a scroll container and the view()
+     timeline goes inactive); it darkens as the section scrolls out, handing
+     the stage to the one arriving beneath. Pure CSS (scroll-driven
+     animation) — browsers without support simply never dim. */
   .exit-fade {
     opacity: 0;
     pointer-events: none;
@@ -350,12 +353,20 @@
     .exit-fade {
       animation: exit-fade-out linear both;
       animation-timeline: view();
-      /* Late, concentrated fade: the hero stays fully lit until the ARRIVING
-         section covers ~55% of the viewport, then fades to ink by ~92%
-         coverage. Expressed in vh from the exit end (hero bottom at viewport
-         top) so it tracks the incoming section's coverage regardless of the
-         hero's own height. */
+      /* Late, concentrated fade: the section stays fully lit until the
+         ARRIVING one covers ~55% of the viewport, then fades to ink by ~92%
+         coverage. Expressed in vh from the exit end (section bottom at
+         viewport top) so it tracks the incoming section's coverage
+         regardless of the exiting section's own height. Right for sections
+         whose FOOT is a full-bleed visual (the hero's deck, the bone CTA). */
       animation-range: exit calc(100% - 45vh) exit calc(100% - 8vh);
+    }
+    /* Earlier, longer window for dark CONTENT sections: their ink-on-ink
+       background can't show the fade, so the content itself must dim while
+       still meaningfully on screen — the late window would fade little but
+       bottom padding. */
+    .exit-fade-long {
+      animation-range: exit calc(100% - 78vh) exit calc(100% - 14vh);
     }
   }
   @keyframes exit-fade-out {
