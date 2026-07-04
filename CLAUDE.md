@@ -150,7 +150,9 @@ MDX element styling lives in `mdx-components.tsx` at the repo root (`proseMdxCom
 - [ ] Replace the seed case studies + Journal posts with real ones (current ones are illustrative).
 - [ ] Connect the Netlify form (`/contact`) and confirm submissions arrive.
 - [ ] Replace the homepage "Kind words" PLACEHOLDER quote + star-rating label with real client words and live review data (never draft these).
-- [ ] Produce the freebie ("What patients check before they book" checklist) and confirm `newsletter` form submissions arrive.
+- [ ] Produce the freebie ("What patients check before they book" checklist) and confirm `newsletter` form submissions arrive — including the `marketing-opt-in` value (consent record).
+- [ ] Have `/privacy` reviewed by a professional before launch; keep it in sync with what the site actually collects (it currently, truthfully, says: two forms, no analytics, no trackers — update it if analytics are ever added).
+- [ ] Every marketing email sent must include one-click unsubscribe + sender identification (Spam Act / PECR).
 - [ ] Replace the homepage Instagram MOCKUP tiles with a real feed (or real recent posts).
 
 ## Commands

@@ -504,10 +504,11 @@ export default function HomePage() {
               <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 What patients check before they book
               </h2>
+              {/* The form's promise is the checklist ALONE — the ongoing
+                  notes are a separate opt-in checkbox (GDPR: no bundling) */}
               <p className="body-lg lede text-bone-dim reveal" style={{ transitionDelay: "160ms" }}>
                 A twelve-point audit of your practice&rsquo;s website, straight
-                to your inbox — plus an occasional note on design and search
-                for clinics. No noise.
+                to your inbox. No noise.
               </p>
             </div>
             <div className="md:col-span-5 md:col-start-8 reveal" style={{ transitionDelay: "240ms" }}>

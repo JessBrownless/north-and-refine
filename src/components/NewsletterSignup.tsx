@@ -69,6 +69,32 @@ export default function NewsletterSignup() {
           {status === "sending" ? "Sending…" : "Get the checklist"}
         </button>
       </div>
+
+      {/* GDPR/Spam Act: ongoing marketing is a SEPARATE, optional, unticked
+          opt-in — never bundled with the checklist delivery. The checkbox
+          value posts with the submission, so consent is recorded with a
+          timestamp on Netlify. */}
+      <label className="mt-5 flex cursor-pointer items-start gap-3">
+        <input
+          type="checkbox"
+          name="marketing-opt-in"
+          value="yes"
+          className="mt-1 h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-sm border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
+        />
+        <span className="label text-bone-dim">
+          Also send me the occasional note on design and search for clinics.
+          Optional — the checklist arrives either way.
+        </span>
+      </label>
+      <p className="fineprint mt-4">
+        We&rsquo;ll use your email to send the checklist (and the notes, only
+        if you tick the box). Unsubscribe any time, with one click. See our{" "}
+        <a href="/privacy" className="underline underline-offset-2 hover:text-bone transition-colors">
+          privacy policy
+        </a>
+        .
+      </p>
+
       {status === "error" && (
         <p className="label mt-3 text-champagne">
           That didn&rsquo;t send — please try again.

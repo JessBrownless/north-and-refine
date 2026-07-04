@@ -75,7 +75,10 @@ export default function Footer() {
 
         <div className="mt-16 pt-8 border-t rule-dark flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
           <p className="fineprint">
-            © {year} {SITE.legalName}. All rights reserved.
+            © {year} {SITE.legalName}. All rights reserved. ·{" "}
+            <Link href="/privacy" className="underline underline-offset-2 hover:text-bone transition-colors">
+              Privacy
+            </Link>
           </p>
           <p className="fineprint">
             Brand &amp; web design for medical aesthetic &amp; cosmetic surgery practices.

@@ -16,6 +16,7 @@ const STATIC_ROUTES = [
   "/about",
   "/journal",
   "/contact",
+  "/privacy",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
