@@ -61,6 +61,8 @@ export interface WorkFrontmatter {
   mobileImageAlt?: string;
   thumbImage?: string;
   thumbImageAlt?: string;
+  cardImage?: string; // WorkCard grid thumb ONLY (the hero deck reads thumbImage) — the styled composite
+  cardImageAlt?: string;
   featured?: boolean; // surface on the homepage
   readingTime?: number;
 }
@@ -132,6 +134,9 @@ function validate(fileName: string, data: Record<string, unknown>): void {
   }
   if (data.thumbImage !== undefined && !isNonEmptyString(data.thumbImageAlt)) {
     errors.push(`"thumbImageAlt" is required when "thumbImage" is set (accessibility)`);
+  }
+  if (data.cardImage !== undefined && !isNonEmptyString(data.cardImageAlt)) {
+    errors.push(`"cardImageAlt" is required when "cardImage" is set (accessibility)`);
   }
 
   if (data.slug !== undefined && !isKebabSlug(data.slug)) {

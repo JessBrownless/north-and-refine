@@ -230,26 +230,37 @@ export default function HomePage() {
         {/* Sticky screen — the statement holds the viewport for a short beat
             (the extra 70vh of track) before releasing: anchored, not scrubbed */}
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          <div className="shell relative z-10 w-full text-center">
-            <p className="overline reveal">Considered</p>
-            {/* Scroll-scrubbed word highlight — words brighten at the pace
-                you scroll (see ManifestoStatement); centred on the grid */}
-            <ManifestoStatement text={MANIFESTO} />
+          <div className="shell relative z-10 w-full">
+            {/* Edge-anchored composition: the statement owns the LEFT of the
+                grid; the stats stack as a rail on the RIGHT edge, baselines
+                meeting at the bottom. */}
+            <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:items-end">
+              <div className="md:col-span-8">
+                <p className="overline reveal">Considered</p>
+                {/* Scroll-scrubbed word highlight — words brighten at the
+                    pace you scroll (see ManifestoStatement) */}
+                <ManifestoStatement text={MANIFESTO} />
+              </div>
 
-            {/* Stats — three defensible numbers on hairlines (no invented
-                client metrics: the ranking claim is the Hawkes study's, the
-                rest are definitionally true) */}
-            <div className="mx-auto mt-14 grid max-w-3xl grid-cols-3 gap-6 border-t rule-dark pt-8 md:gap-10">
-              {[
-                { value: "#1–3", label: "Google positions won for a specialist's key procedures" },
-                { value: "100%", label: "of our work is for medical aesthetics & surgery" },
-                { value: "12", label: "point website audit, free for practices" },
-              ].map((s, i) => (
-                <div key={s.value} className="reveal" style={{ transitionDelay: `${200 + i * 80}ms` }}>
-                  <p className="stat text-champagne">{s.value}</p>
-                  <p className="label mt-2 text-bone-dim">{s.label}</p>
-                </div>
-              ))}
+              {/* Stats — three defensible numbers on hairlines (no invented
+                  client metrics: the ranking claim is the Hawkes study's,
+                  the rest are definitionally true) */}
+              <div className="md:col-span-3 md:col-start-10">
+                {[
+                  { value: "#1–3", label: "Google positions won for a specialist's key procedures" },
+                  { value: "100%", label: "of our work is for medical aesthetics & surgery" },
+                  { value: "12", label: "point website audit, free for practices" },
+                ].map((stat, i) => (
+                  <div
+                    key={stat.value}
+                    className={`border-t rule-dark pt-5 reveal ${i > 0 ? "mt-8" : ""}`}
+                    style={{ transitionDelay: `${200 + i * 80}ms` }}
+                  >
+                    <p className="stat text-champagne">{stat.value}</p>
+                    <p className="label mt-2 text-bone-dim">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
