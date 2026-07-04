@@ -236,7 +236,12 @@ export default function HomePage() {
           scene as the hero (no own background, and NO sticky pin — the old
           70vh dwell read as the page being stuck). The statement scrolls
           through at reading pace while the scrub lights the words. ── */}
-      <section className="relative z-10 flex min-h-screen items-center">
+      <section className="relative z-10 h-[150vh]">
+        {/* Sticky screen — the statement HOLDS while the words finish
+            lighting (the scrub runs deep into the dwell), then releases.
+            The extra 50vh is what makes the text "take longer to get
+            past", This-January style. */}
+        <div className="sticky top-0 flex h-screen items-center">
         <div className="shell w-full">
           {/* Scroll-scrubbed word highlight — words brighten at the pace
               you scroll (see ManifestoStatement). No kicker: the statement
@@ -248,6 +253,7 @@ export default function HomePage() {
               Our story
             </Link>
           </div>
+        </div>
         </div>
         {/* No exit-fade here — the manifesto flows STRAIGHT into the stats
             (the proof) on the same continuous scene */}

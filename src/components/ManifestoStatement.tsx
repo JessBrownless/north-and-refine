@@ -32,12 +32,16 @@ export default function ManifestoStatement({ text }: { text: string }) {
       raf = 0;
       const vh = window.innerHeight;
       const rect = section.getBoundingClientRect();
-      // Progress 0→1: a LONG window — starts as the statement enters
-      // (section top at 88% of the viewport) and completes only when it's
-      // high on screen (top at ~12%), so the fill takes most of a viewport
-      // of scroll to run its course.
-      const start = vh * 0.88;
-      const end = vh * 0.12;
+      // Progress 0→1: starts as the statement enters (section top at 88%
+      // of the viewport). In a sticky track (section taller than the
+      // viewport) it completes 75% of the way through the dwell — the
+      // words keep filling WHILE the screen holds; in normal flow it
+      // completes with the section high on screen.
+      // Weighted so ~half the fill happens DURING the pin: it begins once
+      // the statement is well into view and completes only near the end of
+      // the dwell — the hold always has something happening in it.
+      const start = vh * 0.55;
+      const end = rect.height > vh * 1.1 ? -(rect.height - vh) * 0.9 : vh * 0.12;
       const p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
       const n = words.length;
       for (let i = 0; i < n; i++) {
