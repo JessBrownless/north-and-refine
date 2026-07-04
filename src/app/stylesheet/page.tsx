@@ -158,7 +158,7 @@ export default function StylesheetPage() {
             <p className="label text-bone">.shell-wide <span className="text-clay">· max 1760px · padding clamp(1.5rem, 4vw, 4rem)</span></p>
           </div>
           <div className="mx-auto w-[72%] rounded-sm border rule-dark bg-ink-raised py-3 text-center">
-            <p className="label text-bone">.shell <span className="text-clay">· max 1280px · padding clamp(1.5rem, 5vw, 5rem)</span></p>
+            <p className="label text-bone">.shell <span className="text-clay">· max 1400px · padding clamp(1.5rem, 4vw, 4rem)</span></p>
           </div>
           <div className="mx-auto w-[40%] rounded-sm border border-champagne/40 py-3 text-center">
             <p className="label text-bone">reading measure <span className="text-clay">· ~60–70ch</span></p>

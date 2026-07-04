@@ -62,7 +62,7 @@ Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
 
 ### Layout helpers
 
-- `.shell` — standard max-width 1280px container with responsive padding. The **content grid** — use on all body sections so copy keeps a comfortable measure.
+- `.shell` — standard max-width 1400px container with responsive padding. The **content grid** — use on all body sections so copy keeps a comfortable measure.
 - `.shell-wide` — open, near-full-width container (max 1760px, lighter padding). **Heroes only**, with one sanctioned exception: the work/[slug] article uses it as the IMAGE canvas — figures span it (full or 5+5 pairs) while kickers/copy stay grid-indented to a reading measure. Everything else sits on `.shell` so content shares one max width. (A homepage "content to the edges" experiment was tried and reverted 2026-07-03 — don't reintroduce it without asking.)
 - `.grain` — film-grain overlay for dark hero sections (needs `position: relative` + `overflow-hidden` on the parent, and `z-10` on content above it).
 - `.frame` — media wrapper (relative, overflow-hidden, ink-raised background).

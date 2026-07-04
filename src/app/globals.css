@@ -274,9 +274,9 @@
      use on body sections so copy keeps a comfortable measure. */
   .shell {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1400px;
     margin-inline: auto;
-    padding-inline: clamp(1.5rem, 5vw, 5rem);
+    padding-inline: clamp(1.5rem, 4vw, 4rem);
   }
 
   /* Open, near-full-width container — HEROES ONLY. Content breathes to the
