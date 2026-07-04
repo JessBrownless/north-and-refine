@@ -77,7 +77,7 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${sans.variable} ${geistMono.variable}`}>
-      <body>
+      <body id="top">
         {/* Site-wide structured data: the studio + the website node. */}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <SmoothScroll />

@@ -6,10 +6,10 @@ import {
   type WorkSector,
 } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
-import { SITE } from "@/lib/site";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import WorkCard from "@/components/WorkCard";
 import ServicesShowcase from "@/components/ServicesShowcase";
+import ManifestoStatement from "@/components/ManifestoStatement";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -230,48 +230,27 @@ export default function HomePage() {
         {/* Sticky screen — the statement holds the viewport for a short beat
             (the extra 70vh of track) before releasing: anchored, not scrubbed */}
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          {/* Composition satellites — the classic weighting: ONE big thing
-              (the statement), TWO medium (floating capture chips), a FEW tiny
-              (mono tag, champagne marks). Decorative; hidden on mobile. */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
-            <div className="absolute right-[7%] top-[14%] w-52 rotate-3 animate-float-slow reveal lg:w-60">
-              <div className="frame aspect-[4/5] rounded-xl shadow-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/desktops/dr-yalda-jamali.png"
-                  alt=""
-                  className="h-full w-full object-cover object-left-top"
-                />
-              </div>
-            </div>
-            <div
-              className="absolute bottom-[12%] right-[22%] w-36 -rotate-6 animate-float-slower reveal lg:w-44"
-              style={{ transitionDelay: "160ms" }}
-            >
-              <div className="frame aspect-square rounded-lg shadow-xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/desktops/dr-elizabeth-hawkes.jpg"
-                  alt=""
-                  className="h-full w-full object-cover object-top"
-                />
-              </div>
-            </div>
-            <p className="overline absolute left-[6%] top-[16%] reveal">[ EST. 2026 ]</p>
-            <span className="absolute bottom-[24%] left-[10%] text-xl text-champagne/60 reveal" style={{ transitionDelay: "240ms" }}>✦</span>
-            <span className="absolute right-[4%] top-[58%] text-sm text-champagne/40 reveal" style={{ transitionDelay: "320ms" }}>✦</span>
-          </div>
+          <div className="shell relative z-10 w-full text-center">
+            <p className="overline reveal">Considered</p>
+            {/* Scroll-scrubbed word highlight — words brighten at the pace
+                you scroll (see ManifestoStatement); centred on the grid */}
+            <ManifestoStatement text={MANIFESTO} />
 
-          <div className="shell relative z-10 w-full">
-            <p className="overline text-champagne reveal">Considered</p>
-            {/* One smooth, single reveal — the whole statement fades up as a
-                block (the word-by-word highlight read as gimmick, retired). */}
-            <p
-              className="statement from-overline max-w-4xl reveal"
-              style={{ transitionDelay: "120ms" }}
-            >
-              {MANIFESTO}
-            </p>
+            {/* Stats — three defensible numbers on hairlines (no invented
+                client metrics: the ranking claim is the Hawkes study's, the
+                rest are definitionally true) */}
+            <div className="mx-auto mt-14 grid max-w-3xl grid-cols-3 gap-6 border-t rule-dark pt-8 md:gap-10">
+              {[
+                { value: "#1–3", label: "Google positions won for a specialist's key procedures" },
+                { value: "100%", label: "of our work is for medical aesthetics & surgery" },
+                { value: "12", label: "point website audit, free for practices" },
+              ].map((s, i) => (
+                <div key={s.value} className="reveal" style={{ transitionDelay: `${200 + i * 80}ms` }}>
+                  <p className="stat text-champagne">{s.value}</p>
+                  <p className="label mt-2 text-bone-dim">{s.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Scroll anchor — nudges the page on to the work */}
@@ -384,9 +363,13 @@ export default function HomePage() {
                 here. We don&rsquo;t write these ourselves.&rdquo;
               </blockquote>
               <div
-                className="mt-9 flex items-center gap-6 reveal"
+                className="mt-9 flex items-center gap-5 reveal"
                 style={{ transitionDelay: "160ms" }}
               >
+                {/* Avatar slot — swap for a real headshot */}
+                <span className="portrait-fill relative h-14 w-14 shrink-0 overflow-hidden rounded-full" aria-hidden>
+                  <span className="index-num absolute inset-0 flex items-center justify-center text-ink/35">✦</span>
+                </span>
                 <div>
                   <p className="body font-medium text-bone">Client name</p>
                   <p className="body text-bone-dim">Role, Practice — placeholder</p>
@@ -466,69 +449,19 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── Instagram — MOCKUP feed for now (tiles are capture crops +
-          brand gradients, all linking to the profile); swap for a real
-          feed embed later ── */}
-      <section className="relative border-t rule-dark">
-        <div className="shell py-20 md:py-28">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="overline text-champagne reveal">Elsewhere</p>
-              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                @northandrefine
-              </h2>
-            </div>
-            <a
-              href={SITE.sameAs[0]}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-ghost text-bone reveal"
-            >
-              Follow along <span aria-hidden>→</span>
-            </a>
-          </div>
-
-          <div className="mt-12 grid grid-cols-3 gap-3 md:grid-cols-6 md:gap-4">
-            {[
-              { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-top" },
-              { kind: "mark" },
-              { kind: "shot", src: "/assets/desktops/dr-elizabeth-hawkes.jpg", pos: "object-left-top" },
-              { kind: "fill", label: "✦" },
-              { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-bottom" },
-              { kind: "fill", label: "01" },
-            ].map((tile, i) => (
-              <a
-                key={i}
-                href={SITE.sameAs[0]}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="North & Refine on Instagram"
-                className="group frame aspect-square overflow-hidden rounded-lg reveal"
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                {tile.kind === "shot" ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={tile.src}
-                    alt=""
-                    loading="lazy"
-                    className={`h-full w-full object-cover ${tile.pos} transition-transform duration-700 group-hover:scale-[1.04]`}
-                  />
-                ) : tile.kind === "mark" ? (
-                  <span className="flex h-full w-full items-center justify-center font-display text-3xl tracking-tight text-bone/25">
-                    N<span className="text-champagne/40">&amp;</span>R
-                  </span>
-                ) : (
-                  <span className="portrait-fill flex h-full w-full items-center justify-center">
-                    <span className="index-num text-ink/30">{tile.label}</span>
-                  </span>
-                )}
-              </a>
-            ))}
-          </div>
+      {/* ── Ghost marquee — the midnight signature ─────────────────────── */}
+      <section className="overflow-hidden border-t rule-dark py-10 md:py-16">
+        <div className="flex w-max animate-marquee whitespace-nowrap">
+          {[0, 1].map((i) => (
+            <span key={i} className="display-mega text-ghost-on-dark pr-16">
+              Clinics deserve designers who understand their world&nbsp;—&nbsp;
+            </span>
+          ))}
         </div>
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
+
+      {/* ── CTA — bone interruption ────────────────────────────────────── */}
+      <ContactCTA />
 
       {/* ── The freebie — mailing-list capture (Netlify form "newsletter").
           Rename the checklist / rewrite the pitch freely; the form and its
@@ -556,19 +489,6 @@ export default function HomePage() {
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
 
-      {/* ── Ghost marquee — the midnight signature ─────────────────────── */}
-      <section className="overflow-hidden border-t rule-dark py-10 md:py-16">
-        <div className="flex w-max animate-marquee whitespace-nowrap">
-          {[0, 1].map((i) => (
-            <span key={i} className="display-mega text-ghost-on-dark pr-16">
-              Clinics deserve designers who understand their world&nbsp;—&nbsp;
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CTA — bone interruption ────────────────────────────────────── */}
-      <ContactCTA />
     </main>
   );
 }

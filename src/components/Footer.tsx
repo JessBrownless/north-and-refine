@@ -1,15 +1,81 @@
 import Link from "next/link";
 import { FOOTER_NAV, SITE } from "@/lib/site";
 
+// The footer's Instagram strip — MOCKUP tiles (capture crops + brand
+// gradients) until a real feed embed exists; every tile links to the profile.
+const IG_TILES: (
+  | { kind: "shot"; src: string; pos: string }
+  | { kind: "mark" }
+  | { kind: "fill"; label: string }
+)[] = [
+  { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-top" },
+  { kind: "mark" },
+  { kind: "shot", src: "/assets/desktops/dr-elizabeth-hawkes.jpg", pos: "object-left-top" },
+  { kind: "fill", label: "✦" },
+  { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-bottom" },
+  { kind: "fill", label: "01" },
+];
+
 /**
- * Site footer. Wordmark + tagline, navigation, and contact. Lives on the ink
- * base. Single footer for the whole site — don't fork.
+ * Site footer. Opens with the full-bleed Instagram strip (seamless tiles,
+ * edge to edge), then wordmark + tagline, navigation, contact, and the giant
+ * cropped NORTH. A floating back-to-top button rides the lower right (plain
+ * anchor to #top — Lenis smooths it). Single footer for the whole site —
+ * don't fork.
  */
 export default function Footer() {
   const year = "2026"; // bump annually; kept static to avoid hydration drift
 
   return (
-    <footer className="bg-ink border-t rule-dark">
+    <footer className="relative bg-ink border-t rule-dark">
+      {/* ── Instagram — seamless full-bleed strip, connected to the footer ── */}
+      <div className="shell flex flex-wrap items-end justify-between gap-4 pt-14 pb-8 md:pt-20">
+        <div>
+          <p className="overline reveal">[ Elsewhere ]</p>
+          <p className="heading-md from-overline text-bone reveal" style={{ transitionDelay: "80ms" }}>
+            @northandrefine
+          </p>
+        </div>
+        <a
+          href={SITE.sameAs[0]}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-ghost text-bone reveal"
+        >
+          Follow along <span aria-hidden>→</span>
+        </a>
+      </div>
+      <div className="grid w-full grid-cols-3 gap-px md:grid-cols-6">
+        {IG_TILES.map((tile, i) => (
+          <a
+            key={i}
+            href={SITE.sameAs[0]}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="North & Refine on Instagram"
+            className="group frame aspect-square"
+          >
+            {tile.kind === "shot" ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={tile.src}
+                alt=""
+                loading="lazy"
+                className={`h-full w-full object-cover ${tile.pos} transition-transform duration-700 group-hover:scale-[1.04]`}
+              />
+            ) : tile.kind === "mark" ? (
+              <span className="flex h-full w-full items-center justify-center font-display text-3xl tracking-tight text-bone/25">
+                N<span className="text-champagne/40">&amp;</span>R
+              </span>
+            ) : (
+              <span className="portrait-fill flex h-full w-full items-center justify-center">
+                <span className="index-num text-ink/30">{tile.label}</span>
+              </span>
+            )}
+          </a>
+        ))}
+      </div>
+
       <div className="shell py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Brand */}
@@ -85,6 +151,15 @@ export default function Footer() {
           </p>
         </div>
       </div>
+
+      {/* Floating back-to-top — plain anchor so Lenis carries the glide */}
+      <a
+        href="#top"
+        aria-label="Back to top"
+        className="absolute bottom-8 right-6 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-bone/15 bg-ink-raised/80 text-bone backdrop-blur-md transition-colors hover:border-champagne hover:text-champagne md:bottom-12 md:right-10"
+      >
+        <span aria-hidden>↑</span>
+      </a>
 
       {/* The signature close — a giant NORTH cropped by the page's end.
           translate-y (not margin) does the crop, so the footer's height ends

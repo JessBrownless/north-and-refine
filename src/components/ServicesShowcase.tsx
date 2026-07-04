@@ -54,21 +54,12 @@ export default function ServicesShowcase() {
                 i === 0 ? "border-t" : ""
               }`}
             >
-              <span className="flex items-baseline gap-5">
-                <span
-                  className={`index-num transition-colors duration-500 ${
-                    isActive ? "text-champagne" : "text-bone/25 group-hover:text-champagne/60"
-                  }`}
-                >
-                  {s.num}
-                </span>
-                <span
-                  className={`heading-xl transition-colors duration-500 ${
-                    isActive ? "text-bone" : "text-bone/25 group-hover:text-bone/60"
-                  }`}
-                >
-                  {s.title}
-                </span>
+              <span
+                className={`heading-xl block transition-colors duration-500 ${
+                  isActive ? "text-bone" : "text-bone/25 group-hover:text-bone/60"
+                }`}
+              >
+                {s.title}
               </span>
               {/* Active service reveals its line */}
               <span
