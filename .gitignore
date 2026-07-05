@@ -32,6 +32,7 @@ next-env.d.ts
 
 # stray build artifact (accidental temp distDir written into the project)
 /var
+/tmp
 
 # scratch/working assets — not used by the app (Next serves only /public)
 /assets
