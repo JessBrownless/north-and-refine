@@ -1,96 +1,33 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
 
 /**
- * What-we-do as BIG interactive typography: the three services stacked at
- * display scale on the left; a tall image panel on the right that crossfades
- * when a service is selected. Click (or focus + enter) a title to switch.
- * Images are placeholder captures/gradients until dedicated art lands —
- * swap the `image` paths freely.
+ * What-we-do as statement typography: three .display-scale service titles,
+ * each on its own ruled row with a "Read more" button on the right — the
+ * whole row links to /services. The click-to-reveal accordion was removed
+ * 2026-07-05 (the titles carry the section alone; detail lives on
+ * /services). Order is the sell: web first, search second, brand third.
  */
-
-// All three panels are QUIET placeholders (the brand gradient + a label)
-// until dedicated art per service lands — real photography was too loud
-// next to the big type.
-const SERVICES = [
-  {
-    num: "01",
-    title: "Brand identity",
-    body: "A considered visual language — name, mark, type, palette and tone — that signals the standard of your care before a word is read.",
-  },
-  {
-    num: "02",
-    title: "Web design & build",
-    body: "Fast, accessible, beautifully made websites that hold attention and turn a nervous first visit into a booked consultation.",
-  },
-  {
-    num: "03",
-    title: "SEO & content",
-    body: "Technical SEO, schema and an editorial content engine that compounds — so the right patients find you, on your own terms.",
-  },
-] as const;
+const SERVICES = ["Web design & build", "SEO & content", "Brand identity"] as const;
 
 export default function ServicesShowcase() {
-  const [active, setActive] = useState(0);
-
   return (
-    <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
-      {/* The list — one big typographic column; the active service carries
-          the light, the rest recede */}
-      <div className="md:col-span-7">
-        {SERVICES.map((s, i) => {
-          const isActive = i === active;
-          return (
-            <button
-              key={s.num}
-              type="button"
-              onClick={() => setActive(i)}
-              aria-pressed={isActive}
-              className={`group block w-full border-b rule-dark py-7 text-left transition-colors md:py-9 ${
-                i === 0 ? "border-t" : ""
-              }`}
-            >
-              <span
-                className={`heading-xl block transition-colors duration-500 ${
-                  isActive ? "text-bone" : "text-bone/25 group-hover:text-bone/60"
-                }`}
-              >
-                {s.title}
-              </span>
-              {/* Active service reveals its line */}
-              <span
-                className={`block overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  isActive ? "mt-4 max-h-32 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                <span className="body-lg block max-w-xl text-bone-dim">{s.body}</span>
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* The image panel — all slides stacked, crossfading to the active one */}
-      <div className="relative md:col-span-5">
-        <div className="frame aspect-[4/5] rounded-xl">
-          {SERVICES.map((s, i) => (
-            <div
-              key={s.num}
-              aria-hidden={i !== active}
-              className={`absolute inset-0 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                i === active ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <div className="portrait-fill relative h-full w-full">
-                <span className="overline absolute bottom-5 left-5 text-ink/50">
-                  Imagery slot — {s.title}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <div>
+      {SERVICES.map((title) => (
+        <Link
+          key={title}
+          href="/services"
+          className="group flex flex-col items-start gap-5 border-b rule-dark py-7 sm:flex-row sm:items-center sm:justify-between sm:gap-8 md:py-9"
+        >
+          <span className="display block text-bone transition-opacity duration-500 group-hover:opacity-70">
+            {title}
+          </span>
+          {/* Visual button — the row itself is the link */}
+          <span className="btn btn-sm btn-secondary-dark shrink-0">
+            Read more
+            <span aria-hidden>→</span>
+          </span>
+        </Link>
+      ))}
     </div>
   );
 }

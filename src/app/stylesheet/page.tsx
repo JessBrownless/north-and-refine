@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?: boolean }[] = [
   { name: "Ink", cls: "bg-ink", hex: "#0C0C0D", use: "Default page background" },
   { name: "Ink raised", cls: "bg-ink-raised", hex: "#161618", use: "Raised surfaces / cards on dark" },
-  { name: "Ink line", cls: "bg-ink-line", hex: "#2A2A2C", use: "Hairline dividers on dark (rule-dark)" },
+  { name: "Ink line", cls: "bg-ink-line", hex: "#3A3A3E", use: "Hairline dividers on dark (rule-dark)" },
   { name: "Bone", cls: "bg-bone", hex: "#F2EEE6", use: "Light sections; primary text on ink", lightCard: true },
   { name: "Bone dim", cls: "bg-bone-dim", hex: "#CBC6BB", use: "Secondary text on ink", lightCard: true },
   { name: "Bone line", cls: "bg-bone-line", hex: "#DAD4C8", use: "Hairline dividers on light (rule-light)", lightCard: true },
@@ -32,9 +32,9 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: string }[
   { cls: "display", label: ".display", note: "42→100px · homepage H1 / billboard display", sample: "Considered by design" },
   { cls: "heading-xl", label: ".heading-xl", note: "36→79px · interior-page H1", sample: "Brand & web design" },
   { cls: "statement", label: ".statement", note: "28→56px · centred editorial statement", sample: "A calmer first impression" },
-  { cls: "heading-lg", label: ".heading-lg", note: "24→40px · section H2", sample: "What we do" },
-  { cls: "heading-md", label: ".heading-md", note: "20→28px · card / sub-heading H3", sample: "Brand identity" },
-  { cls: "heading-sm", label: ".heading-sm", note: "17→20px · smallest heading H4", sample: "The approach" },
+  { cls: "heading-lg", label: ".heading-lg", note: "28→48px · section H2", sample: "What we do" },
+  { cls: "heading-md", label: ".heading-md", note: "24→40px · card / sub-heading H3", sample: "Brand identity" },
+  { cls: "heading-sm", label: ".heading-sm", note: "20→28px · smallest heading H4", sample: "The approach" },
   { cls: "body-lg", label: ".body-lg", note: "16→19px · lede / intro copy", sample: "We build considered brands and high-performing websites for practices." },
   { cls: "body", label: ".body", note: "14→16px · default UI/body copy", sample: "The studio takes on a limited number of projects at a time." },
   { cls: "body-sm", label: ".body-sm", note: "13→14px · secondary/meta copy (footer links, attributions)", sample: "Brand identity, web design and SEO — one studio, one standard." },
@@ -133,7 +133,7 @@ export default function StylesheetPage() {
         {/* Typography */}
         <Sub
           title="Typography"
-          note="Instrument Sans (body/headings — note the sheared 'scalpel' terminals) + Saol Display (serif — the wordmark/logo face, font-display) + Geist Mono for engineered accents. One clamp() per class; never inline font sizes."
+          note="Saol Display (serif, 400) for ALL headings and the wordmark + Instrument Sans for body/UI (the sheared 'scalpel' terminals) + Geist Mono for engineered accents. One clamp() per class; never inline font sizes."
         />
         <div className="mt-6 divide-y rule-dark">
           {TYPE_STYLES.map((t) => (

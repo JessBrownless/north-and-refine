@@ -42,7 +42,8 @@ const DECK_ORDER: WorkSector[] = [
   "dermatology",
 ];
 
-// Bracketed editorial date for the Journal teaser cards — [ 26 June 2026 ].
+// Editorial date for the Journal teaser cards — 26 June 2026. (Brackets
+// removed everywhere 2026-07-05 — they read sci-fi, not editorial.)
 function formatDate(iso: string): string {
   return new Intl.DateTimeFormat("en-AU", {
     day: "numeric",
@@ -54,7 +55,26 @@ function formatDate(iso: string): string {
 
 // The homepage manifesto — This-January length: one thought, four lines.
 const MANIFESTO =
-  "A studio that treats a practice’s digital presence with the same care as the medicine itself.";
+  "A studio that treats the clinic’s digital presence with the same care as the practice itself.";
+
+
+// One soft champagne pool for a dark section — the same ambient device as
+// the hero/manifesto scene, so the WHOLE page swims in the light rather
+// than going flat after the bone interruption. Phone-first sizing; pulled
+// back on md+ like its scene siblings.
+function AmbientPool({ className }: { className: string }) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div
+        className={`absolute w-[95vw] sm:w-[60vw] md:opacity-85 ${className}`}
+        style={{
+          background:
+            "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 100%)",
+        }}
+      />
+    </div>
+  );
+}
 
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
@@ -125,20 +145,32 @@ export default function HomePage() {
                 "radial-gradient(90% 100% at 50% 0%, color-mix(in srgb, var(--champagne) 11%, var(--ink)) 0%, var(--ink) 70%)",
             }}
           />
+          {/* Pools are sized for PHONES first (vw units shrink them to
+              puddles on small screens) — intensity is raised at base and
+              pulled back to the old strength on md+ via opacity */}
           <div
-            className="absolute left-[-12%] top-[58vh] h-[64vh] w-[46vw] animate-float-slow"
+            className="absolute left-[-12%] top-[52vh] h-[52vh] w-[95vw] animate-float-slow sm:left-[-12%] sm:top-[58vh] sm:h-[64vh] sm:w-[46vw] md:opacity-70"
             style={{
               background:
-                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
+                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 10%, transparent) 0%, transparent 100%)",
+            }}
+          />
+          {/* Pool at the manifesto's TOP-LEFT — the statement opens inside
+              light rather than flat black */}
+          <div
+            className="absolute left-[-12%] top-[110vh] h-[55vh] w-[95vw] animate-float-slow sm:left-[-15%] sm:top-[120vh] sm:h-[62vh] sm:w-[52vw] md:opacity-70"
+            style={{
+              background:
+                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 10%, transparent) 0%, transparent 100%)",
             }}
           />
           {/* Pool under the manifesto's lower reaches — carries the scene's
-              light into the proof that follows */}
+              light into the work that follows */}
           <div
-            className="absolute right-[-10%] bottom-[4%] h-[70vh] w-[48vw] animate-float-slower"
+            className="absolute right-[-15%] bottom-[4%] h-[55vh] w-[100vw] animate-float-slower sm:right-[-10%] sm:h-[70vh] sm:w-[48vw] md:opacity-70"
             style={{
               background:
-                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 8%, transparent) 0%, transparent 100%)",
+                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 11%, transparent) 0%, transparent 100%)",
             }}
           />
           <div className="grain absolute inset-0" />
@@ -156,10 +188,9 @@ export default function HomePage() {
             the deck, seated at its foot, bleeds past the fold — cropped by the
             viewport edge, not by CSS. mt-auto opens a generous pocket of air
             between the copy (held near the top) and the deck. */}
-        {/* Mobile: ~86svh (the old full-screen height left the shortened
-            lockup swimming after the CTAs were removed); md+: 120vh so the
-            deck bleeds past the fold */}
-        <div className="shell-wide relative z-10 flex min-h-[86svh] flex-col md:min-h-[120vh]">
+        {/* Mobile: a FULL first screen (100svh) with the deck seated at the
+            fold and clipped by it — same device as desktop's 120vh bleed */}
+        <div className="shell-wide relative z-10 flex min-h-[100svh] flex-col md:min-h-[120vh]">
           {/* Type lockup — eyebrow over the centred headline at .display
               scale (the H1 owns the hero). Load-in is a two-beat sequence:
               the eyebrow tracks in alone, then the copy, then the deck.
@@ -179,13 +210,13 @@ export default function HomePage() {
                 className="display from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.7s" }}
               >
-                Practices Patients Trust
+                Practices that Patients Trust
               </h1>
             </div>
 
             {/* Lede sits at 55% bone — visibly quieter than the headline */}
             <p
-              className="lede body-lg mx-auto max-w-2xl text-bone/70 opacity-0 animate-fade-in-up"
+              className="lede body-lg mx-auto max-w-2xl text-bone/80 opacity-0 animate-fade-in-up"
               style={{ animationDelay: "0.9s" }}
             >
               Brand, web design and SEO for cosmetic surgeons, medical aesthetic
@@ -241,22 +272,102 @@ export default function HomePage() {
           </div>
         </div>
         </div>
-        {/* Fade-to-ink on exit — the dark scene hands over to the bone work */}
+        {/* Fade-to-ink on exit — the scene hands over to the work */}
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
       </div>
 
-      {/* ── Stats — THE PROOF, straight after the manifesto's claim (the
-          intro makes the claim, the numbers prove it, THEN the work shows
-          it). An asymmetric bento: one tall EXHIBITS card (the receipts
+      {/* ── Selected work — on the ink scene like everything else (the
+          bone treatment was retired 2026-07-05; the CTA band is now the
+          page's single light interruption). Title-only cards; the story
+          surfaces on hover. NOTE: bespoke to the homepage — /work keeps
+          the canonical WorkCard. ── */}
+      <section id="selected-work" className="relative scroll-mt-14">
+        <AmbientPool className="right-[-12%] top-[-5%] h-[70vh] animate-float-slow" />
+        <AmbientPool className="left-[-15%] bottom-[10%] h-[75vh] animate-float-slower" />
+        <div className="shell py-24 md:py-32">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="overline reveal">Selected work</p>
+              <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                Practices we&rsquo;ve refined
+              </h2>
+            </div>
+            <Link href="/work" className="btn-ghost text-bone reveal">
+              All work <span aria-hidden>→</span>
+            </Link>
+          </div>
+
+          {/* Staggered columns: the right column starts a beat lower, so
+              every row reads as an offset pair rather than a flat grid */}
+          {/* Mobile: an edge-bleeding snap carousel (swipe through the
+              projects); md+: the staggered two-column grid */}
+          <div className="-mx-6 mt-16 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-pl-6 px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0">
+            {featured.map((project, i) => (
+              <Link
+                key={project.slug}
+                href={`/work/${project.slug}`}
+                className={`group block reveal w-[74vw] flex-none snap-start md:w-auto ${i % 2 === 1 ? "md:mt-32" : ""}`}
+                style={{ transitionDelay: `${(i % 2) * 120}ms` }}
+              >
+                <div className="frame aspect-[16/10] rounded-xl">
+                  {/* TEMP vibe-check (2026-07-05): Yalda and Hawkes captures
+                      ALTERNATING to judge how real imagery sits in this
+                      layout. Wire real per-project art in the imagery pass. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={i % 2 === 0 ? "/assets/desktops/dr-yalda-jamali.png" : "/assets/desktops/dr-elizabeth-hawkes.jpg"}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                  {/* Hover — sector and summary rise inside the frame */}
+                  <span className="absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-ink/85 via-ink/50 to-transparent p-6 pt-16 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <span className="overline block">{getSectorLabel(project.frontmatter.sector)}</span>
+                    {project.frontmatter.summary && (
+                      <span className="body-sm mt-2 block text-bone-dim">{project.frontmatter.summary}</span>
+                    )}
+                  </span>
+                </div>
+                <h3 className="heading-md mt-5 transition-opacity group-hover:opacity-70">
+                  {project.frontmatter.client}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+
+      {/* ── What we do — three BIG full-measure headings (the image panel
+          was dropped 2026-07-05); selecting one reveals its line. ── */}
+      <section className="relative">
+        <AmbientPool className="right-[-12%] top-[-10%] h-[70vh] animate-float-slow" />
+        <div className="shell py-24 md:py-32">
+          {/* Kicker gets its own hairline; the ruled service rows hang
+              straight off it */}
+          <div className="border-b rule-dark pb-6 reveal">
+            <p className="overline">What we do</p>
+          </div>
+          <div className="reveal" style={{ transitionDelay: "120ms" }}>
+            <ServicesShowcase />
+          </div>
+        </div>
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+
+      {/* ── Stats — THE PROOF, under What we do: the services state the
+          offer, the numbers back it. An asymmetric bento: one tall EXHIBITS card (the receipts
           stack — artefact fragments every build ships) + four glass stat
           cards at varied widths, each lit by its own champagne gradient
           blob. Numbers are defensible: the ranking is the Hawkes study's,
           the rest are definitionally true. ── */}
       <section className="relative z-10">
+        <AmbientPool className="left-[-12%] bottom-[-15%] h-[75vh] animate-float-slower" />
+        <AmbientPool className="right-[-15%] top-[-10%] h-[60vh] animate-float-slow" />
         <div className="shell py-24 md:py-32">
           <p className="overline reveal">The proof</p>
-          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+          <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
             Numbers a practice can stand behind
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
@@ -322,78 +433,6 @@ export default function HomePage() {
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
 
-      {/* ── Selected work — the bone interruption. Two quiet columns while
-          the layout settles: placeholder fills stand in for imagery (the
-          real captures/composites return in the imagery pass), a title
-          alone beneath each frame, and the project's story surfaces on
-          hover inside the frame. NOTE: bespoke to the homepage — /work
-          keeps the canonical WorkCard. ── */}
-      <section
-        id="selected-work"
-        data-nav-light
-        className="relative bg-bone text-ink scroll-mt-14"
-      >
-        <div className="shell py-24 md:py-32">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="overline text-clay reveal">Selected work</p>
-              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                Practices we&rsquo;ve refined
-              </h2>
-            </div>
-            <Link href="/work" className="btn-ghost text-ink reveal">
-              All work <span aria-hidden>→</span>
-            </Link>
-          </div>
-
-          {/* Staggered columns: the right column starts a beat lower, so
-              every row reads as an offset pair rather than a flat grid */}
-          {/* Mobile: a simple stacked list (one project after another);
-              md+: the staggered two-column grid */}
-          <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-14">
-            {featured.map((project, i) => (
-              <Link
-                key={project.slug}
-                href={`/work/${project.slug}`}
-                className={`group block reveal ${i % 2 === 1 ? "md:mt-32" : ""}`}
-                style={{ transitionDelay: `${(i % 2) * 120}ms` }}
-              >
-                <div className="frame aspect-[16/10] rounded-xl">
-                  {/* Placeholder fill until the imagery pass */}
-                  <span className="portrait-fill absolute inset-0 flex items-center justify-center">
-                    <span className="index-num text-ink/30">{String(i + 1).padStart(2, "0")}</span>
-                  </span>
-                  {/* Hover — sector and summary rise inside the frame */}
-                  <span className="absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-ink/85 via-ink/50 to-transparent p-6 pt-16 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                    <span className="overline block">{getSectorLabel(project.frontmatter.sector)}</span>
-                    {project.frontmatter.summary && (
-                      <span className="body-sm mt-2 block text-bone-dim">{project.frontmatter.summary}</span>
-                    )}
-                  </span>
-                </div>
-                <h3 className="heading-sm mt-5 transition-opacity group-hover:opacity-70">
-                  {project.frontmatter.client}
-                </h3>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
-      </section>
-
-      {/* ── What we do — BIG interactive typography: the three services at
-          display scale; selecting one crossfades the image panel beside
-          them. Sits between the manifesto and the work. ── */}
-      <section className="relative">
-        <div className="shell py-24 md:py-32">
-          <p className="overline reveal">What we do</p>
-          <div className="mt-12 reveal" style={{ transitionDelay: "120ms" }}>
-            <ServicesShowcase />
-          </div>
-        </div>
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
-
       {/* ── Kind words — social proof, split layout (after Relume
           Testimonial 13): client portrait LEFT; stars, quote and an
           attribution row (name/role · divider · practice wordmark) RIGHT.
@@ -401,9 +440,10 @@ export default function HomePage() {
           words, a real portrait and live review data exist — we never draft
           quotes on a client's behalf. Swap the content, keep the structure. */}
       <section className="relative">
+        <AmbientPool className="right-[-15%] top-[5%] h-[70vh] animate-float-slow" />
         <div className="shell py-24 md:py-32">
           <p className="overline reveal">Kind words</p>
-          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+          <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
             In their words
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
@@ -468,11 +508,13 @@ export default function HomePage() {
           live inside the section directly ── */}
       {posts.length > 0 && (
         <section className="relative">
+          <AmbientPool className="left-[-12%] top-[-10%] h-[75vh] animate-float-slower" />
+          <AmbientPool className="right-[-12%] bottom-[-10%] h-[65vh] animate-float-slow" />
           <div className="shell py-24 md:py-32">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <p className="overline reveal">Journal</p>
-                <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
                   Thinking, written down
                 </h2>
               </div>
@@ -509,9 +551,9 @@ export default function HomePage() {
                       </span>
                     )}
                   </div>
-                  <p className="overline mt-6 text-clay">[ {formatDate(post.frontmatter.publishedAt)} ]</p>
+                  <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
                   <div className="mt-3 flex items-start justify-between gap-5">
-                    <h3 className="heading-sm max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
+                    <h3 className="heading-md max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
                       {post.frontmatter.title}
                     </h3>
                     <span

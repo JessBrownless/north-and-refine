@@ -79,8 +79,11 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
           behind them stays untouched. The stage is widened to the viewport
           (symmetric negative margins) so the mask's coordinate space covers
           the fan's bleed past the shell container. */}
+      {/* Mobile stage height keeps the 3/2 FRONT card comfortably inside the
+          screen (210px tall → 315px wide → ~30px+ air each side on phones);
+          --edge tracks the front card's half-width per breakpoint */}
       <div
-        className="relative h-[260px] sm:h-[360px] md:h-[530px] lg:h-[620px] [--edge:195px] sm:[--edge:270px] md:[--edge:398px] lg:[--edge:465px]"
+        className="relative h-[210px] sm:h-[360px] md:h-[530px] lg:h-[620px] [--edge:158px] sm:[--edge:270px] md:[--edge:398px] lg:[--edge:465px]"
         style={{
           width: "100vw",
           marginInline: "calc(50% - 50vw)",

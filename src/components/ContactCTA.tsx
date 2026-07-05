@@ -22,7 +22,7 @@ export default function ContactCTA({
   body = "Tell us about your practice and where you want it to be. We take on a limited number of projects at a time, so the right fit matters.",
 }: ContactCTAProps) {
   return (
-    <section data-nav-light className="relative overflow-hidden bg-bone text-ink">
+    <section data-nav-light className="scene-warm relative overflow-hidden text-ink">
       {/* Imagery spaces — a floating collage on the right (one medium, one
           small, a tiny mark: placeholder slots until real photography lands).
           Desktop only, decorative. */}

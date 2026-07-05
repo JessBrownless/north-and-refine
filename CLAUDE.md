@@ -10,7 +10,7 @@ Instructions for Claude when working in this repository. Read this **before** wr
 - **Styling:** Tailwind 3 + a custom design-token system in `src/app/globals.css`
 - **Content:** MDX collections read from `content/` at build time (no CMS) via `gray-matter` + `next-mdx-remote/rsc`
 - **Hosting:** Netlify (`@netlify/plugin-nextjs`)
-- **Fonts:** **Instrument Sans** (`--font-sans`, Google, body + headings, chosen for its sheared "scalpel" terminals — a brand signature, see the lowercase t) + **Saol Display** (`--font-display`, serif, `src/fonts/*.woff2/.woff` — the wordmark/logo face ONLY: every `font-display` usage, incl. `.wordmark-giant`; Regular 400 + Light Italic 300 are the only weights loaded, so no `font-medium` on display text) + Geist Mono (`--font-mono`) for engineered accents (`.overline`, `.index-num`, `.stat`). Aeonik Pro trial evaluated and parked (loader commented in `layout.tsx`, files in `src/fonts/`, archive in `./font-trials/`).
+- **Fonts:** SERIF-LED PAIRING (decided 2026-07-05) — **Saol Display** (`--font-display`, serif, `src/fonts/*.woff2/.woff`) carries EVERY heading tier (`.display-mega`→`.heading-sm`, h1–h6 defaults), the wordmark/monogram and `.wordmark-giant`; only Regular 400 (+ unused Light Italic 300) is loaded, so heading hierarchy comes from SIZE alone — never `font-medium` on display/heading text. **Instrument Sans** (`--font-sans`, Google — sheared "scalpel" terminals, see the lowercase t) is the body/UI voice. Geist Mono (`--font-mono`) for engineered accents (`.overline`, `.index-num`, `.stat`). Aeonik Pro trial evaluated and parked (files in `src/fonts/`, archive in `./font-trials/`). Buy more Saol weights before leaning on bold headings.
 - **Source of truth for the brand:** `src/app/globals.css` — all design tokens live there; rendered live at `/stylesheet`
 - **Direction:** dark / premium agency. Warm near-black (`ink`), bone off-white, one restrained champagne accent — plus a bright `ember` signal at 60-30-10 doses (live dots only).
 
@@ -28,7 +28,7 @@ All in `globals.css`, mirrored at `/stylesheet` (the visual canon — keep them 
 | --- | --- | --- |
 | `bg-ink` / `text-ink` | `#0C0C0D` | Default page background (warm near-black) |
 | `bg-ink-raised` | `#161618` | Raised surfaces / cards on dark |
-| `rule-dark` (border) | `#2A2A2C` | Hairline dividers on dark |
+| `rule-dark` (border) | `#3A3A3E` | Hairline dividers on dark |
 | `bg-bone` / `text-bone` | `#F2EEE6` | Light sections; primary text on ink |
 | `text-bone-dim` | `#CBC6BB` | Secondary text on ink |
 | `rule-light` (border) | `#DAD4C8` | Hairline dividers on light |

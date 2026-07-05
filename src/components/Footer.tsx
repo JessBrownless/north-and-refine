@@ -52,7 +52,24 @@ export default function Footer() {
   const year = "2026"; // bump annually; kept static to avoid hydration drift
 
   return (
-    <footer className="relative bg-ink">
+    <footer className="relative overflow-hidden bg-ink">
+      {/* Ambient champagne pools — the footer stays inside the lit scene */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute left-[-12%] top-[-5%] h-[60vh] w-[95vw] animate-float-slow sm:w-[60vw] md:opacity-85"
+          style={{
+            background:
+              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute bottom-[5%] right-[-15%] h-[55vh] w-[95vw] animate-float-slower sm:w-[60vw] md:opacity-85"
+          style={{
+            background:
+              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 12%, transparent) 0%, transparent 100%)",
+          }}
+        />
+      </div>
       {/* ── Instagram — a strict SEVEN-COLUMN band spanning the content grid
           edge to edge: three tiles · the monogram cell · three tiles. Equal
           rhythm, flush margins — no floating cluster. Mobile stacks the
