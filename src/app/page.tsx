@@ -348,14 +348,14 @@ export default function HomePage() {
 
           {/* Staggered columns: the right column starts a beat lower, so
               every row reads as an offset pair rather than a flat grid */}
-          {/* Mobile: an edge-bleeding snap carousel (swipe through the
-              projects); md+: the staggered two-column grid */}
-          <div className="-mx-6 mt-16 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-pl-6 px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0">
+          {/* Mobile: a simple stacked list (one project after another);
+              md+: the staggered two-column grid */}
+          <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-14">
             {featured.map((project, i) => (
               <Link
                 key={project.slug}
                 href={`/work/${project.slug}`}
-                className={`group block reveal w-[74vw] flex-none snap-start md:w-auto ${i % 2 === 1 ? "md:mt-32" : ""}`}
+                className={`group block reveal ${i % 2 === 1 ? "md:mt-32" : ""}`}
                 style={{ transitionDelay: `${(i % 2) * 120}ms` }}
               >
                 <div className="frame aspect-[16/10] rounded-xl">
