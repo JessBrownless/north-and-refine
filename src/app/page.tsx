@@ -7,7 +7,6 @@ import {
 } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
-import ServicesShowcase from "@/components/ServicesShowcase";
 import ManifestoStatement from "@/components/ManifestoStatement";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -381,14 +380,24 @@ export default function HomePage() {
         <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </section>
 
-      {/* ── What we do — BIG interactive typography: the three services at
-          display scale; selecting one crossfades the image panel beside
-          them. Sits between the manifesto and the work. ── */}
+      {/* ── What we do — the three services as ONE quiet statement, the
+          same treatment as the manifesto (scroll-lit words, nothing to
+          click), closed by a single CTA to /services. The interactive
+          ServicesShowcase (crossfading image panel) is parked in
+          components/ if we rotate back. ── */}
       <section className="relative">
         <div className="shell py-24 md:py-32">
           <p className="overline reveal">What we do</p>
-          <div className="mt-12 reveal" style={{ transitionDelay: "120ms" }}>
-            <ServicesShowcase />
+          <div className="mt-12">
+            <ManifestoStatement
+              text={["Brand identity", "Web design & build", "SEO & content"]}
+            />
+          </div>
+          <div className="mt-12 reveal" style={{ transitionDelay: "160ms" }}>
+            <Link href="/services" className="btn btn-secondary-dark">
+              <span aria-hidden>↳</span>
+              Our services
+            </Link>
           </div>
         </div>
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />

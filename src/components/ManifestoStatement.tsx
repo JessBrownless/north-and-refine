@@ -7,10 +7,15 @@ import { useEffect, useRef } from "react";
  * starts dim (15% bone) and brightens to full as you scroll through the
  * statement's sticky track — tied to scroll position, not time, so it moves
  * exactly at your pace and rewinds when you scroll back. One rAF-throttled
- * listener; measures the nearest <section> (the 170vh sticky track).
- * Reduced-motion users see the statement fully lit from the start.
+ * listener; measures the nearest <section> (sticky track OR normal flow —
+ * both are handled). Reduced-motion users see the statement fully lit from
+ * the start.
+ *
+ * `text` also accepts an array — each entry renders as its own line and the
+ * scrub runs continuously across all of them (used by the homepage
+ * "What we do" section, where the three services stack as one statement).
  */
-export default function ManifestoStatement({ text }: { text: string }) {
+export default function ManifestoStatement({ text }: { text: string | string[] }) {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
@@ -65,11 +70,17 @@ export default function ManifestoStatement({ text }: { text: string }) {
     };
   }, []);
 
+  const lines = Array.isArray(text) ? text : [text];
+
   return (
     <p ref={ref} className="heading-xl max-w-4xl">
-      {text.split(" ").map((word, i) => (
-        <span key={i} data-word style={{ opacity: 0.15 }}>
-          {word}{" "}
+      {lines.map((line, li) => (
+        <span key={li} className="block">
+          {line.split(" ").map((word, i) => (
+            <span key={i} data-word style={{ opacity: 0.15 }}>
+              {word}{" "}
+            </span>
+          ))}
         </span>
       ))}
     </p>

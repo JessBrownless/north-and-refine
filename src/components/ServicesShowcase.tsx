@@ -3,6 +3,10 @@
 import { useState } from "react";
 
 /**
+ * PARKED (2026-07-05): the homepage "What we do" section now renders the
+ * three services as a quiet ManifestoStatement (scroll-lit words, one CTA to
+ * /services) — no interaction. Kept in components/ if we rotate back.
+ *
  * What-we-do as BIG interactive typography: the three services stacked at
  * display scale on the left; a tall image panel on the right that crossfades
  * when a service is selected. Click (or focus + enter) a title to switch.
