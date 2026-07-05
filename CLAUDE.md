@@ -10,7 +10,7 @@ Instructions for Claude when working in this repository. Read this **before** wr
 - **Styling:** Tailwind 3 + a custom design-token system in `src/app/globals.css`
 - **Content:** MDX collections read from `content/` at build time (no CMS) via `gray-matter` + `next-mdx-remote/rsc`
 - **Hosting:** Netlify (`@netlify/plugin-nextjs`)
-- **Fonts:** SINGLE PREMIUM SANS — **Instrument Sans** (`--font-sans`, Google, chosen for its sheared "scalpel" terminals — a brand signature, see the lowercase t) + Geist Mono (`--font-mono`) for engineered accents (`.overline`, `.index-num`, `.stat`). Aeonik Pro trial evaluated and parked (loader commented in `layout.tsx`, files in `src/fonts/`, archive in `./font-trials/`).
+- **Fonts:** **Instrument Sans** (`--font-sans`, Google, body + headings, chosen for its sheared "scalpel" terminals — a brand signature, see the lowercase t) + **Saol Display** (`--font-display`, serif, `src/fonts/*.woff2/.woff` — the wordmark/logo face ONLY: every `font-display` usage, incl. `.wordmark-giant`; Regular 400 + Light Italic 300 are the only weights loaded, so no `font-medium` on display text) + Geist Mono (`--font-mono`) for engineered accents (`.overline`, `.index-num`, `.stat`). Aeonik Pro trial evaluated and parked (loader commented in `layout.tsx`, files in `src/fonts/`, archive in `./font-trials/`).
 - **Source of truth for the brand:** `src/app/globals.css` — all design tokens live there; rendered live at `/stylesheet`
 - **Direction:** dark / premium agency. Warm near-black (`ink`), bone off-white, one restrained champagne accent — plus a bright `ember` signal at 60-30-10 doses (live dots only).
 
@@ -40,9 +40,9 @@ Note `rule-dark` / `rule-light` set `border-color` only — pair with Tailwind `
 
 ### Typography utilities (use these, never raw `clamp()`/inline `fontFamily`)
 
-Fluid modular scale, one `clamp()` per class. Body is 16px fixed.
+Fluid modular scale, one `clamp()` per class. Body is fluid 14→16px (mobile→desktop); `.body-sm` (13→14) is the secondary/meta tier.
 
-`.display-mega` · `.display` (homepage H1) · `.heading-xl` (interior-page H1) · `.statement` · `.heading-lg` (H2) · `.heading-md` (H3) · `.heading-sm` (H4) · `.body-lg` (lede) · `.body` · `.body-reading` (long-form prose) · `.blockquote` · `.overline` (kicker) · `.label` · `.fineprint` · `.stat` · `.index-num` · `.nav-link` · `.cta-label` · `.wordmark-giant` (the footer's cropped NORTH)
+`.display-mega` · `.display` (homepage H1) · `.heading-xl` (interior-page H1) · `.statement` · `.heading-lg` (H2) · `.heading-md` (H3) · `.heading-sm` (H4) · `.body-lg` (lede) · `.body` · `.body-sm` (secondary/meta) · `.body-reading` (long-form prose) · `.blockquote` · `.overline` (kicker) · `.label` · `.fineprint` · `.stat` · `.index-num` · `.nav-link` · `.cta-label` · `.wordmark-giant` (the footer's cropped NORTH)
 
 - `.overline` is CHAMPAGNE BY DEFAULT (kickers are brand-coloured, never white) — override with `text-clay` on light sections. It also collides with Tailwind's `overline` text-decoration utility — an **unlayered override at the end of globals.css** disables the decoration. Don't remove it or move it into a @layer.
 - **Heading-group spacing:** put the overline and heading as direct siblings and add `.from-overline` to the heading (margin scales with the heading). Use `.lede` on the subtitle. **Never** set these gaps ad-hoc with `mt-*`/`mb-*`.

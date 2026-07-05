@@ -93,7 +93,7 @@
     font-weight: 500;
     font-size: clamp(3.25rem, 1.5rem + 8.75vw, 9.5rem); /* 52 → 152px */
     line-height: 0.94;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
   }
 
   .display {
@@ -101,7 +101,7 @@
     font-weight: 500;
     font-size: clamp(2.625rem, 1.35rem + 6vw, 6.25rem); /* 42 → 100px */
     line-height: 1;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.025em;
   }
 
   .heading-xl {
@@ -109,15 +109,15 @@
     font-weight: 500;
     font-size: clamp(2.25rem, 1.4rem + 4.25vw, 4.9375rem); /* 36 → 79px */
     line-height: 1.04;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
   }
 
   .statement {
     font-family: var(--font-sans), system-ui, sans-serif;
-    font-weight: 450;
+    font-weight: 500; /* matches the heading utilities — 450 read as a stray voice next to them */
     font-size: clamp(1.75rem, 1.1rem + 3.25vw, 3.5rem); /* 28 → 56px */
     line-height: 1.14;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
 
   .heading-lg {
@@ -125,7 +125,7 @@
     font-weight: 500;
     font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem); /* 24 → 40px */
     line-height: 1.18;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
 
   .heading-md {
@@ -133,7 +133,7 @@
     font-weight: 500;
     font-size: clamp(1.25rem, 1.05rem + 1vw, 1.75rem); /* 20 → 28px */
     line-height: 1.25;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
   }
 
   .heading-sm {
@@ -147,14 +147,24 @@
   /* Body copy */
   .body {
     font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 1rem; /* 16px fixed */
+    font-size: clamp(0.875rem, 0.79rem + 0.36vw, 1rem); /* 14 → 16px (2026-07-05: fluid, was 16 fixed) */
     line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* One tier below .body — secondary/meta copy that shouldn't carry body
+     weight (footer links, attribution lines, in-card summaries). Sits
+     between .label (13, tracked) and .body. */
+  .body-sm {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem); /* 13 → 14px */
+    line-height: 1.55;
     font-weight: 400;
   }
 
   .body-lg {
     font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.1875rem); /* 17 → 19px */
+    font-size: clamp(1rem, 0.86rem + 0.6vw, 1.1875rem); /* 16 → 19px (mobile capped at body-lg=16, one tier above body) */
     line-height: 1.65;
     font-weight: 400;
   }
@@ -335,11 +345,14 @@
      viewport; crop it with an overflow-hidden parent + translate-y (transform
      doesn't affect layout, so the footer ends exactly where the crop does). */
   .wordmark-giant {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-weight: 500;
+    /* The logo writ large — Saol Display like every wordmark (2026-07-04).
+       400 is the only Saol weight loaded; tracking relaxed from the old
+       sans-tuned -0.045em, which over-tightens a serif. */
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
     font-size: clamp(5.5rem, 20vw, 24rem);
     line-height: 0.8;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.02em;
   }
 
   /* Fade-to-ink for ANY exiting section: a pointer-events-none overlay whose
@@ -416,6 +429,8 @@
   .btn-arrow:hover .btn-arrow-chip {
     transform: translate(2px, -2px); /* the arrow leans northeast */
   }
+  /* Chip inverts its button's colours (a champagne chip was trialled
+     2026-07-05 and reverted — ink/bone reads sharper) */
   .btn-primary-dark .btn-arrow-chip {
     background: var(--ink);
     color: var(--bone);

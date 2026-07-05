@@ -35,8 +35,9 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: string }[
   { cls: "heading-lg", label: ".heading-lg", note: "24→40px · section H2", sample: "What we do" },
   { cls: "heading-md", label: ".heading-md", note: "20→28px · card / sub-heading H3", sample: "Brand identity" },
   { cls: "heading-sm", label: ".heading-sm", note: "17→20px · smallest heading H4", sample: "The approach" },
-  { cls: "body-lg", label: ".body-lg", note: "17→19px · lede / intro copy", sample: "We build considered brands and high-performing websites for practices." },
-  { cls: "body", label: ".body", note: "16px · default UI/body copy", sample: "The studio takes on a limited number of projects at a time." },
+  { cls: "body-lg", label: ".body-lg", note: "16→19px · lede / intro copy", sample: "We build considered brands and high-performing websites for practices." },
+  { cls: "body", label: ".body", note: "14→16px · default UI/body copy", sample: "The studio takes on a limited number of projects at a time." },
+  { cls: "body-sm", label: ".body-sm", note: "13→14px · secondary/meta copy (footer links, attributions)", sample: "Brand identity, web design and SEO — one studio, one standard." },
   { cls: "body-reading", label: ".body-reading", note: "17px · long-form reading column", sample: "A cosmetic surgery website carries unusual weight." },
   { cls: "blockquote", label: ".blockquote", note: "pull-quote", sample: "Design is the silent ambassador of the practice." },
   { cls: "overline", label: ".overline", note: "11px · uppercase MONO kicker — champagne by default; text-clay on light sections", sample: "Selected work" },
@@ -132,7 +133,7 @@ export default function StylesheetPage() {
         {/* Typography */}
         <Sub
           title="Typography"
-          note="Single premium sans (Instrument Sans — note the sheared 'scalpel' terminals) + Geist Mono for engineered accents. One clamp() per class; never inline font sizes."
+          note="Instrument Sans (body/headings — note the sheared 'scalpel' terminals) + Saol Display (serif — the wordmark/logo face, font-display) + Geist Mono for engineered accents. One clamp() per class; never inline font sizes."
         />
         <div className="mt-6 divide-y rule-dark">
           {TYPE_STYLES.map((t) => (

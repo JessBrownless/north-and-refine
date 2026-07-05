@@ -3,11 +3,12 @@ import type { WorkEntry } from "@/lib/work";
 import { getSectorLabel } from "@/lib/work";
 
 /**
- * Case-study card for the Work index and the homepage selected-work grid.
- * The thumb area falls back to a typographic placeholder when no image is set,
- * so the studio site looks intentional before real project imagery lands.
- * `tone` matches the section it sits on: "dark" (ink, default) or "light"
- * (the bone selected-work band on the homepage).
+ * Case-study card for the Work index grids. (The homepage selected-work
+ * band renders its own bespoke hover-reveal card in page.tsx — decided
+ * 2026-07-04.) The thumb area falls back to a typographic placeholder when
+ * no image is set, so the studio site looks intentional before real project
+ * imagery lands. `tone` matches the section it sits on: "dark" (ink,
+ * default) or "light" (bone).
  */
 export default function WorkCard({
   project,

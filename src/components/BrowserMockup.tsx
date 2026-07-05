@@ -54,7 +54,7 @@ export default function BrowserMockup({
           <div className="flex h-full flex-col text-ink">
             {/* mini nav */}
             <div className="flex items-center justify-between border-b border-ink/10 px-6 py-3.5">
-              <span className="font-display text-[13px] font-medium tracking-tight">
+              <span className="font-display text-[13px] tracking-tight">
                 {name.split(" ").slice(-1)[0]}
               </span>
               <div className="hidden items-center gap-5 sm:flex">
@@ -73,7 +73,7 @@ export default function BrowserMockup({
                 <p className="font-mono text-[6px] uppercase tracking-[0.3em] text-champagne">
                   {specialty}
                 </p>
-                <p className="mt-2 font-display text-[22px] font-medium leading-[1.02] tracking-tight">
+                <p className="mt-2 font-display text-[22px] leading-[1.02] tracking-tight">
                   {name}
                 </p>
                 <div className="mt-3 h-1 w-3/4 rounded-full bg-ink/12" />

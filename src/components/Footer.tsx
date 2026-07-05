@@ -1,16 +1,17 @@
 import Link from "next/link";
 import { FOOTER_NAV, SITE } from "@/lib/site";
 
-// The footer's Instagram tiles — MOCKUP crops + brand gradients until a real
-// feed exists; three sit each side of the centred monogram, all linking to
-// the profile.
+// The footer's Instagram tiles — ALL quiet brand-gradient placeholders until
+// a real feed exists (site-capture crops were too loud this close to the
+// wordmark, 2026-07-04 — the "shot" kind stays for when real posts land);
+// three sit each side of the centred monogram, all linking to the profile.
 const IG_TILES: ({ kind: "shot"; src: string; pos: string } | { kind: "fill"; label: string })[] = [
-  { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-top" },
   { kind: "fill", label: "✦" },
-  { kind: "shot", src: "/assets/desktops/dr-elizabeth-hawkes.jpg", pos: "object-left-top" },
   { kind: "fill", label: "01" },
-  { kind: "shot", src: "/assets/desktops/dr-yalda-jamali.png", pos: "object-bottom" },
   { kind: "fill", label: "✦" },
+  { kind: "fill", label: "02" },
+  { kind: "fill", label: "✦" },
+  { kind: "fill", label: "03" },
 ];
 
 // One Instagram tile — small, rounded, linking to the profile.
@@ -101,13 +102,13 @@ export default function Footer() {
             <ul className="mt-5 space-y-3">
               {FOOTER_NAV.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="body text-bone-dim hover:text-bone transition-colors">
+                  <Link href={item.href} className="body-sm text-bone-dim hover:text-bone transition-colors">
                     {item.label}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/contact" className="body text-bone-dim hover:text-bone transition-colors">
+                <Link href="/contact" className="body-sm text-bone-dim hover:text-bone transition-colors">
                   Contact
                 </Link>
               </li>
@@ -130,7 +131,7 @@ export default function Footer() {
                       href={href}
                       target="_blank"
                       rel="noreferrer"
-                      className="body text-bone-dim hover:text-bone transition-colors"
+                      className="body-sm text-bone-dim hover:text-bone transition-colors"
                     >
                       {label}
                     </a>

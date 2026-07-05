@@ -57,7 +57,7 @@ export default function ContactCTA({
         </div>
       </div>
 
-      <div className="shell relative py-20 md:py-32">
+      <div className="shell relative py-24 md:py-32">
         <div className="max-w-3xl">
           <p className="overline text-clay reveal">Start a project</p>
           <h2 className="statement from-overline reveal" style={{ transitionDelay: "80ms" }}>

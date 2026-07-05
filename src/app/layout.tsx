@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Instrument_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
@@ -10,10 +11,11 @@ import Reveal from "@/components/Reveal";
 import SmoothScroll from "@/components/SmoothScroll";
 import ExitFades from "@/components/ExitFades";
 
-// Premium-sans system: Instrument Sans (variable) everywhere — chosen for its
-// sheared "scalpel" terminals (the t especially) — with Geist Mono for the
-// engineered accents (overlines, index numbers, stats). Hierarchy comes from
-// weight and size, not font pairing.
+// Type system: Instrument Sans (variable) for body and headings — chosen for
+// its sheared "scalpel" terminals (the t especially) — Geist Mono for the
+// engineered accents (overlines, index numbers, stats), and Saol Display
+// (serif, below) reserved for the wordmark/logo alone. Within the sans,
+// hierarchy comes from weight and size.
 //
 // Aeonik Pro trial was evaluated (2026-06) and parked — files remain in
 // src/fonts/. To re-trial, swap this loader for:
@@ -40,6 +42,20 @@ const sans = Instrument_Sans({
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
+});
+
+// Saol Display — the wordmark/logo face (decided 2026-07-04): a sharp luxury
+// serif carrying every `font-display` usage (Navbar/Footer wordmarks, the
+// giant NORTH, the coming-soon page, mockup mini-site wordmarks). Body and
+// headings stay Instrument Sans. Licensed webfonts in src/fonts/ (not a
+// trial — confirm the webfont licence covers the live domain).
+const saol = localFont({
+  src: [
+    { path: "../fonts/SaolDisplay-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/SaolDisplay-LightItalic.woff", weight: "300", style: "italic" },
+  ],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -76,7 +92,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${geistMono.variable} ${saol.variable}`}>
       <body id="top">
         {/* Site-wide structured data: the studio + the website node. */}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />

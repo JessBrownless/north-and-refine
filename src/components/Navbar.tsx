@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV, SITE } from "@/lib/site";
+import NRMonogram from "@/components/NRMonogram";
 
 /**
  * Site navigation. A tall, transparent bar sitting at the TOP of the page —
@@ -43,11 +44,11 @@ export default function Navbar() {
         <div className="shell-wide">
           <nav className="flex h-24 items-center justify-between md:h-32">
             <Link href="/" className="flex items-center gap-2 group" aria-label={`${SITE.name} home`}>
-              <span
-                className={`font-display ${fg} text-xl md:text-2xl tracking-tight transition-opacity group-hover:opacity-70`}
-              >
-                North <span className="text-champagne">&amp;</span> Refine
-              </span>
+              {/* The NR monogram (swapped in for the text wordmark 2026-07-05);
+                  currentColor via ${fg} keeps it correct on any nav tone */}
+              <NRMonogram
+                className={`h-7 w-auto md:h-8 ${fg} transition-opacity group-hover:opacity-70`}
+              />
             </Link>
 
             {/* Desktop links */}
@@ -64,11 +65,13 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+              {/* Flagship arrow CTA (moved up from the hero 2026-07-05) */}
               <Link
                 href="/contact"
-                className={`btn btn-sm ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
+                className={`btn ${lightTop ? "btn-primary-light" : "btn-primary-dark"} btn-arrow`}
               >
                 Start a project
+                <span className="btn-arrow-chip" aria-hidden>↗</span>
               </Link>
             </div>
 

@@ -1,3 +1,9 @@
+# HOLDING MODE: to serve /coming-soon on every route pre-launch, set
+# HOLDING_PAGE = "true" as a Netlify SITE environment variable (UI → Site
+# configuration → Environment variables, all scopes — [build.environment]
+# below is build-time only and won't reach the middleware). Remove it to
+# launch. See src/middleware.ts.
+
 [build]
   command = "npm run build"
   publish = ".next"

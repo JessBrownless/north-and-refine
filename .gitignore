@@ -42,3 +42,6 @@ next-env.d.ts
 /font-trials
 /src/fonts/*TRIAL*.otf
 .claude/settings.local.json
+
+# Netlify CLI local-deploy artefact (edge-function bundling)
+deno.lock

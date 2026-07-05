@@ -8,14 +8,18 @@ import { SITE } from "@/lib/site";
  * v5 pattern: build-time detection reads the static definition in
  * public/__forms.html, and this component POSTs url-encoded data to that
  * path. Field names must stay in sync with that file.
+ *
+ * `variant="minimal"` (the /coming-soon holding page) drops the practice and
+ * interest fields — same form name, so every enquiry lands in one Netlify
+ * inbox and the static definition needs no second entry.
  */
 
 const FIELD =
-  "w-full bg-transparent border-0 border-b rule-dark py-3 text-bone placeholder:text-clay focus:outline-none focus:border-champagne transition-colors";
+  "w-full bg-transparent border-0 border-b rule-dark py-3 text-bone placeholder:text-clay/60 focus:outline-none focus:border-champagne transition-colors";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export default function ContactForm() {
+export default function ContactForm({ variant = "full" }: { variant?: "full" | "minimal" }) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -54,7 +58,11 @@ export default function ContactForm() {
   }
 
   return (
-    <form name="project-enquiry" onSubmit={handleSubmit} className="reveal space-y-7">
+    // No .reveal on the form — it's conversion-critical and must never sit
+    // at opacity 0 waiting for an observer (it raced hydration on the
+    // coming-soon overlay and could stay invisible). Entrances belong to the
+    // surrounding section, not the form itself.
+    <form name="project-enquiry" onSubmit={handleSubmit} className="space-y-7">
       <input type="hidden" name="form-name" value="project-enquiry" />
       {/* Honeypot — hidden from people, tempting to bots */}
       <p className="hidden">
@@ -65,34 +73,38 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="name" className="overline text-clay">
-          Your name
+          Name
         </label>
-        <input id="name" name="name" type="text" required className={FIELD} placeholder="Dr Jane Smith" />
+        <input id="name" name="name" type="text" required className={FIELD} placeholder="Your full name" />
       </div>
       <div>
         <label htmlFor="email" className="overline text-clay">
           Email
         </label>
-        <input id="email" name="email" type="email" required className={FIELD} placeholder="you@practice.com" />
+        <input id="email" name="email" type="email" required className={FIELD} placeholder="Your email address" />
       </div>
-      <div>
-        <label htmlFor="practice" className="overline text-clay">
-          Practice / clinic
-        </label>
-        <input id="practice" name="practice" type="text" className={FIELD} placeholder="Practice name" />
-      </div>
-      <div>
-        <label htmlFor="interest" className="overline text-clay">
-          What you&rsquo;re after
-        </label>
-        <select id="interest" name="interest" className={`${FIELD} appearance-none`}>
-          <option className="bg-ink">Brand &amp; website</option>
-          <option className="bg-ink">Website only</option>
-          <option className="bg-ink">Brand only</option>
-          <option className="bg-ink">Ongoing SEO &amp; growth</option>
-          <option className="bg-ink">Not sure yet</option>
-        </select>
-      </div>
+      {variant === "full" && (
+        <>
+          <div>
+            <label htmlFor="practice" className="overline text-clay">
+              Practice / clinic
+            </label>
+            <input id="practice" name="practice" type="text" className={FIELD} placeholder="Practice name" />
+          </div>
+          <div>
+            <label htmlFor="interest" className="overline text-clay">
+              What you&rsquo;re after
+            </label>
+            <select id="interest" name="interest" className={`${FIELD} appearance-none`}>
+              <option className="bg-ink">Brand &amp; website</option>
+              <option className="bg-ink">Website only</option>
+              <option className="bg-ink">Brand only</option>
+              <option className="bg-ink">Ongoing SEO &amp; growth</option>
+              <option className="bg-ink">Not sure yet</option>
+            </select>
+          </div>
+        </>
+      )}
       <div>
         <label htmlFor="message" className="overline text-clay">
           Tell us a little more
@@ -107,9 +119,9 @@ export default function ContactForm() {
         />
       </div>
 
-      <button type="submit" className="btn btn-primary-dark" disabled={status === "sending"}>
+      <button type="submit" className="btn btn-primary-dark btn-arrow" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send enquiry"}
-        <span aria-hidden>→</span>
+        <span className="btn-arrow-chip" aria-hidden>↗</span>
       </button>
       {status === "error" && (
         <p className="fineprint text-champagne">

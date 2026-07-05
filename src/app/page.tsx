@@ -9,7 +9,6 @@ import { getAllPosts } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import ManifestoStatement from "@/components/ManifestoStatement";
-import NewsletterSignup from "@/components/NewsletterSignup";
 import ContactCTA from "@/components/ContactCTA";
 
 // Homepage — the Obsidian direction. Champagne-lit ink scene, an asymmetric
@@ -23,17 +22,12 @@ const SHOWREEL_SHOT_ALT =
 
 // Concept/showcase captures for sectors without a live case study yet — they
 // give the hero deck real range across sectors. Showcase-only (no href: there
-// is no case-study page to open). (Aven — /assets/desktops/aven.jpg — is
-// parked on disk; Ostra retired.)
+// is no case-study page to open). Currently empty: every deck sector's study
+// now carries its own thumbImage (selv's capture moved into its frontmatter,
+// so its card links to the case study; Ostra retired).
 const SECTOR_SHOWCASE: Partial<
   Record<WorkSector, { shot: string; alt: string; label: string }>
-> = {
-  dermatology: {
-    shot: "/assets/desktops/selv.jpg",
-    alt: "selv — prescription skincare, consultant-led dermatology, desktop view",
-    label: "selv",
-  },
-};
+> = {};
 
 // Deck order tuned to a dark / light / dark / light / dark rhythm across the
 // fan, with Dr Yalda (dark) as the centred default card. selv and the Hawkes
@@ -108,10 +102,10 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ── Dark scene: hero, manifesto AND stats share ONE continuous ink
-          field (single ambient glow + pools + one grain overlay on this
-          wrapper) — the intro makes the claim, the stats prove it, and no
-          seam or fade separates them. ── */}
+      {/* ── Dark scene: hero and manifesto share ONE continuous ink field
+          (single ambient glow + pools + one grain overlay on this wrapper) —
+          no seam or fade separates them. (The stats moved below the bone work
+          section — "the proof, straight after the work it came from".) ── */}
       <div className="relative bg-ink">
         {/* One continuous ambient field across ALL THREE dark sections — but
             RESTRAINED: the scene is ink first, lit second. Built from the SAME
@@ -138,8 +132,8 @@ export default function HomePage() {
                 "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
             }}
           />
-          {/* Pool spanning the manifesto→stats boundary — the bubbles carry
-              across both so the proof reads as the SAME scene */}
+          {/* Pool under the manifesto's lower reaches — carries the scene's
+              light into the proof that follows */}
           <div
             className="absolute right-[-10%] bottom-[4%] h-[70vh] w-[48vw] animate-float-slower"
             style={{
@@ -162,7 +156,10 @@ export default function HomePage() {
             the deck, seated at its foot, bleeds past the fold — cropped by the
             viewport edge, not by CSS. mt-auto opens a generous pocket of air
             between the copy (held near the top) and the deck. */}
-        <div className="shell-wide relative z-10 flex min-h-screen flex-col md:min-h-[120vh]">
+        {/* Mobile: ~86svh (the old full-screen height left the shortened
+            lockup swimming after the CTAs were removed); md+: 120vh so the
+            deck bleeds past the fold */}
+        <div className="shell-wide relative z-10 flex min-h-[86svh] flex-col md:min-h-[120vh]">
           {/* Type lockup — eyebrow over the centred headline at .display
               scale (the H1 owns the hero). Load-in is a two-beat sequence:
               the eyebrow tracks in alone, then the copy, then the deck.
@@ -179,7 +176,7 @@ export default function HomePage() {
                   balanced lines — the stacked lockup reads more editorial
                   than one long line */}
               <h1
-                className="heading-xl from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
+                className="display from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.7s" }}
               >
                 Practices Patients Trust
@@ -188,26 +185,16 @@ export default function HomePage() {
 
             {/* Lede sits at 55% bone — visibly quieter than the headline */}
             <p
-              className="lede body-lg mx-auto max-w-2xl text-bone/55 opacity-0 animate-fade-in-up"
+              className="lede body-lg mx-auto max-w-2xl text-bone/70 opacity-0 animate-fade-in-up"
               style={{ animationDelay: "0.9s" }}
             >
               Brand, web design and SEO for cosmetic surgeons, medical aesthetic
               clinics and dermatology practices.
             </p>
 
-            <div
-              className="mt-10 flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in-up"
-              style={{ animationDelay: "1.1s" }}
-            >
-              {/* Flagship CTA — label left, circular ↗ chip right */}
-              <Link href="/work" className="btn btn-primary-dark btn-arrow">
-                See the work
-                <span className="btn-arrow-chip" aria-hidden>↗</span>
-              </Link>
-              <Link href="/contact" className="btn btn-secondary-dark">
-                Start a project
-              </Link>
-            </div>
+            {/* (Hero CTAs removed 2026-07-05 — the nav's "Start a project"
+                carries the flagship arrow style instead; the deck below is
+                the hero's own invitation to explore.) */}
           </div>
 
           {/* Showreel deck — seated at the foot of the hero and CLIPPED by it:
@@ -235,7 +222,7 @@ export default function HomePage() {
           scene as the hero (no own background, and NO sticky pin — the old
           70vh dwell read as the page being stuck). The statement scrolls
           through at reading pace while the scrub lights the words. ── */}
-      <section className="relative z-10 h-[150vh]">
+      <section className="relative z-10 h-[180vh] pt-[15vh] pb-[15vh]">
         {/* Sticky screen — the statement HOLDS while the words finish
             lighting (the scrub runs deep into the dwell), then releases.
             The extra 50vh is what makes the text "take longer to get
@@ -259,128 +246,139 @@ export default function HomePage() {
       </section>
       </div>
 
-      {/* ── Selected work — the bone interruption, image-led: BIG
-          composites with just a title under each (the page's rhythm:
-          texty manifesto → imagey work → the proof). Second column
-          drops for asymmetry. ── */}
-      <section
-        id="selected-work"
-        data-nav-light
-        className="relative bg-bone text-ink scroll-mt-14"
-      >
-        <div className="shell py-24 text-center md:py-36">
-          <h2 className="overline text-clay reveal">Selected work</h2>
-          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2">
-            {featured.map((project, i) => (
-              <Link
-                key={project.slug}
-                href={`/work/${project.slug}`}
-                className={`group block reveal ${i % 2 === 1 ? "md:mt-24" : ""}`}
-                style={{ transitionDelay: `${(i % 2) * 120}ms`, transitionDuration: "1.2s" }}
-              >
-                <div className="frame aspect-[4/3] rounded-xl">
-                  {project.frontmatter.cardImage || project.frontmatter.thumbImage ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={project.frontmatter.cardImage ?? project.frontmatter.thumbImage}
-                      alt={
-                        project.frontmatter.cardImage
-                          ? (project.frontmatter.cardImageAlt ?? "")
-                          : (project.frontmatter.thumbImageAlt ?? "")
-                      }
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                  ) : (
-                    <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-display text-6xl text-bone/20">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </span>
-                  )}
-                </div>
-                <p className="heading-sm mt-6 text-ink transition-opacity group-hover:opacity-70">
-                  {project.frontmatter.client}
-                </p>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-20 reveal">
-            <Link href="/work" className="btn btn-secondary-light">
-              All work
-              <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
-      </section>
-
-      {/* ── Stats — THE PROOF, straight after the work it came from. An
-          asymmetric bento: one tall imagery card (the site behind the
-          headline number) + four glass stat cards at varied widths, each
-          lit by its own champagne gradient blob. Numbers are defensible:
-          the ranking is the Hawkes study's, the rest are definitionally
-          true. ── */}
+      {/* ── Stats — THE PROOF, straight after the manifesto's claim (the
+          intro makes the claim, the numbers prove it, THEN the work shows
+          it). An asymmetric bento: one tall EXHIBITS card (the receipts
+          stack — artefact fragments every build ships) + four glass stat
+          cards at varied widths, each lit by its own champagne gradient
+          blob. Numbers are defensible: the ranking is the Hawkes study's,
+          the rest are definitionally true. ── */}
       <section className="relative z-10">
-        <div className="shell pb-28 md:pb-40">
+        <div className="shell py-24 md:py-32">
           <p className="overline reveal">The proof</p>
-          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
-            {/* Imagery card — the work the numbers came from */}
-            <div className="frame relative min-h-[320px] rounded-2xl reveal md:col-span-5 md:row-span-2 md:min-h-0" style={{ transitionDuration: "1.4s" }}>
+          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+            Numbers a practice can stand behind
+          </h2>
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
+            {/* Human card — hands holding the Hawkes mobile site (composited
+                from the Adobe hand-tapping mockup; regenerate via the
+                compositing script with any client capture). The screen shown
+                IS the project behind the #1–3 stat. ProofExhibits (the
+                receipts stack) is parked in components/ if we rotate back. */}
+            <div className="frame relative min-h-[420px] rounded-2xl reveal md:col-span-5 md:min-h-0" style={{ transitionDuration: "1.4s" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/desktops/dr-elizabeth-hawkes.jpg"
-                alt="The Dr Elizabeth Hawkes website — the project behind the page-one rankings"
-                className="absolute inset-0 h-full w-full object-cover object-left-top"
+                src="/assets/hands/hand-tapping-dr-hawkes.jpg"
+                alt="A patient's hands holding a phone showing the Dr Elizabeth Hawkes website — the project behind the page-one rankings"
+                className="absolute inset-0 h-full w-full object-cover"
               />
               <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
               <p className="overline absolute bottom-5 left-5 text-bone">The work behind the numbers</p>
             </div>
 
-            {[
-              {
-                value: "#1–3",
-                label: "Google positions won for a specialist's key procedures",
-                span: "md:col-span-4",
-                blob: "radial-gradient(120% 120% at 85% -10%, color-mix(in srgb, var(--champagne) 16%, transparent) 0%, transparent 70%)",
-              },
-              {
-                value: "0",
-                label: "templates used — every practice designed from scratch",
-                span: "md:col-span-3",
-                blob: "radial-gradient(130% 130% at -10% 110%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 70%)",
-              },
-              {
-                value: "100%",
-                label: "of our work is for medical aesthetics & surgery",
-                span: "md:col-span-3",
-                blob: "radial-gradient(140% 110% at 50% 120%, color-mix(in srgb, var(--champagne) 15%, transparent) 0%, transparent 72%)",
-              },
-              {
-                value: "2",
-                label: "countries our clients practise in — Sydney to London",
-                span: "md:col-span-4",
-                blob: "radial-gradient(120% 130% at 110% 40%, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 70%)",
-              },
-            ].map((stat, i) => (
-              <div
-                key={stat.value}
-                className={`card-glass relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-2xl p-8 reveal md:p-10 ${stat.span}`}
-                style={{
-                  // Slow, staggered roll-in — softer than the stock reveal
-                  transitionDuration: "1.4s",
-                  transitionDelay: `${(i + 1) * 160}ms`,
-                }}
-              >
-                <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: stat.blob }} />
-                <p className="stat relative text-champagne">{stat.value}</p>
-                <p className="label relative mt-10 max-w-[26ch] text-bone-dim">{stat.label}</p>
-              </div>
-            ))}
+            {/* Stat cards — a strict 2×2 (rows of two at every width),
+                beside the imagery card rather than bento-woven around it */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-5 md:col-span-7 md:gap-6">
+              {[
+                {
+                  value: "#1–3",
+                  label: "Google positions won for a specialist's key procedures",
+                  blob: "radial-gradient(120% 120% at 85% -10%, color-mix(in srgb, var(--champagne) 16%, transparent) 0%, transparent 70%)",
+                },
+                {
+                  value: "0",
+                  label: "templates used — every practice designed from scratch",
+                  blob: "radial-gradient(130% 130% at -10% 110%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 70%)",
+                },
+                {
+                  value: "100%",
+                  label: "of our work is for medical aesthetics & surgery",
+                  blob: "radial-gradient(140% 110% at 50% 120%, color-mix(in srgb, var(--champagne) 15%, transparent) 0%, transparent 72%)",
+                },
+                {
+                  value: "2",
+                  label: "countries our clients practise in — Sydney to London",
+                  blob: "radial-gradient(120% 130% at 110% 40%, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 70%)",
+                },
+              ].map((stat, i) => (
+                <div
+                  key={stat.value}
+                  className="card-glass relative flex min-h-[170px] flex-col justify-between overflow-hidden rounded-2xl p-5 reveal sm:min-h-[220px] sm:p-8 md:p-9"
+                  style={{
+                    // Slow, staggered roll-in — softer than the stock reveal
+                    transitionDuration: "1.4s",
+                    transitionDelay: `${(i + 1) * 160}ms`,
+                  }}
+                >
+                  <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: stat.blob }} />
+                  <p className="stat relative text-champagne">{stat.value}</p>
+                  <p className="label relative mt-8 max-w-[26ch] text-bone-dim">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         {/* Fade-to-ink on exit — the proof hands over through darkness */}
         <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+
+      {/* ── Selected work — the bone interruption. Two quiet columns while
+          the layout settles: placeholder fills stand in for imagery (the
+          real captures/composites return in the imagery pass), a title
+          alone beneath each frame, and the project's story surfaces on
+          hover inside the frame. NOTE: bespoke to the homepage — /work
+          keeps the canonical WorkCard. ── */}
+      <section
+        id="selected-work"
+        data-nav-light
+        className="relative bg-bone text-ink scroll-mt-14"
+      >
+        <div className="shell py-24 md:py-32">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="overline text-clay reveal">Selected work</p>
+              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                Practices we&rsquo;ve refined
+              </h2>
+            </div>
+            <Link href="/work" className="btn-ghost text-ink reveal">
+              All work <span aria-hidden>→</span>
+            </Link>
+          </div>
+
+          {/* Staggered columns: the right column starts a beat lower, so
+              every row reads as an offset pair rather than a flat grid */}
+          {/* Mobile: an edge-bleeding snap carousel (swipe through the
+              projects); md+: the staggered two-column grid */}
+          <div className="-mx-6 mt-16 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-pl-6 px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0">
+            {featured.map((project, i) => (
+              <Link
+                key={project.slug}
+                href={`/work/${project.slug}`}
+                className={`group block reveal w-[74vw] flex-none snap-start md:w-auto ${i % 2 === 1 ? "md:mt-32" : ""}`}
+                style={{ transitionDelay: `${(i % 2) * 120}ms` }}
+              >
+                <div className="frame aspect-[16/10] rounded-xl">
+                  {/* Placeholder fill until the imagery pass */}
+                  <span className="portrait-fill absolute inset-0 flex items-center justify-center">
+                    <span className="index-num text-ink/30">{String(i + 1).padStart(2, "0")}</span>
+                  </span>
+                  {/* Hover — sector and summary rise inside the frame */}
+                  <span className="absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-ink/85 via-ink/50 to-transparent p-6 pt-16 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <span className="overline block">{getSectorLabel(project.frontmatter.sector)}</span>
+                    {project.frontmatter.summary && (
+                      <span className="body-sm mt-2 block text-bone-dim">{project.frontmatter.summary}</span>
+                    )}
+                  </span>
+                </div>
+                <h3 className="heading-sm mt-5 transition-opacity group-hover:opacity-70">
+                  {project.frontmatter.client}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </section>
 
       {/* ── What we do — BIG interactive typography: the three services at
@@ -388,7 +386,7 @@ export default function HomePage() {
           them. Sits between the manifesto and the work. ── */}
       <section className="relative">
         <div className="shell py-24 md:py-32">
-          <p className="overline reveal">[ What we do ]</p>
+          <p className="overline reveal">What we do</p>
           <div className="mt-12 reveal" style={{ transitionDelay: "120ms" }}>
             <ServicesShowcase />
           </div>
@@ -403,16 +401,21 @@ export default function HomePage() {
           words, a real portrait and live review data exist — we never draft
           quotes on a client's behalf. Swap the content, keep the structure. */}
       <section className="relative">
-        <div className="shell py-20 md:py-28">
-          <p className="overline text-champagne reveal">Kind words</p>
+        <div className="shell py-24 md:py-32">
+          <p className="overline reveal">Kind words</p>
+          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+            In their words
+          </h2>
           <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
-            {/* Portrait slot — swap for a real client photo */}
+            {/* Portrait — real client photo (attribution name/role pending) */}
             <div className="md:col-span-5 reveal">
-              <div className="frame aspect-[4/5] rounded-xl">
-                <div className="portrait-fill absolute inset-0" />
-                <span className="overline absolute bottom-5 left-5 text-ink/55">
-                  Client portrait — placeholder
-                </span>
+              <div className="frame aspect-square rounded-xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/testimonials/client-portrait.jpg"
+                  alt="Portrait of our client on a Sydney balcony"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
               </div>
             </div>
 
@@ -437,13 +440,18 @@ export default function HomePage() {
                 className="mt-9 flex items-center gap-5 reveal"
                 style={{ transitionDelay: "160ms" }}
               >
-                {/* Avatar slot — swap for a real headshot */}
-                <span className="portrait-fill relative h-14 w-14 shrink-0 overflow-hidden rounded-full" aria-hidden>
-                  <span className="index-num absolute inset-0 flex items-center justify-center text-ink/35">✦</span>
+                {/* Avatar — face crop of the client portrait */}
+                <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full" aria-hidden>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/testimonials/client-avatar.jpg"
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
                 </span>
                 <div>
                   <p className="body font-medium text-bone">Client name</p>
-                  <p className="body text-bone-dim">Role, Practice — placeholder</p>
+                  <p className="body-sm text-bone-dim">Role, Practice — placeholder</p>
                 </div>
                 <div aria-hidden className="h-10 w-px bg-bone/15" />
                 <span className="font-display text-lg tracking-tight text-bone-dim">
@@ -460,10 +468,10 @@ export default function HomePage() {
           live inside the section directly ── */}
       {posts.length > 0 && (
         <section className="relative">
-          <div className="shell py-20 md:py-28">
+          <div className="shell py-24 md:py-32">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="overline text-champagne reveal">[ Journal ]</p>
+                <p className="overline reveal">Journal</p>
                 <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                   Thinking, written down
                 </h2>
@@ -472,20 +480,21 @@ export default function HomePage() {
                 All entries <span aria-hidden>→</span>
               </Link>
             </div>
-            {/* Editorial teaser grid (after the reference layout): bare
-                cards — image, bracketed date, title with a circular ↗ chip.
-                Image aspects ALTERNATE (landscape / portrait / landscape) so
-                the text lines stagger naturally; all images share one top
-                line. featuredImage when set, brand gradient until then. */}
-            <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Editorial teaser cards — image, bracketed date, title with a
+                circular ↗ chip. Mobile: an edge-bleeding snap carousel (same
+                treatment as Selected work) with every frame landscape so the
+                row keeps one height; md+: the grid, where image aspects
+                ALTERNATE (landscape / portrait / landscape) so the text lines
+                stagger naturally. featuredImage when set, gradient until then. */}
+            <div className="-mx-6 mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-pl-6 px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
               {posts.map((post, i) => (
                 <Link
                   key={post.slug}
                   href={`/journal/${post.slug}`}
-                  className="group reveal"
+                  className="group reveal w-[74vw] flex-none snap-start md:w-auto"
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <div className={`frame rounded-lg ${i % 2 === 1 ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
+                  <div className={`frame rounded-lg aspect-[4/3] ${i % 2 === 1 ? "md:aspect-[3/4]" : ""}`}>
                     {post.frontmatter.featuredImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -531,34 +540,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA — bone interruption ────────────────────────────────────── */}
+      {/* ── CTA — bone interruption, the close ─────────────────────────── */}
+      {/* (The freebie / newsletter band was parked 2026-07-04 → /mockups/freebie,
+          destined for its own landing page.) */}
       <ContactCTA />
-
-      {/* ── The freebie — mailing-list capture (Netlify form "newsletter").
-          Rename the checklist / rewrite the pitch freely; the form and its
-          static definition in public/__forms.html stay in sync. ── */}
-      <section className="relative">
-        <div className="shell py-20 md:py-28">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
-            <div className="md:col-span-6">
-              <p className="overline text-champagne reveal">The freebie</p>
-              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                What patients check before they book
-              </h2>
-              {/* The form's promise is the checklist ALONE — the ongoing
-                  notes are a separate opt-in checkbox (GDPR: no bundling) */}
-              <p className="body-lg lede text-bone-dim reveal" style={{ transitionDelay: "160ms" }}>
-                A twelve-point audit of your practice&rsquo;s website, straight
-                to your inbox. No noise.
-              </p>
-            </div>
-            <div className="md:col-span-5 md:col-start-8 reveal" style={{ transitionDelay: "240ms" }}>
-              <NewsletterSignup />
-            </div>
-          </div>
-        </div>
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
 
     </main>
   );

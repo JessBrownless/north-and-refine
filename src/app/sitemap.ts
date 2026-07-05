@@ -20,6 +20,14 @@ const STATIC_ROUTES = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // HOLDING MODE (see src/middleware.ts): advertise only the root. Every
+  // route serves the holding page, and the full list would name client
+  // case-study slugs before launch. Belt-and-braces — the middleware also
+  // rewrites /sitemap.xml itself while holding is on.
+  if (process.env.HOLDING_PAGE === "true") {
+    return [{ url: SITE.url, changeFrequency: "weekly", priority: 1 }];
+  }
+
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
     url: `${SITE.url}${route}`,
     changeFrequency: "monthly",

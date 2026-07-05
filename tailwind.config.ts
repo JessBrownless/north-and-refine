@@ -26,9 +26,11 @@ const config: Config = {
         ember: "#FF7A00", // bright ember — live/availability dots only, one per view
       },
       fontFamily: {
-        // Single premium sans + mono accents. "display" aliases the sans so
-        // font-display usages (wordmark, drawer, PhoneMockup) stay valid.
-        display: ["var(--font-sans)", "system-ui", "sans-serif"],
+        // Premium sans for body/headings, Saol Display (luxury serif) for the
+        // wordmark — every font-display usage is logo territory (Navbar/Footer
+        // wordmarks, coming-soon, mockup mini-sites). Mono for engineered
+        // accents.
+        display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
