@@ -40,8 +40,10 @@ export default function Navbar() {
     // absolute (not fixed): the nav belongs to the top of the page and
     // scrolls away with it.
     <header className="absolute inset-x-0 top-0 z-50">
-      <div className={open ? "bg-ink border-b rule-dark" : ""}>
-        <div className="shell-wide">
+      {/* When open, the wrapper becomes a fixed full-screen ink overlay:
+          bar on top, menu filling the rest of the viewport. */}
+      <div className={open ? "fixed inset-0 z-50 bg-ink flex flex-col" : ""}>
+        <div className={`shell-wide ${open ? "border-b rule-dark" : ""}`}>
           <nav className="flex h-24 items-center justify-between md:h-32">
             <Link href="/" className="flex items-center gap-2 group" aria-label={`${SITE.name} home`}>
               {/* The NR monogram (swapped in for the text wordmark 2026-07-05);
@@ -94,28 +96,34 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* Mobile drawer */}
+        {/* Mobile menu — fills the rest of the viewport below the bar */}
         {open && (
-          <div className="md:hidden bg-ink border-t rule-dark">
-            <div className="shell-wide py-8 flex flex-col gap-6">
-              {NAV.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="font-display text-bone text-2xl"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+          <div className="md:hidden flex-1 overflow-y-auto flex">
+            <nav className="shell-wide w-full flex flex-col justify-center gap-7 py-10">
+              {NAV.map((item, i) => {
+                const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`heading-xl opacity-0 animate-fade-in-up ${active ? "text-champagne" : "text-bone"}`}
+                    style={{ animationDelay: `${i * 60}ms` }}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
               <Link
                 href="/contact"
-                className="btn btn-primary-dark mt-2 self-start"
+                className="btn btn-primary-dark btn-arrow mt-4 self-start opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${NAV.length * 60}ms` }}
                 onClick={() => setOpen(false)}
               >
                 Start a project
+                <span className="btn-arrow-chip" aria-hidden>↗</span>
               </Link>
-            </div>
+            </nav>
           </div>
         )}
       </div>
