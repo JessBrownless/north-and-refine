@@ -77,9 +77,9 @@ interface ArticleInput {
   author?: string;
 }
 
-/** Article schema for a Journal post, published by the studio. */
+/** Article schema for a blog post, published by the studio. */
 export function articleSchema(a: ArticleInput) {
-  const url = `${SITE.url}/journal/${a.slug}`;
+  const url = `${SITE.url}/blog/${a.slug}`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",

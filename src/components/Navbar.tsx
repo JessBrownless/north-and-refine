@@ -49,7 +49,7 @@ export default function Navbar() {
               {/* The NR monogram (swapped in for the text wordmark 2026-07-05);
                   currentColor via ${fg} keeps it correct on any nav tone */}
               <NRMonogram
-                className={`h-7 w-auto md:h-8 ${fg} transition-opacity group-hover:opacity-70`}
+                className={`h-5 w-auto md:h-6 ${fg} transition-opacity group-hover:opacity-70`}
               />
             </Link>
 
@@ -96,10 +96,11 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* Mobile menu — fills the rest of the viewport below the bar */}
+        {/* Mobile menu — fills the rest of the viewport below the bar:
+            centred serif links, with the Instagram handle pinned to the foot. */}
         {open && (
-          <div className="md:hidden flex-1 overflow-y-auto flex">
-            <nav className="shell-wide w-full flex flex-col justify-center gap-7 py-10">
+          <div className="md:hidden flex-1 overflow-y-auto flex flex-col">
+            <nav className="shell-wide w-full flex flex-1 flex-col justify-center gap-7 py-10">
               {NAV.map((item, i) => {
                 const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (
@@ -114,16 +115,43 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+              {/* Start a project — a serif word in line with the rest on
+                  mobile, not the desktop pill CTA */}
               <Link
                 href="/contact"
-                className="btn btn-primary-dark btn-arrow mt-4 self-start opacity-0 animate-fade-in-up"
+                className={`heading-xl opacity-0 animate-fade-in-up ${pathname.startsWith("/contact") ? "text-champagne" : "text-bone"}`}
                 style={{ animationDelay: `${NAV.length * 60}ms` }}
                 onClick={() => setOpen(false)}
               >
                 Start a project
-                <span className="btn-arrow-chip" aria-hidden>↗</span>
               </Link>
             </nav>
+
+            {/* Instagram handle — fixed to the foot of the drawer */}
+            <div className="shell-wide w-full pb-10">
+              <a
+                href={SITE.sameAs[0]}
+                target="_blank"
+                rel="noreferrer"
+                className="overline inline-flex items-center gap-2 opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${(NAV.length + 1) * 60}ms` }}
+                onClick={() => setOpen(false)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                  className="h-4 w-4 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                >
+                  <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+                  <circle cx="12" cy="12" r="4.4" />
+                  <circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none" />
+                </svg>
+                @northandrefine
+              </a>
+            </div>
           </div>
         )}
       </div>

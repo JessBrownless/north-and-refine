@@ -32,9 +32,9 @@ export interface NavItem {
 // conversion path: see the work, what we do, who we are.
 export const NAV: NavItem[] = [
   { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
-  { label: "Journal", href: "/journal" },
+  { label: "Services", href: "/services" },
+  { label: "Blog", href: "/blog" },
 ];
 
 // Footer "Explore" column — fuller than the header so the secondary SEO
@@ -46,7 +46,7 @@ export const FOOTER_NAV: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
   { label: "About", href: "/about" },
-  { label: "Journal", href: "/journal" },
+  { label: "Blog", href: "/blog" },
 ];
 
 /** Absolute URL from a path (or pass-through if already absolute). */

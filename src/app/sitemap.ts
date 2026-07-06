@@ -14,7 +14,7 @@ const STATIC_ROUTES = [
   "/services",
   "/industries",
   "/about",
-  "/journal",
+  "/blog",
   "/contact",
   "/privacy",
 ];
@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const journalEntries: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
-    url: `${SITE.url}/journal/${p.slug}`,
+    url: `${SITE.url}/blog/${p.slug}`,
     lastModified: p.frontmatter.updatedAt ?? p.frontmatter.publishedAt,
     changeFrequency: "yearly",
     priority: 0.6,

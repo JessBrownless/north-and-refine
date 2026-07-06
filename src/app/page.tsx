@@ -513,12 +513,12 @@ export default function HomePage() {
           <div className="shell py-24 md:py-32">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="overline reveal">Journal</p>
+                <p className="overline reveal">Blog</p>
                 <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
                   Thinking, written down
                 </h2>
               </div>
-              <Link href="/journal" className="btn-ghost text-bone reveal">
+              <Link href="/blog" className="btn-ghost text-bone reveal">
                 All entries <span aria-hidden>→</span>
               </Link>
             </div>
@@ -532,7 +532,7 @@ export default function HomePage() {
               {posts.map((post, i) => (
                 <Link
                   key={post.slug}
-                  href={`/journal/${post.slug}`}
+                  href={`/blog/${post.slug}`}
                   className="group reveal w-[74vw] flex-none snap-start md:w-auto"
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >

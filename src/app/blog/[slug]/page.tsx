@@ -1,5 +1,5 @@
-// MDX rendering: next-mdx-remote/rsc — compiles the Journal entry body read
-// from content/journal at build time inside this Server Component.
+// MDX rendering: next-mdx-remote/rsc — compiles the blog entry body read
+// from content/blog at build time inside this Server Component.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -41,7 +41,7 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
   const fm = post.frontmatter;
-  const canonical = `/journal/${post.slug}`;
+  const canonical = `/blog/${post.slug}`;
   const ogImage = absoluteUrl(fm.featuredImage);
 
   return {
@@ -67,7 +67,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function JournalPostPage({
+export default async function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -103,8 +103,8 @@ export default async function JournalPostPage({
           }),
           breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Journal", path: "/journal" },
-            { name: fm.title, path: `/journal/${post.slug}` },
+            { name: "Blog", path: "/blog" },
+            { name: fm.title, path: `/blog/${post.slug}` },
           ]),
         ]}
       />
@@ -156,8 +156,8 @@ export default async function JournalPostPage({
         </aside>
 
         <div className="mx-auto max-w-[720px] px-6 md:px-8 mt-10 pt-8 border-t rule-dark">
-          <Link href="/journal" className="btn-ghost text-bone">
-            <span aria-hidden>←</span> More from the Journal
+          <Link href="/blog" className="btn-ghost text-bone">
+            <span aria-hidden>←</span> More from the Blog
           </Link>
         </div>
       </article>

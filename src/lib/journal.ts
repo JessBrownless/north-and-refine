@@ -93,8 +93,8 @@ function validate(fileName: string, data: Record<string, unknown>): void {
 }
 
 const journal = createCollection<JournalFrontmatter>({
-  label: "Journal",
-  dir: "journal",
+  label: "Blog",
+  dir: "blog",
   validate,
 });
 

@@ -7,10 +7,10 @@ import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Journal — Design, branding & SEO for aesthetic practices",
+  title: "Blog — Design, branding & SEO for aesthetic practices",
   description:
     "Practical writing on web design, branding, SEO and conversion for medical aesthetic and cosmetic surgery practices, from the North & Refine studio.",
-  alternates: { canonical: "/journal" },
+  alternates: { canonical: "/blog" },
 };
 
 function formatDate(iso: string): string {
@@ -22,7 +22,7 @@ function formatDate(iso: string): string {
   }).format(new Date(iso));
 }
 
-export default function JournalIndexPage() {
+export default function BlogIndexPage() {
   const posts = getAllPosts();
 
   return (
@@ -30,12 +30,12 @@ export default function JournalIndexPage() {
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Journal", path: "/journal" },
+          { name: "Blog", path: "/blog" },
         ])}
       />
 
       <PageHero
-        overline="The Journal"
+        overline="The Blog"
         title="What we've learned, written down."
         lede="Field notes on design, branding, SEO and conversion for practices in medical aesthetics and cosmetic surgery."
       />
@@ -47,7 +47,7 @@ export default function JournalIndexPage() {
               {posts.map((post, i) => (
                 <Link
                   key={post.slug}
-                  href={`/journal/${post.slug}`}
+                  href={`/blog/${post.slug}`}
                   className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 reveal md:items-center"
                   style={{ transitionDelay: `${(i % 6) * 60}ms` }}
                 >
