@@ -44,12 +44,12 @@ export default function ComingSoonPage() {
 
           {/* One composed unit, vertically centred between monogram and
               fineprint: columns TOP-ALIGNED (kicker and card start on the
-              same line), a clear gutter column between pitch and form */}
+              same line), an even 50/50 split with a gap between pitch and form */}
           <div className="flex flex-1 items-center py-12 md:py-14">
           <div className="grid w-full grid-cols-1 gap-y-14 md:grid-cols-12 md:items-start md:gap-x-8">
             {/* The pitch — who we are, for the visitor arriving from a
                 client site's footer credit */}
-            <div className="md:col-span-7">
+            <div className="md:col-span-6">
               <p className="overline opacity-0 animate-track-in">
                 Coming soon
               </p>
@@ -57,7 +57,7 @@ export default function ComingSoonPage() {
                 className="heading-xl from-overline max-w-3xl text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.5s" }}
               >
-                Building websites that patients trust.
+                Building websites that patients <em className="italic">trust</em>.
               </h1>
               <p
                 className="lede body-lg max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
@@ -67,11 +67,11 @@ export default function ComingSoonPage() {
               </p>
             </div>
 
-            {/* The form — flush right beyond the gutter; email line sits
+            {/* The form — the right half of the 50/50 split; email line sits
                 OUTSIDE the frosted glass, close in; the card is purely the
                 form. Same Netlify form as /contact, minimal fields */}
             <div
-              className="md:col-span-4 md:col-start-9 opacity-0 animate-fade-in-up"
+              className="md:col-span-6 opacity-0 animate-fade-in-up"
               style={{ animationDelay: "1.1s" }}
             >
               <p className="overline">

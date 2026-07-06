@@ -197,12 +197,29 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
           reply happens regardless; only ticked boxes join the mailing list.
           Same field name as the newsletter form = one consent record. */}
       <label className="flex cursor-pointer items-start gap-3">
-        <input
-          type="checkbox"
-          name="marketing-opt-in"
-          value="yes"
-          className="mt-1 h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-sm border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
-        />
+        <span className="relative mt-1 inline-flex h-4 w-4 shrink-0">
+          <input
+            type="checkbox"
+            name="marketing-opt-in"
+            value="yes"
+            className="peer h-4 w-4 cursor-pointer appearance-none rounded-sm border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
+          />
+          {/* Ink checkmark over the champagne fill, revealed on tick */}
+          <svg
+            aria-hidden
+            viewBox="0 0 12 12"
+            className="pointer-events-none absolute inset-0 m-auto h-2.5 w-2.5 text-ink opacity-0 transition-opacity peer-checked:opacity-100"
+          >
+            <path
+              d="M2 6.5 L5 9 L10 3.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
         <span className="label text-bone-dim">
           Send me the occasional note on web &amp; search for clinics.
         </span>
