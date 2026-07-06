@@ -17,22 +17,71 @@ import { SITE } from "@/lib/site";
 const FIELD =
   "w-full bg-transparent border-0 border-b rule-dark py-3 text-bone placeholder:text-clay/60 focus:outline-none focus:border-champagne transition-colors";
 
+// Stricter than type="email" alone (which accepts "name@server" with no
+// TLD): require a dot-separated domain. Mirrored in the email input's
+// `pattern` so native bubbles catch it before JS does.
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
+
 type Status = "idle" | "sending" | "sent" | "error";
 
 export default function ContactForm({ variant = "full" }: { variant?: "full" | "minimal" }) {
   const [status, setStatus] = useState<Status>("idle");
 
+  // Surface a validation problem on a specific field via the native bubble.
+  function reject(form: HTMLFormElement, selector: string, message: string) {
+    const el = form.querySelector<HTMLInputElement | HTMLTextAreaElement>(selector);
+    el?.setCustomValidity(message);
+    el?.reportValidity();
+    el?.setCustomValidity("");
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
+
+    // Belt-and-braces: re-run native constraint validation explicitly, so
+    // programmatic submits and quirky browsers can't skip it.
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // JS-side re-checks that native constraints can't guarantee: minLength
+    // only applies to user-typed ("dirty") values per spec, and none of the
+    // native checks trim whitespace.
+    const data = new FormData(form);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
+    if (name.length < 2) {
+      return reject(form, "#name", "Please enter your name.");
+    }
+    if (!EMAIL_RE.test(email)) {
+      return reject(form, "#email", "Enter a valid email address, e.g. name@example.com");
+    }
+    if (message.length < 10) {
+      return reject(form, "#message", "Tell us a little more — at least a sentence.");
+    }
+
+    // Honeypot: bots that fill the hidden field get a silent "success" and
+    // nothing is sent. (No submit-speed heuristic — browser autofill lets
+    // real visitors submit fast, and a silently dropped enquiry costs more
+    // than a spam email. Netlify's Akismet filter covers the rest.)
+    if (String(data.get("bot-field") ?? "") !== "") {
+      setStatus("sent");
+      return;
+    }
+
     setStatus("sending");
-    const body = new URLSearchParams(
-      new FormData(event.currentTarget) as unknown as Record<string, string>,
-    ).toString();
+    const body = new URLSearchParams();
+    for (const [key, value] of data.entries()) {
+      body.append(key, String(value).trim());
+    }
     try {
       const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
+        body: body.toString(),
       });
       setStatus(res.ok ? "sent" : "error");
     } catch {
@@ -62,7 +111,7 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
     // at opacity 0 waiting for an observer (it raced hydration on the
     // coming-soon overlay and could stay invisible). Entrances belong to the
     // surrounding section, not the form itself.
-    <form name="project-enquiry" onSubmit={handleSubmit} className="space-y-7">
+    <form name="project-enquiry" onSubmit={handleSubmit} className="space-y-5">
       <input type="hidden" name="form-name" value="project-enquiry" />
       {/* Honeypot — hidden from people, tempting to bots */}
       <p className="hidden">
@@ -75,13 +124,36 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
         <label htmlFor="name" className="overline text-clay">
           Name
         </label>
-        <input id="name" name="name" type="text" required className={FIELD} placeholder="Your full name" />
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          minLength={2}
+          maxLength={100}
+          autoComplete="name"
+          className={FIELD}
+          placeholder="Your full name"
+        />
       </div>
       <div>
         <label htmlFor="email" className="overline text-clay">
           Email
         </label>
-        <input id="email" name="email" type="email" required className={FIELD} placeholder="Your email address" />
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          maxLength={254}
+          autoComplete="email"
+          inputMode="email"
+          spellCheck={false}
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]{2,}"
+          title="Enter a valid email address, e.g. name@example.com"
+          className={FIELD}
+          placeholder="Your email address"
+        />
       </div>
       {variant === "full" && (
         <>
@@ -89,7 +161,7 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
             <label htmlFor="practice" className="overline text-clay">
               Practice / clinic
             </label>
-            <input id="practice" name="practice" type="text" className={FIELD} placeholder="Practice name" />
+            <input id="practice" name="practice" type="text" maxLength={120} autoComplete="organization" className={FIELD} placeholder="Practice name" />
           </div>
           <div>
             <label htmlFor="interest" className="overline text-clay">
@@ -114,10 +186,27 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
           name="message"
           rows={4}
           required
+          minLength={10}
+          maxLength={2000}
           className={`${FIELD} resize-none`}
           placeholder="Where your practice is now, and what you'd like to change."
         />
       </div>
+
+      {/* Marketing consent — UNTICKED and optional (UK GDPR/PECR): the
+          reply happens regardless; only ticked boxes join the mailing list.
+          Same field name as the newsletter form = one consent record. */}
+      <label className="flex cursor-pointer items-start gap-3">
+        <input
+          type="checkbox"
+          name="marketing-opt-in"
+          value="yes"
+          className="mt-1 h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-sm border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
+        />
+        <span className="label text-bone-dim">
+          Also send me the occasional note on design and search for clinics.
+        </span>
+      </label>
 
       <button type="submit" className="btn btn-primary-dark btn-arrow" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send enquiry"}
@@ -128,7 +217,6 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
           Something went wrong sending that. Please try again, or email us at {SITE.email}.
         </p>
       )}
-      <p className="fineprint">We&rsquo;ll only use your details to reply to this enquiry.</p>
     </form>
   );
 }

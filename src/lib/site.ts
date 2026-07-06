@@ -9,9 +9,9 @@ export const SITE = {
   legalName: "North & Refine Studio",
   // ⚠️ Update to the real production domain before launch.
   url: "https://northandrefine.com",
-  tagline: "Brand & web design for medical aesthetic and cosmetic surgery practices",
+  tagline: "Web, search and brand, built for medical and surgical practitioners and clinics",
   description:
-    "North & Refine is a design studio building considered brands and high-performing, SEO-led websites for cosmetic surgeons, medical aesthetic clinics and dermatology practices.",
+    "A design studio building considered brands and SEO-led websites for cosmetic surgeons, medical aesthetic clinics and dermatology practices.",
   email: "studio@northandrefine.com",
   // Primary service area — tune to where you actually take clients.
   areaServed: ["Australia", "United Kingdom", "United States"],
