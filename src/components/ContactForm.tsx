@@ -204,7 +204,7 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
           className="mt-1 h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-sm border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
         />
         <span className="label text-bone-dim">
-          Also send me the occasional note on design and search for clinics.
+          Send me the occasional note on web &amp; search for clinics.
         </span>
       </label>
 
