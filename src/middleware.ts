@@ -50,8 +50,10 @@ export const config = {
   // /sitemap.xml (its route list names client case studies). The only paths
   // that pass through are what the holding page itself needs: Next internals,
   // the Netlify form target, the favicon, the grain texture, the logo (linked
-  // from the Organization schema) and a valid robots.txt.
+  // from the Organization schema) a valid robots.txt, and /privacy —
+  // the form collects personal data, so the privacy notice must be reachable
+  // even while holding (UK GDPR transparency at the point of collection).
   matcher: [
-    "/((?!coming-soon|_next|__forms\\.html|favicon\\.svg|grain\\.svg|logo\\.svg|nr-monogram-white\\.svg|robots\\.txt).*)",
+    "/((?!coming-soon|privacy|_next|__forms\\.html|favicon\\.svg|grain\\.svg|logo\\.svg|nr-monogram-white\\.svg|robots\\.txt).*)",
   ],
 };

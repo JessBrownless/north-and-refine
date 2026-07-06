@@ -37,9 +37,9 @@ export default function ComingSoonPage() {
               everywhere, no live text, no font dependency. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/nr-monogram-white.svg"
+            src="/nr-monogram-white.svg?v=3"
             alt="North & Refine"
-            className="h-11 w-auto self-start md:h-14"
+            className="h-6 w-auto self-start md:h-8"
           />
 
           {/* One composed unit, vertically centred between monogram and
@@ -51,20 +51,19 @@ export default function ComingSoonPage() {
                 client site's footer credit */}
             <div className="md:col-span-7">
               <p className="overline opacity-0 animate-track-in">
-                Website coming soon
+                Coming soon
               </p>
               <h1
                 className="heading-xl from-overline max-w-3xl text-balance opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.5s" }}
               >
-                Brand, web and SEO for practices patients trust.
+                Building websites that patients trust.
               </h1>
               <p
                 className="lede body-lg max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
                 style={{ animationDelay: "0.7s" }}
               >
-                Considered brands and websites for cosmetic surgeons, medical
-                aesthetic clinics and dermatology practices.
+                {SITE.tagline}.
               </p>
             </div>
 
@@ -75,8 +74,10 @@ export default function ComingSoonPage() {
               className="md:col-span-4 md:col-start-9 opacity-0 animate-fade-in-up"
               style={{ animationDelay: "1.1s" }}
             >
-              <p className="overline">Enquire</p>
-              <div className="card-glass mt-4 rounded-2xl px-8 py-6 md:px-9 md:py-7">
+              <p className="overline">
+                Enquire <span aria-hidden>↓</span>
+              </p>
+              <div className="card-glass mt-4 rounded-2xl px-8 py-5 md:px-9 md:py-6">
                 <ContactForm variant="minimal" />
               </div>
               <p className="body mt-4 text-bone-dim">
@@ -93,7 +94,10 @@ export default function ComingSoonPage() {
           </div>
 
           <p className="fineprint text-clay">
-            © 2026 {SITE.legalName}. {SITE.tagline}.
+            © 2026 {SITE.legalName}. {SITE.tagline}. ·{" "}
+            <a href="/privacy" className="underline underline-offset-2 hover:text-bone transition-colors">
+              Privacy
+            </a>
           </p>
         </div>
       </div>

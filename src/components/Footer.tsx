@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NRMonogram from "@/components/NRMonogram";
 import { FOOTER_NAV, SITE } from "@/lib/site";
 
 // The footer's Instagram tiles — ALL quiet brand-gradient placeholders until
@@ -85,8 +86,8 @@ export default function Footer() {
             rel="noreferrer"
             className="group order-first col-span-3 py-6 text-center md:order-none md:col-span-1 md:py-0"
           >
-            <span className="font-display text-3xl tracking-tight text-bone transition-opacity group-hover:opacity-70">
-              N<span className="text-champagne">&amp;</span>R
+            <span className="inline-block text-bone transition-opacity group-hover:opacity-70">
+              <NRMonogram className="mx-auto h-7 w-auto" />
             </span>
             <span className="overline mt-2 block">@northandrefine</span>
           </a>
@@ -100,8 +101,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Brand */}
           <div className="md:col-span-5">
-            <Link href="/" className="font-display text-bone text-3xl tracking-tight">
-              North <span className="text-champagne">&amp;</span> Refine
+            <Link href="/" aria-label="North & Refine home" className="inline-block text-bone transition-opacity hover:opacity-70">
+              <NRMonogram className="h-9 w-auto" />
             </Link>
             <p className="body mt-5 text-bone-dim max-w-sm">{SITE.tagline}.</p>
             <a
@@ -167,7 +168,7 @@ export default function Footer() {
             </Link>
           </p>
           <p className="fineprint">
-            Brand &amp; web design for medical aesthetic &amp; cosmetic surgery practices.
+            Web, search and brand, built for medical and surgical practitioners and clinics.
           </p>
         </div>
       </div>
