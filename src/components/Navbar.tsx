@@ -107,11 +107,20 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`heading-xl opacity-0 animate-fade-in-up ${active ? "text-champagne" : "text-bone"}`}
+                    className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in-up ${active ? "underline underline-offset-8 decoration-1" : ""}`}
                     style={{ animationDelay: `${i * 60}ms` }}
                     onClick={() => setOpen(false)}
                   >
-                    {item.label}
+                    {/* Hover crossfades the roman word out and the Saol italic in */}
+                    <span className="transition-opacity duration-300 group-hover:opacity-0">
+                      {item.label}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="italic absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    >
+                      {item.label}
+                    </span>
                   </Link>
                 );
               })}
@@ -119,11 +128,19 @@ export default function Navbar() {
                   mobile, not the desktop pill CTA */}
               <Link
                 href="/contact"
-                className={`heading-xl opacity-0 animate-fade-in-up ${pathname.startsWith("/contact") ? "text-champagne" : "text-bone"}`}
+                className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in-up ${pathname.startsWith("/contact") ? "underline underline-offset-8 decoration-1" : ""}`}
                 style={{ animationDelay: `${NAV.length * 60}ms` }}
                 onClick={() => setOpen(false)}
               >
-                Start a project
+                <span className="transition-opacity duration-300 group-hover:opacity-0">
+                  Start a project
+                </span>
+                <span
+                  aria-hidden
+                  className="italic absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                >
+                  Start a project
+                </span>
               </Link>
             </nav>
 
@@ -133,7 +150,7 @@ export default function Navbar() {
                 href={SITE.sameAs[0]}
                 target="_blank"
                 rel="noreferrer"
-                className="overline inline-flex items-center gap-2 opacity-0 animate-fade-in-up"
+                className="overline inline-flex items-center gap-2 text-bone opacity-0 animate-fade-in-up"
                 style={{ animationDelay: `${(NAV.length + 1) * 60}ms` }}
                 onClick={() => setOpen(false)}
               >
