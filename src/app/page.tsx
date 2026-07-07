@@ -7,6 +7,7 @@ import {
 } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import Deck, { type DeckSlide } from "@/components/Deck";
+import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import ManifestoStatement from "@/components/ManifestoStatement";
 import ContactCTA from "@/components/ContactCTA";
@@ -119,6 +120,14 @@ export default function HomePage() {
       screenshotAlt: captureFallback?.frontmatter.thumbImageAlt ?? SHOWREEL_SHOT_ALT,
     };
   });
+
+  // Under-hero logo strip — one wordmark per featured practice, in the order
+  // they surface elsewhere on the page, each linking to its case study. Drawn
+  // from the same collection as the deck so it never drifts from the real work.
+  const logoStripItems: LogoStripItem[] = featured.map((project) => ({
+    name: project.frontmatter.client,
+    href: `/work/${project.slug}`,
+  }));
 
   return (
     <main className="bg-ink text-bone">
@@ -247,6 +256,13 @@ export default function HomePage() {
           staying fully lit while the manifesto arrives (scroll-driven,
           CSS-only, pointer-events-none) */}
       <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
+      </div>
+
+      {/* ── Logo strip — the under-hero trust bar. A quiet ruled band of
+          client wordmarks on the same continuous ink scene, sitting between
+          the hero deck and the manifesto. ── */}
+      <div className="relative z-10">
+        <LogoStrip items={logoStripItems} />
       </div>
 
       {/* ── Manifesto — a normal-flow ink moment on the SAME continuous
