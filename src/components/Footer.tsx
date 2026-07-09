@@ -54,20 +54,17 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-ink">
-      {/* Ambient champagne pools — the footer stays inside the lit scene */}
+      {/* Ambient champagne pool — the footer stays inside the lit scene.
+          Centred, never corner-anchored: the gradient is only transparent at
+          its own box edge, so a pool that reaches the clipper gets sliced
+          while still bright. The 2rem of slack keeps float's ±14px clear of
+          the clip line. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute left-[-12%] top-[-5%] h-[60vh] w-[95vw] animate-float-slow sm:w-[60vw] md:opacity-85"
+          className="absolute inset-0 m-auto h-[60vh] max-h-[calc(100%-2rem)] w-[95vw] max-w-[calc(100%-2rem)] animate-float-slow sm:w-[60vw] md:opacity-85"
           style={{
             background:
               "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 100%)",
-          }}
-        />
-        <div
-          className="absolute bottom-[5%] right-[-15%] h-[55vh] w-[95vw] animate-float-slower sm:w-[60vw] md:opacity-85"
-          style={{
-            background:
-              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 12%, transparent) 0%, transparent 100%)",
           }}
         />
       </div>

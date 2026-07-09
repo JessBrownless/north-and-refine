@@ -63,11 +63,23 @@ const MANIFESTO =
 // the hero/manifesto scene, so the WHOLE page swims in the light rather
 // than going flat after the bone interruption. Phone-first sizing; pulled
 // back on md+ like its scene siblings.
+//
+// CENTRED, never corner-anchored. The gradient only reaches transparency at
+// its own box edge, so a box that touches the clipper gets sliced while it
+// is still bright — that was the hard line at the top of every section.
+// Centring keeps it clear of all four edges by construction.
+//
+// Centred with auto margins, NOT -translate-x/y-1/2: `float` animates
+// transform: translateY, so a centring transform would be overwritten. The
+// max-h leaves 2rem of slack so float's ±14px never carries the box back
+// into the clip line. The clipper itself can't be dropped — overflow-x
+// hidden + overflow-y visible computes to auto, and the resulting scroll
+// container kills the sticky manifesto and the .exit-fade view() timeline.
 function AmbientPool({ className }: { className: string }) {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        className={`absolute w-[95vw] sm:w-[60vw] md:opacity-85 ${className}`}
+        className={`absolute inset-0 m-auto max-h-[calc(100%-2rem)] w-[95vw] max-w-[calc(100%-2rem)] sm:w-[60vw] md:opacity-85 ${className}`}
         style={{
           background:
             "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 100%)",
@@ -299,8 +311,7 @@ export default function HomePage() {
           surfaces on hover. NOTE: bespoke to the homepage — /work keeps
           the canonical WorkCard. ── */}
       <section id="selected-work" className="relative scroll-mt-14">
-        <AmbientPool className="right-[-12%] top-[-5%] h-[70vh] animate-float-slow" />
-        <AmbientPool className="left-[-15%] bottom-[10%] h-[75vh] animate-float-slower" />
+        <AmbientPool className="h-[75vh] animate-float-slower" />
         <div className="shell py-24 md:py-32">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
@@ -358,7 +369,7 @@ export default function HomePage() {
       {/* ── What we do — three BIG full-measure headings (the image panel
           was dropped 2026-07-05); selecting one reveals its line. ── */}
       <section className="relative">
-        <AmbientPool className="right-[-12%] top-[-10%] h-[70vh] animate-float-slow" />
+        <AmbientPool className="h-[70vh] animate-float-slow" />
         <div className="shell py-24 md:py-32">
           {/* Kicker gets its own hairline; the ruled service rows hang
               straight off it */}
@@ -379,8 +390,7 @@ export default function HomePage() {
           blob. Numbers are defensible: the ranking is the Hawkes study's,
           the rest are definitionally true. ── */}
       <section className="relative z-10">
-        <AmbientPool className="left-[-12%] bottom-[-15%] h-[75vh] animate-float-slower" />
-        <AmbientPool className="right-[-15%] top-[-10%] h-[60vh] animate-float-slow" />
+        <AmbientPool className="h-[75vh] animate-float-slower" />
         <div className="shell py-24 md:py-32">
           <p className="overline reveal">The proof</p>
           <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
@@ -456,7 +466,7 @@ export default function HomePage() {
           words, a real portrait and live review data exist — we never draft
           quotes on a client's behalf. Swap the content, keep the structure. */}
       <section className="relative">
-        <AmbientPool className="right-[-15%] top-[5%] h-[70vh] animate-float-slow" />
+        <AmbientPool className="h-[70vh] animate-float-slow" />
         <div className="shell py-24 md:py-32">
           <p className="overline reveal">Kind words</p>
           <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
@@ -524,8 +534,7 @@ export default function HomePage() {
           live inside the section directly ── */}
       {posts.length > 0 && (
         <section className="relative">
-          <AmbientPool className="left-[-12%] top-[-10%] h-[75vh] animate-float-slower" />
-          <AmbientPool className="right-[-12%] bottom-[-10%] h-[65vh] animate-float-slow" />
+          <AmbientPool className="h-[75vh] animate-float-slower" />
           <div className="shell py-24 md:py-32">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
