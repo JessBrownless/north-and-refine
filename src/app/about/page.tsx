@@ -57,7 +57,7 @@ export default function AboutPage() {
         <div className="shell py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div className="md:col-span-4">
-              <p className="overline text-champagne reveal">Who we are</p>
+              <p className="overline reveal">Who we are</p>
             </div>
             <div className="md:col-span-8 max-w-2xl space-y-6">
               <p className="body-lg text-bone/90 reveal">
@@ -86,7 +86,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
             {STATS.map((s, i) => (
               <div key={s.label} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-                <p className="stat text-champagne">{s.value}</p>
+                <p className="stat text-bone">{s.value}</p>
                 <p className="label text-bone-dim mt-2">{s.label}</p>
               </div>
             ))}

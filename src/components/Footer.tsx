@@ -23,7 +23,7 @@ function IgTile({ tile, profile }: { tile: (typeof IG_TILES)[number]; profile: s
       target="_blank"
       rel="noreferrer"
       aria-label="North & Refine on Instagram"
-      className="group frame aspect-square w-full rounded-lg"
+      className="group frame aspect-square w-full"
     >
       {tile.kind === "shot" ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -54,20 +54,8 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-ink">
-      {/* Ambient champagne pool — the footer stays inside the lit scene.
-          Centred, never corner-anchored: the gradient is only transparent at
-          its own box edge, so a pool that reaches the clipper gets sliced
-          while still bright. The 2rem of slack keeps float's ±14px clear of
-          the clip line. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 m-auto h-[60vh] max-h-[calc(100%-2rem)] w-[95vw] max-w-[calc(100%-2rem)] animate-float-slow sm:w-[60vw] md:opacity-85"
-          style={{
-            background:
-              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 100%)",
-          }}
-        />
-      </div>
+      {/* (The footer's ambient champagne pool was retired with every other
+          background gradient 2026-07-09 — the ground is flat ink now.) */}
       {/* ── Instagram — a strict SEVEN-COLUMN band spanning the content grid
           edge to edge: three tiles · the monogram cell · three tiles. Equal
           rhythm, flush margins — no floating cluster. Mobile stacks the

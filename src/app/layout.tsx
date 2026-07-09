@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Instrument_Sans } from "next/font/google";
+import { Instrument_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SITE } from "@/lib/site";
@@ -11,37 +11,26 @@ import Reveal from "@/components/Reveal";
 import SmoothScroll from "@/components/SmoothScroll";
 import ExitFades from "@/components/ExitFades";
 
-// Type system: Instrument Sans (variable) for body and headings — chosen for
-// its sheared "scalpel" terminals (the t especially) — Geist Mono for the
-// engineered accents (overlines, index numbers, stats), and Saol Display
-// (serif, below) reserved for the wordmark/logo alone. Within the sans,
-// hierarchy comes from weight and size.
+// Type system: a TWO-FONT house (decided 2026-07-09). Saol Display carries
+// every display/heading tier; the sans (--font-sans) carries EVERYTHING
+// else — body, UI, and the meta voice (overlines, index numbers, stats)
+// that Geist Mono used to carry. The mono is retired: it was the
+// "engineered accent" of the old tech-luxury direction, and in the flat
+// editorial system the meta voice comes from the same family as the body.
+// The `font-mono` utility falls back to the system mono stack, which only
+// device-chrome depictions (BrowserMockup's address bar) still use.
 //
-// Aeonik Pro trial was evaluated (2026-06) and parked — files remain in
-// src/fonts/. To re-trial, swap this loader for:
-//   import localFont from "next/font/local";
-//   const sans = localFont({
-//     src: [
-//       { path: "../fonts/AeonikProTRIAL-Light.otf", weight: "300", style: "normal" },
-//       { path: "../fonts/AeonikProTRIAL-Regular.otf", weight: "400", style: "normal" },
-//       { path: "../fonts/AeonikProTRIAL-RegularItalic.otf", weight: "400", style: "italic" },
-//       { path: "../fonts/AeonikProTRIAL-Medium.otf", weight: "500", style: "normal" },
-//       { path: "../fonts/AeonikProTRIAL-MediumItalic.otf", weight: "500", style: "italic" },
-//       { path: "../fonts/AeonikProTRIAL-SemiBold.otf", weight: "600", style: "normal" },
-//     ],
-//     variable: "--font-sans",
-//     display: "swap",
-//   });
-// (Trial licence = evaluation only; buy from CoType before shipping it.)
+// ⚠ PRODUCTION FALLBACK LOADER. The CHOSEN body face is Dia (Schick
+// Toikka) — but Dia is a TRIAL licence whose OTFs are gitignored and MUST
+// NOT ship, so its loader lives ONLY as an uncommitted working-tree change
+// in the dev worktrees (see CLAUDE.md → Fonts). This committed file ships
+// Instrument Sans until Dia is bought; buy Dia → commit licensed webfonts
+// → retire this loader.
+//
+// (Aeonik Pro trial evaluated 2026-06 and parked — files in src/fonts/.)
 const sans = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
   display: "swap",
 });
 
@@ -87,12 +76,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0C0C0D",
+  themeColor: "#1C1710",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${geistMono.variable} ${saol.variable}`}>
+    <html lang="en" className={`${sans.variable} ${saol.variable}`}>
       <body id="top">
         {/* Site-wide structured data: the studio + the website node. */}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />

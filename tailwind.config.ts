@@ -11,9 +11,9 @@ const config: Config = {
     extend: {
       colors: {
         // ── Base (dark, premium agency) ──────────────────────────────────
-        ink: "#0C0C0D", // deepest — default page background
-        "ink-raised": "#161618", // raised surfaces / cards on dark
-        "ink-line": "#2A2A2C", // hairline dividers on dark
+        ink: "#1C1710", // deepest — warm near-black, default page background
+        "ink-raised": "#26201A", // raised surfaces / cards on dark
+        "ink-line": "#484036", // hairline dividers on dark (was out of sync with --ink-line)
         // ── Light surfaces & text ────────────────────────────────────────
         bone: "#F2EEE6", // warm off-white — light sections, text on ink
         "bone-dim": "#CBC6BB", // muted bone — secondary text on ink
@@ -26,10 +26,10 @@ const config: Config = {
         ember: "#FF7A00", // bright ember — live/availability dots only, one per view
       },
       fontFamily: {
-        // Premium sans for body/headings, Saol Display (luxury serif) for the
-        // wordmark — every font-display usage is logo territory (Navbar/Footer
-        // wordmarks, coming-soon, mockup mini-sites). Mono for engineered
-        // accents.
+        // Two-font house: Dia (--font-sans) for body/UI/meta, Saol Display for
+        // display — every font-display usage is heading/wordmark territory (Navbar/Footer
+        // wordmarks, coming-soon, mockup mini-sites). The mono stack survives only
+        // for device-chrome depictions (BrowserMockup address bar) — system mono.
         display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],

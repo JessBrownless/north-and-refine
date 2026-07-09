@@ -13,7 +13,7 @@ export default function MockupsIndexPage() {
   return (
     <main className="bg-ink text-bone min-h-screen">
       <div className="shell pt-36 pb-24 md:pt-44">
-        <p className="overline text-champagne">Internal — design explorations</p>
+        <p className="overline">Internal — design explorations</p>
         <h1 className="heading-xl from-overline">Mockups</h1>
         <p className="lede body-lg text-bone-dim">
           Obsidian won and now lives on the real homepage. The original mockup is kept below
@@ -26,14 +26,14 @@ export default function MockupsIndexPage() {
             className="group flex flex-col md:flex-row md:items-center justify-between gap-4 py-8"
           >
             <div className="max-w-2xl">
-              <p className="overline text-champagne">Winner — promoted to the homepage</p>
+              <p className="overline">Winner — promoted to the homepage</p>
               <h2 className="heading-lg mt-2 transition-opacity group-hover:opacity-70">Obsidian</h2>
               <p className="body mt-2 text-bone-dim">
                 Dark-led tech luxury — champagne-lit ink scenes, glass cards, devices glowing
                 out of the dark.
               </p>
             </div>
-            <span className="btn-ghost text-champagne shrink-0">
+            <span className="btn-ghost text-bone shrink-0">
               View <span aria-hidden>→</span>
             </span>
           </Link>
@@ -43,7 +43,7 @@ export default function MockupsIndexPage() {
             className="group flex flex-col md:flex-row md:items-center justify-between gap-4 py-8"
           >
             <div className="max-w-2xl">
-              <p className="overline text-champagne">Promoted to the homepage</p>
+              <p className="overline">Promoted to the homepage</p>
               <h2 className="heading-lg mt-2 transition-opacity group-hover:opacity-70">
                 Showreel deck
               </h2>
@@ -53,7 +53,7 @@ export default function MockupsIndexPage() {
                 a video showreel.
               </p>
             </div>
-            <span className="btn-ghost text-champagne shrink-0">
+            <span className="btn-ghost text-bone shrink-0">
               View <span aria-hidden>→</span>
             </span>
           </Link>

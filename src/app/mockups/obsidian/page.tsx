@@ -22,7 +22,7 @@ export default function ObsidianMockup() {
       {/* ── Hero — centred on a champagne-lit ink scene ────────────────── */}
       <section className="scene-ink grain relative overflow-hidden">
         <div className="shell relative z-10 pt-40 pb-12 md:pt-52 md:pb-16 text-center">
-          <p className="overline text-champagne reveal">Design studio for private clinics</p>
+          <p className="overline reveal">Design studio for private clinics</p>
           <h1
             className="display from-overline mx-auto max-w-4xl reveal"
             style={{ transitionDelay: "80ms" }}
@@ -68,7 +68,7 @@ export default function ObsidianMockup() {
       {/* ── Manifesto ──────────────────────────────────────────────────── */}
       <section className="border-t rule-dark">
         <div className="shell py-20 md:py-28">
-          <p className="overline text-champagne reveal">Considered</p>
+          <p className="overline reveal">Considered</p>
           <p className="statement from-overline max-w-4xl reveal" style={{ transitionDelay: "80ms" }}>
             After years of watching brilliant clinics undersold by template websites, we built a
             studio that treats a practice&rsquo;s digital presence with the same care as the
@@ -129,7 +129,7 @@ export default function ObsidianMockup() {
 
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card-glass p-8 reveal">
-              <p className="stat text-champagne">87%</p>
+              <p className="stat text-bone">87%</p>
               <p className="heading-sm mt-6">Patient enquiry increase</p>
               <p className="label mt-2 text-bone-dim">
                 Average growth within the first year of partnership
@@ -149,7 +149,7 @@ export default function ObsidianMockup() {
               <PhoneMockup name="Dr Tom Ashworth" specialty="Rhinoplasty" size="sm" screen="ink" />
             </div>
             <div className="card-glass p-8 reveal" style={{ transitionDelay: "80ms" }}>
-              <p className="stat text-champagne">10+</p>
+              <p className="stat text-bone">10+</p>
               <p className="heading-sm mt-6">Years in medical aesthetics</p>
               <p className="label mt-2 text-bone-dim">
                 Deep understanding of cosmetic surgery practice needs

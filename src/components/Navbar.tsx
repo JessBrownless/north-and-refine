@@ -67,13 +67,15 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              {/* Flagship arrow CTA (moved up from the hero 2026-07-05) */}
+              {/* Secondary outline CTA — the flagship arrow moved back DOWN
+                  to the hero 2026-07-09: the hero owns the view's one
+                  .btn-arrow, and two flagships in the first viewport
+                  violated the one-per-view rule. */}
               <Link
                 href="/contact"
-                className={`btn ${lightTop ? "btn-primary-light" : "btn-primary-dark"} btn-arrow`}
+                className={`btn btn-sm ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
               >
                 Start a project
-                <span className="btn-arrow-chip" aria-hidden>↗</span>
               </Link>
             </div>
 

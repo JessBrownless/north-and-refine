@@ -52,7 +52,7 @@ export default function BlogIndexPage() {
                   style={{ transitionDelay: `${(i % 6) * 60}ms` }}
                 >
                   <div className="md:col-span-2">
-                    <p className="overline text-champagne">{getCategoryLabel(post.frontmatter.category)}</p>
+                    <p className="overline">{getCategoryLabel(post.frontmatter.category)}</p>
                     <p className="label text-clay mt-2">{formatDate(post.frontmatter.publishedAt)}</p>
                   </div>
                   <div className="md:col-span-6">
@@ -64,7 +64,7 @@ export default function BlogIndexPage() {
                   </div>
                   {/* Image slot — featuredImage, or the brand gradient until one lands */}
                   <div className="md:col-span-3 md:col-start-9">
-                    <div className="frame aspect-[1.6] rounded-lg">
+                    <div className="frame aspect-[1.6]">
                       {post.frontmatter.featuredImage ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img

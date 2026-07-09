@@ -35,7 +35,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             {/* Intro */}
             <div className="md:col-span-5">
-              <p className="overline text-champagne reveal">Start a project</p>
+              <p className="overline reveal">Start a project</p>
               <h1 className="heading-xl text-bone from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Let&rsquo;s talk about your practice.
               </h1>

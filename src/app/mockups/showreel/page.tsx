@@ -25,7 +25,7 @@ export default function ShowreelMockupPage() {
           {/* Type lockup — overline + huge headline + a corner label */}
           <div className="relative mx-auto max-w-5xl">
             <p
-              className="overline text-champagne opacity-0 animate-fade-in-up"
+              className="overline opacity-0 animate-fade-in-up"
               style={{ animationDelay: "0.1s" }}
             >
               Selected work

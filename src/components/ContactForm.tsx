@@ -92,7 +92,7 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
   if (status === "sent") {
     return (
       <div className="space-y-4">
-        <p className="overline text-champagne">Thank you</p>
+        <p className="overline">Thank you</p>
         <h2 className="heading-md text-bone">Enquiry received.</h2>
         <p className="body text-bone-dim">
           We&rsquo;ll reply within two working days. If anything&rsquo;s urgent in the
@@ -202,7 +202,7 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
             type="checkbox"
             name="marketing-opt-in"
             value="yes"
-            className="peer h-4 w-4 cursor-pointer appearance-none rounded-sm border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
+            className="peer h-4 w-4 cursor-pointer appearance-none border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
           />
           {/* Ink checkmark over the champagne fill, revealed on tick */}
           <svg

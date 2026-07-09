@@ -31,7 +31,7 @@ const workProseComponents: MDXComponents = {
   ...proseMdxComponents,
   h2: ({ children, ...props }) => (
     <h2
-      className="overline text-champagne mt-16 lg:mt-28 lg:col-span-3 lg:col-start-2"
+      className="overline mt-16 lg:mt-28 lg:col-span-3 lg:col-start-2"
       {...props}
     >
       {children}
@@ -124,7 +124,7 @@ export default async function WorkDetailPage({
       <section className="relative grain scene-ink overflow-hidden">
         <div className="shell-wide pt-36 pb-12 md:pt-48 md:pb-16 relative z-10 lg:grid lg:grid-cols-12 lg:gap-x-10">
           <div className="lg:col-span-8">
-            <p className="overline text-champagne reveal">
+            <p className="overline reveal">
               {getSectorLabel(fm.sector)} · {fm.year}
             </p>
             <h1 className="heading-xl text-bone from-overline max-w-4xl reveal" style={{ transitionDelay: "80ms" }}>
@@ -181,11 +181,7 @@ export default async function WorkDetailPage({
         {fm.heroImage && (
           <div className="shell-wide relative z-10 pb-24 md:pb-32">
           <div className="relative">
-            {/* Ambient glow behind the cluster */}
-            <div
-              aria-hidden
-              className="absolute inset-0 -m-10 rounded-[40%] bg-champagne/15 blur-3xl"
-            />
+            {/* (Cluster glow retired with every background gradient 2026-07-09.) */}
             <div className="relative sm:ml-20 md:ml-32 lg:ml-44">
               <BrowserMockup
                 screenshot={fm.heroImage}
@@ -217,7 +213,7 @@ export default async function WorkDetailPage({
       {fm.metrics && fm.metrics.length > 0 && (
         <section className="border-y rule-dark bg-ink-raised/30">
           <div className="shell py-14 md:py-20">
-            <p className="overline text-champagne reveal">The results</p>
+            <p className="overline reveal">The results</p>
             <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3">
               {fm.metrics.slice(0, 3).map((m, i) => (
                 <div
@@ -225,7 +221,7 @@ export default async function WorkDetailPage({
                   className="reveal sm:border-l sm:border-ink-line sm:pl-8 sm:first:border-l-0 sm:first:pl-0"
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <p className="stat text-champagne">{m.value}</p>
+                  <p className="stat text-bone">{m.value}</p>
                   <p className="label text-bone-dim mt-3">{m.label}</p>
                 </div>
               ))}
@@ -249,9 +245,9 @@ export default async function WorkDetailPage({
       {fm.testimonial && (
         <section className="relative border-t rule-dark scene-ink grain overflow-hidden">
           <div className="shell py-20 md:py-28 text-center relative z-10">
-            <p className="overline text-champagne reveal">In the client&rsquo;s words</p>
+            <p className="overline reveal">In the client&rsquo;s words</p>
             <blockquote
-              className="blockquote text-bone max-w-3xl mx-auto mt-8 reveal"
+              className="statement text-bone max-w-[28ch] text-balance mx-auto mt-8 reveal"
               style={{ transitionDelay: "80ms" }}
             >
               &ldquo;{fm.testimonial.quote}&rdquo;

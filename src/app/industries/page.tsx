@@ -45,7 +45,7 @@ export default function IndustriesIndexPage() {
                   </h2>
                   <p className="body mt-2 text-bone-dim">{industry.intro.split(". ")[0]}.</p>
                 </div>
-                <span className="btn-ghost text-champagne shrink-0">
+                <span className="btn-ghost text-bone shrink-0">
                   Explore <span aria-hidden>→</span>
                 </span>
               </Link>

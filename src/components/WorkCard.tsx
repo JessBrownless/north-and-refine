@@ -29,7 +29,7 @@ export default function WorkCard({
           matte, so no chrome needed here — just the house rounded edge),
           falling back to the raw capture (thumbImage) or the typographic
           placeholder until imagery lands. */}
-      <div className="frame aspect-[4/3] rounded-xl">
+      <div className="frame aspect-[4/3]">
         {fm.cardImage || fm.thumbImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -47,7 +47,7 @@ export default function WorkCard({
 
       {/* Meta */}
       <div className="mt-5 flex items-baseline justify-between gap-4">
-        <p className={`overline ${light ? "text-clay" : "text-champagne"}`}>{getSectorLabel(fm.sector)}</p>
+        <p className={`overline ${light ? "text-clay" : ""}`}>{getSectorLabel(fm.sector)}</p>
         <p className="label text-clay">{fm.year}</p>
       </div>
       <h3 className={`heading-md mt-2 transition-opacity group-hover:opacity-70 ${light ? "text-ink" : "text-bone"}`}>

@@ -1,21 +1,29 @@
 import Link from "next/link";
-import TypewriterWord from "@/components/TypewriterWord";
 
-// The default heading's rotating last word — all the things a practice
-// needs its patients to do. Grammar: "…something your patients ___."
-const PATIENT_VERBS = ["trust", "book through", "remember", "recommend", "return to"];
+// Rebuilt 2026-07-09 as an editorial close, to match the homepage's index-rail
+// layout. What went, and why:
+//   · The floating imagery collage. Once .portrait-fill was flattened to
+//     parchment it sat at 1.06:1 against this band's bone — literally
+//     invisible. A placeholder you cannot see is not a placeholder.
+//   · The TypewriterWord rotating verb (animated caret read tech-demo).
+// Both components remain in components/, unused.
 
 interface ContactCTAProps {
-  /** Override the default heading (plain text — no typewriter). */
+  /** Override the default heading (plain text — no italic accent). */
   heading?: string;
   /** Override the default supporting line. */
   body?: string;
 }
 
 /**
- * Standard "start a project" CTA band. Light (bone) section for contrast
- * against the dark page base. Drop at the foot of most pages — don't hand-roll
- * a parallel CTA block.
+ * Standard "start a project" CTA band — the page's single light interruption.
+ * Drop at the foot of most pages; don't hand-roll a parallel CTA block.
+ *
+ * Structure mirrors the homepage's editorial sections: a kicker on the left
+ * rail, the statement at column 4, and a ruled footer row carrying the
+ * supporting line and the actions. It sits on `.shell` so it lines up on the
+ * interior pages that use it (nine of the eleven); the homepage's wider rail
+ * is close enough that the seam doesn't read.
  */
 export default function ContactCTA({
   heading,
@@ -23,62 +31,50 @@ export default function ContactCTA({
 }: ContactCTAProps) {
   return (
     <section data-nav-light className="scene-warm relative overflow-hidden text-ink">
-      {/* Imagery spaces — a floating collage on the right (one medium, one
-          small, a tiny mark: placeholder slots until real photography lands).
-          Desktop only, decorative. */}
-      <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 hidden w-[38%] md:block">
-        <div className="absolute right-[16%] top-[14%] w-48 rotate-3 animate-float-slow reveal lg:w-56">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-xl border rule-light bg-bone shadow-[0_32px_64px_-32px_rgba(12,12,13,0.35)]">
-            <span className="portrait-fill absolute inset-0" />
-            <span className="overline absolute bottom-4 left-4 text-ink/45">Imagery slot</span>
-          </div>
-        </div>
-        <div
-          className="absolute bottom-[16%] right-[42%] w-32 -rotate-6 animate-float-slower reveal lg:w-36"
-          style={{ transitionDelay: "160ms" }}
-        >
-          <div className="relative aspect-square overflow-hidden rounded-lg border rule-light bg-bone shadow-[0_24px_48px_-24px_rgba(12,12,13,0.3)]">
-            <span className="portrait-fill absolute inset-0" />
-          </div>
-        </div>
-        <span className="absolute right-[38%] top-[10%] text-lg text-champagne reveal" style={{ transitionDelay: "240ms" }}>
-          ✦
-        </span>
-        {/* Third piece — a small PHONE-shaped mockup slot */}
-        <div
-          className="absolute right-[5%] top-[42%] w-20 rotate-[8deg] animate-float-slow reveal lg:w-24"
-          style={{ transitionDelay: "320ms" }}
-        >
-          <div className="relative aspect-[0.5] overflow-hidden rounded-[1.4rem] border rule-light bg-bone shadow-[0_28px_56px_-28px_rgba(12,12,13,0.35)]">
-            <span className="portrait-fill absolute inset-0" />
-            {/* speaker notch */}
-            <span className="absolute left-1/2 top-2 h-1 w-6 -translate-x-1/2 rounded-full bg-ink/15" />
-          </div>
-        </div>
-      </div>
+      {/* Statement-moment spacing tier: py-32 md:py-44 — the manifesto and
+          this close share it; standard sections sit on py-24 md:py-32. */}
+      <div className="shell relative py-32 md:py-44">
+        <div className="grid grid-cols-1 gap-10 border-t rule-light pt-10 md:grid-cols-12 md:gap-8 md:pt-12">
+          {/* Left rail — kicker sits in clay on light sections, never champagne */}
+          <p className="overline text-clay reveal md:col-span-3">Start a project</p>
 
-      <div className="shell relative py-24 md:py-32">
-        <div className="max-w-3xl">
-          <p className="overline text-clay reveal">Start a project</p>
-          <h2 className="statement from-overline reveal" style={{ transitionDelay: "80ms" }}>
-            {heading ?? (
-              <>
-                Let&rsquo;s build something your patients{" "}
-                <TypewriterWord words={PATIENT_VERBS} />
-              </>
-            )}
-          </h2>
-          <p className="lede body-lg text-ink/70 reveal" style={{ transitionDelay: "160ms" }}>
-            {body}
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4 reveal" style={{ transitionDelay: "240ms" }}>
-            <Link href="/contact" className="btn btn-primary-light btn-arrow">
-              Start a project
-              <span className="btn-arrow-chip" aria-hidden>↗</span>
-            </Link>
-            <Link href="/work" className="btn btn-secondary-light">
-              See the work
-            </Link>
+          <div className="md:col-span-9">
+            <h2 className="statement max-w-[20ch] text-balance reveal" style={{ transitionDelay: "80ms" }}>
+              {heading ?? (
+                <>
+                  Let&rsquo;s build something your patients <em>trust</em>.
+                </>
+              )}
+            </h2>
+
+            {/* Ruled footer — supporting line left, the actions right. The
+                rule is what makes this read as a closing colophon rather than
+                a marketing box. */}
+            <div className="mt-16 grid grid-cols-1 gap-8 border-t rule-light pt-8 md:mt-20 md:grid-cols-12 md:items-start">
+              <p
+                className="body-sm max-w-[46ch] text-ink/60 reveal md:col-span-6"
+                style={{ transitionDelay: "160ms" }}
+              >
+                {body}
+              </p>
+
+              <div
+                className="flex flex-wrap items-center gap-4 reveal md:col-span-6 md:justify-end"
+                style={{ transitionDelay: "240ms" }}
+              >
+                <Link href="/contact" className="btn btn-primary-light btn-arrow">
+                  Start a project
+                  <span className="btn-arrow-chip" aria-hidden>↗</span>
+                </Link>
+                <Link href="/work" className="btn btn-secondary-light">
+                  See the work
+                </Link>
+              </div>
+            </div>
+
+            {/* (The email/location colophon rail was cut 2026-07-09 —
+                "everything should earn its place"; the footer carries the
+                studio's contact details.) */}
           </div>
         </div>
       </div>

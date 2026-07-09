@@ -113,12 +113,12 @@ export default function PricingPage() {
             {PACKAGES.map((p, i) => (
               <div
                 key={p.name}
-                className={`reveal rounded-sm border p-8 flex flex-col ${
+                className={`reveal border p-8 flex flex-col ${
                   p.featured ? "border-champagne bg-ink-raised" : "rule-dark"
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                {p.featured && <p className="overline text-champagne">Most chosen</p>}
+                {p.featured && <p className="overline">Most chosen</p>}
                 <h2 className="heading-md text-bone mt-1">{p.name}</h2>
                 <p className="stat text-bone mt-4" style={{ fontSize: "clamp(1.75rem,1.3rem+1.5vw,2.5rem)" }}>
                   {p.price}

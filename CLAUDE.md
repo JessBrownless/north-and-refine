@@ -10,7 +10,7 @@ Instructions for Claude when working in this repository. Read this **before** wr
 - **Styling:** Tailwind 3 + a custom design-token system in `src/app/globals.css`
 - **Content:** MDX collections read from `content/` at build time (no CMS) via `gray-matter` + `next-mdx-remote/rsc`
 - **Hosting:** Netlify (`@netlify/plugin-nextjs`)
-- **Fonts:** SERIF-LED PAIRING (decided 2026-07-05) — **Saol Display** (`--font-display`, serif, `src/fonts/*.woff2/.woff`) carries EVERY heading tier (`.display-mega`→`.heading-sm`, h1–h6 defaults), the wordmark/monogram and `.wordmark-giant`; only Regular 400 (+ unused Light Italic 300) is loaded, so heading hierarchy comes from SIZE alone — never `font-medium` on display/heading text. **Instrument Sans** (`--font-sans`, Google — sheared "scalpel" terminals, see the lowercase t) is the body/UI voice. Geist Mono (`--font-mono`) for engineered accents (`.overline`, `.index-num`, `.stat`). Aeonik Pro trial evaluated and parked (files in `src/fonts/`, archive in `./font-trials/`). Buy more Saol weights before leaning on bold headings.
+- **Fonts:** A TWO-FONT HOUSE (decided 2026-07-09) — **Saol Display** (`--font-display`, serif, `src/fonts/*.woff2/.woff`, licensed) carries EVERY heading tier (`.display-mega`→`.heading-sm`, h1–h6 defaults), the wordmark/monogram and `.wordmark-giant`; Regular 400 + Light Italic 300 only, so heading hierarchy comes from SIZE alone — never `font-medium` on display/heading text. The italic is the ACCENT-WORD device (from the studio's social voice — "The studio is *open*."): an `<em>` inside any display-tier utility renders Saol Light Italic via a globals.css rule; one word or short phrase per statement, sparingly. **Dia** (Schick Toikka, `--font-sans`) carries EVERYTHING else — body, UI, and the meta voice (`.overline`, `.index-num`, `.stat`) that Geist Mono used to carry; **the mono is retired from the brand** (it was the engineered accent of the old tech direction; `font-mono` survives only as system-mono fallback in device-chrome depictions). ⚠ **Dia is a TRIAL licence** — the OTFs are gitignored and MUST NOT ship: keep the `layout.tsx` font block uncommitted, hold it back from deploys (the manual Netlify flow stashes it), and production ships the committed Instrument Sans build until Dia is bought. Aeonik Pro trial evaluated and parked. Buy more Saol weights before leaning on bold headings.
 - **Source of truth for the brand:** `src/app/globals.css` — all design tokens live there; rendered live at `/stylesheet`
 - **Direction:** dark / premium agency. Warm near-black (`ink`), bone off-white, one restrained champagne accent — plus a bright `ember` signal at 60-30-10 doses (live dots only).
 
@@ -26,14 +26,14 @@ All in `globals.css`, mirrored at `/stylesheet` (the visual canon — keep them 
 
 | Class | Hex | Use |
 | --- | --- | --- |
-| `bg-ink` / `text-ink` | `#0C0C0D` | Default page background (warm near-black) |
-| `bg-ink-raised` | `#161618` | Raised surfaces / cards on dark |
-| `rule-dark` (border) | `#3A3A3E` | Hairline dividers on dark |
+| `bg-ink` / `text-ink` | `#1C1710` | Default page background (warm near-black — a deep shadow of the parchment; warmed + lifted from `#0C0C0D` 2026-07-09) |
+| `bg-ink-raised` | `#26201A` | Raised surfaces / cards on dark |
+| `rule-dark` (border) | `#484036` | Hairline dividers on dark |
 | `bg-bone` / `text-bone` | `#F2EEE6` | Light sections; primary text on ink |
 | `text-bone-dim` | `#CBC6BB` | Secondary text on ink |
 | `rule-light` (border) | `#DAD4C8` | Hairline dividers on light |
 | `text-clay` | `#8A8578` | Captions, fine print, meta |
-| `text-champagne` / `bg-champagne` | `#C2A878` | The one accent — use sparingly |
+| `text-champagne` / `bg-champagne` | `#C2A878` | The one accent — details & interactions ONLY (ornament glyphs, link underlines, hovers, form feedback); never label type (2026-07-09) |
 | `bg-ember` | `#FF7A00` | The 10 of 60-30-10 — the `.live-dot` availability signal ONLY, one per view; never text, never fills |
 
 Note `rule-dark` / `rule-light` set `border-color` only — pair with Tailwind `border` / `border-t` / `border-y` etc.
@@ -42,28 +42,30 @@ Note `rule-dark` / `rule-light` set `border-color` only — pair with Tailwind `
 
 Fluid modular scale, one `clamp()` per class. Body is fluid 14→16px (mobile→desktop); `.body-sm` (13→14) is the secondary/meta tier.
 
-`.display-mega` · `.display` (homepage H1) · `.heading-xl` (interior-page H1) · `.statement` · `.heading-lg` (H2) · `.heading-md` (H3) · `.heading-sm` (H4) · `.body-lg` (lede) · `.body` · `.body-sm` (secondary/meta) · `.body-reading` (long-form prose) · `.blockquote` · `.overline` (kicker) · `.label` · `.fineprint` · `.stat` · `.index-num` · `.nav-link` · `.cta-label` · `.wordmark-giant` (the footer's cropped NORTH)
+`.display-mega` · `.display` · `.heading-xl` · `.statement` · `.heading-lg` · `.heading-md` · `.heading-sm` · `.body-lg` (lede) · `.body` · `.body-sm` (secondary/meta) · `.body-reading` (long-form prose) · `.blockquote` (DEPRECATED) · `.overline` (kicker) · `.label` · `.fineprint` · `.stat` · `.index-num` · `.nav-link` · `.cta-label` · `.wordmark-giant` (the footer's cropped NORTH)
 
-- `.overline` is CHAMPAGNE BY DEFAULT (kickers are brand-coloured, never white) — override with `text-clay` on light sections. It also collides with Tailwind's `overline` text-decoration utility — an **unlayered override at the end of globals.css** disables the decoration. Don't remove it or move it into a @layer.
+- **THE LADDER (decided 2026-07-09)** — pick sizes by REGISTER, not taste: `.display-mega` = the masthead (the homepage H1, nothing else per page) → `.heading-xl` = the MOMENTS (interior-page H1s; on the homepage: the studio statement, the service-row titles, the receipts numerals) → `.statement` = the QUOTE/CLOSE register (testimonial quotes, the ContactCTA heading) → `.heading-lg` = the SIGNPOSTS (section H2s, work-card client names) → `.heading-md`/`.heading-sm` = items (cards, steps). A list item must never outrank its section's statement; a signpost must never shout like a moment.
+- `.blockquote` is DEPRECATED (2026-07-09) — a sans-era relic; quotes use `.statement` (Saol). It survives in globals only for the /mockups archive.
+- `.overline` is BONE BY DEFAULT (2026-07-09, reversing the old champagne rule — the type system is TONAL; gold at 11px tracked caps reads brassy). Override with `text-clay` or `text-ink/45` on light sections. It also collides with Tailwind's `overline` text-decoration utility — an **unlayered override at the end of globals.css** disables the decoration. Don't remove it or move it into a @layer.
 - **Heading-group spacing:** put the overline and heading as direct siblings and add `.from-overline` to the heading (margin scales with the heading). Use `.lede` on the subtitle. **Never** set these gaps ad-hoc with `mt-*`/`mb-*`.
-- h1–h6 default to the sans at medium (500), tight tracking. Don't override per-element without reason.
+- h1–h6 default to Saol at 400, tight tracking (they have since 2026-07-05 — an older "sans at medium" note here was wrong). Don't override per-element without reason.
 
-### Buttons — always `.btn` + one variant. Never hand-roll a pill CTA.
+### Buttons — a FOUR-TIER hierarchy (2026-07-09). Always compose; never hand-roll a pill CTA.
 
-`light`/`dark` = the **background the button sits on**, not the button's colour.
+`light`/`dark` = the **background the button sits on**, not the button's colour. **Gold is the hover**: every tier's hover state is where champagne lives (per the interactions-only colour rule) — never its resting state.
 
-- On dark: `.btn-primary-dark` (solid bone), `.btn-secondary-dark` (outline)
-- On light: `.btn-primary-light` (solid ink), `.btn-secondary-light` (outline)
-- `.btn-sm` size modifier · `.btn-ghost` = minimal arrow text-link
-- One primary per view. The `→` is optional child markup.
-- `.btn-arrow` — the FLAGSHIP CTA (compose `.btn` + primary variant + `.btn-arrow`): label left, filled circular ↗ chip right (`<span class="btn-arrow-chip" aria-hidden>↗</span>`). One per page; it outranks the plain primary. One per VIEW (the homepage hero "See the work"; the ContactCTA band "Start a project").
-- Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
+1. **Flagship** — `.btn` + primary variant + `.btn-arrow` (label left, circular ↗ chip: `<span class="btn-arrow-chip" aria-hidden>↗</span>`). ONE per view. The homepage hero owns it ("Start a project"); the ContactCTA band has the foot view's. The nav carries a `.btn-sm` secondary INSTEAD — never a second flagship in the first viewport. Hover: pill → champagne-soft, chip → champagne, arrow leans NE.
+2. **Primary pill** — `.btn-primary-dark` (solid bone) / `.btn-primary-light` (solid ink). Hover → champagne-soft fill.
+3. **Secondary outline** — `.btn-secondary-dark` / `.btn-secondary-light`. Hover → **champagne rim** + faint champagne wash. It must NEVER fill solid on hover (that made it impersonate the primary — fixed 2026-07-09).
+4. **Ghost** — `.btn-ghost` + explicit text colour, arrow as `<span aria-hidden>→</span>`. The tertiary workhorse: every section's onward link ("All work →", "Our story →", "Read more →"). Hover: gap opens, arrow turns champagne. Never dim the whole link on hover — fading reads as disabled.
+
+- `.btn-sm` size modifier. Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
 - `.live-dot` — the pulsing ember availability signal (PARKED: currently unused — it was the nav availability badge, removed 2026-07-04; the utility + swatch remain in the system).
 
 ### Layout helpers
 
 - `.shell` — standard max-width 1400px container with responsive padding. The **content grid** — use on all body sections so copy keeps a comfortable measure.
-- `.shell-wide` — open, near-full-width container (max 1760px, lighter padding). **Heroes only**, with one sanctioned exception: the work/[slug] article uses it as the IMAGE canvas — figures span it (full or 5+5 pairs) while kickers/copy stay grid-indented to a reading measure. Everything else sits on `.shell` so content shares one max width. (A homepage "content to the edges" experiment was tried and reverted 2026-07-03 — don't reintroduce it without asking.)
+- `.shell-wide` — open, near-full-width container (max 1760px, lighter padding). **Heroes only**, with one sanctioned exception: the work/[slug] article uses it as the IMAGE canvas — figures span it (full or 5+5 pairs) while kickers/copy stay grid-indented to a reading measure. Everything else sits on `.shell` so content shares one max width. (A full edge-to-edge homepage was built and rolled back 2026-07-09 — the deck layout won; don't reintroduce without asking.)
 - `.grain` — film-grain overlay for dark hero sections (needs `position: relative` + `overflow-hidden` on the parent, and `z-10` on content above it).
 - `.frame` — media wrapper (relative, overflow-hidden, ink-raised background).
 - `animate-float-slow` / `animate-float-slower` — floaty hero elements (orbs, glass chips); stagger with inline `animationDelay`. Hero load-in uses `opacity-0 animate-fade-in-up` + delays (scroll sections use `.reveal`). A global reduced-motion guard at the end of globals.css snaps all animations to their end state.
@@ -71,11 +73,11 @@ Fluid modular scale, one `clamp()` per class. Body is fluid 14→16px (mobile→
 
 ### Surfaces & frames (tech-luxury direction)
 
-- `.scene-warm` — champagne-lit light scene; backdrop for device mockups on light sections.
-- `.scene-ink` — champagne glow rising from the ink base; dark hero/gallery backdrop.
-- `.card-soft` — elevated card on light surfaces (1.5rem radius, layered shadow).
-- `.card-glass` — glassy blurred card on dark surfaces.
-- `.portrait-fill` — abstract portrait gradient; stands in for client imagery in device mockups.
+- `.scene-warm` — FLAT bone light scene (the champagne-lit gradient was retired 2026-07-09; the class stays for section semantics).
+- `.scene-ink` — FLAT ink dark scene (the champagne glow was retired 2026-07-09).
+- `.card-soft` — elevated card on light surfaces (straight corners, layered shadow).
+- `.card-glass` — glassy blurred card on dark surfaces (straight corners).
+- `.portrait-fill` — flat parchment client-imagery stand-in (flattened from a gradient 2026-07-09 — placeholders read as quiet paper, not content).
 - `.text-ghost-on-dark` / `.text-ghost-on-light` — outlined display text for oversized marquee statements (pair with `.display-mega` + `animate-marquee`).
 
 ## Components (canonical — reuse/extend these)
@@ -88,18 +90,28 @@ Fluid modular scale, one `clamp()` per class. Body is fluid 14→16px (mobile→
 | `ExitFades` | Drives `.exit-fade` overlays (sections fading to ink as they exit) from one rAF-throttled scroll listener — JS, not CSS scroll-timeline, so it works in Safari too. Overlay's parent = measured scope; `.exit-fade-long` = earlier window for dark content sections. |
 | `PageHero` | **The interior-page hero.** Props: `overline`, `title`, `lede`, `cta`, `meta`, `size`. Extend via props; don't spawn `HeroX`. (Homepage has a bespoke hero.) |
 | `ContactCTA` | Standard "start a project" band (light section). Drop at the foot of pages. |
-| `NewsletterSignup` | Mailing-list capture (Netlify form `newsletter`; static definition in `public/__forms.html` — keep field names in sync). Lives in the homepage freebie band. |
+| `NewsletterSignup` | Mailing-list capture (Netlify form `newsletter`; static definition in `public/__forms.html` — keep field names in sync). PARKED — the freebie band left the homepage 2026-07-04; destined for its own landing page. |
 | `WorkCard` | Case-study card for grids (typographic placeholder when no image). |
+| `LogoStrip` | The under-hero trust bar — ruled strip of client LOGOS (currently the Dr Yalda mark repeated in every slot as placeholder until each client's file exists; images aria-hidden, links carry the practice names), each linking to its case study. Fed by the homepage from the work collection. |
+| `ServicesShowcase` | The "What we do" ruled rows — (0n) index, heading-xl title, ghost "Read more"; whole row links to /services. The homepage's formal stabiliser between asymmetric sections. |
 | `JsonLd` | Renders one or many schema objects from `@/lib/schema`. |
 | `PhoneMockup` | iPhone frame holding a real `screenshot` (preferred) or a CSS clinic micro-site. Props: `name`, `specialty`, `screenshot`, `screenshotAlt`, `screen` (editorial/ink), `size` (sm/md/lg). |
 | `BrowserMockup` | macOS browser-window frame holding a real desktop `screenshot` or a CSS editorial desktop site. Props: `name`, `specialty`, `domain`, `screenshot`, `screenshotAlt`. The wide companion to `PhoneMockup`. |
-| `Deck` | **The homepage hero showreel.** A fanned, auto-cycling stack of "desktop screen" cards (the OmenFlex shape). Prop: `slides` (`DeckSlide[]` — `title`, `tag`, optional `href`/`screenshot`/`screenshotAlt`). Pauses on hover, respects reduced-motion. With `href`, the FRONT card is a link (hover reveals a "View case study" pill); other cards click forward. The homepage feeds it one card per sector — each card shows a real case-study capture and links to the study that owns it (the sector's own where it has a `thumbImage`, else the newest featured study with one). Born in `/mockups/showreel`. |
+| `Deck` | PARKED showreel (was the homepage hero until 2026-07-09). A fanned, auto-cycling stack of "desktop screen" cards (the OmenFlex shape). Prop: `slides` (`DeckSlide[]` — `title`, `tag`, optional `href`/`screenshot`/`screenshotAlt`). Pauses on hover, respects reduced-motion. With `href`, the FRONT card is a link (hover reveals a "View case study" pill); other cards click forward. The homepage feeds it one card per sector — each card shows a real case-study capture and links to the study that owns it (the sector's own where it has a `thumbImage`, else the newest featured study with one). Born in `/mockups/showreel`. |
 
-The homepage hero is the **`Deck` showreel** — a centred type lockup over the cycling card deck. The earlier **asymmetric device cluster** (`BrowserMockup` anchored + `PhoneMockup` overlapping its corner) remains the canonical "responsive showcase" pattern — reuse it for work/case-study heroes rather than a lone centred device.
+### Design direction: flat editorial ink (decided 2026-07-09; supersedes Obsidian)
 
-### Design direction: Obsidian (decided 2026-06)
+The taste reference is the studio's own Instagram voice: flat ink or bone, huge Saol, one italic accent word per statement, a quiet tracked kicker, a hairline, air. The foundational rules that follow from it:
 
-The site's visual direction is **Obsidian** — dark-led tech luxury. Champagne-lit ink scenes (`.scene-ink`), the cycling `Deck` showreel hero, glass cards (`.card-glass`), ghost marquee text, and a bone CTA "interruption" as the close. The homepage is the canonical expression; `PageHero` carries `.scene-ink` so interior pages match. `/mockups` retains the winning mockup for reference only (noindexed, robots-disallowed). Light-topped pages, if ever added, must be listed in `LIGHT_TOP_ROUTES` in `Navbar.tsx` or the unscrolled nav is bone-on-bone (invisible).
+**The ground is flat.** One warm off-black (`--ink #1C1710`) and one bone, nothing else — every background gradient was retired 2026-07-09 (`.scene-ink`/`.scene-warm` are now flat paints; the ambient champagne pools, the cluster glow and the glass-card blobs are gone). If a section feels dead, the answer is content or type — never a glow.
+
+**Corners are straight.** Saol is a high-contrast, scalpel-sharp Didone; its character is crisp edges and hairline strokes. Rounded corners are app logic — friendly, soft, SaaS. Straight corners are print logic, and everything else in this system is already print logic: hairline rules, mono kickers, editorial captions. Square frames behave like plates in a book, not cards in an app. Two deliberate exceptions: **device mockups keep their hardware radii** (a squared phone bezel or macOS window reads as an error, not a style), and **the pill buttons stay** — the single soft shape in a sharp system, a wax seal on a printed page.
+
+### Homepage: type-led and flat (2026-07-09)
+
+Hero is TYPE ONLY — `display-mega` H1 with the italic accent, sans lede, and the flagship CTA pair (the .btn-arrow + a ghost). Then: trust bar (LogoStrip) → The studio (statement + positioning prose — moved ABOVE the work 2026-07-09: claim → who → proof) → What we do (ruled heading-xl rows — the formal stabiliser between two asymmetric neighbours) → Selected work (the page's only imagery: real captures in square frames, ruled captions, frontmatter `summary`, CLOSED BY the proof numbers as a compact ruled strip — proof lives beside its evidence) → How we work (the five /services process steps) → Blog teasers → ContactCTA. An earn-its-place pass (2026-07-09) cut the hero disciplines list, the proof four-up, the service-row leads, the industries section and the CTA colophon rail — resist re-adding furniture without cause. A "Kind words" testimonial section sits after the receipts (returned 2026-07-09 — human proof after the numbers): ONE quote at statement register, square portrait slot, ruled attribution — ALL content visibly-marked placeholder until real client words/portrait/permission exist (we never draft quotes on a client's behalf). Nothing performs: Deck, marquee, exit-fades, scroll-pin manifesto, ambient pools and the blend-weave hero are all parked in the system, none on the page.
+
+The **asymmetric device cluster** (`BrowserMockup` anchored + `PhoneMockup` overlapping its corner) remains the canonical "responsive showcase" pattern for work/case-study heroes. `/mockups` retains explorations for reference only (noindexed, robots-disallowed). Light-topped pages, if ever added, must be listed in `LIGHT_TOP_ROUTES` in `Navbar.tsx` or the unscrolled nav is bone-on-bone (invisible).
 
 ## Content & SEO architecture
 
@@ -140,6 +152,10 @@ MDX element styling lives in `mdx-components.tsx` at the repo root (`proseMdxCom
 6. A page with no exported `metadata`, or an empty `description`. This site is SEO-critical.
 7. Adding structured data inline instead of via a `@/lib/schema` builder + `<JsonLd>`.
 8. Rival scroll listeners instead of the `.reveal` / `<Reveal />` system.
+9. Background gradients, glows or blobs — the ground is FLAT (2026-07-09).
+10. Rounded corners on imagery, frames, cards or inputs — corners are straight; only device-mockup hardware and the pill buttons curve.
+11. Champagne on label type (kickers, indices, stats) — gold is for details and interactions only.
+12. Sizing headings by taste instead of THE LADDER's registers (see Typography).
 
 ## Pre-launch checklist (not yet done)
 

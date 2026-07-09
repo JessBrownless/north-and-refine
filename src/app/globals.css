@@ -11,19 +11,26 @@
    Direction: dark / premium agency ("Obsidian"). Warm near-black base, bone
    off-white, one restrained champagne accent.
 
-   Type: SERIF-LED PAIRING (decided 2026-07-05) — Saol Display (--font-display)
-   carries every heading tier and the wordmark; Instrument Sans (--font-sans)
-   is the body/UI voice; Geist Mono (--font-mono) carries the "engineered"
-   details: overlines, index numbers, stats. Saol ships here as Regular 400
-   (+ Light Italic 300, unused) — heading hierarchy comes from SIZE alone.
+   Type: a TWO-FONT HOUSE (decided 2026-07-09) — Saol Display (--font-display)
+   carries every heading tier and the wordmark; Dia (--font-sans, TRIAL —
+   see layout.tsx licence note) carries everything else: body, UI, and the
+   meta voice (overlines, index numbers, stats) that Geist Mono used to
+   carry. The mono is retired from the brand — it was the "engineered"
+   accent of the old tech direction. Saol ships as Regular 400 + Light
+   Italic 300 (the <em> accent-word device) — heading hierarchy from SIZE
+   alone.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer base {
   :root {
-    /* Base */
-    --ink: #0c0c0d;
-    --ink-raised: #161618;
-    --ink-line: #3a3a3e; /* lifted from #2a2a2c 2026-07-05 — rules were invisible on ink */
+    /* Base — a WARM near-black: a deep shadow of the parchment, not a
+       neutral black. Warmed and lifted 2026-07-09 (was #0c0c0d, which had
+       more blue than red and so never related to bone/champagne — it read
+       as flat black). Every ink now runs R > B like the light surfaces.
+       Contrast holds: bone 15.4:1, clay 4.8:1 — all still AA on body. */
+    --ink: #1c1710;
+    --ink-raised: #26201a;
+    --ink-line: #484036; /* keeps the old rule visibility on the new ink (1.75:1) */
     /* Light surfaces & text */
     --bone: #f2eee6;
     --bone-dim: #cbc6bb;
@@ -57,8 +64,8 @@
     line-height: 1.6;
   }
 
-  /* Headings default to the sans at medium weight, tight tracking. Don't
-     override per-element without reason — use the .heading-* utilities. */
+  /* Headings default to Saol at 400. Don't override per-element without
+     reason — use the .heading-* utilities. */
   h1, h2, h3, h4, h5, h6 {
     /* Saol Display carries ALL headers (decided 2026-07-05; Instrument
        Sans remains the body/UI voice). One upright weight (400) is loaded —
@@ -123,6 +130,24 @@
     letter-spacing: -0.01em;
   }
 
+  /* Italic accent word — the editorial device from the studio's social voice
+     ("The studio is *open*."): an <em> inside a display-tier element takes
+     Saol Light Italic 300 — the only italic face loaded, declared at weight
+     300 so the browser doesn't faux-bold it to match the surrounding 400.
+     ONE word or short phrase per statement, sparingly. */
+  .display-mega em,
+  .display em,
+  .heading-xl em,
+  .statement em,
+  .heading-lg em,
+  .heading-md em,
+  .heading-sm em,
+  .blockquote em {
+    font-style: italic;
+    font-weight: 300;
+    font-synthesis: none;
+  }
+
   .heading-lg {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400; /* Saol ships one upright weight here */
@@ -182,18 +207,22 @@
     letter-spacing: 0.002em;
   }
 
-  /* Kicker / eyebrow — small uppercase tracked MONO label. The mono is what
-     makes the chrome feel engineered; use for section kickers everywhere.
-     CHAMPAGNE BY DEFAULT (kickers are brand-coloured, never white) — on
-     light sections override with text-clay. */
+  /* Kicker / eyebrow — small uppercase tracked Dia label. (Was Geist Mono —
+     the "engineered" voice of the retired tech direction; the meta voice now
+     comes from the same family as the body, 2026-07-09.) Use for section
+     kickers everywhere. BONE BY DEFAULT (2026-07-09 — reversing the old
+     champagne rule): the type system is TONAL; gold at 11px tracked caps
+     reads brassy, not luxurious. Champagne lives in details and
+     interactions only (ornament glyphs, link underlines, hovers) — never
+     in label type. On light sections override with text-clay or text-ink/45. */
   .overline {
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 0.6875rem; /* 11px */
     font-weight: 400;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     line-height: 1.4;
-    color: var(--champagne);
+    color: var(--bone);
   }
 
   /* Subtitle/lede beneath a heading */
@@ -202,9 +231,9 @@
     max-width: 46ch;
   }
 
-  /* "01 /" style MONO numbering for itemised lists */
+  /* "01 /" style numbering for itemised lists — Dia, like all meta type */
   .index-num {
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-sans), system-ui, sans-serif;
     font-weight: 400;
     font-size: clamp(1.125rem, 0.95rem + 0.8vw, 1.5rem);
     letter-spacing: -0.01em;
@@ -226,15 +255,19 @@
     color: var(--clay);
   }
 
-  /* Big numbers for stats — MONO, dashboard-grade */
+  /* Big numbers for stats — Dia Light (was mono/dashboard-grade) */
   .stat {
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-sans), system-ui, sans-serif;
     font-weight: 300;
     font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
     line-height: 1;
     letter-spacing: -0.03em;
   }
 
+  /* DEPRECATED (2026-07-09) — a sans-era relic; quotes now use .statement
+     (Saol), the single quote register (see the homepage Kind words section).
+     Kept only because the /mockups archive still references it. Don't use
+     in new work. */
   .blockquote {
     font-family: var(--font-sans), system-ui, sans-serif;
     font-weight: 450;
@@ -432,14 +465,24 @@
   .btn-arrow:hover .btn-arrow-chip {
     transform: translate(2px, -2px); /* the arrow leans northeast */
   }
-  /* Chip inverts its button's colours (a champagne chip was trialled
-     2026-07-05 and reverted — ink/bone reads sharper) */
+  /* Chip inverts its button's colours at rest (a STATIC champagne chip was
+     trialled 2026-07-05 and reverted — ink/bone reads sharper). On hover the
+     chip goes champagne: gold is the interaction colour (2026-07-09), and
+     the flagship's hover is its one gold moment. */
   .btn-primary-dark .btn-arrow-chip {
     background: var(--ink);
     color: var(--bone);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s ease, color 0.3s ease;
   }
   .btn-primary-light .btn-arrow-chip {
     background: var(--bone);
+    color: var(--ink);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s ease, color 0.3s ease;
+  }
+  .btn-arrow:hover .btn-arrow-chip {
+    background: var(--champagne);
     color: var(--ink);
   }
 
@@ -482,10 +525,13 @@
     color: var(--bone);
     border-color: color-mix(in srgb, var(--bone) 40%, transparent);
   }
+  /* Secondary hover = CHAMPAGNE RIM, never a solid fill — filling made the
+     secondary impersonate the primary on hover and flattened the hierarchy
+     (fixed 2026-07-09). Gold is the interaction colour. */
   .btn-secondary-dark:hover {
-    background: var(--bone);
-    color: var(--ink);
-    border-color: var(--bone);
+    background: color-mix(in srgb, var(--champagne) 8%, transparent);
+    color: var(--bone);
+    border-color: var(--champagne);
   }
 
   /* On LIGHT backgrounds */
@@ -495,7 +541,9 @@
     border-color: var(--ink);
   }
   .btn-primary-light:hover {
-    background: color-mix(in srgb, var(--ink) 86%, var(--champagne));
+    background: var(--champagne-soft);
+    color: var(--ink);
+    border-color: var(--champagne-soft);
   }
   .btn-secondary-light {
     background: transparent;
@@ -503,12 +551,15 @@
     border-color: color-mix(in srgb, var(--ink) 35%, transparent);
   }
   .btn-secondary-light:hover {
-    background: var(--ink);
-    color: var(--bone);
-    border-color: var(--ink);
+    background: color-mix(in srgb, var(--champagne) 10%, transparent);
+    color: var(--ink);
+    border-color: var(--champagne);
   }
 
-  /* Minimal text link with arrow — lowest emphasis */
+  /* Minimal text link with arrow — TERTIARY, the lowest emphasis and the
+     workhorse: every section's onward link. Hover opens the gap and turns
+     the arrow champagne (gold is the interaction colour) — never dim the
+     whole link, a fading hover reads as disabled (fixed 2026-07-09). */
   .btn-ghost {
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 0.6875rem;
@@ -518,59 +569,61 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
-    transition: gap 0.3s ease, opacity 0.3s ease;
+    transition: gap 0.3s ease;
+  }
+  .btn-ghost span[aria-hidden] {
+    transition: color 0.3s ease, transform 0.3s ease;
   }
   .btn-ghost:hover {
     gap: 0.85em;
-    opacity: 0.7;
+  }
+  .btn-ghost:hover span[aria-hidden] {
+    color: var(--champagne);
   }
 
   /* ═══ Surfaces & frames — "tech luxury" direction (born in /mockups) ═══════
      Soft studio-light scenes for device mockups, elevated cards, and outlined
      ghost display text. Mirrored at /stylesheet like everything else. */
 
-  /* Warm champagne-lit scene on light sections — backdrop for device mockups */
+  /* FLAT SCENES (decided 2026-07-09) — every background gradient retired
+     sitewide; the brand ground is flat off-black (--ink) and flat bone.
+     The class names stay so section semantics survive; only the paint
+     changed. (The old recipes, for the record: scene-warm was a champagne
+     radial into bone at 50% 0%; scene-ink a champagne-into-ink radial.) */
   .scene-warm {
-    background: radial-gradient(
-      120% 90% at 50% 0%,
-      color-mix(in srgb, var(--champagne-soft) 45%, var(--bone)) 0%,
-      var(--bone) 70%
-    );
+    background: var(--bone);
   }
 
-  /* Champagne glow rising from the ink base — dark hero and gallery backdrop */
   .scene-ink {
-    background: radial-gradient(
-      90% 70% at 50% 0%,
-      color-mix(in srgb, var(--champagne) 16%, var(--ink)) 0%,
-      var(--ink) 65%
-    );
+    background: var(--ink);
   }
 
-  /* Soft elevated card on light surfaces — generous radius, layered shadow */
+  /* Elevated card on light surfaces — STRAIGHT corners (2026-07-09: all
+     imagery, frames and cards are square — print logic to match Saol's
+     scalpel contrast; only device-mockup hardware and the pill buttons
+     keep their radii) */
   .card-soft {
-    border-radius: 1.5rem;
+    border-radius: 0;
     border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
     box-shadow:
       0 1px 2px rgb(12 12 13 / 0.05),
       0 24px 48px -24px rgb(12 12 13 / 0.25);
   }
 
-  /* Glassy card on dark surfaces */
+  /* Glassy card on dark surfaces — straight corners, like every card */
   .card-glass {
-    border-radius: 1.5rem;
+    border-radius: 0;
     border: 1px solid color-mix(in srgb, var(--bone) 14%, transparent);
     background: color-mix(in srgb, var(--bone) 5%, transparent);
     backdrop-filter: blur(10px);
   }
 
-  /* Abstract portrait fill — stands in for client imagery inside device mockups */
+  /* Flat parchment stand-in for client imagery — placeholders should read
+     as quiet paper, not content. (Was a radial "abstract portrait" gradient;
+     flattened 2026-07-09 — the glow read techy and competed with real
+     captures.) */
   .portrait-fill {
-    background: radial-gradient(
-      80% 60% at 50% 18%,
-      color-mix(in srgb, var(--champagne-soft) 70%, var(--bone)) 0%,
-      color-mix(in srgb, var(--clay) 60%, var(--bone)) 100%
-    );
+    background: color-mix(in srgb, var(--champagne-soft) 30%, var(--bone));
   }
 
   /* Ghost display text — outlined, for oversized marquee statements */

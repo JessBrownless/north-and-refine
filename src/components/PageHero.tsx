@@ -29,7 +29,7 @@ export default function PageHero({
     <section className="relative grain scene-ink overflow-hidden">
       <div className="shell-wide pt-36 pb-16 md:pt-48 md:pb-24 relative z-10">
         <div className="max-w-4xl">
-          {overline && <p className="overline text-champagne reveal">{overline}</p>}
+          {overline && <p className="overline reveal">{overline}</p>}
           <h1
             className={`${size === "mega" ? "display" : "heading-xl"} text-bone ${
               overline ? "from-overline" : ""

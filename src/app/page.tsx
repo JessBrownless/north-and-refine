@@ -1,50 +1,25 @@
 import Link from "next/link";
-import {
-  getFeaturedProjects,
-  getSectorLabel,
-  type WorkEntry,
-  type WorkSector,
-} from "@/lib/work";
+import { getFeaturedProjects } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
-import Deck, { type DeckSlide } from "@/components/Deck";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
-import ManifestoStatement from "@/components/ManifestoStatement";
 import ContactCTA from "@/components/ContactCTA";
 
-// Homepage — the Obsidian direction. Champagne-lit ink scene, an asymmetric
-// hero device cluster (desktop browser + overlapping phone), glass cards,
-// ghost marquee, bone CTA close.
+// Homepage — TYPE-LED, FLAT, EDITED (decided 2026-07-09, "rip up the rule
+// book"; tightened same day: "everything should earn its place"). The page
+// works the way the studio's own Instagram posts work: huge Saol on flat
+// warm ink, one italic accent word per statement, quiet kickers, hairlines,
+// air. Nothing performs (no deck, no blend tricks, no scroll pin, no
+// ambient pools, no grain, no exit fades, no marquee — all parked in the
+// system, none invited here); imagery appears once, as the work itself.
+//
+// Cut in the earn-its-place pass (2026-07-09 evening): the hero disciplines
+// list, the proof four-up, the service-row leads, the "Who we work with"
+// industries section, and the CTA's email/location rail. ("Kind words"
+// was also cut that day, then returned the same evening as ONE visibly-
+// placeholder testimonial after the receipts — see the section note.)
 
-// Desktop capture shown across the hero deck cards (fallback shot).
-const SHOWREEL_SHOT = "/assets/desktops/dr-yalda-jamali.png";
-const SHOWREEL_SHOT_ALT =
-  "Dr Yalda Jamali — cosmetic doctor website, desktop view";
-
-// Concept/showcase captures for sectors without a live case study yet — they
-// give the hero deck real range across sectors. Showcase-only (no href: there
-// is no case-study page to open). Currently empty: every deck sector's study
-// now carries its own thumbImage (selv's capture moved into its frontmatter,
-// so its card links to the case study; Ostra retired).
-const SECTOR_SHOWCASE: Partial<
-  Record<WorkSector, { shot: string; alt: string; label: string }>
-> = {};
-
-// Deck order tuned to a dark / light / dark / light / dark rhythm across the
-// fan, with Dr Yalda (dark) as the centred default card. selv and the Hawkes
-// study REPEAT on the outer slots as tonal placeholders — their colours are
-// the target for the final captures, which will replace them later:
-//   selv (dark) · Hawkes (light) · Yalda (dark) · Hawkes (light) · selv (dark)
-const DECK_ORDER: WorkSector[] = [
-  "dermatology",
-  "cosmetic-surgery",
-  "medical-aesthetics",
-  "cosmetic-surgery",
-  "dermatology",
-];
-
-// Editorial date for the Journal teaser cards — 26 June 2026. (Brackets
-// removed everywhere 2026-07-05 — they read sci-fi, not editorial.)
+// Editorial date for the blog teaser cards.
 function formatDate(iso: string): string {
   return new Intl.DateTimeFormat("en-AU", {
     day: "numeric",
@@ -54,88 +29,30 @@ function formatDate(iso: string): string {
   }).format(new Date(iso));
 }
 
-// The homepage manifesto — This-January length: one thought, four lines.
-const MANIFESTO =
-  "A studio that treats the clinic’s digital presence with the same care as the practice itself.";
+// The receipts — closes the Selected work section (returned 2026-07-09
+// after the earn-its-place cut: proof belongs beside its evidence; the
+// ranking is the Hawkes study's, the rest are definitionally true).
+const PROOF = [
+  { value: "#1–3", label: "Google positions won for a specialist's key procedures" },
+  { value: "0", label: "templates used — every practice designed from scratch" },
+  { value: "100%", label: "of our work is for medical aesthetics & surgery" },
+  { value: "2", label: "countries our clients practise in — Sydney to London" },
+] as const;
 
-
-// One soft champagne pool for a dark section — the same ambient device as
-// the hero/manifesto scene, so the WHOLE page swims in the light rather
-// than going flat after the bone interruption. Phone-first sizing; pulled
-// back on md+ like its scene siblings.
-//
-// CENTRED, never corner-anchored. The gradient only reaches transparency at
-// its own box edge, so a box that touches the clipper gets sliced while it
-// is still bright — that was the hard line at the top of every section.
-// Centring keeps it clear of all four edges by construction.
-//
-// Centred with auto margins, NOT -translate-x/y-1/2: `float` animates
-// transform: translateY, so a centring transform would be overwritten. The
-// max-h leaves 2rem of slack so float's ±14px never carries the box back
-// into the clip line. The clipper itself can't be dropped — overflow-x
-// hidden + overflow-y visible computes to auto, and the resulting scroll
-// container kills the sticky manifesto and the .exit-fade view() timeline.
-function AmbientPool({ className }: { className: string }) {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div
-        className={`absolute inset-0 m-auto max-h-[calc(100%-2rem)] w-[95vw] max-w-[calc(100%-2rem)] sm:w-[60vw] md:opacity-85 ${className}`}
-        style={{
-          background:
-            "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 100%)",
-        }}
-      />
-    </div>
-  );
-}
+// How we work — same five steps as /services (kept in step with it; the
+// homepage is the teaser, /services the detail).
+const PROCESS = [
+  { num: "01", title: "Discovery", body: "We learn your practice, your patients and your market — and define what success actually looks like." },
+  { num: "02", title: "Strategy", body: "Positioning, information architecture and an SEO plan that the design and build will deliver against." },
+  { num: "03", title: "Design", body: "Brand and interface design, refined together, until it feels unmistakably yours." },
+  { num: "04", title: "Build & launch", body: "A fast, technically sound build, launched carefully — with the schema, analytics and redirects handled." },
+  { num: "05", title: "Refine", body: "We measure, learn and improve. Search and conversion compound when you keep tending them." },
+] as const;
 
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 3);
 
-  // Hero deck — one card per sector. A sector with a real featured case study
-  // shows its capture and LINKS to it (Hawkes, Yalda); the rest show a concept
-  // showcase mockup (selv, Aven, Ostra) with no link; anything else falls back
-  // to the newest real capture.
-  const featuredBySector = new Map<WorkSector, WorkEntry>();
-  for (const p of getFeaturedProjects()) {
-    if (!featuredBySector.has(p.frontmatter.sector)) {
-      featuredBySector.set(p.frontmatter.sector, p);
-    }
-  }
-  const captureFallback = getFeaturedProjects().find((p) => p.frontmatter.thumbImage);
-  const deckSlides: DeckSlide[] = DECK_ORDER.map((sector) => {
-    const project = featuredBySector.get(sector);
-    if (project?.frontmatter.thumbImage) {
-      return {
-        title: project.frontmatter.client,
-        tag: getSectorLabel(project.frontmatter.sector),
-        href: `/work/${project.slug}`,
-        screenshot: project.frontmatter.thumbImage,
-        screenshotAlt: project.frontmatter.thumbImageAlt ?? SHOWREEL_SHOT_ALT,
-      };
-    }
-    const showcase = SECTOR_SHOWCASE[sector];
-    if (showcase) {
-      return {
-        title: showcase.label,
-        tag: getSectorLabel(sector),
-        screenshot: showcase.shot,
-        screenshotAlt: showcase.alt,
-      };
-    }
-    return {
-      title: captureFallback ? captureFallback.frontmatter.client : getSectorLabel(sector),
-      tag: captureFallback ? getSectorLabel(captureFallback.frontmatter.sector) : "Selected work",
-      href: captureFallback ? `/work/${captureFallback.slug}` : undefined,
-      screenshot: captureFallback?.frontmatter.thumbImage ?? SHOWREEL_SHOT,
-      screenshotAlt: captureFallback?.frontmatter.thumbImageAlt ?? SHOWREEL_SHOT_ALT,
-    };
-  });
-
-  // Under-hero logo strip — one wordmark per featured practice, in the order
-  // they surface elsewhere on the page, each linking to its case study. Drawn
-  // from the same collection as the deck so it never drifts from the real work.
   const logoStripItems: LogoStripItem[] = featured.map((project) => ({
     name: project.frontmatter.client,
     href: `/work/${project.slug}`,
@@ -143,181 +60,101 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ── Dark scene: hero and manifesto share ONE continuous ink field
-          (single ambient glow + pools + one grain overlay on this wrapper) —
-          no seam or fade separates them. (The stats moved below the bone work
-          section — "the proof, straight after the work it came from".) ── */}
-      <div className="relative bg-ink">
-        {/* One continuous ambient field across ALL THREE dark sections — but
-            RESTRAINED: the scene is ink first, lit second. Built from the SAME
-            recipe as .scene-ink on the interior pages (an opaque gradient that
-            mixes champagne INTO ink) — no filter-blurred divs, which band into
-            visible rings on dark and read as "badly blurred". One crown glow
-            over the headline (vh-sized, not % of this 300vh wrapper), one soft
-            gradient pool beside the deck, true darkness below; one grain
-            texture spans it all. The overflow-hidden clips the pool
-            horizontally WITHOUT touching the manifesto's sticky — that's a
-            sibling subtree, not a descendant. */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div
-            className="absolute inset-x-0 top-0 h-[90vh]"
-            style={{
-              background:
-                "radial-gradient(90% 100% at 50% 0%, color-mix(in srgb, var(--champagne) 11%, var(--ink)) 0%, var(--ink) 70%)",
-            }}
-          />
-          {/* Pools are sized for PHONES first (vw units shrink them to
-              puddles on small screens) — intensity is raised at base and
-              pulled back to the old strength on md+ via opacity */}
-          <div
-            className="absolute left-[-12%] top-[52vh] h-[52vh] w-[95vw] animate-float-slow sm:left-[-12%] sm:top-[58vh] sm:h-[64vh] sm:w-[46vw] md:opacity-70"
-            style={{
-              background:
-                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 10%, transparent) 0%, transparent 100%)",
-            }}
-          />
-          {/* Pool at the manifesto's TOP-LEFT — the statement opens inside
-              light rather than flat black */}
-          <div
-            className="absolute left-[-12%] top-[110vh] h-[55vh] w-[95vw] animate-float-slow sm:left-[-15%] sm:top-[120vh] sm:h-[62vh] sm:w-[52vw] md:opacity-70"
-            style={{
-              background:
-                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 10%, transparent) 0%, transparent 100%)",
-            }}
-          />
-          {/* Pool under the manifesto's lower reaches — carries the scene's
-              light into the work that follows */}
-          <div
-            className="absolute right-[-15%] bottom-[4%] h-[55vh] w-[100vw] animate-float-slower sm:right-[-10%] sm:h-[70vh] sm:w-[48vw] md:opacity-70"
-            style={{
-              background:
-                "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 11%, transparent) 0%, transparent 100%)",
-            }}
-          />
-          <div className="grain absolute inset-0" />
-        </div>
-
-      {/* ── Hero — centred type lockup over the cycling showreel deck.
-          The fade scope wrapper exists for the .exit-fade overlay: it must
-          live OUTSIDE the section's overflow-hidden (an overflow-hidden
-          ancestor is a scroll container, which hijacks the view() timeline
-          and leaves it inactive — the fade silently never runs). ── */}
-      <div className="relative z-10">
-      <section className="relative overflow-hidden">
-
-        {/* The hero runs TALLER than the viewport (min-h 120vh on desktop) so
-            the deck, seated at its foot, bleeds past the fold — cropped by the
-            viewport edge, not by CSS. mt-auto opens a generous pocket of air
-            between the copy (held near the top) and the deck. */}
-        {/* Mobile: a FULL first screen (100svh) with the deck seated at the
-            fold and clipped by it — same device as desktop's 120vh bleed */}
-        <div className="shell-wide relative z-10 flex min-h-[100svh] flex-col md:min-h-[120vh]">
-          {/* Type lockup — eyebrow over the centred headline at .display
-              scale (the H1 owns the hero). Load-in is a two-beat sequence:
-              the eyebrow tracks in alone, then the copy, then the deck.
-              flex-1 + justify-center holds the lockup at the OPTICAL centre
-              of the gap between the nav (whose height the top padding
-              mirrors) and the deck below, rather than a fixed distance from
-              the top. */}
-          <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
-            <div className="mx-auto max-w-5xl">
-              <p className="overline opacity-0 animate-track-in">
-                The studio behind
-              </p>
-              {/* Constrained measure + text-balance: the H1 wraps as TWO
-                  balanced lines — the stacked lockup reads more editorial
-                  than one long line */}
-              <h1
-                className="display from-overline mx-auto max-w-4xl text-balance opacity-0 animate-fade-in-up"
-                style={{ animationDelay: "0.7s" }}
-              >
-                Practices that Patients Trust
-              </h1>
-            </div>
-
-            {/* Lede sits at 55% bone — visibly quieter than the headline */}
-            <p
-              className="lede body-lg mx-auto max-w-2xl text-bone/80 opacity-0 animate-fade-in-up"
-              style={{ animationDelay: "0.9s" }}
-            >
-              Brand, web design and SEO for cosmetic surgeons, medical aesthetic
-              clinics and dermatology practices.
-            </p>
-
-            {/* (Hero CTAs removed 2026-07-05 — the nav's "Start a project"
-                carries the flagship arrow style instead; the deck below is
-                the hero's own invitation to explore.) */}
-          </div>
-
-          {/* Showreel deck — seated at the foot of the hero and CLIPPED by it:
-              the negative bottom margin pushes the cards past the section's
-              bottom edge and its overflow-hidden cuts all five on one straight
-              line (deep enough that every rotated corner crosses it — no
-              ragged bottom). The sector band's hairline sits right on the cut.
-              Fades in last. */}
-          <div
-            className="relative z-10 -mb-10 opacity-0 animate-fade-in md:-mb-20"
-            style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
+      {/* ── Hero — type only. Two big Saol lines with the italic accent, the
+          lede in the sans, the flagship CTA pair. ── */}
+      <section className="flex min-h-[92svh] flex-col justify-center">
+        <div className="shell pt-24 md:pt-28">
+          <h1 className="display-mega opacity-0 animate-fade-in-up">
+            Practices that patients <em>trust</em>.
+          </h1>
+          <p
+            className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in-up md:mt-12"
+            style={{ animationDelay: "0.25s" }}
           >
-            <Deck slides={deckSlides} />
-          </div>
-        </div>
-
-      </section>
-      {/* Fade-to-ink as the hero scrolls out — it dims to black rather than
-          staying fully lit while the manifesto arrives (scroll-driven,
-          CSS-only, pointer-events-none) */}
-      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
-      </div>
-
-      {/* ── Logo strip — the under-hero trust bar. A quiet ruled band of
-          client wordmarks on the same continuous ink scene, sitting between
-          the hero deck and the manifesto. ── */}
-      <div className="relative z-10">
-        <LogoStrip items={logoStripItems} />
-      </div>
-
-      {/* ── Manifesto — a normal-flow ink moment on the SAME continuous
-          scene as the hero (no own background, and NO sticky pin — the old
-          70vh dwell read as the page being stuck). The statement scrolls
-          through at reading pace while the scrub lights the words. ── */}
-      <section className="relative z-10 h-[180vh] pt-[15vh] pb-[15vh]">
-        {/* Sticky screen — the statement HOLDS while the words finish
-            lighting (the scrub runs deep into the dwell), then releases.
-            The extra 50vh is what makes the text "take longer to get
-            past", This-January style. */}
-        <div className="sticky top-0 flex h-screen items-center">
-        <div className="shell w-full">
-          {/* Scroll-scrubbed word highlight — words brighten at the pace
-              you scroll (see ManifestoStatement). No kicker: the statement
-              opens cold, This-January style. */}
-          <ManifestoStatement text={MANIFESTO} />
-          <div className="mt-12 reveal" style={{ transitionDelay: "160ms" }}>
-            <Link href="/about" className="btn btn-secondary-dark">
-              <span aria-hidden>↳</span>
-              Our story
+            Brand, web design and SEO for cosmetic surgeons, medical aesthetic
+            clinics and dermatology practices.
+          </p>
+          {/* The view's ONE flagship (.btn-arrow — the nav demoted to a
+              secondary outline in the same change), paired with the tertiary
+              ghost. Primary action + quiet exploration. */}
+          <div
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 opacity-0 animate-fade-in-up md:mt-12"
+            style={{ animationDelay: "0.45s" }}
+          >
+            <Link href="/contact" className="btn btn-primary-dark btn-arrow">
+              Start a project
+              <span className="btn-arrow-chip" aria-hidden>↗</span>
+            </Link>
+            <Link href="#selected-work" className="btn-ghost text-bone">
+              See the work <span aria-hidden>→</span>
             </Link>
           </div>
         </div>
-        </div>
-        {/* Fade-to-ink on exit — the scene hands over to the work */}
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
-      </div>
 
-      {/* ── Selected work — on the ink scene like everything else (the
-          bone treatment was retired 2026-07-05; the CTA band is now the
-          page's single light interruption). Title-only cards; the story
-          surfaces on hover. NOTE: bespoke to the homepage — /work keeps
-          the canonical WorkCard. ── */}
-      <section id="selected-work" className="relative scroll-mt-14">
-        <AmbientPool className="h-[75vh] animate-float-slower" />
-        <div className="shell py-24 md:py-32">
+      {/* ── Trust bar — a quiet ruled strip of client wordmarks. ── */}
+      <LogoStrip items={logoStripItems} />
+
+      {/* ── The studio — moved ABOVE the work 2026-07-09: the statement
+          answers the H1's claim directly, so the page reads claim → who's
+          behind it → proof → offer → method → act. ── */}
+      <section className="py-32 md:py-44">
+        <div className="shell">
+          <p className="overline mb-8 reveal md:mb-10">The studio</p>
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
+            <p className="heading-xl max-w-[24ch] text-balance reveal md:col-span-8">
+              A studio that treats the clinic&rsquo;s digital presence with the
+              same care as the practice <em>itself</em>.
+            </p>
+            <div className="md:col-span-4 md:pt-3">
+              <p className="body text-bone-dim reveal" style={{ transitionDelay: "120ms" }}>
+                We exist for one kind of client: the practice whose standard of
+                care outruns its website. Clinicians spend years earning trust
+                in the room — then hand the first impression to a template.
+              </p>
+              <p className="body mt-5 text-bone-dim reveal" style={{ transitionDelay: "200ms" }}>
+                So we take on a few projects at a time and design everything —
+                identity, site, search — as one piece. It reads calm because it
+                is considered, and it ranks because the foundations are built
+                for search from day one.
+              </p>
+              <div className="mt-8 reveal" style={{ transitionDelay: "280ms" }}>
+                <Link href="/about" className="btn-ghost text-bone">
+                  Our story <span aria-hidden>→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── What we do — three display-scale ruled rows. Sits BETWEEN the
+          studio intro and the work (2026-07-09): both neighbours are
+          asymmetric (offset statement grid; staggered work pairs), and the
+          full-width ruled rows are the page's most formal element — the
+          stabiliser between two deliberately jagged sections. ── */}
+      <section className="py-24 md:py-32">
+        <div className="shell">
+          <p className="overline mb-8 reveal md:mb-10">What we do</p>
+          <div className="reveal" style={{ transitionDelay: "120ms" }}>
+            <ServicesShowcase />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Selected work — the page's only imagery: plain frames, real
+          captures, ruled captions (italic client name, services meta), and
+          the project's one-line outcome from its frontmatter. Closes with
+          THE RECEIPTS: the proof numbers live here (returned 2026-07-09,
+          compact) because they belong beside their evidence — the #1–3
+          ranking is the Hawkes study's, shown directly above. ── */}
+      <section id="selected-work" className="scroll-mt-14 py-24 md:py-32">
+        <div className="shell">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="overline reveal">Selected work</p>
-              <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                Practices we&rsquo;ve refined
+              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                Practices we&rsquo;ve <em>refined</em>
               </h2>
             </div>
             <Link href="/work" className="btn-ghost text-bone reveal">
@@ -325,221 +162,144 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Staggered columns: the right column starts a beat lower, so
-              every row reads as an offset pair rather than a flat grid */}
-          {/* Mobile: an edge-bleeding snap carousel (swipe through the
-              projects); md+: the staggered two-column grid */}
-          <div className="-mx-6 mt-16 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-pl-6 px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0">
+          {/* Staggered pair rhythm — the right column starts a beat lower. */}
+          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-16 md:mt-20 md:grid-cols-2">
             {featured.map((project, i) => (
               <Link
                 key={project.slug}
                 href={`/work/${project.slug}`}
-                className={`group block reveal w-[74vw] flex-none snap-start md:w-auto ${i % 2 === 1 ? "md:mt-32" : ""}`}
+                className={`group block reveal ${i % 2 === 1 ? "md:mt-28" : ""}`}
                 style={{ transitionDelay: `${(i % 2) * 120}ms` }}
               >
-                <div className="frame aspect-[16/10] rounded-xl">
-                  {/* TEMP vibe-check (2026-07-05): Yalda and Hawkes captures
-                      ALTERNATING to judge how real imagery sits in this
-                      layout. Wire real per-project art in the imagery pass. */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={i % 2 === 0 ? "/assets/desktops/dr-yalda-jamali.png" : "/assets/desktops/dr-elizabeth-hawkes.jpg"}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
-                  />
-                  {/* Hover — sector and summary rise inside the frame */}
-                  <span className="absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-ink/85 via-ink/50 to-transparent p-6 pt-16 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                    <span className="overline block">{getSectorLabel(project.frontmatter.sector)}</span>
-                    {project.frontmatter.summary && (
-                      <span className="body-sm mt-2 block text-bone-dim">{project.frontmatter.summary}</span>
-                    )}
+                <div className="frame aspect-[16/10]">
+                  {project.frontmatter.thumbImage ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.frontmatter.thumbImage}
+                      alt={project.frontmatter.thumbImageAlt ?? `${project.frontmatter.client} — website design`}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                    />
+                  ) : (
+                    <span className="portrait-fill absolute inset-0 flex items-center justify-center">
+                      <span className="index-num text-ink/25" aria-hidden>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </span>
+                  )}
+                </div>
+                <div className="mt-5 flex items-baseline justify-between gap-4 border-t rule-dark pt-4">
+                  <h3 className="heading-lg transition-opacity group-hover:opacity-70">
+                    <em>{project.frontmatter.client}</em>
+                  </h3>
+                  <span className="overline text-clay">
+                    {project.frontmatter.services.slice(0, 2).join(" · ")}
                   </span>
                 </div>
-                <h3 className="heading-md mt-5 transition-opacity group-hover:opacity-70">
-                  {project.frontmatter.client}
-                </h3>
+                {project.frontmatter.summary && (
+                  <p className="body-sm mt-3 max-w-[52ch] text-bone-dim">
+                    {project.frontmatter.summary}
+                  </p>
+                )}
               </Link>
             ))}
           </div>
-        </div>
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
 
-      {/* ── What we do — three BIG full-measure headings (the image panel
-          was dropped 2026-07-05); selecting one reveals its line. ── */}
-      <section className="relative">
-        <AmbientPool className="h-[70vh] animate-float-slow" />
-        <div className="shell py-24 md:py-32">
-          {/* Kicker gets its own hairline; the ruled service rows hang
-              straight off it */}
-          <div className="border-b rule-dark pb-6 reveal">
-            <p className="overline">What we do</p>
-          </div>
-          <div className="reveal" style={{ transitionDelay: "120ms" }}>
-            <ServicesShowcase />
+          {/* The receipts — what the work above delivers. A CALL-OUT, not a
+              footnote (bumped to heading-xl 2026-07-09): the numbers join
+              the statement/service-row register. Defensible: the ranking is
+              the Hawkes study's, the rest are definitionally true. */}
+          <div className="mt-20 grid grid-cols-2 gap-x-8 gap-y-10 border-t rule-dark pt-10 md:mt-28 md:grid-cols-4 md:pt-12">
+            {PROOF.map((stat, i) => (
+              <div key={stat.value} className="reveal" style={{ transitionDelay: `${i * 90}ms` }}>
+                <p className="heading-xl text-bone">{stat.value}</p>
+                <p className="body-sm mt-3 max-w-[24ch] text-bone-dim">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
 
-      {/* ── Stats — THE PROOF, under What we do: the services state the
-          offer, the numbers back it. An asymmetric bento: one tall EXHIBITS card (the receipts
-          stack — artefact fragments every build ships) + four glass stat
-          cards at varied widths, each lit by its own champagne gradient
-          blob. Numbers are defensible: the ranking is the Hawkes study's,
-          the rest are definitionally true. ── */}
-      <section className="relative z-10">
-        <AmbientPool className="h-[75vh] animate-float-slower" />
-        <div className="shell py-24 md:py-32">
-          <p className="overline reveal">The proof</p>
-          <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
-            Numbers a practice can stand behind
-          </h2>
-          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
-            {/* Human card — hands holding the Hawkes mobile site (composited
-                from the Adobe hand-tapping mockup; regenerate via the
-                compositing script with any client capture). The screen shown
-                IS the project behind the #1–3 stat. ProofExhibits (the
-                receipts stack) is parked in components/ if we rotate back. */}
-            <div className="frame relative min-h-[420px] rounded-2xl reveal md:col-span-5 md:min-h-0" style={{ transitionDuration: "1.4s" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/hands/hand-tapping-dr-hawkes.jpg"
-                alt="A patient's hands holding a phone showing the Dr Elizabeth Hawkes website — the project behind the page-one rankings"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-              <p className="overline absolute bottom-5 left-5 text-bone">The work behind the numbers</p>
-            </div>
-
-            {/* Stat cards — a strict 2×2 (rows of two at every width),
-                beside the imagery card rather than bento-woven around it */}
-            <div className="grid grid-cols-2 gap-4 sm:gap-5 md:col-span-7 md:gap-6">
-              {[
-                {
-                  value: "#1–3",
-                  label: "Google positions won for a specialist's key procedures",
-                  blob: "radial-gradient(120% 120% at 85% -10%, color-mix(in srgb, var(--champagne) 16%, transparent) 0%, transparent 70%)",
-                },
-                {
-                  value: "0",
-                  label: "templates used — every practice designed from scratch",
-                  blob: "radial-gradient(130% 130% at -10% 110%, color-mix(in srgb, var(--champagne) 13%, transparent) 0%, transparent 70%)",
-                },
-                {
-                  value: "100%",
-                  label: "of our work is for medical aesthetics & surgery",
-                  blob: "radial-gradient(140% 110% at 50% 120%, color-mix(in srgb, var(--champagne) 15%, transparent) 0%, transparent 72%)",
-                },
-                {
-                  value: "2",
-                  label: "countries our clients practise in — Sydney to London",
-                  blob: "radial-gradient(120% 130% at 110% 40%, color-mix(in srgb, var(--champagne) 14%, transparent) 0%, transparent 70%)",
-                },
-              ].map((stat, i) => (
-                <div
-                  key={stat.value}
-                  className="card-glass relative flex min-h-[170px] flex-col justify-between overflow-hidden rounded-2xl p-5 reveal sm:min-h-[220px] sm:p-8 md:p-9"
-                  style={{
-                    // Slow, staggered roll-in — softer than the stock reveal
-                    transitionDuration: "1.4s",
-                    transitionDelay: `${(i + 1) * 160}ms`,
-                  }}
-                >
-                  <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: stat.blob }} />
-                  <p className="stat relative text-champagne">{stat.value}</p>
-                  <p className="label relative mt-8 max-w-[26ch] text-bone-dim">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* Fade-to-ink on exit — the proof hands over through darkness */}
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
-
-      {/* ── Kind words — social proof, split layout (after Relume
-          Testimonial 13): client portrait LEFT; stars, quote and an
-          attribution row (name/role · divider · practice wordmark) RIGHT.
-          ⚠️ EVERYTHING here is VISIBLY-MARKED PLACEHOLDER until real client
-          words, a real portrait and live review data exist — we never draft
-          quotes on a client's behalf. Swap the content, keep the structure. */}
-      <section className="relative">
-        <AmbientPool className="h-[70vh] animate-float-slow" />
-        <div className="shell py-24 md:py-32">
-          <p className="overline reveal">Kind words</p>
-          <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
-            In their words
-          </h2>
-          <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-12 md:items-center">
-            {/* Portrait — real client photo (attribution name/role pending) */}
-            <div className="md:col-span-5 reveal">
-              <div className="frame aspect-square rounded-xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/testimonials/client-portrait.jpg"
-                  alt="Portrait of our client on a Sydney balcony"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
+      {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
+          human proof (work → numbers → words). Square portrait slot on the
+          left (flat parchment until real photography lands — may yet become
+          a text-only piece), the quote at statement register, ruled
+          attribution.
+          ⚠ EVERYTHING here is VISIBLY-MARKED PLACEHOLDER until real client
+          words, a real portrait and permission exist — we never draft quotes
+          on a client's behalf (pre-launch checklist). Swap the content, keep
+          the structure. ── */}
+      <section className="py-24 md:py-32">
+        <div className="shell">
+          <p className="overline mb-8 reveal md:mb-10">Kind words</p>
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
+            {/* IMAGERY PLACEHOLDER — client portrait slot */}
+            <div className="reveal md:col-span-4">
+              <div className="frame aspect-[4/5]">
+                <span className="portrait-fill absolute inset-0 flex items-end p-5">
+                  <span className="overline text-ink/40">Portrait slot</span>
+                </span>
               </div>
             </div>
-
-            {/* Quote column */}
-            <div className="md:col-span-6 md:col-start-7">
-              <div
-                className="flex items-center gap-2 text-champagne reveal"
-                role="img"
-                aria-label="Rated five stars"
+            <div className="md:col-span-7 md:col-start-6">
+              <blockquote
+                className="statement max-w-[24ch] text-balance reveal"
+                style={{ transitionDelay: "80ms" }}
               >
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <span key={i} aria-hidden className="text-lg">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <blockquote className="blockquote mt-7 reveal" style={{ transitionDelay: "80ms" }}>
-                &ldquo;Placeholder — a client&rsquo;s real words will sit
-                here. We don&rsquo;t write these ourselves.&rdquo;
+                &ldquo;Placeholder — the client&rsquo;s real words will sit
+                here. We don&rsquo;t write these <em>ourselves</em>.&rdquo;
               </blockquote>
               <div
-                className="mt-9 flex items-center gap-5 reveal"
+                className="mt-10 flex flex-wrap items-baseline gap-x-5 gap-y-2 border-t rule-dark pt-5 reveal"
                 style={{ transitionDelay: "160ms" }}
               >
-                {/* Avatar — face crop of the client portrait */}
-                <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full" aria-hidden>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/testimonials/client-avatar.jpg"
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </span>
-                <div>
-                  <p className="body font-medium text-bone">Client name</p>
-                  <p className="body-sm text-bone-dim">Role, Practice — placeholder</p>
-                </div>
-                <div aria-hidden className="h-10 w-px bg-bone/15" />
-                <span className="font-display text-lg tracking-tight text-bone-dim">
-                  Practice wordmark
-                </span>
+                <p className="body-sm text-bone">Client name</p>
+                <span aria-hidden className="hidden h-3 w-px bg-bone/15 sm:block" />
+                <p className="body-sm text-bone-dim">Role, Practice — placeholder</p>
               </div>
             </div>
           </div>
         </div>
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
 
-      {/* ── Journal teaser — no overflow-hidden here, so the exit-fade can
-          live inside the section directly ── */}
+      {/* ── How we work — the five steps, same as /services. ── */}
+      <section className="py-24 md:py-32">
+        <div className="shell">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="overline reveal">How we work</p>
+              <h2 className="heading-lg from-overline max-w-[16ch] reveal" style={{ transitionDelay: "80ms" }}>
+                Clarity, not surprises
+              </h2>
+            </div>
+            <Link href="/services" className="btn-ghost shrink-0 text-bone reveal">
+              The full process <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 md:mt-20 lg:grid-cols-5">
+            {PROCESS.map((p, i) => (
+              <div
+                key={p.num}
+                className="border-t rule-dark pt-5 reveal"
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                <p className="index-num text-clay">{p.num}</p>
+                <h3 className="heading-sm mt-3">{p.title}</h3>
+                <p className="body-sm mt-3 text-bone-dim">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Blog teasers ── */}
       {posts.length > 0 && (
-        <section className="relative">
-          <AmbientPool className="h-[75vh] animate-float-slower" />
-          <div className="shell py-24 md:py-32">
+        <section className="py-24 md:py-32">
+          <div className="shell">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <p className="overline reveal">Blog</p>
-                <h2 className="heading-xl from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
                   Thinking, written down
                 </h2>
               </div>
@@ -547,21 +307,15 @@ export default function HomePage() {
                 All entries <span aria-hidden>→</span>
               </Link>
             </div>
-            {/* Editorial teaser cards — image, bracketed date, title with a
-                circular ↗ chip. Mobile: an edge-bleeding snap carousel (same
-                treatment as Selected work) with every frame landscape so the
-                row keeps one height; md+: the grid, where image aspects
-                ALTERNATE (landscape / portrait / landscape) so the text lines
-                stagger naturally. featuredImage when set, gradient until then. */}
-            <div className="-mx-6 mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-pl-6 px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
+            <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-14 md:mt-20 md:grid-cols-3">
               {posts.map((post, i) => (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="group reveal w-[74vw] flex-none snap-start md:w-auto"
+                  className="group reveal"
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <div className={`frame rounded-lg aspect-[4/3] ${i % 2 === 1 ? "md:aspect-[3/4]" : ""}`}>
+                  <div className="frame aspect-[4/3]">
                     {post.frontmatter.featuredImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -577,41 +331,18 @@ export default function HomePage() {
                     )}
                   </div>
                   <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
-                  <div className="mt-3 flex items-start justify-between gap-5">
-                    <h3 className="heading-md max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
-                      {post.frontmatter.title}
-                    </h3>
-                    <span
-                      aria-hidden
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bone/10 text-bone transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    >
-                      ↗
-                    </span>
-                  </div>
+                  <h3 className="heading-md mt-3 max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
+                    {post.frontmatter.title}
+                  </h3>
                 </Link>
               ))}
             </div>
           </div>
-          <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
         </section>
       )}
 
-      {/* ── Ghost marquee — the midnight signature ─────────────────────── */}
-      <section className="overflow-hidden py-10 md:py-16">
-        <div className="flex w-max animate-marquee whitespace-nowrap">
-          {[0, 1].map((i) => (
-            <span key={i} className="display-mega text-ghost-on-dark pr-16">
-              Clinics deserve designers who understand their world&nbsp;—&nbsp;
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CTA — bone interruption, the close ─────────────────────────── */}
-      {/* (The freebie / newsletter band was parked 2026-07-04 → /mockups/freebie,
-          destined for its own landing page.) */}
+      {/* ── CTA — bone interruption, the close. ── */}
       <ContactCTA />
-
     </main>
   );
 }

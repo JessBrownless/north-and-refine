@@ -113,7 +113,7 @@ export default async function BlogPostPage({
         {/* Header */}
         <header className="mx-auto max-w-[720px] px-6 md:px-8 pt-36 md:pt-48 reveal">
           <div className="flex flex-col">
-            <p className="overline text-champagne">{getCategoryLabel(fm.category)}</p>
+            <p className="overline">{getCategoryLabel(fm.category)}</p>
             <h1 className="heading-xl from-overline">{fm.title}</h1>
           </div>
           <p className="lede body-lg text-bone-dim">{fm.description}</p>
@@ -123,7 +123,7 @@ export default async function BlogPostPage({
         {/* Featured image */}
         {fm.featuredImage && (
           <figure className="mx-auto max-w-[880px] px-6 md:px-8 mt-12 md:mt-16">
-            <div className="frame rounded-sm">
+            <div className="frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={fm.featuredImage}
@@ -150,7 +150,7 @@ export default async function BlogPostPage({
             A specialist design studio building considered brands and SEO-led websites for medical
             aesthetic and cosmetic surgery practices.
           </p>
-          <Link href="/about" className="btn-ghost text-champagne mt-5 inline-flex">
+          <Link href="/about" className="btn-ghost text-bone mt-5 inline-flex">
             About the studio <span aria-hidden>→</span>
           </Link>
         </aside>

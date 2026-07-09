@@ -72,7 +72,7 @@ export default async function IndustryPage({
         <div className="shell py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div className="md:col-span-4">
-              <p className="overline text-champagne reveal">How we help</p>
+              <p className="overline reveal">How we help</p>
               <h2 className="heading-lg text-bone from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 What we bring to {industry.name.toLowerCase()}
               </h2>
@@ -84,7 +84,7 @@ export default async function IndustryPage({
                   className="flex gap-5 py-5 reveal"
                   style={{ transitionDelay: `${i * 60}ms` }}
                 >
-                  <span className="index-num text-champagne shrink-0">
+                  <span className="index-num text-clay shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="body-lg text-bone/85">{point}</p>

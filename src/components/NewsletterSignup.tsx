@@ -36,7 +36,7 @@ export default function NewsletterSignup() {
   if (status === "sent") {
     return (
       <div>
-        <p className="overline text-champagne">Thank you</p>
+        <p className="overline">Thank you</p>
         <p className="body-lg mt-3 text-bone">
           It&rsquo;s on its way — check your inbox.
         </p>
@@ -79,7 +79,7 @@ export default function NewsletterSignup() {
           type="checkbox"
           name="marketing-opt-in"
           value="yes"
-          className="mt-1 h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-sm border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
+          className="mt-1 h-4 w-4 shrink-0 cursor-pointer appearance-none border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
         />
         <span className="label text-bone-dim">
           Also send me the occasional note on design and search for clinics.

@@ -20,16 +20,8 @@ export default function ComingSoonPage() {
   return (
     <main className="fixed inset-0 z-50 overflow-y-auto bg-ink text-bone">
       <div className="scene-ink grain relative min-h-full overflow-hidden">
-        {/* Ambient champagne pool — one quiet light source, ink first */}
-        <div
-          aria-hidden
-          className="absolute right-[-12%] top-[30%] h-[60vh] w-[46vw] animate-float-slower"
-          style={{
-            background:
-              "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 8%, transparent) 0%, transparent 100%)",
-          }}
-        />
-
+        {/* (Ambient pool retired with every background gradient 2026-07-09 —
+            the ground is flat ink.) */}
         <div className="shell relative z-10 flex min-h-screen flex-col pb-10 pt-12 md:pt-16">
           {/* Monogram — the page's only chrome. Jessica's NR lockup with the
               Saol glyphs converted to outlines (public/nr-monogram-white.svg,
@@ -77,7 +69,7 @@ export default function ComingSoonPage() {
               <p className="overline">
                 Enquire <span aria-hidden>↓</span>
               </p>
-              <div className="card-glass mt-4 rounded-2xl px-8 py-5 md:px-9 md:py-6">
+              <div className="card-glass mt-4 px-8 py-5 md:px-9 md:py-6">
                 <ContactForm variant="minimal" />
               </div>
               <p className="body mt-4 text-bone-dim">

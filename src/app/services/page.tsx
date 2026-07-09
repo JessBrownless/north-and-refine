@@ -98,7 +98,7 @@ export default function ServicesPage() {
               className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 reveal"
             >
               <div className="md:col-span-5">
-                <p className="index-num text-champagne">{s.num} /</p>
+                <p className="index-num text-clay">{s.num} /</p>
                 <h2 className="heading-lg text-bone mt-3">{s.title}</h2>
                 <p className="body-lg text-bone-dim mt-2">{s.lead}</p>
               </div>
@@ -127,7 +127,7 @@ export default function ServicesPage() {
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
             {PROCESS.map((p, i) => (
               <div key={p.num} className="reveal border-t rule-light pt-5" style={{ transitionDelay: `${i * 60}ms` }}>
-                <p className="index-num text-champagne">{p.num}</p>
+                <p className="index-num text-clay">{p.num}</p>
                 <h3 className="heading-sm mt-3">{p.title}</h3>
                 <p className="body mt-2 text-ink/70">{p.body}</p>
               </div>
@@ -139,7 +139,7 @@ export default function ServicesPage() {
       {/* FAQ */}
       <section className="bg-ink">
         <div className="shell py-20 md:py-32">
-          <p className="overline text-champagne reveal">Questions</p>
+          <p className="overline reveal">Questions</p>
           <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
             Common questions
           </h2>
