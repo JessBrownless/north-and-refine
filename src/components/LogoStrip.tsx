@@ -47,44 +47,31 @@ export default function LogoStrip({
     <div className="shell">
       <div className="flex flex-col items-start gap-8 border-y rule-dark py-10 md:flex-row md:items-center md:gap-12 md:py-12">
         <p className="overline shrink-0 text-clay">{label}</p>
-        {/* The marquee — logos must NEVER drop onto a second line
-            (2026-07-10), at any width or any future logo count, so the row
-            scrolls instead of wrapping: two copies loop seamlessly on the
-            existing 28s marquee token, hard-clipped at the shell edge
-            (straight-corner logic — no fade mask). Pauses on hover so the
-            links stay clickable; the second copy is aria-hidden and
-            untabbable; the global reduced-motion guard stills it to a
-            static clipped row. */}
-        <div className="w-full min-w-0 overflow-hidden md:w-auto md:flex-1">
-          <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
-            {[0, 1].map((copy) => (
-              <ul
-                key={copy}
-                aria-hidden={copy === 1}
-                className="flex w-max items-center gap-x-14 pr-14 md:gap-x-20 md:pr-20"
+        {/* A STILL row — the marquee was trialled and retired the same day
+            (2026-07-10): print stillness — nothing on the page moves
+            unbidden. Logos still NEVER wrap: the row is nowrap, spread
+            static on md+ (four marks fit the measure), reader-scrollable
+            where it overflows on mobile — motion only from the reader, the
+            carousel's own logic. Hard-clipped, no fade mask. */}
+        <ul className="flex w-full min-w-0 flex-nowrap items-center gap-x-10 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:w-auto md:flex-1 md:justify-end md:gap-x-16 md:overflow-visible">
+          {items.map((item) => (
+            <li key={item.href} className="shrink-0">
+              <Link
+                href={item.href}
+                aria-label={item.name}
+                className="block opacity-60 transition-opacity duration-300 hover:opacity-100"
               >
-                {items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-label={copy === 0 ? item.name : undefined}
-                      tabIndex={copy === 1 ? -1 : undefined}
-                      className="block opacity-60 transition-opacity duration-300 hover:opacity-100"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={PLACEHOLDER_LOGO}
-                        alt=""
-                        aria-hidden
-                        className="h-12 w-auto md:h-16"
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
-        </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={PLACEHOLDER_LOGO}
+                  alt=""
+                  aria-hidden
+                  className="h-12 w-auto md:h-16"
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

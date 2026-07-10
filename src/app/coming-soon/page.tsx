@@ -46,13 +46,13 @@ export default function ComingSoonPage() {
                 Coming soon
               </p>
               <h1
-                className="heading-xl from-overline max-w-3xl text-balance opacity-0 animate-fade-in-up"
+                className="heading-xl from-overline max-w-3xl text-balance opacity-0 animate-fade-in"
                 style={{ animationDelay: "0.5s" }}
               >
                 Building websites that patients <em className="italic">trust</em>.
               </h1>
               <p
-                className="lede body-lg max-w-2xl text-bone-dim opacity-0 animate-fade-in-up"
+                className="lede body-lg max-w-2xl text-bone-dim opacity-0 animate-fade-in"
                 style={{ animationDelay: "0.7s" }}
               >
                 {SITE.tagline}.
@@ -63,7 +63,7 @@ export default function ComingSoonPage() {
                 OUTSIDE the frosted glass, close in; the card is purely the
                 form. Same Netlify form as /contact, minimal fields */}
             <div
-              className="md:col-span-6 opacity-0 animate-fade-in-up"
+              className="md:col-span-6 opacity-0 animate-fade-in"
               style={{ animationDelay: "1.1s" }}
             >
               <p className="overline">

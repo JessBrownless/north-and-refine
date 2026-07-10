@@ -122,7 +122,7 @@ export default function ServicesPage() {
         <div className="shell py-20 md:py-32">
           <p className="overline text-clay reveal">How we work</p>
           <h2 className="heading-lg from-overline max-w-3xl reveal" style={{ transitionDelay: "80ms" }}>
-            A process built on clarity, not surprises.
+            A project, in five steps.
           </h2>
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
             {PROCESS.map((p, i) => (

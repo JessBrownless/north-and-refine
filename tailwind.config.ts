@@ -35,6 +35,9 @@ const config: Config = {
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       keyframes: {
+        // RETIRED from the brand (2026-07-10): entrances are pure fades, in
+        // place — the rise is a screen idiom (print never arrives from
+        // somewhere). Kept only for the /mockups archive.
         fadeInUp: {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },

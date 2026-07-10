@@ -23,18 +23,19 @@ const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?
   { name: "Bone line", cls: "bg-bone-line", hex: "#DAD4C8", use: "Hairline dividers on light (rule-light)", lightCard: true },
   { name: "Clay", cls: "bg-clay", hex: "#8A8578", use: "Captions, fine print, meta" },
   { name: "Champagne", cls: "bg-champagne", hex: "#C2A878", use: "THE accent — details & interactions only (ornament glyphs, links, hovers); never label type (2026-07-09)" },
-  { name: "Champagne soft", cls: "bg-champagne-soft", hex: "#D8C6A4", use: "Soft accent tint", lightCard: true },
+  { name: "Champagne soft", cls: "bg-champagne-soft", hex: "#D8C6A4", use: "Soft gold — hover fills only (a gold band was trialled & reverted 2026-07-10)", lightCard: true },
+  { name: "Cream", cls: "scene-cream", hex: "≈#E9E0CF · champagne-soft 35% into bone", use: "The ivory close (.scene-cream) — a warmer stock of the same paper", lightCard: true },
   { name: "Ember", cls: "bg-ember", hex: "#FF7A00", use: "The 10 of 60-30-10 — live dots only, ONE per view" },
 ];
 
 const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.ReactNode }[] = [
   { cls: "display-mega", label: ".display-mega", note: "52→152px · marquee/billboard lockup", sample: "North & Refine" },
   { cls: "display", label: ".display", note: "42→100px · billboard display (no current page use — the homepage H1 is .display-mega)", sample: "Considered by design" },
-  { cls: "heading-xl", label: ".heading-xl", note: "36→79px · THE MOMENTS register: interior-page H1s; homepage statement, service rows, receipts numerals", sample: "Brand & web design" },
+  { cls: "heading-xl", label: ".heading-xl", note: "36→79px · THE MOMENTS register: interior-page H1s; homepage statement, service rows, the ContactCTA close", sample: "Brand & web design" },
   {
     cls: "statement",
     label: ".statement",
-    note: "28→56px · the QUOTE/CLOSE register: testimonial quotes, the ContactCTA heading · <em> inside any display tier = Saol Light Italic accent word — one per statement",
+    note: "28→56px · the QUOTE register: testimonial quotes · <em> inside any display tier = Saol Light Italic accent word — one per statement",
     sample: (
       <>
         A calmer <em>first</em> impression
@@ -60,12 +61,12 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.Rea
 ];
 
 const MOTION: { cls: string; note: string }[] = [
-  { cls: "animate-fade-in-up", note: "0.8s ease-out · hero load-in (pair with opacity-0, stagger with animationDelay)" },
-  { cls: "animate-fade-in", note: "1.2s ease-out · soft load-in for large media" },
-  { cls: "animate-track-in", note: "1.1s expo-out · overline reveal — fades in while letter-spacing eases open to 0.38em" },
-  { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — stagger with transitionDelay" },
+  { cls: "animate-fade-in", note: "1.2s ease-out · THE load-in (hero, mobile menu, coming-soon) — a pure fade, in place; pair with opacity-0, stagger with animationDelay" },
+  { cls: "animate-fade-in-up", note: "RETIRED from the brand (2026-07-10) · the 16px rise is a screen idiom — ink develops where it sits; print never arrives from somewhere. Survives only in the /mockups archive" },
+  { cls: "animate-track-in", note: "1.1s expo-out · overline reveal — fades in while letter-spacing eases open to 0.38em (typographic, not translational — it stays)" },
+  { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — a pure 1.1s fade, IN PLACE (the rise retired 2026-07-10); stagger with transitionDelay" },
   { cls: ".exit-fade", note: "fade-to-ink overlay on an EXITING section — ContactCTA and interior pages only; homepage sections do NOT perform (2026-07-09). JS-driven by the global <ExitFades />; .exit-fade-long = earlier window" },
-  { cls: "animate-marquee", note: "28s linear loop · LIVE again in LogoStrip (the trust-bar logo ticker, 2026-07-10 — logos must never wrap); the ghost-text use stays parked" },
+  { cls: "animate-marquee", note: "PARKED · 28s linear loop · both uses retired (ghost text 2026-07-09; the trust-bar ticker trialled & retired 2026-07-10 — print stillness: nothing moves unbidden)" },
   { cls: "animate-float-slow / -slower", note: "PARKED · 7s / 11s ease loops · was the floating-orb layer; nothing floats on the flat pages" },
 ];
 
@@ -79,11 +80,12 @@ const ORGANISM_INDEX: { name: string; home: string; note: string }[] = [
   { name: "Stats band", home: "work/[slug]/page.tsx", note: "Raised full-width panel, .stat numerals with hairline dividers. Renders only when frontmatter metrics exist." },
   { name: "Testimonial band", home: "work/[slug]/page.tsx", note: "Centred client quote at .statement register (moved off the deprecated .blockquote 2026-07-09). Driven by testimonial frontmatter." },
   { name: "Kind words (homepage)", home: "app/page.tsx", note: "ONE testimonial: square portrait slot + .statement quote + ruled attribution. ALL content visibly-marked placeholder until real words/portrait/permission exist." },
-  { name: "Receipts strip", home: "app/page.tsx", note: "The proof numbers closing Selected work — heading-xl numerals over body-sm labels on one top rule. Proof lives beside its evidence." },
-  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client logos (Dr Yalda mark repeated as placeholder for now) on the 28s marquee, above the fold, present from first paint." },
-  { name: "Carousel", home: "components/Carousel.tsx", note: "Contact-sheet rail: snap plates, hard clip, folio-line controls (arrows + page counter), never autoplays; folio hides when everything fits." },
+  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client logos (Dr Yalda mark repeated as placeholder for now) in a STILL nowrap row (marquee retired 2026-07-10), above the fold, present from first paint." },
+  { name: "Process spine", home: "app/page.tsx", note: "How we work: five blocks (glyph beside title + body, no indices) hanging off ONE continuous centre hairline — the page's only vertical rule — each tethered by a short horizontal hairline, sides alternating; glyph opacity ramps 40→100% down the steps (the project coming into focus). Spine moves to the left edge on mobile. Replaced the section's carousel 2026-07-10 — never stack two rails." },
+  { name: "StageGlyph", home: "components/StageGlyph.tsx", note: "Process-stage shape icons: pure geometric forms at a non-scaling 1px hairline — the rule system, curved. Brief: docs/briefs/stage-glyphs.md." },
+  { name: "Carousel", home: "components/Carousel.tsx", note: "Contact-sheet rail: snap plates, hard clip, folio-line controls (arrows + page counter), never autoplays; folio hides when everything fits. Homepage: blog teasers only (the process rail became the spine 2026-07-10)." },
   { name: "WorkCard", home: "components/WorkCard.tsx", note: "Case-study card for grids; typographic placeholder until a thumbImage exists." },
-  { name: "ContactCTA", home: "components/ContactCTA.tsx", note: "The bone 'interruption' band that closes most pages." },
+  { name: "ContactCTA", home: "components/ContactCTA.tsx", note: "The bone close — mirrors the hero (kicker, heading-xl, lede, flagship + ghost); cover and back cover, inverted stock." },
   { name: "ContactForm", home: "components/ContactForm.tsx", note: "Netlify runtime-v5 form; static twin in public/__forms.html — keep fields in sync." },
 ];
 
@@ -154,7 +156,9 @@ export default function StylesheetPage() {
               The type system is tonal — bone, dim, clay. Champagne never sits
               on a label: it lives in details and interactions only (ornament
               glyphs, link underlines, form feedback) and every button&rsquo;s
-              hover. Gold at rest is brassy; gold on touch is a reward.
+              hover. Gold at rest is brassy; gold on touch is a reward. The
+              close sits on cream — champagne-tinted bone, a warmer stock of
+              the same paper — but champagne itself never fills.
             </p>
           </div>
           <div>
@@ -162,7 +166,7 @@ export default function StylesheetPage() {
             <p className="body mt-4 max-w-[52ch] text-bone-dim">
               Sizes are picked by register, not taste: the masthead
               (display-mega), the moments (heading-xl — statements, service
-              rows, receipts), the quote/close (statement), the signposts
+              rows, the CTA close), the quote register (statement), the signposts
               (heading-lg — section H2s, client names), the items (heading-md
               and below). A list item never outranks its section&rsquo;s
               statement; a signpost never shouts like a moment.
@@ -255,6 +259,10 @@ export default function StylesheetPage() {
           <div className="scene-warm rounded-none p-8 text-ink">
             <p className="label">.scene-warm</p>
             <p className="fineprint">Flat bone light scene (gradients retired 2026-07-09)</p>
+          </div>
+          <div className="scene-cream rounded-none p-8 text-ink">
+            <p className="label">.scene-cream</p>
+            <p className="fineprint text-ink/70">The ivory close — champagne-soft 35% into bone (2026-07-10)</p>
           </div>
           <div className="scene-ink rounded-none p-8 border rule-dark">
             <p className="label text-bone">.scene-ink</p>

@@ -5,6 +5,7 @@ import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import Carousel from "@/components/Carousel";
 import ContactCTA from "@/components/ContactCTA";
+import StageGlyph from "@/components/StageGlyph";
 
 // Homepage — TYPE-LED, FLAT, EDITED (decided 2026-07-09, "rip up the rule
 // book"; tightened same day: "everything should earn its place"). The page
@@ -18,7 +19,12 @@ import ContactCTA from "@/components/ContactCTA";
 // list, the proof four-up, the service-row leads, the "Who we work with"
 // industries section, and the CTA's email/location rail. ("Kind words"
 // was also cut that day, then returned the same evening as ONE visibly-
-// placeholder testimonial after the receipts — see the section note.)
+// placeholder testimonial after Selected work — see the section note.)
+// The receipts strip (2026-07-09's compact return of the proof numbers)
+// was cut for good 2026-07-10: audited against what we can actually
+// stand behind, the numbers were positioning claims or too weak to
+// publish. Real, client-approved metrics belong inside their case
+// studies (work frontmatter `metrics`) when they exist — not here.
 
 // Editorial date for the blog teaser cards.
 function formatDate(iso: string): string {
@@ -30,18 +36,27 @@ function formatDate(iso: string): string {
   }).format(new Date(iso));
 }
 
-// The receipts — closes the Selected work section (returned 2026-07-09
-// after the earn-its-place cut: proof belongs beside its evidence; the
-// ranking is the Hawkes study's, the rest are definitionally true).
-const PROOF = [
-  { value: "#1–3", label: "Google positions won for a specialist's key procedures" },
-  { value: "0", label: "templates used — every practice designed from scratch" },
-  { value: "100%", label: "of our work is for medical aesthetics & surgery" },
-  { value: "2", label: "countries our clients practise in — Sydney to London" },
-] as const;
-
 // How we work — same five steps as /services (kept in step with it; the
 // homepage is the teaser, /services the detail).
+//
+// THE SPINE (2026-07-10) — the steps hang off one continuous centre
+// hairline (the page's ONLY vertical rule; every other section is
+// horizontal-hairline furniture). The contact-sheet rail was retired here
+// the same day it arrived: it made this the first of two consecutive
+// carousels and hid steps 4–5 behind page-turns — the whole method should
+// be visible at once. Each step is a BLOCK (glyph beside its text — the
+// glyph is the item's mark; the (0n) indices were dropped the same day,
+// the spine already does the sequencing) tethered to the spine by a short
+// horizontal hairline, sides alternating 1→5 so the eye swings down the
+// line. The glyphs ramp from 40% to full opacity down the five steps —
+// the project coming into focus (static print tint, not an animation).
+// Blocks pack TOWARD the spine: odd steps row-reverse on the left half,
+// even steps run normally on the right. Class strings live in literal
+// consts (never interpolated) so Tailwind's JIT can see them.
+const PLATE_SIDE = [
+  "flex items-start gap-x-5 md:col-start-1 md:flex-row-reverse md:gap-x-8",
+  "flex items-start gap-x-5 md:col-start-2 md:gap-x-8",
+] as const;
 const PROCESS = [
   { num: "01", title: "Discovery", body: "We learn your practice, your patients and your market — and define what success actually looks like." },
   { num: "02", title: "Strategy", body: "Positioning, information architecture and an SEO plan that the design and build will deliver against." },
@@ -76,11 +91,11 @@ export default function HomePage() {
             nav. */}
         <section className="flex flex-1 flex-col justify-center">
           <div className="shell pt-28 md:pt-32">
-            <h1 className="display-mega opacity-0 animate-fade-in-up">
+            <h1 className="display-mega opacity-0 animate-fade-in">
               Practices that patients <em>trust</em>.
             </h1>
             <p
-              className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in-up md:mt-12"
+              className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in md:mt-12"
               style={{ animationDelay: "0.25s" }}
             >
               Brand, web design and SEO for cosmetic surgeons, medical aesthetic
@@ -90,7 +105,7 @@ export default function HomePage() {
                 secondary outline in the same change), paired with the tertiary
                 ghost. Primary action + quiet exploration. */}
             <div
-              className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 opacity-0 animate-fade-in-up md:mt-12"
+              className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 opacity-0 animate-fade-in md:mt-12"
               style={{ animationDelay: "0.45s" }}
             >
               <Link href="/contact" className="btn btn-primary-dark btn-arrow">
@@ -159,10 +174,9 @@ export default function HomePage() {
 
       {/* ── Selected work — the page's only imagery: plain frames, real
           captures, ruled captions (italic client name, services meta), and
-          the project's one-line outcome from its frontmatter. Closes with
-          THE RECEIPTS: the proof numbers live here (returned 2026-07-09,
-          compact) because they belong beside their evidence — the #1–3
-          ranking is the Hawkes study's, shown directly above. ── */}
+          the project's one-line outcome from its frontmatter. The work IS
+          the proof — the receipts strip that used to close this section
+          was cut 2026-07-10 (see the header note). ── */}
       <section id="selected-work" className="scroll-mt-14 py-24 md:py-32">
         <div className="shell">
           <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
@@ -193,7 +207,7 @@ export default function HomePage() {
                       src={project.frontmatter.thumbImage}
                       alt={project.frontmatter.thumbImageAlt ?? `${project.frontmatter.client} — website design`}
                       loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                      className="absolute inset-0 h-full w-full object-cover object-top"
                     />
                   ) : (
                     <span className="portrait-fill absolute inset-0 flex items-center justify-center">
@@ -220,23 +234,11 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* The receipts — what the work above delivers. A CALL-OUT, not a
-              footnote (bumped to heading-xl 2026-07-09): the numbers join
-              the statement/service-row register. Defensible: the ranking is
-              the Hawkes study's, the rest are definitionally true. */}
-          <div className="mt-20 grid grid-cols-2 gap-x-8 gap-y-10 border-t rule-dark pt-10 md:mt-28 md:grid-cols-4 md:pt-12">
-            {PROOF.map((stat, i) => (
-              <div key={stat.value} className="reveal" style={{ transitionDelay: `${i * 90}ms` }}>
-                <p className="heading-xl text-bone">{stat.value}</p>
-                <p className="body-sm mt-3 max-w-[24ch] text-bone-dim">{stat.label}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
-          human proof (work → numbers → words). Square portrait slot on the
+          human proof (work → words). Square portrait slot on the
           left (flat parchment until real photography lands — may yet become
           a text-only piece), the quote at statement register, ruled
           attribution.
@@ -284,30 +286,61 @@ export default function HomePage() {
             <div>
               <p className="overline reveal">How we work</p>
               <h2 className="heading-lg from-overline max-w-[16ch] reveal" style={{ transitionDelay: "80ms" }}>
-                Clarity, not surprises
+                A project, in five steps
               </h2>
             </div>
             <Link href="/services" className="btn-ghost shrink-0 text-bone reveal">
               The full process <span aria-hidden>→</span>
             </Link>
           </div>
-          {/* The steps as a contact-sheet rail (2026-07-10 carousel
-              experiment) — ~3.5 plates visible, the cut plate is the
-              invitation to scroll; the folio line turns the pages. */}
-          <div className="reveal" style={{ transitionDelay: "120ms" }}>
-            <Carousel
-              ariaLabel="How we work — the five steps"
-              className="mt-14 md:mt-20"
-              slideClassName="w-[70vw] sm:w-[44%] lg:w-[26%]"
-            >
-              {PROCESS.map((p) => (
-                <div key={p.num} className="border-t rule-dark pt-5">
-                  <p className="index-num text-clay">{p.num}</p>
-                  <h3 className="heading-sm mt-3">{p.title}</h3>
-                  <p className="body-sm mt-3 text-bone-dim">{p.body}</p>
-                </div>
+          <p
+            className="lede body-lg max-w-[52ch] text-bone-dim reveal"
+            style={{ transitionDelay: "120ms" }}
+          >
+            No two projects are quite the same — the work bends to each
+            practice. The shape of it doesn&rsquo;t: five stages, in order,
+            every time.
+          </p>
+          {/* THE SPINE — see the PLATE_SIDE note above. Each block: tether
+              hairline (desktop only, touching the centre line exactly —
+              the halves have NO gap, so the half edge IS the spine), then
+              the STAGE GLYPH at 48/56px (docs/briefs/stage-glyphs.md), then
+              title + body. The tether's mt-7 centres it on the md glyph
+              (h-14 → 28px). On mobile the spine moves to the left edge (the
+              book seen edge-on) and the blocks descend it as glyph+text
+              rows. NO horizontal rules in this section beyond the tethers —
+              its one real rule is vertical. */}
+          <div className="relative mt-14 border-l rule-dark pl-6 md:mt-20 md:border-l-0 md:pl-0">
+            <span
+              aria-hidden
+              className="absolute inset-y-0 left-1/2 hidden w-0 border-l rule-dark md:block"
+            />
+            <ol>
+              {PROCESS.map((p, i) => (
+                <li
+                  key={p.num}
+                  className="reveal py-7 first:pt-0 last:pb-0 md:grid md:grid-cols-2 md:py-10"
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                >
+                  <div className={PLATE_SIDE[i % 2]}>
+                    <span
+                      aria-hidden
+                      className="mt-7 hidden w-14 shrink-0 border-t rule-dark md:block"
+                    />
+                    <span
+                      className="shrink-0"
+                      style={{ opacity: 0.4 + i * 0.15 }}
+                    >
+                      <StageGlyph stage={i + 1} className="h-12 w-12 text-champagne md:h-14 md:w-14" />
+                    </span>
+                    <div>
+                      <h3 className="heading-md">{p.title}</h3>
+                      <p className="body mt-4 max-w-[40ch] text-bone-dim">{p.body}</p>
+                    </div>
+                  </div>
+                </li>
               ))}
-            </Carousel>
+            </ol>
           </div>
         </div>
       </section>
@@ -322,7 +355,7 @@ export default function HomePage() {
               <div>
                 <p className="overline reveal">Blog</p>
                 <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                  Thinking, written down
+                  Notes from the studio
                 </h2>
               </div>
               <Link href="/blog" className="btn-ghost text-bone reveal">
@@ -344,7 +377,7 @@ export default function HomePage() {
                           src={post.frontmatter.featuredImage}
                           alt={post.frontmatter.featuredImageAlt ?? ""}
                           loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                          className="h-full w-full object-cover"
                         />
                       ) : (
                         <span className="portrait-fill absolute inset-0 flex items-center justify-center">
@@ -353,7 +386,7 @@ export default function HomePage() {
                       )}
                     </div>
                     <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
-                    <h3 className="heading-md mt-3 max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
+                    <h3 className="heading-sm mt-3 max-w-[28ch] text-bone transition-opacity group-hover:opacity-70">
                       {post.frontmatter.title}
                     </h3>
                   </Link>

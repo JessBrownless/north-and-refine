@@ -36,8 +36,8 @@ export default function BlogIndexPage() {
 
       <PageHero
         overline="The Blog"
-        title="What we've learned, written down."
-        lede="Field notes on design, branding, SEO and conversion for practices in medical aesthetics and cosmetic surgery."
+        title="Notes from the studio."
+        lede="Writing on design, branding, SEO and conversion for practices in medical aesthetics and cosmetic surgery."
       />
 
       <section className="bg-ink">

@@ -109,7 +109,7 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in-up ${active ? "underline underline-offset-8 decoration-1" : ""}`}
+                    className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in ${active ? "underline underline-offset-8 decoration-1" : ""}`}
                     style={{ animationDelay: `${i * 60}ms` }}
                     onClick={() => setOpen(false)}
                   >
@@ -130,7 +130,7 @@ export default function Navbar() {
                   mobile, not the desktop pill CTA */}
               <Link
                 href="/contact"
-                className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in-up ${pathname.startsWith("/contact") ? "underline underline-offset-8 decoration-1" : ""}`}
+                className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in ${pathname.startsWith("/contact") ? "underline underline-offset-8 decoration-1" : ""}`}
                 style={{ animationDelay: `${NAV.length * 60}ms` }}
                 onClick={() => setOpen(false)}
               >
@@ -152,7 +152,7 @@ export default function Navbar() {
                 href={SITE.sameAs[0]}
                 target="_blank"
                 rel="noreferrer"
-                className="overline inline-flex items-center gap-2 text-bone opacity-0 animate-fade-in-up"
+                className="overline inline-flex items-center gap-2 text-bone opacity-0 animate-fade-in"
                 style={{ animationDelay: `${(NAV.length + 1) * 60}ms` }}
                 onClick={() => setOpen(false)}
               >

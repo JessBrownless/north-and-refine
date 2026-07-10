@@ -31,7 +31,7 @@ function IgTile({ tile, profile }: { tile: (typeof IG_TILES)[number]; profile: s
           src={tile.src}
           alt=""
           loading="lazy"
-          className={`h-full w-full object-cover ${tile.pos} transition-transform duration-700 group-hover:scale-[1.05]`}
+          className={`h-full w-full object-cover ${tile.pos}`}
         />
       ) : (
         <span className="portrait-fill flex h-full w-full items-center justify-center">
@@ -162,7 +162,7 @@ export default function Footer() {
       <a
         href="#top"
         aria-label="Back to top"
-        className="absolute bottom-8 right-6 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-bone/15 bg-ink-raised/80 text-bone backdrop-blur-md transition-colors hover:border-champagne hover:text-champagne md:bottom-12 md:right-10"
+        className="absolute bottom-8 right-6 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-bone/15 bg-ink-raised text-bone transition-colors hover:border-champagne hover:text-champagne md:bottom-12 md:right-10"
       >
         <span aria-hidden>↑</span>
       </a>
