@@ -40,33 +40,18 @@ function formatDate(iso: string): string {
   }).format(new Date(iso));
 }
 
-// How we work — same five steps as /services (kept in step with it; the
-// homepage is the teaser, /services the detail).
-//
-// THE SPINE (2026-07-10) — the steps hang off one continuous centre
-// hairline (the page's ONLY vertical rule; every other section is
-// horizontal-hairline furniture). The contact-sheet rail was retired here
-// the same day it arrived: it made this the first of two consecutive
-// carousels and hid steps 4–5 behind page-turns — the whole method should
-// be visible at once. Each step is a BLOCK (glyph beside its text — the
-// glyph is the item's mark; the (0n) indices were dropped the same day,
-// the spine already does the sequencing) tethered to the spine by a short
-// horizontal hairline, sides alternating 1→5 so the eye swings down the
-// line. The glyphs ramp from 40% to full opacity down the five steps —
-// the project coming into focus (static print tint, not an animation).
-// Blocks pack TOWARD the spine: odd steps row-reverse on the left half,
-// even steps run normally on the right. Class strings live in literal
-// consts (never interpolated) so Tailwind's JIT can see them.
-const PLATE_SIDE = [
-  "flex items-start gap-x-5 md:col-start-1 md:flex-row-reverse md:gap-x-8",
-  "flex items-start gap-x-5 md:col-start-2 md:gap-x-8",
-] as const;
+// How we work — the same five steps as /services (kept in step with it;
+// /services owns the full process — bodies, deliverables, plates). The
+// homepage carries TITLES ONLY in the method strip (the spine timeline was
+// built and retired 2026-07-10, same day: the client cut the big timeline
+// and its text — the spine treatment survives in git history if a timeline
+// is ever wanted elsewhere).
 const PROCESS = [
-  { num: "01", title: "Discovery", body: "We learn your practice, your patients and your market — and define what success actually looks like." },
-  { num: "02", title: "Strategy", body: "Positioning, information architecture and an SEO plan that the design and build will deliver against." },
-  { num: "03", title: "Design", body: "Brand and interface design, refined together, until it feels unmistakably yours." },
-  { num: "04", title: "Build & launch", body: "A fast, technically sound build, launched carefully — with the schema, analytics and redirects handled." },
-  { num: "05", title: "Refine", body: "We measure, learn and improve. Search and conversion compound when you keep tending them." },
+  { num: "01", title: "Discovery" },
+  { num: "02", title: "Strategy" },
+  { num: "03", title: "Design" },
+  { num: "04", title: "Build & launch" },
+  { num: "05", title: "Refine" },
 ] as const;
 
 export default function HomePage() {
@@ -298,24 +283,30 @@ export default function HomePage() {
       </section>
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
-          human proof (work → words). Square portrait slot on the
-          left (flat parchment until real photography lands — may yet become
-          a text-only piece), the quote at statement register, ruled
-          attribution.
-          ⚠ EVERYTHING here is VISIBLY-MARKED PLACEHOLDER until real client
-          words, a real portrait and permission exist — we never draft quotes
-          on a client's behalf (pre-launch checklist). Swap the content, keep
-          the structure. ── */}
+          human proof (work → words). The big 4:5 slot carries the CLIENT'S
+          REAL PORTRAIT (native 4:5 — a mockup recut was trialled 2026-07-10
+          and killed the same hour: cropping a landscape frame into portrait
+          read as the workaround it was; human proof wants a human), and the
+          client repeats as a small CIRCULAR avatar in the attribution row
+          (the corners rule's third exception, sanctioned 2026-07-10 — a
+          face in a circle reads as a person; a face in a square reads as a
+          thumbnail).
+          ⚠ THE QUOTE is VISIBLY-MARKED PLACEHOLDER until real client words
+          + permission exist — we never draft quotes on a client's behalf
+          (pre-launch checklist). Swap the words, keep the structure. ── */}
       <section className="py-24 md:py-32">
         <div className="shell">
           <p className="overline mb-8 reveal md:mb-10">Kind words</p>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:[align-items:last_baseline] md:gap-8">
-            {/* IMAGERY PLACEHOLDER — client portrait slot */}
             <div className="reveal md:col-span-4">
               <div className="frame aspect-[4/5]">
-                <span className="portrait-fill absolute inset-0 flex items-end p-5">
-                  <span className="overline text-ink/40">Portrait slot</span>
-                </span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/testimonials/client-portrait.jpg"
+                  alt="Dr Yalda Jamali, cosmetic doctor"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
               </div>
             </div>
             <div className="md:col-span-7 md:col-start-6">
@@ -326,86 +317,66 @@ export default function HomePage() {
                 &ldquo;Placeholder — the client&rsquo;s real words will sit
                 here. We don&rsquo;t write these <em>ourselves</em>.&rdquo;
               </blockquote>
+              {/* Attribution — the client as a small CIRCULAR avatar chip
+                  beside her name (corners rule, third exception: faces in
+                  circles read as people). items-center, not baseline: the
+                  row mixes image and type. */}
               <div
-                className="mt-10 flex flex-wrap items-baseline gap-x-5 gap-y-2 border-t rule-dark pt-5 reveal"
+                className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t rule-dark pt-5 reveal"
                 style={{ transitionDelay: "160ms" }}
               >
-                <p className="body-sm text-bone">Client name</p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/testimonials/client-avatar.jpg"
+                  alt=""
+                  aria-hidden
+                  loading="lazy"
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+                <p className="body-sm text-bone">Dr Yalda Jamali</p>
                 <span aria-hidden className="hidden h-3 w-px bg-bone/15 sm:block" />
-                <p className="body-sm text-bone-dim">Role, Practice — placeholder</p>
+                <p className="body-sm text-bone-dim">Cosmetic doctor — real words to come</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── How we work — the five steps, same as /services. ── */}
+      {/* ── How we work — THE METHOD STRIP (2026-07-10 evening: the spine
+          timeline left the homepage the same day it arrived — the client
+          cut the big timeline and its text; /services owns the full
+          process, and a dedicated /process page was considered and
+          rejected: no query targets it, /services already carries the
+          content). A slim ruled band in the LogoStrip's register: kicker,
+          the five glyphs + titles (draw-on intact), ghost to /services.
+          Glyphs at h-9 (36px — above the brief's ~32px muddy floor); no
+          opacity ramp here (that was the spine's device — in a single row
+          it reads as an error). Mobile: the LogoStrip pattern — nowrap,
+          reader-scrollable, never wraps. ── */}
       <section className="py-24 md:py-32">
         <div className="shell">
-          <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
-            <div>
-              <p className="overline reveal">How we work</p>
-              <h2 className="heading-lg from-overline max-w-[16ch] reveal" style={{ transitionDelay: "80ms" }}>
-                A project, in five steps
-              </h2>
-            </div>
-            <Link href="/services" className="btn-ghost shrink-0 text-bone reveal">
-              The full process <span aria-hidden>→</span>
-            </Link>
-          </div>
-          <p
-            className="lede body-lg max-w-[52ch] text-bone-dim reveal"
-            style={{ transitionDelay: "120ms" }}
-          >
-            No two projects are quite the same — the work bends to each
-            practice. The shape of it doesn&rsquo;t: five stages, in order,
-            every time.
-          </p>
-          {/* THE SPINE — see the PLATE_SIDE note above. Each block: tether
-              hairline (desktop only, touching the centre line exactly —
-              the halves have NO gap, so the half edge IS the spine), then
-              the STAGE GLYPH at 48/56px (docs/briefs/stage-glyphs.md), then
-              title + body. The tether's mt-7 centres it on the md glyph
-              (h-14 → 28px). On mobile the spine moves to the left edge (the
-              book seen edge-on) and the blocks descend it as glyph+text
-              rows. NO horizontal rules in this section beyond the tethers —
-              its one real rule is vertical. */}
-          <div className="relative mt-14 border-l rule-dark pl-6 md:mt-20 md:border-l-0 md:pl-0">
-            <span
-              aria-hidden
-              className="absolute inset-y-0 left-1/2 hidden w-0 border-l rule-dark md:block"
-            />
-            <ol>
+          <div className="flex flex-col gap-8 border-y rule-dark py-10 md:flex-row md:items-center md:gap-12 md:py-12">
+            <p className="overline shrink-0 text-clay reveal">How we work</p>
+            <ol className="flex w-full min-w-0 flex-nowrap items-center gap-x-8 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:w-auto md:flex-1 md:justify-between md:gap-x-6 md:overflow-visible">
               {PROCESS.map((p, i) => (
                 <li
                   key={p.num}
-                  className="reveal py-7 first:pt-0 last:pb-0 md:grid md:grid-cols-2 md:py-10"
+                  className="flex shrink-0 items-center gap-x-3 reveal"
                   style={
                     {
                       transitionDelay: `${i * 80}ms`,
-                      "--sg-delay": `${i * 150}ms`,
+                      "--sg-delay": `${i * 120}ms`,
                     } as CSSProperties
                   }
                 >
-                  <div className={PLATE_SIDE[i % 2]}>
-                    <span
-                      aria-hidden
-                      className="mt-7 hidden w-14 shrink-0 border-t rule-dark md:block"
-                    />
-                    <span
-                      className="shrink-0"
-                      style={{ opacity: 0.4 + i * 0.15 }}
-                    >
-                      <StageGlyph stage={(i + 1) as 1 | 2 | 3 | 4 | 5} className="h-12 w-12 text-champagne md:h-14 md:w-14" />
-                    </span>
-                    <div>
-                      <h3 className="heading-md">{p.title}</h3>
-                      <p className="body mt-4 max-w-[40ch] text-bone-dim">{p.body}</p>
-                    </div>
-                  </div>
+                  <StageGlyph stage={(i + 1) as 1 | 2 | 3 | 4 | 5} className="h-9 w-9 text-champagne" />
+                  <span className="heading-sm">{p.title}</span>
                 </li>
               ))}
             </ol>
+            <Link href="/services" className="btn-ghost shrink-0 text-bone reveal">
+              The full process <span aria-hidden>→</span>
+            </Link>
           </div>
         </div>
       </section>

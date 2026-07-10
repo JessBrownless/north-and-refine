@@ -103,16 +103,15 @@ dots), never a fill of any colour.
 
 Render at `h-12 w-12` to `h-14 w-14` (48–56px). Below ~32px overlapping forms
 muddy; above ~80px a glyph starts competing with the type MOMENTS register
-(see THE LADDER in CLAUDE.md). Placement (THE SPINE, 2026-07-10): the glyph
-sits BESIDE its step's text — the item's mark, where a numeral would go in
-a printed index (the `(0n)` indices were dropped for exactly that reason:
-the glyph does the marking, the spine does the sequencing). Each block is
-tethered to the centre hairline by a short horizontal rule; the glyph is
-the first thing on the line after the tether. The five glyphs ramp from
-40% to 100% opacity down the sequence — the project coming into focus — a
-STATIC print tint stepped per item, never an animation. Presence comes
-from placement, not inflation — resist sizing up before giving the mark
-more air.
+(see THE LADDER in CLAUDE.md). Placement (2026-07-10, third form that day):
+the HOMEPAGE METHOD STRIP — the glyph sits beside its step's TITLE in a
+slim ruled band at `h-9` (36px, just above the ~32px muddy floor), five
+pairs across one row; and the /SERVICES process plates — glyph left on the
+plate's rule, `(0n)` index right, at `h-12` (48px). The spine timeline's
+placement (glyph + tether + opacity ramp) was retired with the spine —
+the ramp was the spine's device; in a single row it reads as an error.
+Presence comes from placement, not inflation — resist sizing up before
+giving the mark more air.
 
 ## How to design a new glyph (the procedure)
 

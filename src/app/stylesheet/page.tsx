@@ -82,9 +82,9 @@ const ORGANISM_INDEX: { name: string; home: string; note: string }[] = [
   { name: "Stats band", home: "work/[slug]/page.tsx", note: "Raised full-width panel, .stat numerals with hairline dividers. Renders only when frontmatter metrics exist." },
   { name: "Testimonial band", home: "work/[slug]/page.tsx", note: "Centred client quote at .statement register (moved off the deprecated .blockquote 2026-07-09). Driven by testimonial frontmatter." },
   { name: "Rowen plates (hero + close)", home: "app/page.tsx · components/ContactCTA.tsx", note: "The photographic bookends (2026-07-10): Rowen 5 portrait 4:5 in the hero's dead corner (top rides --masthead-line, bottom locks to the deck; mobile in-flow 3/5 right-anchored), Rowen 8 landscape 16:10 closing the CTA (bottom-locked, STATIC — the close doesn't perform). Real client site composited on each screen. Recipe: docs/briefs/hero-plates.md." },
-  { name: "Kind words (homepage)", home: "app/page.tsx", note: "ONE testimonial: square portrait slot + .statement quote + ruled attribution. ALL content visibly-marked placeholder until real words/portrait/permission exist." },
-  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client logos (Dr Yalda mark repeated as placeholder for now) in a STILL nowrap row (marquee retired 2026-07-10), above the fold, present from first paint." },
-  { name: "Process spine", home: "app/page.tsx", note: "How we work: five blocks (glyph beside title + body, no indices) hanging off ONE continuous centre hairline — the page's only vertical rule — each tethered by a short horizontal hairline, sides alternating; glyph opacity ramps 40→100% down the steps (the project coming into focus). Spine moves to the left edge on mobile. Replaced the section's carousel 2026-07-10 — never stack two rails." },
+  { name: "Kind words (homepage)", home: "app/page.tsx", note: "ONE testimonial: the client's real 4:5 portrait + .statement quote + ruled attribution with a CIRCULAR avatar chip (the corners rule's third exception, 2026-07-10 — faces in circles read as people). The QUOTE stays visibly-marked placeholder until real words + permission exist." },
+  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client marks in a STILL nowrap row (marquee retired 2026-07-10), above the fold, present from first paint. Marks are ALWAYS flattened to monochrome bone (colour punctures the ink), heights tuned per mark to equal optical width, matched to practices by name; the pool cycles until every client has a file." },
+  { name: "Method strip", home: "app/page.tsx", note: "How we work as a slim ruled band (LogoStrip's register): kicker, five glyphs + Saol heading-sm titles (draw-on intact, h-9/36px, no opacity ramp), ghost to /services. Third form in one day (2026-07-10): carousel killed (two consecutive rails), spine timeline killed (too big, too texty — in git history). /services owns the full process; /process page rejected (no query targets it). Mobile: nowrap, reader-scrollable." },
   { name: "StageGlyph", home: "components/StageGlyph.tsx", note: "Process-stage shape icons: pure geometric forms at a non-scaling 1px hairline — the rule system, curved. Working set R5 (lens pair · rings · corner-lock · triangle · trued); M·1 draw-on rides the plate's .reveal. On the homepage spine + /services plates. Brief: docs/briefs/stage-glyphs.md." },
   { name: "Carousel", home: "components/Carousel.tsx", note: "Contact-sheet rail: snap plates, hard clip, folio-line controls (arrows + page counter), never autoplays; folio hides when everything fits. Homepage: blog teasers only (the process rail became the spine 2026-07-10)." },
   { name: "WorkCard", home: "components/WorkCard.tsx", note: "Case-study card for grids; typographic placeholder until a thumbImage exists." },
@@ -147,10 +147,11 @@ export default function StylesheetPage() {
               soft, SaaS. Straight corners are print logic, and this whole
               system is print logic: hairline rules, tracked kickers,
               editorial captions. Frames behave like plates in a book, not
-              cards in an app. Two exceptions, both deliberate: device mockups
-              keep their hardware radii, and the pill buttons stay — the
-              single soft shape in a sharp system, a wax seal on a printed
-              page.
+              cards in an app. Three exceptions, all deliberate: device
+              mockups keep their hardware radii, the pill buttons stay — a
+              wax seal on a printed page — and avatar chips are circles
+              (a face in a circle reads as a person; in a square, a
+              thumbnail). Nothing else curves.
             </p>
           </div>
           <div>

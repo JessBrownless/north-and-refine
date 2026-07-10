@@ -12,6 +12,13 @@ showing a REAL client site composited onto the laptop screen:
 | `public/assets/plates/hero-rowen-05.jpg` | Rowen 5 — laptop on black side table, boucle curve | 4:5 (1000×1250) | Hero dead corner (lg+ absolute; mobile in-flow) |
 | `public/assets/plates/cta-rowen-08.jpg` | Rowen 8 — laptop on travertine plinth, sheer curtain | 16:10 (1000×625) | ContactCTA, cols 9–12, bottom-locked |
 
+(A third plate — Rowen 8 recut to portrait for Kind words — was trialled and
+killed 2026-07-10: cropping a landscape frame into portrait read as the
+workaround it was. Kind words carries the client's real portrait instead.
+Rule of thumb: use frames at their NATIVE orientation; if a slot needs a
+portrait mockup, export a portrait-composed frame — Rowen 5/7 or the
+RowenPhone suite — don't recut a landscape one.)
+
 The pairing is deliberate: portrait in the cover, landscape in the back
 cover, same room, same suite — one photographic decision, not two images.
 
@@ -34,10 +41,19 @@ shipped once, 2026-07-10, caught by the client's eye).
 
 ```js
 // 1. Crop the frame to its canon ratio → buffer.
-// 2. Resize the site capture to the screen's inset rect, rotate to match
+// 2. WARM GRADE the room: .linear([1.015, 1.0, 0.955], [0,0,0]) — the
+//    suite's photographed blacks are camera-neutral (#1c1c1d, B ≥ R); the
+//    grade pushes them to the ink's R>B cast (#1c1710 direction) so the
+//    plates sit tonally inside the page. Grade the BASE ONLY, before the
+//    screen composite — the client's site stays true. Keep it gentle:
+//    heavier grades cook the cream midtones. (2026-07-10: the client asked
+//    whether the INK should derive from the table instead — no: the ink is
+//    the parchment's shadow and the token never chases a stock asset; the
+//    photo obeys the brand.)
+// 3. Resize the site capture to the screen's inset rect, rotate to match
 //    the screen's tilt (transparent background), composite at the screen
 //    quad's centroid in CROPPED coords, −4px optical.
-// 3. Export JPEG q85 mozjpeg.
+// 4. Export JPEG q85 mozjpeg.
 ```
 
 Measured geometry (1000px-wide exports; re-measure if re-exported larger —

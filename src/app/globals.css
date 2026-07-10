@@ -31,6 +31,11 @@
     --ink: #1c1710;
     --ink-raised: #26201a;
     --ink-line: #484036; /* keeps the old rule visibility on the new ink (1.75:1) */
+    /* (2026-07-10 late: the ink family was trialled at the Rowen table's
+       neutral black #1d1c1b, client-requested — visually indistinguishable
+       at this lightness, so the warm parchment-derived ink stays. Don't
+       re-run the experiment; the plates are graded toward the ink instead,
+       see docs/briefs/hero-plates.md.) */
     /* Light surfaces & text */
     --bone: #f2eee6;
     --bone-dim: #cbc6bb;

@@ -13,15 +13,24 @@ interface LogoStripProps {
   label?: string;
 }
 
-// PLACEHOLDER LOGO MODE (2026-07-09): the strip renders REAL logo artwork —
-// currently the Dr Yalda mark (public/assets/logos/dr-yalda.svg, white
-// wordmark + pale-blue droplet, built for dark grounds) REPEATED in every
-// slot until each client's own file exists. The strip was typographic
-// before (Saol names, no files to source) — that treatment is preserved in
-// git history if the logo direction is reverted. Because the repeated mark
-// is wrong for three of the four practices, the images are aria-hidden and
-// each link keeps its practice name as the accessible label.
-const PLACEHOLDER_LOGO = "/assets/logos/dr-yalda.svg";
+// THE LOGO POOL (2026-07-10): real client marks, ALWAYS flattened to
+// MONOCHROME BONE (#F2EEE6) before they enter the strip — colour logos
+// would puncture the ink; the trust bar is tonal like the type system.
+// (The earlier white + pale-blue dr-yalda.svg is retired from the strip
+// for exactly that reason.) Each mark matches its own practice by name so
+// the accessible labels stay honest; practices without a file yet cycle
+// the pool (client-sanctioned repeats until more files arrive). Heights
+// are tuned PER MARK — the two wordmarks differ 6:1 vs 13:1 in aspect, so
+// equal heights would render wildly unequal widths; these values normalise
+// them to roughly equal optical width (~200px at base).
+const LOGO_POOL = [
+  { match: /hawkes/i, src: "/assets/logos/dr-elizabeth-hawkes.svg", cls: "h-8 w-auto md:h-9" },
+  { match: /yalda/i, src: "/assets/logos/dr-yalda-clinics.svg", cls: "h-4 w-auto md:h-[18px]" },
+] as const;
+
+function logoFor(name: string, index: number) {
+  return LOGO_POOL.find((l) => l.match.test(name)) ?? LOGO_POOL[index % LOGO_POOL.length];
+}
 
 /**
  * The under-hero trust bar — a quiet, ruled strip of client logos, each
@@ -54,23 +63,21 @@ export default function LogoStrip({
             where it overflows on mobile — motion only from the reader, the
             carousel's own logic. Hard-clipped, no fade mask. */}
         <ul className="flex w-full min-w-0 flex-nowrap items-center gap-x-10 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:w-auto md:flex-1 md:justify-end md:gap-x-16 md:overflow-visible">
-          {items.map((item) => (
-            <li key={item.href} className="shrink-0">
-              <Link
-                href={item.href}
-                aria-label={item.name}
-                className="block opacity-60 transition-opacity duration-300 hover:opacity-100"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={PLACEHOLDER_LOGO}
-                  alt=""
-                  aria-hidden
-                  className="h-12 w-auto md:h-16"
-                />
-              </Link>
-            </li>
-          ))}
+          {items.map((item, i) => {
+            const logo = logoFor(item.name, i);
+            return (
+              <li key={item.href} className="shrink-0">
+                <Link
+                  href={item.href}
+                  aria-label={item.name}
+                  className="block opacity-60 transition-opacity duration-300 hover:opacity-100"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={logo.src} alt="" aria-hidden className={logo.cls} />
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
