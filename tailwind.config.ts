@@ -11,12 +11,14 @@ const config: Config = {
     extend: {
       colors: {
         // ── Base (dark, premium agency) ──────────────────────────────────
-        ink: "#1C1710", // deepest — warm near-black, default page background
-        "ink-raised": "#26201A", // raised surfaces / cards on dark
-        "ink-line": "#484036", // hairline dividers on dark (was out of sync with --ink-line)
+        // ⚠ TRIAL (2026-07-10 late): darker warm ink — see the matching
+        // note in globals.css :root. Originals: #1C1710 / #26201A / #484036.
+        ink: "#130F09",
+        "ink-raised": "#1D1813",
+        "ink-line": "#3F382E",
         // ── Light surfaces & text ────────────────────────────────────────
         bone: "#F2EEE6", // warm off-white — light sections, text on ink
-        "bone-dim": "#CBC6BB", // muted bone — secondary text on ink
+        "bone-dim": "#C1B9B0", // ⚠ TRIAL (with darker ink): deepened from #CBC6BB — see globals.css note
         "bone-line": "#DAD4C8", // hairline dividers on light
         clay: "#8A8578", // mid warm-grey — captions, fine print
         // ── Accent (single restrained metallic) ──────────────────────────

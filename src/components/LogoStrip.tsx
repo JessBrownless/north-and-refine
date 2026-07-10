@@ -23,13 +23,17 @@ interface LogoStripProps {
 // are tuned PER MARK — the two wordmarks differ 6:1 vs 13:1 in aspect, so
 // equal heights would render wildly unequal widths; these values normalise
 // them to roughly equal optical width (~200px at base).
-const LOGO_POOL = [
+const LOGO_POOL: { match: RegExp | null; src: string; cls: string }[] = [
   { match: /hawkes/i, src: "/assets/logos/dr-elizabeth-hawkes.svg", cls: "h-8 w-auto md:h-9" },
-  { match: /yalda/i, src: "/assets/logos/dr-yalda-clinics.svg", cls: "h-4 w-auto md:h-[18px]" },
-] as const;
+  // The full DR·YALDA lockup (serif, droplet interpunct) — the practice's
+  // primary mark, so it takes the name match; the sans "Clinics" wordmark
+  // stays as a cycle-filler for practices without a file yet.
+  { match: /yalda/i, src: "/assets/logos/dr-yalda-aus.svg", cls: "h-12 w-auto md:h-14" },
+  { match: null, src: "/assets/logos/dr-yalda-clinics.svg", cls: "h-4 w-auto md:h-[18px]" },
+];
 
 function logoFor(name: string, index: number) {
-  return LOGO_POOL.find((l) => l.match.test(name)) ?? LOGO_POOL[index % LOGO_POOL.length];
+  return LOGO_POOL.find((l) => l.match?.test(name)) ?? LOGO_POOL[index % LOGO_POOL.length];
 }
 
 /**

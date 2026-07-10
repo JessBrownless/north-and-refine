@@ -28,17 +28,24 @@
        more blue than red and so never related to bone/champagne — it read
        as flat black). Every ink now runs R > B like the light surfaces.
        Contrast holds: bone 15.4:1, clay 4.8:1 — all still AA on body. */
-    --ink: #1c1710;
-    --ink-raised: #26201a;
-    --ink-line: #484036; /* keeps the old rule visibility on the new ink (1.75:1) */
-    /* (2026-07-10 late: the ink family was trialled at the Rowen table's
-       neutral black #1d1c1b, client-requested — visually indistinguishable
-       at this lightness, so the warm parchment-derived ink stays. Don't
-       re-run the experiment; the plates are graded toward the ink instead,
-       see docs/briefs/hero-plates.md.) */
+    /* ⚠ TRIAL (2026-07-10 late): DARKER ink family, client-requested —
+       same warm R>B cast, lightness dropped (ink 28/23/16 → 19/15/9), the
+       whole family shifted proportionally. Originals for the revert:
+       --ink #1c1710 · --ink-raised #26201a · --ink-line #484036. Tailwind
+       mirrors changed in the same edit. (Earlier the family was trialled
+       at the Rowen table's NEUTRAL black #1d1c1b — visually
+       indistinguishable at that lightness, reverted; the plates are graded
+       toward the ink instead, see docs/briefs/hero-plates.md.) */
+    --ink: #130f09;
+    --ink-raised: #1d1813;
+    --ink-line: #3f382e;
     /* Light surfaces & text */
     --bone: #f2eee6;
-    --bone-dim: #cbc6bb;
+    /* ⚠ TRIAL (2026-07-10 late, with the darker-ink trial): bone-dim
+       deepened #cbc6bb → #c1b9b0 (client-proposed) — spaces the on-ink
+       ladder into three clean tiers: bone 16.5:1 / dim 9.8:1 / clay 5.2:1
+       (the old dim at 11.2:1 crowded bone). Warm cast preserved. */
+    --bone-dim: #c1b9b0;
     --bone-line: #dad4c8;
     --clay: #8a8578;
     /* Accent */
@@ -135,6 +142,20 @@
     letter-spacing: -0.01em;
   }
 
+  /* THE PART TITLE (2026-07-10 late) — the ladder's missing rung: the
+     homepage collection heads ("Practices we've refined", "Notes from the
+     studio") read too small at heading-lg (tied to the work-card names
+     below them) and too big at heading-xl. In book terms they are PART
+     TITLES — the heads that introduce a collection. Sits 32→62px, between
+     the signposts (28→48) and the moments (36→79). */
+  .heading-part {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400; /* Saol ships one upright weight here */
+    font-size: clamp(2rem, 1.25rem + 2.9vw, 3.875rem); /* 32 → 62px */
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
   .statement {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400; /* Saol ships one upright weight here */ /* matches the heading utilities — 450 read as a stray voice next to them */
@@ -151,6 +172,7 @@
   .display-mega em,
   .display em,
   .heading-xl em,
+  .heading-part em,
   .statement em,
   .heading-lg em,
   .heading-md em,

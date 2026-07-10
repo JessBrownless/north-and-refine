@@ -12,12 +12,14 @@ showing a REAL client site composited onto the laptop screen:
 | `public/assets/plates/hero-rowen-05.jpg` | Rowen 5 — laptop on black side table, boucle curve | 4:5 (1000×1250) | Hero dead corner (lg+ absolute; mobile in-flow) |
 | `public/assets/plates/cta-rowen-08.jpg` | Rowen 8 — laptop on travertine plinth, sheer curtain | 16:10 (1000×625) | ContactCTA, cols 9–12, bottom-locked |
 
-(A third plate — Rowen 8 recut to portrait for Kind words — was trialled and
-killed 2026-07-10: cropping a landscape frame into portrait read as the
-workaround it was. Kind words carries the client's real portrait instead.
-Rule of thumb: use frames at their NATIVE orientation; if a slot needs a
-portrait mockup, export a portrait-composed frame — Rowen 5/7 or the
-RowenPhone suite — don't recut a landscape one.)
+| `public/assets/plates/kind-words-rowen-phone-05.jpg` | RowenPhone 5 — phone flat on travertine (the close plate's stone) | 4:5 (1200×1500) | Kind words big slot. Source 3141×4713: crop `top:393, 3141×3926` → grade → resize 1200×1500. Screen rect (412,367)→(796,1167), corner radius 54, capture `assets/phones/dr-yalda-hero.jpg` masked with a rounded rect (no rotation — the phone is upright) |
+
+Rule of thumb (learned 2026-07-10, when a landscape→portrait recut of Rowen
+8 was trialled for Kind words and killed on sight): use frames at their
+NATIVE orientation — if a slot needs a portrait mockup, export a
+portrait-composed frame; never recut a landscape one. Phone screens need
+the ROUNDED-RECT MASK on the capture (blend: dest-in) — laptop screens
+don't.
 
 The pairing is deliberate: portrait in the cover, landscape in the back
 cover, same room, same suite — one photographic decision, not two images.

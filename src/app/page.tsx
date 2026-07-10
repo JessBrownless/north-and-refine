@@ -1,12 +1,11 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import { SITE } from "@/lib/site";
 import { getFeaturedProjects } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import Carousel from "@/components/Carousel";
 import ContactCTA from "@/components/ContactCTA";
-import StageGlyph from "@/components/StageGlyph";
 
 // Homepage — TYPE-LED, FLAT, EDITED (decided 2026-07-09, "rip up the rule
 // book"; tightened same day: "everything should earn its place"). The page
@@ -39,20 +38,6 @@ function formatDate(iso: string): string {
     timeZone: "UTC",
   }).format(new Date(iso));
 }
-
-// How we work — the same five steps as /services (kept in step with it;
-// /services owns the full process — bodies, deliverables, plates). The
-// homepage carries TITLES ONLY in the method strip (the spine timeline was
-// built and retired 2026-07-10, same day: the client cut the big timeline
-// and its text — the spine treatment survives in git history if a timeline
-// is ever wanted elsewhere).
-const PROCESS = [
-  { num: "01", title: "Discovery" },
-  { num: "02", title: "Strategy" },
-  { num: "03", title: "Design" },
-  { num: "04", title: "Build & launch" },
-  { num: "05", title: "Refine" },
-] as const;
 
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
@@ -98,12 +83,15 @@ export default function HomePage() {
               <h1 className="display-mega opacity-0 animate-fade-in">
                 Practices that patients <em>trust</em>.
               </h1>
+              {/* The OFFICIAL TAGLINE (2026-07-10) — referenced from
+                  SITE.tagline (src/lib/site.ts, the single source of brand
+                  facts) so the hero can never drift from the canonical
+                  line. Change it there, never here. */}
               <p
                 className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in md:mt-12"
                 style={{ animationDelay: "0.25s" }}
               >
-                Brand, web design and SEO for cosmetic surgeons, medical
-                aesthetic clinics and dermatology practices.
+                {SITE.tagline}.
               </p>
               {/* The view's ONE flagship (.btn-arrow — the nav demoted to a
                   secondary outline in the same change), paired with the
@@ -227,7 +215,12 @@ export default function HomePage() {
           <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
             <div>
               <p className="overline reveal">Selected work</p>
-              <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+              {/* heading-xl (promoted from heading-lg 2026-07-10 late): on
+                  the homepage the collection heads are MOMENTS — every
+                  neighbouring beat (statement, service rows, close) speaks
+                  at xl, and the work-card client names below are heading-lg,
+                  which tied the old signpost to its own items. */}
+              <h2 className="heading-part from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 Practices we&rsquo;ve <em>refined</em>
               </h2>
             </div>
@@ -283,14 +276,16 @@ export default function HomePage() {
       </section>
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
-          human proof (work → words). The big 4:5 slot carries the CLIENT'S
-          REAL PORTRAIT (native 4:5 — a mockup recut was trialled 2026-07-10
-          and killed the same hour: cropping a landscape frame into portrait
-          read as the workaround it was; human proof wants a human), and the
-          client repeats as a small CIRCULAR avatar in the attribution row
-          (the corners rule's third exception, sanctioned 2026-07-10 — a
-          face in a circle reads as a person; a face in a square reads as a
-          thumbnail).
+          human proof (work → words). The big 4:5 slot carries a PORTRAIT
+          MOCKUP at native orientation (client-directed 2026-07-10, after a
+          landscape-recut was killed: RowenPhone 5 — her mobile site on a
+          phone lying on TRAVERTINE, the same stone as the close plate's
+          plinth, so the two plates read as one shoot; recipe in
+          docs/briefs/hero-plates.md). The human stays present as the
+          CIRCULAR avatar in the attribution (the corners rule's third
+          exception — faces in circles read as people); her full portrait
+          (assets/testimonials/client-portrait.jpg) is in reserve for
+          /about.
           ⚠ THE QUOTE is VISIBLY-MARKED PLACEHOLDER until real client words
           + permission exist — we never draft quotes on a client's behalf
           (pre-launch checklist). Swap the words, keep the structure. ── */}
@@ -302,8 +297,8 @@ export default function HomePage() {
               <div className="frame aspect-[4/5]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/assets/testimonials/client-portrait.jpg"
-                  alt="Dr Yalda Jamali, cosmetic doctor"
+                  src="/assets/plates/kind-words-rowen-phone-05.jpg"
+                  alt="A phone on travertine displaying the Dr Yalda Jamali mobile site — brand and web design by North & Refine"
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover"
                 />
@@ -342,44 +337,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── How we work — THE METHOD STRIP (2026-07-10 evening: the spine
-          timeline left the homepage the same day it arrived — the client
-          cut the big timeline and its text; /services owns the full
-          process, and a dedicated /process page was considered and
-          rejected: no query targets it, /services already carries the
-          content). A slim ruled band in the LogoStrip's register: kicker,
-          the five glyphs + titles (draw-on intact), ghost to /services.
-          Glyphs at h-9 (36px — above the brief's ~32px muddy floor); no
-          opacity ramp here (that was the spine's device — in a single row
-          it reads as an error). Mobile: the LogoStrip pattern — nowrap,
-          reader-scrollable, never wraps. ── */}
-      <section className="py-24 md:py-32">
-        <div className="shell">
-          <div className="flex flex-col gap-8 border-y rule-dark py-10 md:flex-row md:items-center md:gap-12 md:py-12">
-            <p className="overline shrink-0 text-clay reveal">How we work</p>
-            <ol className="flex w-full min-w-0 flex-nowrap items-center gap-x-8 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:w-auto md:flex-1 md:justify-between md:gap-x-6 md:overflow-visible">
-              {PROCESS.map((p, i) => (
-                <li
-                  key={p.num}
-                  className="flex shrink-0 items-center gap-x-3 reveal"
-                  style={
-                    {
-                      transitionDelay: `${i * 80}ms`,
-                      "--sg-delay": `${i * 120}ms`,
-                    } as CSSProperties
-                  }
-                >
-                  <StageGlyph stage={(i + 1) as 1 | 2 | 3 | 4 | 5} className="h-9 w-9 text-champagne" />
-                  <span className="heading-sm">{p.title}</span>
-                </li>
-              ))}
-            </ol>
-            <Link href="/services" className="btn-ghost shrink-0 text-bone reveal">
-              The full process <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ── (The process left the homepage entirely 2026-07-10 late — it
+          burned through carousel, spine timeline and a slim method strip
+          in one day before the client cut it altogether. /services owns
+          the five steps in full; the homepage doesn't tease them. The
+          method-strip pattern survives in git history.) ── */}
 
       {/* ── Blog teasers — a rail instead of a grid (2026-07-10): the
           carousel earns its place by holding SIX posts where the grid held
@@ -390,7 +352,9 @@ export default function HomePage() {
             <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
               <div>
                 <p className="overline reveal">Blog</p>
-                <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
+                {/* heading-xl — promoted with Selected work's head (the
+                    homepage collection heads are moments, see above). */}
+                <h2 className="heading-part from-overline reveal" style={{ transitionDelay: "80ms" }}>
                   Notes from the studio
                 </h2>
               </div>
