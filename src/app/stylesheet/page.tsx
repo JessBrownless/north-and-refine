@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BrowserMockup from "@/components/BrowserMockup";
 import PhoneMockup from "@/components/PhoneMockup";
+import StageGlyph from "@/components/StageGlyph";
 
 // Internal design canon — noindex (also disallowed in robots.ts).
 // Organised atomically (Frost): 01 Atoms → 02 Molecules → 03 Organisms.
@@ -65,6 +66,7 @@ const MOTION: { cls: string; note: string }[] = [
   { cls: "animate-fade-in-up", note: "RETIRED from the brand (2026-07-10) · the 16px rise is a screen idiom — ink develops where it sits; print never arrives from somewhere. Survives only in the /mockups archive" },
   { cls: "animate-track-in", note: "1.1s expo-out · overline reveal — fades in while letter-spacing eases open to 0.38em (typographic, not translational — it stays)" },
   { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — a pure 1.1s fade, IN PLACE (the rise retired 2026-07-10); stagger with transitionDelay" },
+  { cls: ".sg-stroke / .sg-stroke-2", note: "M·1 draw-on (2026-07-10): StageGlyph strokes draw themselves in on the plate's .reveal entry — 1.1s, the reveal curve; the second form lands +220ms; stagger per plate via --sg-delay. Entrance-only (print stillness holds); fully drawn outside a reveal and under reduced motion" },
   { cls: ".exit-fade", note: "fade-to-ink overlay on an EXITING section — ContactCTA and interior pages only; homepage sections do NOT perform (2026-07-09). JS-driven by the global <ExitFades />; .exit-fade-long = earlier window" },
   { cls: "animate-marquee", note: "PARKED · 28s linear loop · both uses retired (ghost text 2026-07-09; the trust-bar ticker trialled & retired 2026-07-10 — print stillness: nothing moves unbidden)" },
   { cls: "animate-float-slow / -slower", note: "PARKED · 7s / 11s ease loops · was the floating-orb layer; nothing floats on the flat pages" },
@@ -82,7 +84,7 @@ const ORGANISM_INDEX: { name: string; home: string; note: string }[] = [
   { name: "Kind words (homepage)", home: "app/page.tsx", note: "ONE testimonial: square portrait slot + .statement quote + ruled attribution. ALL content visibly-marked placeholder until real words/portrait/permission exist." },
   { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client logos (Dr Yalda mark repeated as placeholder for now) in a STILL nowrap row (marquee retired 2026-07-10), above the fold, present from first paint." },
   { name: "Process spine", home: "app/page.tsx", note: "How we work: five blocks (glyph beside title + body, no indices) hanging off ONE continuous centre hairline — the page's only vertical rule — each tethered by a short horizontal hairline, sides alternating; glyph opacity ramps 40→100% down the steps (the project coming into focus). Spine moves to the left edge on mobile. Replaced the section's carousel 2026-07-10 — never stack two rails." },
-  { name: "StageGlyph", home: "components/StageGlyph.tsx", note: "Process-stage shape icons: pure geometric forms at a non-scaling 1px hairline — the rule system, curved. Brief: docs/briefs/stage-glyphs.md." },
+  { name: "StageGlyph", home: "components/StageGlyph.tsx", note: "Process-stage shape icons: pure geometric forms at a non-scaling 1px hairline — the rule system, curved. Working set R5 (lens pair · rings · corner-lock · triangle · trued); M·1 draw-on rides the plate's .reveal. On the homepage spine + /services plates. Brief: docs/briefs/stage-glyphs.md." },
   { name: "Carousel", home: "components/Carousel.tsx", note: "Contact-sheet rail: snap plates, hard clip, folio-line controls (arrows + page counter), never autoplays; folio hides when everything fits. Homepage: blog teasers only (the process rail became the spine 2026-07-10)." },
   { name: "WorkCard", home: "components/WorkCard.tsx", note: "Case-study card for grids; typographic placeholder until a thumbImage exists." },
   { name: "ContactCTA", home: "components/ContactCTA.tsx", note: "The bone close — mirrors the hero (kicker, heading-xl, lede, flagship + ghost); cover and back cover, inverted stock." },
@@ -289,6 +291,32 @@ export default function StylesheetPage() {
         </div>
         <div className="mt-8 overflow-hidden">
           <p className="display text-ghost-on-dark whitespace-nowrap">.text-ghost-on-dark</p>
+        </div>
+
+        {/* Stage glyphs — the weight test, made permanent (2026-07-10):
+            all five at 48px on both grounds, sitting on a hairline. The
+            pass condition: stroke and rule indistinguishable in weight. */}
+        <Sub
+          title="Stage glyphs"
+          note="Working set R5: lens pair · rings · corner-lock · triangle · trued — the row reads focus → narrow → compose → stand → true. Strokes draw in on .reveal entry (M·1); fully drawn outside one. Brief: docs/briefs/stage-glyphs.md."
+        />
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="scene-ink border rule-dark p-8">
+            <div className="flex items-center justify-between border-t rule-dark pt-6 text-champagne">
+              {([1, 2, 3, 4, 5] as const).map((n) => (
+                <StageGlyph key={n} stage={n} className="h-12 w-12" />
+              ))}
+            </div>
+            <p className="fineprint mt-4">On ink — text-champagne (the sanctioned ornament-glyph use)</p>
+          </div>
+          <div className="scene-warm p-8 text-ink">
+            <div className="flex items-center justify-between border-t rule-light pt-6 text-ink/70">
+              {([1, 2, 3, 4, 5] as const).map((n) => (
+                <StageGlyph key={n} stage={n} className="h-12 w-12" />
+              ))}
+            </div>
+            <p className="fineprint mt-4 text-ink/70">On bone — text-ink/70</p>
+          </div>
         </div>
 
         {/* Motion */}

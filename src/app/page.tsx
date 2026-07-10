@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { getFeaturedProjects } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
@@ -320,7 +321,12 @@ export default function HomePage() {
                 <li
                   key={p.num}
                   className="reveal py-7 first:pt-0 last:pb-0 md:grid md:grid-cols-2 md:py-10"
-                  style={{ transitionDelay: `${i * 80}ms` }}
+                  style={
+                    {
+                      transitionDelay: `${i * 80}ms`,
+                      "--sg-delay": `${i * 150}ms`,
+                    } as CSSProperties
+                  }
                 >
                   <div className={PLATE_SIDE[i % 2]}>
                     <span
@@ -331,7 +337,7 @@ export default function HomePage() {
                       className="shrink-0"
                       style={{ opacity: 0.4 + i * 0.15 }}
                     >
-                      <StageGlyph stage={i + 1} className="h-12 w-12 text-champagne md:h-14 md:w-14" />
+                      <StageGlyph stage={(i + 1) as 1 | 2 | 3 | 4 | 5} className="h-12 w-12 text-champagne md:h-14 md:w-14" />
                     </span>
                     <div>
                       <h3 className="heading-md">{p.title}</h3>

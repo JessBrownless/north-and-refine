@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import PageHero from "@/components/PageHero";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
+import StageGlyph from "@/components/StageGlyph";
 import { serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -125,9 +127,25 @@ export default function ServicesPage() {
             A project, in five steps.
           </h2>
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+            {/* STAGE GLYPHS (2026-07-10): glyph left ON the rule, index
+                right; --sg-delay staggers the draw-on to match the plate
+                cascade (see the M·1 block in globals.css + the brief at
+                docs/briefs/stage-glyphs.md). */}
             {PROCESS.map((p, i) => (
-              <div key={p.num} className="reveal border-t rule-light pt-5" style={{ transitionDelay: `${i * 60}ms` }}>
-                <p className="index-num text-clay">{p.num}</p>
+              <div
+                key={p.num}
+                className="reveal border-t rule-light pt-5"
+                style={
+                  {
+                    transitionDelay: `${i * 60}ms`,
+                    "--sg-delay": `${i * 150}ms`,
+                  } as CSSProperties
+                }
+              >
+                <div className="flex items-start justify-between">
+                  <StageGlyph stage={(i + 1) as 1 | 2 | 3 | 4 | 5} className="h-12 w-12 text-ink/70" />
+                  <p className="index-num text-clay">{p.num}</p>
+                </div>
                 <h3 className="heading-sm mt-3">{p.title}</h3>
                 <p className="body mt-2 text-ink/70">{p.body}</p>
               </div>

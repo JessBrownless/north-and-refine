@@ -50,18 +50,46 @@ the page rather than drawn *by* the page, it is wrong.
 - Decorative always: `aria-hidden` on the `<svg>`; the plate's title + body
   must carry the full meaning with the glyph deleted.
 
-## The current vocabulary (extend in this voice)
+## The current vocabulary (working set R5, 2026-07-10 — extend in this voice)
 
-Compass / lens / axes — optical and cartographic, echoing the NR dot-compass
-mark. Not arrows-and-gears, not nature, not metaphor soup.
+Optical and cartographic — lenses, rings, forms trued to their rule —
+echoing the NR dot-compass mark. Not arrows-and-gears, not nature, not
+metaphor soup. The row reads as a sequence: focus → narrow → compose →
+stand → true.
 
-| Stage | Forms | Reading |
-| --- | --- | --- |
-| 01 Discovery | circle + centre dot | the lens; the compass |
-| 02 Strategy | crossed axes (2 lines) | the map; the plan |
-| 03 Design | square overlapping circle | form studies; composition |
-| 04 Build & launch | triangle | structure |
-| 05 Refine | concentric circles | honing; iteration |
+| Stage | Forms | Coordinates (64-grid) | Reading |
+| --- | --- | --- | --- |
+| 01 Discovery | two overlapping circles | circle 24,32 r16 · circle 40,32 r16 | the lens pair — two views brought into focus; the overlap is the insight |
+| 02 Strategy | concentric circles | r20 + r10, both 32,32 | the rings — options narrowing to a plan (moved from Refine at R3) |
+| 03 Design | square overlapping circle | square 14,14 24u · circle 38,38 r12 | form studies; composition — circle centred on the square's corner |
+| 04 Build & launch | triangle | 32,13 · 51,46 · 13,46 (equilateral) | structure |
+| 05 Refine | circle + line (tangent) | circle 32,28 r18 · line 10,46→54,46 | trued — the form seated exactly on its rule; precision as tangency |
+
+Voice note: with 05g the dot leaves the working set entirely — the NR
+gesture survives only in the alternates. "Crossed axes" left the table at
+R5 (superseded by the lens pair / rings pairing).
+
+Alternates on record — 01: 01e bearing (circle 32,32 r17 · dot 44,20 on the
+ring) · 01f survey (line 24,10→24,54 · line 10,40→54,40). 05: 05h meridian
+(line 32,10→32,54 · circle 32,32 r14) · 05i successive passes (line
+12,26→52,26 · line 24,38→40,38) · 05j pare (circle 30,32 r18 · line
+10,10→54,32 — explored R5, declined: tool depictions are closed by this
+brief, and a cut reads risky beside treatment copy). Rejected at R4: 05d
+bullseye, 05e tolerances, 05f finishing stroke.
+
+## Motion (M·1 "drawn by the page" — adopted 2026-07-10)
+
+Strokes carry `pathLength={100}` + `.sg-stroke` (`drawn` props); a second
+form takes `.sg-stroke-2` (`drawnSecond`, +220ms). The CSS lives in
+globals.css directly after the `.reveal` block: inside a `.reveal` that
+hasn't entered, the dash offset hides the stroke; on `.is-in` the line
+draws itself in — 1.1s, the reveal curve. ENTRANCE-ONLY, riding the plate's
+existing reveal, so print stillness holds; no new tokens, no scroll
+listeners. Stagger per plate via `--sg-delay` on the `.reveal` element.
+Outside a `.reveal` a glyph renders fully drawn (safe anywhere). Reduced
+motion: fully drawn instantly (Reveal.tsx adds `.is-in` at once; the global
+guard zeroes durations and delays). M·2 (hover-to-full-champagne) is held
+in reserve until plates become links.
 
 ## Colour (reference the tokens, never hex)
 
@@ -94,8 +122,9 @@ more air.
    on (32, 32) unless asymmetry carries the meaning (see stage 3).
 3. Apply the test: **if it can't be drawn from circle, line, square and
    triangle in two forms, it doesn't belong in this system.**
-4. Add the `stage === n` block to `StageGlyph.tsx` using the shared `line`
-   props. Run `npx tsc --noEmit`.
+4. Add the `stage === n` block to `StageGlyph.tsx` using the shared props:
+   `drawn` for the first form, `drawnSecond` for the second (they carry the
+   `line` invariants plus the M·1 draw-on). Run `npx tsc --noEmit`.
 5. Verify in the browser at 48px next to a `.rule-dark` hairline — the
    stroke weights must be indistinguishable. Check the overlap still reads.
 6. Register it: add the row to this brief's vocabulary table. If the usage
