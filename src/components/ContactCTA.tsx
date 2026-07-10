@@ -34,7 +34,7 @@ export default function ContactCTA({
       {/* Statement-moment spacing tier: py-32 md:py-44 — the manifesto and
           this close share it; standard sections sit on py-24 md:py-32. */}
       <div className="shell relative py-32 md:py-44">
-        <div className="grid grid-cols-1 gap-10 border-t rule-light pt-10 md:grid-cols-12 md:gap-8 md:pt-12">
+        <div className="grid grid-cols-1 gap-10 border-t rule-light pt-10 md:grid-cols-12 md:items-baseline md:gap-8 md:pt-12">
           {/* Left rail — kicker sits in clay on light sections, never champagne */}
           <p className="overline text-clay reveal md:col-span-3">Start a project</p>
 
@@ -50,7 +50,7 @@ export default function ContactCTA({
             {/* Ruled footer — supporting line left, the actions right. The
                 rule is what makes this read as a closing colophon rather than
                 a marketing box. */}
-            <div className="mt-16 grid grid-cols-1 gap-8 border-t rule-light pt-8 md:mt-20 md:grid-cols-12 md:items-start">
+            <div className="mt-16 grid grid-cols-1 gap-8 border-t rule-light pt-8 md:mt-20 md:grid-cols-12 md:items-baseline">
               <p
                 className="body-sm max-w-[46ch] text-ink/60 reveal md:col-span-6"
                 style={{ transitionDelay: "160ms" }}

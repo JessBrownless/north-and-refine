@@ -18,7 +18,7 @@ export default function ServicesShowcase() {
         <Link
           key={title}
           href="/services"
-          className="group flex flex-col items-start gap-5 border-b rule-dark py-7 sm:flex-row sm:items-center sm:justify-between sm:gap-8 md:py-9"
+          className="group flex flex-col items-start gap-5 border-b rule-dark py-7 sm:flex-row sm:items-end sm:[align-items:last_baseline] sm:justify-between sm:gap-8 md:py-9"
         >
           <span className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:gap-8">
             {/* Row index — the same ( 0n ) device as the section rail */}

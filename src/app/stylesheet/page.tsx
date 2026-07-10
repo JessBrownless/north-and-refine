@@ -65,7 +65,7 @@ const MOTION: { cls: string; note: string }[] = [
   { cls: "animate-track-in", note: "1.1s expo-out · overline reveal — fades in while letter-spacing eases open to 0.38em" },
   { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — stagger with transitionDelay" },
   { cls: ".exit-fade", note: "fade-to-ink overlay on an EXITING section — ContactCTA and interior pages only; homepage sections do NOT perform (2026-07-09). JS-driven by the global <ExitFades />; .exit-fade-long = earlier window" },
-  { cls: "animate-marquee", note: "PARKED · 28s linear loop · ghost display text (the marquee left the homepage 2026-07-09)" },
+  { cls: "animate-marquee", note: "28s linear loop · LIVE again in LogoStrip (the trust-bar logo ticker, 2026-07-10 — logos must never wrap); the ghost-text use stays parked" },
   { cls: "animate-float-slow / -slower", note: "PARKED · 7s / 11s ease loops · was the floating-orb layer; nothing floats on the flat pages" },
 ];
 
@@ -80,7 +80,8 @@ const ORGANISM_INDEX: { name: string; home: string; note: string }[] = [
   { name: "Testimonial band", home: "work/[slug]/page.tsx", note: "Centred client quote at .statement register (moved off the deprecated .blockquote 2026-07-09). Driven by testimonial frontmatter." },
   { name: "Kind words (homepage)", home: "app/page.tsx", note: "ONE testimonial: square portrait slot + .statement quote + ruled attribution. ALL content visibly-marked placeholder until real words/portrait/permission exist." },
   { name: "Receipts strip", home: "app/page.tsx", note: "The proof numbers closing Selected work — heading-xl numerals over body-sm labels on one top rule. Proof lives beside its evidence." },
-  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client logos (Dr Yalda mark repeated as placeholder for now), fed from the work collection." },
+  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client logos (Dr Yalda mark repeated as placeholder for now) on the 28s marquee, above the fold, present from first paint." },
+  { name: "Carousel", home: "components/Carousel.tsx", note: "Contact-sheet rail: snap plates, hard clip, folio-line controls (arrows + page counter), never autoplays; folio hides when everything fits." },
   { name: "WorkCard", home: "components/WorkCard.tsx", note: "Case-study card for grids; typographic placeholder until a thumbImage exists." },
   { name: "ContactCTA", home: "components/ContactCTA.tsx", note: "The bone 'interruption' band that closes most pages." },
   { name: "ContactForm", home: "components/ContactForm.tsx", note: "Netlify runtime-v5 form; static twin in public/__forms.html — keep fields in sync." },
@@ -165,6 +166,15 @@ export default function StylesheetPage() {
               (heading-lg — section H2s, client names), the items (heading-md
               and below). A list item never outranks its section&rsquo;s
               statement; a signpost never shouts like a moment.
+            </p>
+          </div>
+          <div className="md:col-span-2">
+            <p className="overline">Baselines lock</p>
+            <p className="body mt-4 max-w-[52ch] text-bone-dim">
+              Side-by-side type aligns on baselines, never box edges — first
+              baselines where prose sits beside a display line, last baselines
+              where a link meets a heading&rsquo;s bottom line. No eyeballed
+              padding nudges. Print rules the page; boxes are invisible.
             </p>
           </div>
         </div>

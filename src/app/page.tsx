@@ -3,6 +3,7 @@ import { getFeaturedProjects } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
+import Carousel from "@/components/Carousel";
 import ContactCTA from "@/components/ContactCTA";
 
 // Homepage — TYPE-LED, FLAT, EDITED (decided 2026-07-09, "rip up the rule
@@ -51,7 +52,7 @@ const PROCESS = [
 
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
-  const posts = getAllPosts().slice(0, 3);
+  const posts = getAllPosts().slice(0, 6);
 
   const logoStripItems: LogoStripItem[] = featured.map((project) => ({
     name: project.frontmatter.client,
@@ -60,40 +61,54 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ── Hero — type only. Two big Saol lines with the italic accent, the
-          lede in the sans, the flagship CTA pair. ── */}
-      <section className="flex min-h-[92svh] flex-col justify-center">
-        <div className="shell pt-24 md:pt-28">
-          <h1 className="display-mega opacity-0 animate-fade-in-up">
-            Practices that patients <em>trust</em>.
-          </h1>
-          <p
-            className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in-up md:mt-12"
-            style={{ animationDelay: "0.25s" }}
-          >
-            Brand, web design and SEO for cosmetic surgeons, medical aesthetic
-            clinics and dermatology practices.
-          </p>
-          {/* The view's ONE flagship (.btn-arrow — the nav demoted to a
-              secondary outline in the same change), paired with the tertiary
-              ghost. Primary action + quiet exploration. */}
-          <div
-            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 opacity-0 animate-fade-in-up md:mt-12"
-            style={{ animationDelay: "0.45s" }}
-          >
-            <Link href="/contact" className="btn btn-primary-dark btn-arrow">
-              Start a project
-              <span className="btn-arrow-chip" aria-hidden>↗</span>
-            </Link>
-            <Link href="#selected-work" className="btn-ghost text-bone">
-              See the work <span aria-hidden>→</span>
-            </Link>
+      {/* ── First screen — hero AND the trust bar compose ONE viewport
+          (decided 2026-07-10): the H1 makes the claim, the client logos are
+          the receipt, and a first impression should hold both in a single
+          glance. The wrapper is exactly 100svh; the hero flexes to fill
+          whatever the strip doesn't take, so the strip's bottom rule sits on
+          the fold line. min-h (never a hard height): on short laptop
+          viewports the composition takes slightly more than a screen rather
+          than crushing the hero's air — the fold bends before the
+          whitespace does. ── */}
+      <div className="flex min-h-[100svh] flex-col">
+        {/* Hero — type only. Two big Saol lines with the italic accent, the
+            lede in the sans, the flagship CTA pair. pt clears the absolute
+            nav. */}
+        <section className="flex flex-1 flex-col justify-center">
+          <div className="shell pt-28 md:pt-32">
+            <h1 className="display-mega opacity-0 animate-fade-in-up">
+              Practices that patients <em>trust</em>.
+            </h1>
+            <p
+              className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in-up md:mt-12"
+              style={{ animationDelay: "0.25s" }}
+            >
+              Brand, web design and SEO for cosmetic surgeons, medical aesthetic
+              clinics and dermatology practices.
+            </p>
+            {/* The view's ONE flagship (.btn-arrow — the nav demoted to a
+                secondary outline in the same change), paired with the tertiary
+                ghost. Primary action + quiet exploration. */}
+            <div
+              className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 opacity-0 animate-fade-in-up md:mt-12"
+              style={{ animationDelay: "0.45s" }}
+            >
+              <Link href="/contact" className="btn btn-primary-dark btn-arrow">
+                Start a project
+                <span className="btn-arrow-chip" aria-hidden>↗</span>
+              </Link>
+              <Link href="#selected-work" className="btn-ghost text-bone">
+                See the work <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Trust bar — a quiet ruled strip of client wordmarks. ── */}
-      <LogoStrip items={logoStripItems} />
+        {/* ── Trust bar — above the fold, closing the first screen. Present
+            from FIRST PAINT (no load-in, no reveal — 2026-07-10): the hero
+            copy may fade in, but the receipt is just there. ── */}
+        <LogoStrip items={logoStripItems} />
+      </div>
 
       {/* ── The studio — moved ABOVE the work 2026-07-09: the statement
           answers the H1's claim directly, so the page reads claim → who's
@@ -101,12 +116,12 @@ export default function HomePage() {
       <section className="py-32 md:py-44">
         <div className="shell">
           <p className="overline mb-8 reveal md:mb-10">The studio</p>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-baseline md:gap-8">
             <p className="heading-xl max-w-[24ch] text-balance reveal md:col-span-8">
               A studio that treats the clinic&rsquo;s digital presence with the
               same care as the practice <em>itself</em>.
             </p>
-            <div className="md:col-span-4 md:pt-3">
+            <div className="md:col-span-4">
               <p className="body text-bone-dim reveal" style={{ transitionDelay: "120ms" }}>
                 We exist for one kind of client: the practice whose standard of
                 care outruns its website. Clinicians spend years earning trust
@@ -150,7 +165,7 @@ export default function HomePage() {
           ranking is the Hawkes study's, shown directly above. ── */}
       <section id="selected-work" className="scroll-mt-14 py-24 md:py-32">
         <div className="shell">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
             <div>
               <p className="overline reveal">Selected work</p>
               <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
@@ -232,7 +247,7 @@ export default function HomePage() {
       <section className="py-24 md:py-32">
         <div className="shell">
           <p className="overline mb-8 reveal md:mb-10">Kind words</p>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:[align-items:last_baseline] md:gap-8">
             {/* IMAGERY PLACEHOLDER — client portrait slot */}
             <div className="reveal md:col-span-4">
               <div className="frame aspect-[4/5]">
@@ -265,7 +280,7 @@ export default function HomePage() {
       {/* ── How we work — the five steps, same as /services. ── */}
       <section className="py-24 md:py-32">
         <div className="shell">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
             <div>
               <p className="overline reveal">How we work</p>
               <h2 className="heading-lg from-overline max-w-[16ch] reveal" style={{ transitionDelay: "80ms" }}>
@@ -276,27 +291,34 @@ export default function HomePage() {
               The full process <span aria-hidden>→</span>
             </Link>
           </div>
-          <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 md:mt-20 lg:grid-cols-5">
-            {PROCESS.map((p, i) => (
-              <div
-                key={p.num}
-                className="border-t rule-dark pt-5 reveal"
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                <p className="index-num text-clay">{p.num}</p>
-                <h3 className="heading-sm mt-3">{p.title}</h3>
-                <p className="body-sm mt-3 text-bone-dim">{p.body}</p>
-              </div>
-            ))}
+          {/* The steps as a contact-sheet rail (2026-07-10 carousel
+              experiment) — ~3.5 plates visible, the cut plate is the
+              invitation to scroll; the folio line turns the pages. */}
+          <div className="reveal" style={{ transitionDelay: "120ms" }}>
+            <Carousel
+              ariaLabel="How we work — the five steps"
+              className="mt-14 md:mt-20"
+              slideClassName="w-[70vw] sm:w-[44%] lg:w-[26%]"
+            >
+              {PROCESS.map((p) => (
+                <div key={p.num} className="border-t rule-dark pt-5">
+                  <p className="index-num text-clay">{p.num}</p>
+                  <h3 className="heading-sm mt-3">{p.title}</h3>
+                  <p className="body-sm mt-3 text-bone-dim">{p.body}</p>
+                </div>
+              ))}
+            </Carousel>
           </div>
         </div>
       </section>
 
-      {/* ── Blog teasers ── */}
+      {/* ── Blog teasers — a rail instead of a grid (2026-07-10): the
+          carousel earns its place by holding SIX posts where the grid held
+          three. ── */}
       {posts.length > 0 && (
         <section className="py-24 md:py-32">
           <div className="shell">
-            <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
               <div>
                 <p className="overline reveal">Blog</p>
                 <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
@@ -307,35 +329,36 @@ export default function HomePage() {
                 All entries <span aria-hidden>→</span>
               </Link>
             </div>
-            <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-14 md:mt-20 md:grid-cols-3">
-              {posts.map((post, i) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="group reveal"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <div className="frame aspect-[4/3]">
-                    {post.frontmatter.featuredImage ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={post.frontmatter.featuredImage}
-                        alt={post.frontmatter.featuredImageAlt ?? ""}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      />
-                    ) : (
-                      <span className="portrait-fill absolute inset-0 flex items-center justify-center">
-                        <span className="index-num text-ink/30" aria-hidden>✦</span>
-                      </span>
-                    )}
-                  </div>
-                  <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
-                  <h3 className="heading-md mt-3 max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
-                    {post.frontmatter.title}
-                  </h3>
-                </Link>
-              ))}
+            <div className="reveal" style={{ transitionDelay: "120ms" }}>
+              <Carousel
+                ariaLabel="Latest blog posts"
+                className="mt-14 md:mt-20"
+                slideClassName="w-[76vw] sm:w-[48%] lg:w-[30%]"
+              >
+                {posts.map((post) => (
+                  <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
+                    <div className="frame aspect-[4/3]">
+                      {post.frontmatter.featuredImage ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={post.frontmatter.featuredImage}
+                          alt={post.frontmatter.featuredImageAlt ?? ""}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        />
+                      ) : (
+                        <span className="portrait-fill absolute inset-0 flex items-center justify-center">
+                          <span className="index-num text-ink/30" aria-hidden>✦</span>
+                        </span>
+                      )}
+                    </div>
+                    <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
+                    <h3 className="heading-md mt-3 max-w-[24ch] text-bone transition-opacity group-hover:opacity-70">
+                      {post.frontmatter.title}
+                    </h3>
+                  </Link>
+                ))}
+              </Carousel>
             </div>
           </div>
         </section>

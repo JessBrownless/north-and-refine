@@ -146,7 +146,7 @@ export default function ServicesPage() {
           <div className="mt-12 max-w-3xl divide-y rule-dark">
             {FAQS.map((f) => (
               <details key={f.question} className="group py-6">
-                <summary className="flex items-start justify-between gap-6 cursor-pointer list-none">
+                <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
                   <span className="heading-sm text-bone">{f.question}</span>
                   <span className="text-champagne text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>
                     +

@@ -37,35 +37,54 @@ export default function LogoStrip({
 
   return (
     /* .shell (not shell-wide — that was an edge-to-edge era leftover): the
-       kicker kisses the grid's LEFT edge like the H1 above it, the marks
-       reach its RIGHT edge like the work frames below. */
+       kicker kisses the grid's LEFT edge like the H1 above it; the marquee
+       clips at its RIGHT edge like the work frames below.
+
+       NO .reveal anywhere in this strip (2026-07-10): it now lives above
+       the fold, and the Reveal observer's rootMargin excludes the bottom
+       10% of the viewport — reveal-gated items here stay invisible until
+       first scroll. The strip must be present from first paint. */
     <div className="shell">
-      <div className="flex flex-col items-start gap-10 border-y rule-dark py-12 md:flex-row md:items-center md:justify-between md:gap-12 md:py-14">
-        <p className="overline shrink-0 text-clay reveal">{label}</p>
-        {/* The marks — sized to read as REAL logos; dimmed to sit with the
-            tonal type, lifting to full strength on hover. Mobile wraps
-            LEFT-ALIGNED like every other section (never a centred cluster —
-            off-vibe, 2026-07-09); md+ hugs the grid's right edge. */}
-        <ul className="flex flex-wrap items-center justify-start gap-x-8 gap-y-8 md:justify-end md:gap-x-16">
-          {items.map((item, i) => (
-            <li key={item.href} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-              <Link
-                href={item.href}
-                aria-label={item.name}
-                className="block opacity-60 transition-opacity duration-300 hover:opacity-100"
+      <div className="flex flex-col items-start gap-8 border-y rule-dark py-10 md:flex-row md:items-center md:gap-12 md:py-12">
+        <p className="overline shrink-0 text-clay">{label}</p>
+        {/* The marquee — logos must NEVER drop onto a second line
+            (2026-07-10), at any width or any future logo count, so the row
+            scrolls instead of wrapping: two copies loop seamlessly on the
+            existing 28s marquee token, hard-clipped at the shell edge
+            (straight-corner logic — no fade mask). Pauses on hover so the
+            links stay clickable; the second copy is aria-hidden and
+            untabbable; the global reduced-motion guard stills it to a
+            static clipped row. */}
+        <div className="w-full min-w-0 overflow-hidden md:w-auto md:flex-1">
+          <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+            {[0, 1].map((copy) => (
+              <ul
+                key={copy}
+                aria-hidden={copy === 1}
+                className="flex w-max items-center gap-x-14 pr-14 md:gap-x-20 md:pr-20"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={PLACEHOLDER_LOGO}
-                  alt=""
-                  aria-hidden
-                  className="h-12 w-auto md:h-16"
-                  loading="lazy"
-                />
-              </Link>
-            </li>
-          ))}
-        </ul>
+                {items.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-label={copy === 0 ? item.name : undefined}
+                      tabIndex={copy === 1 ? -1 : undefined}
+                      className="block opacity-60 transition-opacity duration-300 hover:opacity-100"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={PLACEHOLDER_LOGO}
+                        alt=""
+                        aria-hidden
+                        className="h-12 w-auto md:h-16"
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
