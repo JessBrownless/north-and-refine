@@ -376,7 +376,9 @@ export default function HomePage() {
               >
                 {posts.map((post) => (
                   <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-                    <div className="frame aspect-[4/3]">
+                    {/* 16:10 per the ratio canon — blog imagery is FIGURES
+                        (landscape), matching the /blog index slots. */}
+                    <div className="frame aspect-[16/10]">
                       {post.frontmatter.featuredImage ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img

@@ -25,18 +25,21 @@ export default function WorkCard({
 
   return (
     <Link href={`/work/${slug}`} className="group block reveal" style={{ transitionDelay: `${(index % 3) * 80}ms` }}>
-      {/* Thumb — the styled device COMPOSITE (cardImage, 4:3 on its own
-          matte, so no chrome needed here — just the house rounded edge),
-          falling back to the raw capture (thumbImage) or the typographic
-          placeholder until imagery lands. */}
-      <div className="frame aspect-[4/3]">
+      {/* Thumb — the styled device COMPOSITE (cardImage on its own matte,
+          so no chrome needed here), falling back to the raw capture
+          (thumbImage) or the typographic placeholder until imagery lands.
+          16:10 per the ratio canon (2026-07-10: landscape is 16:10 —
+          captures shot at 1440×900 fit uncropped; re-export any 4:3-era
+          cardImage composites on the new plate). No hover motion — plates
+          don't swell (drift rule 14). */}
+      <div className="frame aspect-[16/10]">
         {fm.cardImage || fm.thumbImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={fm.cardImage ?? fm.thumbImage}
             alt={fm.cardImage ? (fm.cardImageAlt ?? "") : (fm.thumbImageAlt ?? "")}
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">

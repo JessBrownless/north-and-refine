@@ -293,6 +293,28 @@ export default function StylesheetPage() {
           <p className="display text-ghost-on-dark whitespace-nowrap">.text-ghost-on-dark</p>
         </div>
 
+        {/* Imagery ratios — the two-plate canon (2026-07-10). */}
+        <Sub
+          title="Imagery ratios"
+          note="Two ratios, no freelancing (2026-07-10): landscape 16:10 — screens & editorial figures; desktop captures shot at 1440×900 fit uncropped. Portrait 4:5 — people & Instagram (IG posts are 4:5 native and are never cropped). Device bezels, the OG card and logo marks are the only exceptions; square is retired from content imagery."
+        />
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <div className="sm:col-span-2">
+            <div className="frame aspect-[16/10]">
+              <span className="portrait-fill absolute inset-0 flex items-end p-5">
+                <span className="label text-ink/40">aspect-[16/10] — screens &amp; figures (shot at 1440×900)</span>
+              </span>
+            </div>
+          </div>
+          <div>
+            <div className="frame aspect-[4/5]">
+              <span className="portrait-fill absolute inset-0 flex items-end p-5">
+                <span className="label text-ink/40">aspect-[4/5] — people &amp; Instagram</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Stage glyphs — the weight test, made permanent (2026-07-10):
             all five at 48px on both grounds, sitting on a hairline. The
             pass condition: stroke and rule indistinguishable in weight. */}

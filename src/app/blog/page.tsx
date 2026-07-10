@@ -62,16 +62,18 @@ export default function BlogIndexPage() {
                     <p className="body mt-2 line-clamp-2 text-bone-dim">{post.frontmatter.description}</p>
                     <p className="label mt-3 text-clay">{post.readingMinutes} min read</p>
                   </div>
-                  {/* Image slot — featuredImage, or the brand gradient until one lands */}
+                  {/* Image slot — featuredImage, or quiet parchment until one
+                      lands. 16:10 per the ratio canon (blog imagery is
+                      figures); no hover motion (drift rule 14). */}
                   <div className="md:col-span-3 md:col-start-9">
-                    <div className="frame aspect-[1.6]">
+                    <div className="frame aspect-[16/10]">
                       {post.frontmatter.featuredImage ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={post.frontmatter.featuredImage}
                           alt={post.frontmatter.featuredImageAlt ?? ""}
                           loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                          className="h-full w-full object-cover"
                         />
                       ) : (
                         <span className="portrait-fill absolute inset-0 flex items-center justify-center">

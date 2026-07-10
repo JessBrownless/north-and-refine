@@ -15,7 +15,9 @@ const IG_TILES: ({ kind: "shot"; src: string; pos: string } | { kind: "fill"; la
   { kind: "fill", label: "03" },
 ];
 
-// One Instagram tile — small, rounded, linking to the profile.
+// One Instagram tile, linking to the profile. 4:5 — Instagram portrait is
+// the feed's native ratio and the site NEVER crops it (ratio canon,
+// 2026-07-10: portrait is 4:5, same as people).
 function IgTile({ tile, profile }: { tile: (typeof IG_TILES)[number]; profile: string }) {
   return (
     <a
@@ -23,7 +25,7 @@ function IgTile({ tile, profile }: { tile: (typeof IG_TILES)[number]; profile: s
       target="_blank"
       rel="noreferrer"
       aria-label="North & Refine on Instagram"
-      className="group frame aspect-square w-full"
+      className="group frame aspect-[4/5] w-full"
     >
       {tile.kind === "shot" ? (
         // eslint-disable-next-line @next/next/no-img-element
