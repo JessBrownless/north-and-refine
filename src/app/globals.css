@@ -42,6 +42,14 @@
     /* Signal — the 10 of the 60-30-10: a bright ember used at dot scale
        (live-availability dots, ONE per view). Never body copy, never fills. */
     --ember: #ff7a00;
+    /* Masthead metrics (2026-07-10, the dead-corner hero plate) —
+       .display-mega's fluid size, and the height of ONE rendered line of it
+       (× its 0.94 line-height — keep the multiplier in sync). The homepage
+       hero plate tops itself with --masthead-line so it always clears the
+       H1's first line at every viewport; anything else that must align to
+       the masthead's first line should use these, never a copied clamp(). */
+    --masthead-size: clamp(3.25rem, 1.5rem + 8.75vw, 9.5rem); /* 52 → 152px */
+    --masthead-line: calc(var(--masthead-size) * 0.94);
   }
 
   html {
@@ -101,8 +109,8 @@
   .display-mega {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400; /* Saol ships one upright weight here */
-    font-size: clamp(3.25rem, 1.5rem + 8.75vw, 9.5rem); /* 52 → 152px */
-    line-height: 0.94;
+    font-size: var(--masthead-size); /* 52 → 152px — token shared with --masthead-line */
+    line-height: 0.94; /* mirrored in --masthead-line's multiplier */
     letter-spacing: -0.015em;
   }
 

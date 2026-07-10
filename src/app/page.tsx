@@ -14,7 +14,10 @@ import StageGlyph from "@/components/StageGlyph";
 // warm ink, one italic accent word per statement, quiet kickers, hairlines,
 // air. Nothing performs (no deck, no blend tricks, no scroll pin, no
 // ambient pools, no grain, no exit fades, no marquee — all parked in the
-// system, none invited here); imagery appears once, as the work itself.
+// system, none invited here). Imagery: the hero plate (Rowen 5 portrait in
+// the masthead's dead corner), the work captures (Selected work), and the
+// close plate (Rowen 8 landscape in ContactCTA) — the two Rowen frames
+// bookend the page: same room, same suite, the client's site on screen.
 //
 // Cut in the earn-its-place pass (2026-07-09 evening): the hero disciplines
 // list, the proof four-up, the service-row leads, the "Who we work with"
@@ -92,30 +95,86 @@ export default function HomePage() {
             nav. */}
         <section className="flex flex-1 flex-col justify-center">
           <div className="shell pt-28 md:pt-32">
-            <h1 className="display-mega opacity-0 animate-fade-in">
-              Practices that patients <em>trust</em>.
-            </h1>
-            <p
-              className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in md:mt-12"
-              style={{ animationDelay: "0.25s" }}
-            >
-              Brand, web design and SEO for cosmetic surgeons, medical aesthetic
-              clinics and dermatology practices.
-            </p>
-            {/* The view's ONE flagship (.btn-arrow — the nav demoted to a
-                secondary outline in the same change), paired with the tertiary
-                ghost. Primary action + quiet exploration. */}
-            <div
-              className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 opacity-0 animate-fade-in md:mt-12"
-              style={{ animationDelay: "0.45s" }}
-            >
-              <Link href="/contact" className="btn btn-primary-dark btn-arrow">
-                Start a project
-                <span className="btn-arrow-chip" aria-hidden>↗</span>
-              </Link>
-              <Link href="#selected-work" className="btn-ghost text-bone">
-                See the work <span aria-hidden>→</span>
-              </Link>
+            {/* THE DEAD-CORNER PORTRAIT (round 5, KEPT 2026-07-10 — the
+                composition that ended the hero-image saga after four dead
+                forms: cluster, Deck, panel paste-up, tipped-in landscape).
+                It survives because it competes with nothing: the H1 wraps
+                to a short second line, leaving the right of line 2 + the
+                deck row genuinely empty, and the 4:5 plate fills exactly
+                that corner. Absolutely positioned in this relative wrapper:
+                top clears the H1's FIRST line via var(--masthead-line)
+                (globals token — shares .display-mega's size so it cannot
+                drift), bottom locks to the CTA row's bottom, width derives
+                from height via the ratio (~304×380 at 1440). ZERO overlap
+                with type, ZERO pixels added to the fold, H1 at full
+                measure. lg+ gets this absolute plate; below lg the corner
+                doesn't exist, so mobile carries the in-flow plate below. */}
+            <div className="relative">
+              <h1 className="display-mega opacity-0 animate-fade-in">
+                Practices that patients <em>trust</em>.
+              </h1>
+              <p
+                className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in md:mt-12"
+                style={{ animationDelay: "0.25s" }}
+              >
+                Brand, web design and SEO for cosmetic surgeons, medical
+                aesthetic clinics and dermatology practices.
+              </p>
+              {/* The view's ONE flagship (.btn-arrow — the nav demoted to a
+                  secondary outline in the same change), paired with the
+                  tertiary ghost. Primary action + quiet exploration. */}
+              <div
+                className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 opacity-0 animate-fade-in md:mt-12"
+                style={{ animationDelay: "0.45s" }}
+              >
+                <Link href="/contact" className="btn btn-primary-dark btn-arrow">
+                  Start a project
+                  <span className="btn-arrow-chip" aria-hidden>↗</span>
+                </Link>
+                <Link href="#selected-work" className="btn-ghost text-bone">
+                  See the work <span aria-hidden>→</span>
+                </Link>
+              </div>
+              {/* MOBILE plate (kept with the set) — in flow below the CTAs,
+                  right-anchored like its desktop sibling, modest width.
+                  COST, accepted knowingly (2026-07-10): the phone first
+                  screen was exactly full, so this bends the fold and the
+                  LogoStrip slips just below it on phones — "the fold bends
+                  before the whitespace does". */}
+              <div
+                className="mt-12 ml-auto w-3/5 max-w-[260px] opacity-0 animate-fade-in lg:hidden"
+                style={{ animationDelay: "0.65s" }}
+              >
+                <div className="frame aspect-[4/5]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/plates/hero-rowen-05.jpg"
+                    alt="A laptop on a black side table displaying the Dr Yalda Jamali website — brand and web design by North & Refine"
+                    loading="eager"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              <div
+                className="absolute bottom-0 right-0 hidden aspect-[4/5] opacity-0 animate-fade-in lg:block"
+                style={{
+                  top: "calc(var(--masthead-line) + 0.75rem)",
+                  animationDelay: "0.65s",
+                }}
+              >
+                <div className="frame h-full w-full">
+                  {/* Rowen 5 with the real Dr Yalda desktop composited onto
+                      the laptop screen. Content, not decoration. Same asset
+                      as the mobile plate above — one image, two placements. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/plates/hero-rowen-05.jpg"
+                    alt="A laptop on a black side table displaying the Dr Yalda Jamali website — brand and web design by North & Refine"
+                    loading="eager"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
