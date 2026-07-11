@@ -46,21 +46,51 @@ export default function AboutPage() {
         ])}
       />
 
+      {/* Hero = the homepage studio statement, verbatim (client's call,
+          2026-07-11): the same kicker + heading-xl statement (with its
+          accent word) opens /about — the claim the homepage makes in
+          passing is the thesis this page exists to argue. Composed via
+          PageHero props (never a HeroX fork); no lede — the "Who we are"
+          narrative below carries the argument. */}
       <PageHero
-        overline="About the studio"
-        title="A small studio with a single, deliberate focus."
-        lede="North & Refine builds brands and websites for medical aesthetic and cosmetic surgery practices — and nothing else. That focus is the whole point."
+        overline="The studio"
+        title={
+          <>
+            A studio that treats the clinic&rsquo;s digital presence with the
+            same care as the practice <em>itself</em>.
+          </>
+        }
       />
 
       {/* Narrative */}
       <section className="bg-ink">
         <div className="shell py-16 md:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 md:items-baseline">
             <div className="md:col-span-4">
               <p className="overline reveal">Who we are</p>
+              {/* /about takes its reserved portrait (2026-07-10 sweep): the
+                  full client portrait, banked by the homepage Kind-words
+                  comment as "in reserve for /about" — the site's one real
+                  human photograph, on the people ratio. ⚠ Client to confirm
+                  framing + permission (it is her client's face). */}
+              <figure className="mt-10 reveal" style={{ transitionDelay: "120ms" }}>
+                <div className="frame aspect-[4/5]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/testimonials/client-portrait.jpg"
+                    alt="Dr Yalda Jamali, cosmetic doctor — a North & Refine client"
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+                <figcaption className="mt-4 flex items-baseline justify-between gap-4 border-t rule-dark pt-4">
+                  <span className="body-sm text-bone-dim">Dr Yalda Jamali</span>
+                  <span className="overline text-clay">Client</span>
+                </figcaption>
+              </figure>
             </div>
             <div className="md:col-span-8 max-w-2xl space-y-6">
-              <p className="body-lg text-bone/90 reveal">
+              <p className="body-lg text-bone reveal">
                 We started North &amp; Refine because the practices doing the most careful, considered
                 clinical work were too often let down by their brand and their website — generic
                 templates, slow pages, and copy that overclaimed where it should reassure.

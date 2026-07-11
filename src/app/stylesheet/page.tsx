@@ -16,11 +16,11 @@ export const metadata: Metadata = {
 /* ── Data ─────────────────────────────────────────────────────────────── */
 
 const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?: boolean }[] = [
-  { name: "Ink", cls: "bg-ink", hex: "#1C1710", use: "Default page background — warm near-black" },
-  { name: "Ink raised", cls: "bg-ink-raised", hex: "#26201A", use: "Raised surfaces / cards on dark" },
-  { name: "Ink line", cls: "bg-ink-line", hex: "#484036", use: "Hairline dividers on dark (rule-dark)" },
+  { name: "Ink", cls: "bg-ink", hex: "#0C0C0D", use: "Default page background — deep neutral black (settled 2026-07-10: the warm-ink era was trialled against it and the deep black kept; warmth lives in the light surfaces, accents and plates)" },
+  { name: "Ink raised", cls: "bg-ink-raised", hex: "#161618", use: "Raised surfaces / cards on dark" },
+  { name: "Ink line", cls: "bg-ink-line", hex: "#3A3A3E", use: "Hairline dividers on dark (rule-dark)" },
   { name: "Bone", cls: "bg-bone", hex: "#F2EEE6", use: "Light sections; primary text on ink", lightCard: true },
-  { name: "Bone dim", cls: "bg-bone-dim", hex: "#CBC6BB", use: "Secondary text on ink", lightCard: true },
+  { name: "Bone dim", cls: "bg-bone-dim", hex: "#C1B9B0", use: "Secondary text on ink (deepened 2026-07-10 — three clean tiers: bone / dim / clay)", lightCard: true },
   { name: "Bone line", cls: "bg-bone-line", hex: "#DAD4C8", use: "Hairline dividers on light (rule-light)", lightCard: true },
   { name: "Clay", cls: "bg-clay", hex: "#8A8578", use: "Captions, fine print, meta" },
   { name: "Champagne", cls: "bg-champagne", hex: "#C2A878", use: "THE accent — details & interactions only (ornament glyphs, links, hovers); never label type (2026-07-09)" },
@@ -30,8 +30,8 @@ const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?
 ];
 
 const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.ReactNode }[] = [
-  { cls: "display-mega", label: ".display-mega", note: "52→152px · marquee/billboard lockup", sample: "North & Refine" },
-  { cls: "display", label: ".display", note: "42→100px · billboard display (no current page use — the homepage H1 is .display-mega)", sample: "Considered by design" },
+  { cls: "display-mega", label: ".display-mega", note: "52→152px · marquee/billboard lockup (cap tuned to the .shell grid the hero sits on (1520 settled 2026-07-10))", sample: "North & Refine" },
+  { cls: "display", label: ".display", note: "42→100px · THE LEDGER ROWS: the What-we-do service titles (first live use 2026-07-11, sized up from heading-xl at the client's call)", sample: "Considered by design" },
   { cls: "heading-xl", label: ".heading-xl", note: "36→79px · THE MOMENTS register: interior-page H1s; homepage statement, service rows, the ContactCTA close", sample: "Brand & web design" },
   { cls: "heading-part", label: ".heading-part", note: "32→62px · THE PART TITLES (rung added 2026-07-10): the homepage collection heads — too small at lg (tied their own card names), too big at xl; a part title introduces a collection", sample: "Practices we've refined" },
   {
@@ -47,6 +47,7 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.Rea
   { cls: "heading-lg", label: ".heading-lg", note: "28→48px · section H2", sample: "What we do" },
   { cls: "heading-md", label: ".heading-md", note: "24→40px · card / sub-heading H3", sample: "Brand identity" },
   { cls: "heading-sm", label: ".heading-sm", note: "20→28px · smallest heading H4", sample: "The approach" },
+  { cls: "card-title text-bone", label: ".card-title", note: "17→22px · SANS card captions (2026-07-11): work-card client names + blog teaser titles — captions to their images, not headings; no em accent in sans", sample: "Dr Yalda Jamali" },
   { cls: "body-lg", label: ".body-lg", note: "16→19px · lede / intro copy", sample: "We build considered brands and high-performing websites for practices." },
   { cls: "body", label: ".body", note: "14→16px · default UI/body copy", sample: "The studio takes on a limited number of projects at a time." },
   { cls: "body-sm", label: ".body-sm", note: "13→14px · secondary/meta copy (footer links, attributions)", sample: "Brand identity, web design and SEO — one studio, one standard." },
@@ -59,6 +60,7 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.Rea
   { cls: "stat text-bone", label: ".stat", note: "40→72px · Dia stat numbers (Light 300)", sample: "156%" },
   { cls: "label text-clay", label: ".label", note: "13px · captions & meta", sample: "Brand · Web · SEO" },
   { cls: "fineprint", label: ".fineprint", note: "12px · fine print", sample: "© 2026 North & Refine Studio." },
+  { cls: "industry-band-title", label: ".industry-band-title", note: "28→68px, vw-SIZED (like .wordmark-giant — end-to-end bands fit the viewport, not the grid): the homepage industries band names (2026-07-11)", sample: "Cosmetic Surgery" },
   { cls: "wordmark-giant", label: ".wordmark-giant", note: "20vw (max 384px) · the footer's cropped NORTH — pair with overflow-hidden + translate-y", sample: "NORTH" },
 ];
 
@@ -67,6 +69,7 @@ const MOTION: { cls: string; note: string }[] = [
   { cls: "animate-fade-in-up", note: "RETIRED from the brand (2026-07-10) · the 16px rise is a screen idiom — ink develops where it sits; print never arrives from somewhere. Survives only in the /mockups archive" },
   { cls: "animate-track-in", note: "1.1s expo-out · overline reveal — fades in while letter-spacing eases open to 0.38em (typographic, not translational — it stays)" },
   { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — a pure 1.1s fade, IN PLACE (the rise retired 2026-07-10); stagger with transitionDelay" },
+  { cls: ".plate-develop / animate-fade-in-slow", note: "2.4s image tempo (2026-07-11): every homepage image fades slower than the type around it — prints develop after the ink sets. plate-develop rides the parent .reveal (sg-stroke mechanism); fade-in-slow is the load-in variant for the hero plates" },
   { cls: ".sg-stroke / .sg-stroke-2", note: "M·1 draw-on (2026-07-10): StageGlyph strokes draw themselves in on the plate's .reveal entry — 1.1s, the reveal curve; the second form lands +220ms; stagger per plate via --sg-delay. Entrance-only (print stillness holds); fully drawn outside a reveal and under reduced motion" },
   { cls: ".exit-fade", note: "fade-to-ink overlay on an EXITING section — ContactCTA and interior pages only; homepage sections do NOT perform (2026-07-09). JS-driven by the global <ExitFades />; .exit-fade-long = earlier window" },
   { cls: "animate-marquee", note: "PARKED · 28s linear loop · both uses retired (ghost text 2026-07-09; the trust-bar ticker trialled & retired 2026-07-10 — print stillness: nothing moves unbidden)" },
@@ -75,19 +78,20 @@ const MOTION: { cls: string; note: string }[] = [
 
 // Page-level organisms live in real routes — catalogued here, demoed there.
 const ORGANISM_INDEX: { name: string; home: string; note: string }[] = [
-  { name: "Navbar", home: "components/Navbar.tsx", note: "Tall transparent bar at the top of the page — scrolls away (no fixed pill). One nav — never fork it." },
+  { name: "Navbar", home: "components/Navbar.tsx", note: "Tall transparent bar at the top of the page — scrolls away (no fixed pill). Taller + full-bleed ruled 2026-07-11 (the first screen's top frame). One nav — never fork it." },
   { name: "Deck (showreel)", home: "components/Deck.tsx", note: "Fanned auto-cycling card stack; front card links to its case study. PARKED — the homepage is type-led now." },
   { name: "PageHero", home: "components/PageHero.tsx", note: "THE interior-page hero — extend via props (overline, title, lede, cta, meta, size); don't spawn HeroX." },
   { name: "Device cluster", home: "work/[slug]/page.tsx", note: "BrowserMockup + overlapping PhoneMockup — the canonical responsive showcase." },
   { name: "Editorial article grid", home: "work/[slug]/page.tsx", note: "Kicker rail (cols 2–4) · one-sentence statement + copy (cols 7–11) · figures span cols 2–11, or pair 5+5." },
   { name: "Stats band", home: "work/[slug]/page.tsx", note: "Raised full-width panel, .stat numerals with hairline dividers. Renders only when frontmatter metrics exist." },
   { name: "Testimonial band", home: "work/[slug]/page.tsx", note: "Centred client quote at .statement register (moved off the deprecated .blockquote 2026-07-09). Driven by testimonial frontmatter." },
+  { name: "Industries band (homepage)", home: "app/page.tsx", note: "Full-bleed row under the hero: three sector names at .industry-band-title, champagne ✦ ornaments between, each linking to its /industries page. Nowrap; reader-scrollable on mobile. The first screen's bottom frame." },
   { name: "Rowen plates (hero + close)", home: "app/page.tsx · components/ContactCTA.tsx", note: "The photographic bookends (2026-07-10): Rowen 5 portrait 4:5 in the hero's dead corner (top rides --masthead-line, bottom locks to the deck; mobile in-flow 3/5 right-anchored), Rowen 8 landscape 16:10 closing the CTA (bottom-locked, STATIC — the close doesn't perform). Real client site composited on each screen. Recipe: docs/briefs/hero-plates.md." },
   { name: "Kind words (homepage)", home: "app/page.tsx", note: "ONE testimonial: a native-portrait mockup plate (RowenPhone 5 — the client's mobile site on travertine, the close plate's stone) + .statement quote + ruled attribution with a CIRCULAR avatar chip (the corners rule's third exception — faces in circles read as people). The QUOTE stays visibly-marked placeholder until real words + permission exist." },
-  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "Under-hero trust bar — client marks in a STILL nowrap row (marquee retired 2026-07-10), above the fold, present from first paint. Marks are ALWAYS flattened to monochrome bone (colour punctures the ink), heights tuned per mark to equal optical width, matched to practices by name; the pool cycles until every client has a file." },
+  { name: "LogoStrip", home: "components/LogoStrip.tsx", note: "The trust bar — client marks in a STILL nowrap row (marquee retired 2026-07-10); settled under the Kind words testimonial 2026-07-11 (words, then receipts), revealing like its neighbours. Marks are ALWAYS flattened to monochrome bone (colour punctures the ink), heights tuned per mark to equal optical width, matched to practices by name; the pool cycles until every client has a file." },
   { name: "(Process — off the homepage)", home: "services/page.tsx", note: "The homepage process section was cut entirely 2026-07-10 after three forms in one day (carousel, spine timeline, method strip — all in git history). /services owns the five steps + glyph plates in full; /process page rejected (no query targets it). Don't re-add without the client asking." },
   { name: "StageGlyph", home: "components/StageGlyph.tsx", note: "Process-stage shape icons: pure geometric forms at a non-scaling 1px hairline — the rule system, curved. Working set R5 (lens pair · rings · corner-lock · triangle · trued); M·1 draw-on rides the plate's .reveal. On the homepage spine + /services plates. Brief: docs/briefs/stage-glyphs.md." },
-  { name: "Carousel", home: "components/Carousel.tsx", note: "Contact-sheet rail: snap plates, hard clip, folio-line controls (arrows + page counter), never autoplays; folio hides when everything fits. Homepage: blog teasers only (the process rail became the spine 2026-07-10)." },
+  { name: "Carousel", home: "components/Carousel.tsx", note: "Contact-sheet rail: snap plates, hard clip, folio-line controls (arrows + page counter), never autoplays; folio hides when everything fits. Homepage: blog teasers + Selected work's mobile rail (2026-07-11)." },
   { name: "WorkCard", home: "components/WorkCard.tsx", note: "Case-study card for grids; typographic placeholder until a thumbImage exists." },
   { name: "ContactCTA", home: "components/ContactCTA.tsx", note: "The bone close — mirrors the hero (kicker, heading-xl, lede, flagship + ghost); cover and back cover, inverted stock." },
   { name: "ContactForm", home: "components/ContactForm.tsx", note: "Netlify runtime-v5 form; static twin in public/__forms.html — keep fields in sync." },
@@ -212,11 +216,11 @@ export default function StylesheetPage() {
         {/* Typography */}
         <Sub
           title="Typography"
-          note="Saol Display (serif, 400) for ALL headings and the wordmark + Instrument Sans for body/UI (the sheared 'scalpel' terminals) + Geist Mono for engineered accents. One clamp() per class; never inline font sizes."
+          note="Saol Display (serif, 400) for ALL headings and the wordmark + Dia for body, UI and the meta voice (trial licence; production ships Instrument Sans until Dia is bought). The mono is retired from the brand. One clamp() per class; never inline font sizes."
         />
         <div className="mt-6 divide-y rule-dark">
           {TYPE_STYLES.map((t) => (
-            <div key={t.label} className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 items-baseline">
+            <div key={t.label} className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 items-baseline rule-dark">
               <div className="md:col-span-3">
                 <p className="label text-bone">{t.label}</p>
                 <p className="fineprint">{t.note}</p>
@@ -351,7 +355,7 @@ export default function StylesheetPage() {
         />
         <div className="mt-6 divide-y rule-dark">
           {MOTION.map((m) => (
-            <div key={m.cls} className="grid grid-cols-1 md:grid-cols-12 gap-4 py-6 items-center">
+            <div key={m.cls} className="grid grid-cols-1 md:grid-cols-12 gap-4 py-6 items-center rule-dark">
               <p className="label text-bone md:col-span-4">{m.cls}</p>
               <p className="fineprint md:col-span-8">{m.note}</p>
             </div>
@@ -497,7 +501,7 @@ export default function StylesheetPage() {
         <Sub title="Component index" note="Page-level organisms and where they live — one canonical implementation each; extend via props, never fork." />
         <div className="mt-6 divide-y rule-dark border-y rule-dark">
           {ORGANISM_INDEX.map((o) => (
-            <div key={o.name} className="grid grid-cols-1 md:grid-cols-12 gap-3 py-6">
+            <div key={o.name} className="grid grid-cols-1 md:grid-cols-12 gap-3 py-6 rule-dark">
               <p className="label text-bone md:col-span-3">{o.name}</p>
               <p className="fineprint md:col-span-3">src/{o.home}</p>
               <p className="fineprint md:col-span-6">{o.note}</p>

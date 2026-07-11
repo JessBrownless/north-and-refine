@@ -46,7 +46,7 @@ export const proseMdxComponents: MDXComponents = {
     ),
   a: ({ children, ...props }) => (
     <a
-      className="text-champagne underline underline-offset-4 decoration-from-font transition-opacity hover:opacity-70 rounded-sm"
+      className="text-champagne underline underline-offset-4 decoration-from-font transition-opacity hover:opacity-70"
       {...props}
     >
       {children}
@@ -64,7 +64,7 @@ export const proseMdxComponents: MDXComponents = {
   ),
   ol: ({ children, ...props }) => (
     <ol
-      className="body-reading mt-6 list-decimal list-outside pl-6 space-y-2 text-bone/90 marker:text-champagne"
+      className="body-reading mt-6 list-decimal list-outside pl-6 space-y-2 text-bone/90 marker:text-clay"
       {...props}
     >
       {children}
@@ -76,7 +76,7 @@ export const proseMdxComponents: MDXComponents = {
     </li>
   ),
   blockquote: ({ children, ...props }) => (
-    <blockquote className="blockquote my-10 text-bone" {...props}>
+    <blockquote className="statement my-10 text-bone" {...props}>
       {children}
     </blockquote>
   ),

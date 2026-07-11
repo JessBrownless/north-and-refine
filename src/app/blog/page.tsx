@@ -48,7 +48,7 @@ export default function BlogIndexPage() {
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 reveal md:items-center"
+                  className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 reveal md:items-center rule-dark"
                   style={{ transitionDelay: `${(i % 6) * 60}ms` }}
                 >
                   <div className="md:col-span-2">
@@ -56,7 +56,7 @@ export default function BlogIndexPage() {
                     <p className="label text-clay mt-2">{formatDate(post.frontmatter.publishedAt)}</p>
                   </div>
                   <div className="md:col-span-6">
-                    <h2 className="heading-md text-bone line-clamp-2 transition-opacity group-hover:opacity-70">
+                    <h2 className="card-title text-bone line-clamp-2 transition-opacity group-hover:opacity-70">
                       {post.frontmatter.title}
                     </h2>
                     <p className="body mt-2 line-clamp-2 text-bone-dim">{post.frontmatter.description}</p>
@@ -83,7 +83,7 @@ export default function BlogIndexPage() {
                     </div>
                   </div>
                   <div className="md:col-span-1 hidden md:flex justify-end">
-                    <span className="text-champagne transition-transform group-hover:translate-x-1" aria-hidden>
+                    <span className="text-bone-dim transition group-hover:translate-x-1 group-hover:text-champagne" aria-hidden>
                       →
                     </span>
                   </div>

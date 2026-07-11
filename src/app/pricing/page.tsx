@@ -51,7 +51,7 @@ const PACKAGES = [
     for: "Practices that want search and conversion to compound month on month.",
     includes: [
       "Monthly SEO & content work",
-      "Journal articles written for you",
+      "Blog articles written for you",
       "Conversion testing & refinement",
       "Technical health monitoring",
       "Quarterly strategy review",
@@ -114,13 +114,13 @@ export default function PricingPage() {
               <div
                 key={p.name}
                 className={`reveal border p-8 flex flex-col ${
-                  p.featured ? "border-champagne bg-ink-raised" : "rule-dark"
+                  p.featured ? "rule-dark bg-ink-raised" : "rule-dark"
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 {p.featured && <p className="overline">Most chosen</p>}
                 <h2 className="heading-md text-bone mt-1">{p.name}</h2>
-                <p className="stat text-bone mt-4" style={{ fontSize: "clamp(1.75rem,1.3rem+1.5vw,2.5rem)" }}>
+                <p className="stat text-bone mt-4">
                   {p.price}
                 </p>
                 <p className="body mt-3 text-bone-dim">{p.summary}</p>
@@ -128,7 +128,7 @@ export default function PricingPage() {
 
                 <ul className="mt-6 space-y-3 flex-1">
                   {p.includes.map((item) => (
-                    <li key={item} className="body flex gap-3 text-bone/85">
+                    <li key={item} className="body flex gap-3 text-bone-dim">
                       <span className="text-champagne" aria-hidden>
                         —
                       </span>
@@ -163,10 +163,10 @@ export default function PricingPage() {
           </h2>
           <div className="mt-12 max-w-3xl divide-y rule-light">
             {FAQS.map((f) => (
-              <details key={f.question} className="group py-6">
+              <details key={f.question} className="group py-6 rule-light">
                 <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
                   <span className="heading-sm">{f.question}</span>
-                  <span className="text-champagne text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>
+                  <span className="text-ink/70 text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>
                     +
                   </span>
                 </summary>

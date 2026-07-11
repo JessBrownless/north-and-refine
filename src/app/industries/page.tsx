@@ -36,7 +36,7 @@ export default function IndustriesIndexPage() {
               <Link
                 key={industry.slug}
                 href={`/industries/${industry.slug}`}
-                className="group flex flex-col md:flex-row md:items-baseline justify-between gap-4 py-8 reveal"
+                className="group flex flex-col md:flex-row md:items-baseline justify-between gap-4 py-8 reveal rule-dark"
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
                 <div className="max-w-2xl">

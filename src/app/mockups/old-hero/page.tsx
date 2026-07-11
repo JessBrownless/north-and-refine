@@ -8,12 +8,11 @@ import ServicesShowcase from "@/components/ServicesShowcase";
 import { getAllPosts } from "@/lib/journal";
 import { getFeaturedProjects, getSectorLabel, type WorkEntry, type WorkSector } from "@/lib/work";
 
-// COMPARISON MOCKUP (2026-07-10 late) — the PRE-REDESIGN HERO (74ec384's
-// centred lockup + Deck showreel, verbatim, with its crown glow + grain
-// scoped to the hero) transplanted onto the CURRENT site body, so the old
-// and new heroes can be judged in adjacent tabs against the same page.
-// Built during a "is the old hero better?" wobble — keep until the verdict,
-// then delete the route. Internal only; /mockups is robots-disallowed.
+// COMPARISON MOCKUP — ⚠ FROZEN (client's request, 2026-07-10): the verdict
+// went to the NEW hero; this page is kept as a HISTORICAL REFERENCE of the
+// pre-redesign Deck hero (74ec384) on the body as it stood the night of the
+// comparison. DO NOT sync its body with the evolving site, do not update,
+// do not delete. Internal only; /mockups is robots-disallowed.
 export const metadata: Metadata = {
   title: "Old hero comparison — design exploration",
   robots: { index: false, follow: false },

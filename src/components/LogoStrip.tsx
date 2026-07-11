@@ -50,15 +50,16 @@ export default function LogoStrip({
 
   return (
     /* .shell (not shell-wide — that was an edge-to-edge era leftover): the
-       kicker kisses the grid's LEFT edge like the H1 above it; the marquee
-       clips at its RIGHT edge like the work frames below.
+       kicker kisses the grid's LEFT edge; the row clips at its RIGHT edge
+       like the work frames.
 
-       NO .reveal anywhere in this strip (2026-07-10): it now lives above
-       the fold, and the Reveal observer's rootMargin excludes the bottom
-       10% of the viewport — reveal-gated items here stay invisible until
-       first scroll. The strip must be present from first paint. */
+       2026-07-11: the strip moved DOWN the page (after The Studio) at the
+       client's call, so it now reveals like any scroll section — the old
+       never-reveal rule was an above-the-fold constraint (the observer's
+       rootMargin excludes the bottom 10% of the viewport) and travels
+       with the placement, not the component. */
     <div className="shell">
-      <div className="flex flex-col items-start gap-8 border-y rule-dark py-10 md:flex-row md:items-center md:gap-12 md:py-12">
+      <div className="reveal flex flex-col items-start gap-8 border-y rule-dark py-10 md:flex-row md:items-center md:gap-12 md:py-12">
         <p className="overline shrink-0 text-clay">{label}</p>
         {/* A STILL row — the marquee was trialled and retired the same day
             (2026-07-10): print stillness — nothing on the page moves
@@ -77,7 +78,7 @@ export default function LogoStrip({
                   className="block opacity-60 transition-opacity duration-300 hover:opacity-100"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={logo.src} alt="" aria-hidden className={logo.cls} />
+                  <img src={logo.src} alt="" aria-hidden className={`plate-develop ${logo.cls}`} />
                 </Link>
               </li>
             );

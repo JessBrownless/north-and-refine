@@ -14,6 +14,20 @@ import { NextResponse, type NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   if (process.env.HOLDING_PAGE !== "true") return NextResponse.next();
 
+  // DEPLOY-SPECIFIC PREVIEW URLs BYPASS THE HOLD (2026-07-11, client's
+  // call): draft/preview deploys live on hashed subdomains that always
+  // contain "--" (e.g. 6a51...--north-and-refine.netlify.app). Those URLs
+  // are unlisted and unguessable, so they skip the holding page for easy
+  // mobile/device review — while the custom domain and the site's main
+  // netlify.app URL stay held. noindex belt-and-braces so a shared draft
+  // link can never enter an index.
+  const host = request.headers.get("host") ?? "";
+  if (host.includes("--")) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
+
   // Secret preview bypass (owner only): visiting any URL once with
   // ?preview=<PREVIEW_TOKEN> sets a week-long cookie; that browser then sees
   // the full site while everyone else stays on the holding page. Rotate or

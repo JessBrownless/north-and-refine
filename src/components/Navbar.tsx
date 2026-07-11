@@ -43,8 +43,15 @@ export default function Navbar() {
       {/* When open, the wrapper becomes a fixed full-screen ink overlay:
           bar on top, menu filling the rest of the viewport. */}
       <div className={open ? "fixed inset-0 z-50 bg-ink flex flex-col" : ""}>
-        <div className={`shell-wide ${open ? "border-b rule-dark" : ""}`}>
-          <nav className="flex h-24 items-center justify-between md:h-32">
+        <div className="border-b rule-dark">
+          {/* TALLER + RULED (2026-07-11, client's call: "something missing
+              from the hero" — the first screen had no frame; the nav's
+              hairline brackets its top the way the industries band's rule
+              closes its bottom). The border runs FULL-BLEED (on this outer
+              div, not the shell) so the line is end-to-end like the band
+              below. */}
+        <div className="shell-wide">
+          <nav className="flex h-28 items-center justify-between md:h-36">
             <Link href="/" className="flex items-center gap-2 group" aria-label={`${SITE.name} home`}>
               {/* The NR monogram (swapped in for the text wordmark 2026-07-05);
                   currentColor via ${fg} keeps it correct on any nav tone */}
@@ -70,10 +77,14 @@ export default function Navbar() {
               {/* Secondary outline CTA — the flagship arrow moved back DOWN
                   to the hero 2026-07-09: the hero owns the view's one
                   .btn-arrow, and two flagships in the first viewport
-                  violated the one-per-view rule. */}
+                  violated the one-per-view rule. Restored to FULL pill
+                  scale 2026-07-10 night (btn-sm dropped): demoting the
+                  hierarchy (secondary outline) didn't require demoting the
+                  SIZE — the small pill read as a shrunken nav against the
+                  old build. Tier stays secondary; only the scale returns. */}
               <Link
                 href="/contact"
-                className={`btn btn-sm ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
+                className={`btn ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
               >
                 Start a project
               </Link>
@@ -96,6 +107,7 @@ export default function Navbar() {
               />
             </button>
           </nav>
+        </div>
         </div>
 
         {/* Mobile menu — fills the rest of the viewport below the bar:

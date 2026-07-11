@@ -11,14 +11,12 @@ const config: Config = {
     extend: {
       colors: {
         // ── Base (dark, premium agency) ──────────────────────────────────
-        // ⚠ TRIAL (2026-07-10 late): darker warm ink — see the matching
-        // note in globals.css :root. Originals: #1C1710 / #26201A / #484036.
-        ink: "#130F09",
-        "ink-raised": "#1D1813",
-        "ink-line": "#3F382E",
+        ink: "#0C0C0D",
+        "ink-raised": "#161618",
+        "ink-line": "#3A3A3E",
         // ── Light surfaces & text ────────────────────────────────────────
         bone: "#F2EEE6", // warm off-white — light sections, text on ink
-        "bone-dim": "#C1B9B0", // ⚠ TRIAL (with darker ink): deepened from #CBC6BB — see globals.css note
+        "bone-dim": "#C1B9B0", // muted bone — secondary text on ink (deepened from #CBC6BB, settled 2026-07-10)
         "bone-line": "#DAD4C8", // hairline dividers on light
         clay: "#8A8578", // mid warm-grey — captions, fine print
         // ── Accent (single restrained metallic) ──────────────────────────
@@ -67,6 +65,7 @@ const config: Config = {
       animation: {
         "fade-in-up": "fadeInUp 0.8s ease-out forwards",
         "fade-in": "fadeIn 1.2s ease-out forwards",
+        "fade-in-slow": "fadeIn 2.4s ease-out forwards", // the plate tempo — images develop slower than type (2026-07-11)
         "track-in": "trackIn 1.1s cubic-bezier(0.16,1,0.3,1) forwards",
         marquee: "marquee 28s linear infinite",
         // Floaty hero elements — stagger depths by mixing the two speeds.

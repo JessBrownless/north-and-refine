@@ -74,7 +74,7 @@ export const INDUSTRIES: Industry[] = [
       "Brand identity systems that read as premium without tipping into clinical coldness",
       "Treatment pages structured for both search and genuine patient education",
       "Booking and enquiry flows designed to reduce friction, not add it",
-      "A content engine — the Journal model — that compounds in search over time",
+      "A content engine — the blog model — that compounds in search over time",
     ],
     faqs: [
       {

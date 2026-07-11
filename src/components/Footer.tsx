@@ -147,7 +147,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t rule-dark flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+        <div className="mt-16 pt-8 border-t rule-dark flex flex-col sm:flex-row gap-4 sm:items-baseline sm:justify-between">
           <p className="fineprint">
             © {year} {SITE.legalName}. All rights reserved. ·{" "}
             <Link href="/privacy" className="underline underline-offset-2 hover:text-bone transition-colors">

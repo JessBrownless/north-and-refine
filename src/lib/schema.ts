@@ -162,3 +162,14 @@ export function faqSchema(faqs: { question: string; answer: string }[]) {
     })),
   };
 }
+
+/** ContactPage schema — the /contact page's own node. */
+export function contactPageSchema(description: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: `Contact ${SITE.name}`,
+    url: absoluteUrl("/contact"),
+    description,
+  };
+}

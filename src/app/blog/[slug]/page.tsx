@@ -110,8 +110,12 @@ export default async function BlogPostPage({
       />
 
       <article className="pb-8">
+        {/* One .shell wrapper (2026-07-10 sweep): the reading column sits on
+            the shared left rail, not centred — only work/[slug] holds the
+            shell-wide licence. */}
+        <div className="shell">
         {/* Header */}
-        <header className="mx-auto max-w-[720px] px-6 md:px-8 pt-36 md:pt-48 reveal">
+        <header className="max-w-[720px] pt-36 md:pt-48 reveal">
           <div className="flex flex-col">
             <p className="overline">{getCategoryLabel(fm.category)}</p>
             <h1 className="heading-xl from-overline">{fm.title}</h1>
@@ -122,13 +126,13 @@ export default async function BlogPostPage({
 
         {/* Featured image */}
         {fm.featuredImage && (
-          <figure className="mx-auto max-w-[880px] px-6 md:px-8 mt-12 md:mt-16">
-            <div className="frame">
+          <figure className="max-w-[880px] mt-12 md:mt-16">
+            <div className="frame aspect-[16/10]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={fm.featuredImage}
                 alt={fm.featuredImageAlt ?? ""}
-                className="w-full h-auto"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
             {fm.featuredImageCaption && (
@@ -138,12 +142,12 @@ export default async function BlogPostPage({
         )}
 
         {/* Body */}
-        <div className="mx-auto max-w-[720px] px-6 md:px-8 mt-12 md:mt-16 [&>h2]:mt-16 [&>h2+*]:mt-4 [&>h3]:mt-10 [&>*:first-child]:mt-0">
+        <div className="max-w-[720px] mt-12 md:mt-16 [&>h2]:mt-16 [&>h2+*]:mt-4 [&>h3]:mt-10 [&>*:first-child]:mt-0">
           {content}
         </div>
 
         {/* Studio bio */}
-        <aside className="mx-auto max-w-[720px] px-6 md:px-8 mt-16 pt-10 border-t rule-dark">
+        <aside className="max-w-[720px] mt-16 pt-10 border-t rule-dark">
           <p className="overline text-clay">Written by</p>
           <p className="heading-md text-bone mt-4">{SITE.name}</p>
           <p className="body mt-3 text-bone-dim">
@@ -155,10 +159,11 @@ export default async function BlogPostPage({
           </Link>
         </aside>
 
-        <div className="mx-auto max-w-[720px] px-6 md:px-8 mt-10 pt-8 border-t rule-dark">
+        <div className="max-w-[720px] mt-10 pt-8 border-t rule-dark">
           <Link href="/blog" className="btn-ghost text-bone">
             <span aria-hidden>←</span> More from the Blog
           </Link>
+        </div>
         </div>
       </article>
 

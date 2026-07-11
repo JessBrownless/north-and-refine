@@ -36,10 +36,13 @@ cover, same room, same suite — one photographic decision, not two images.
 
 ## Composite recipe (sharp, via node_modules — no ImageMagick on this Mac)
 
-⚠ **Crop FIRST, composite SECOND.** sharp applies `.composite()` AFTER
-`.extract()` regardless of call order — compositing in source coordinates
-then cropping shifts the screen capture down by the crop offset (this bug
-shipped once, 2026-07-10, caught by the client's eye).
+⚠ **Bake the base COMPLETELY first (crop + grade + resize → buffer), then
+composite in the FINAL coordinate space.** sharp applies `.composite()`
+AFTER `.extract()` AND `.resize()` regardless of call order — compositing
+in source coordinates then cropping/resizing lands the capture in the
+wrong place at the wrong scale (both variants of this bug have now been
+shipped once each, 2026-07-10 — crop-shift on the hero plate, resize-scale
+on the contact plate).
 
 ```js
 // 1. Crop the frame to its canon ratio → buffer.

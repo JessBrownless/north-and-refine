@@ -90,7 +90,7 @@ export default function ContactCTA({
                 src="/assets/plates/cta-rowen-08.jpg"
                 alt="A laptop on a travertine plinth displaying the Dr Yalda Jamali website — brand and web design by North & Refine"
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="plate-develop absolute inset-0 h-full w-full object-cover"
               />
             </div>
           </div>

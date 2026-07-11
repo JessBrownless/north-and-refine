@@ -32,7 +32,7 @@ const SERVICES = [
     num: "03",
     title: "SEO & content",
     lead: "Found by the right patients, on your terms.",
-    body: "SEO isn't bolted on afterwards — it's in the foundations. Technical SEO, structured data, and a content engine built around how patients actually search mean each procedure and condition can earn its own ranking. The Journal model compounds over time, lowering your reliance on paid ads.",
+    body: "SEO isn't bolted on afterwards — it's in the foundations. Technical SEO, structured data, and a content engine built around how patients actually search mean each procedure and condition can earn its own ranking. The blog model compounds over time, lowering your reliance on paid ads.",
     deliverables: ["Technical SEO", "Schema / structured data", "Keyword & content strategy", "Local SEO", "Editorial content engine"],
   },
 ];
@@ -105,10 +105,10 @@ export default function ServicesPage() {
                 <p className="body-lg text-bone-dim mt-2">{s.lead}</p>
               </div>
               <div className="md:col-span-7">
-                <p className="body text-bone/85">{s.body}</p>
+                <p className="body text-bone-dim">{s.body}</p>
                 <ul className="mt-6 flex flex-wrap gap-x-3 gap-y-2">
                   {s.deliverables.map((d) => (
-                    <li key={d} className="label text-bone-dim border rule-dark rounded-full px-3 py-1.5">
+                    <li key={d} className="label text-bone-dim border rule-dark px-3 py-1.5">
                       {d}
                     </li>
                   ))}
@@ -163,7 +163,7 @@ export default function ServicesPage() {
           </h2>
           <div className="mt-12 max-w-3xl divide-y rule-dark">
             {FAQS.map((f) => (
-              <details key={f.question} className="group py-6">
+              <details key={f.question} className="group py-6 rule-dark">
                 <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
                   <span className="heading-sm text-bone">{f.question}</span>
                   <span className="text-champagne text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>

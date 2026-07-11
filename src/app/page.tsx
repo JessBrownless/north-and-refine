@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import { SITE } from "@/lib/site";
-import { getFeaturedProjects } from "@/lib/work";
+import { INDUSTRIES } from "@/lib/industries";
+import { getFeaturedProjects, type WorkEntry } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
@@ -29,6 +31,60 @@ import ContactCTA from "@/components/ContactCTA";
 // publish. Real, client-approved metrics belong inside their case
 // studies (work frontmatter `metrics`) when they exist — not here.
 
+// One Selected-work plate — shared by the desktop pair grid and the mobile
+// contact-sheet rail (2026-07-11: four stacked captures made the phone page
+// a scroll marathon; the rail holds all four in one beat, reader-driven).
+function WorkPlate({
+  project,
+  className = "",
+  delay = 0,
+}: {
+  project: WorkEntry;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <Link
+      href={`/work/${project.slug}`}
+      className={`group block ${className}`}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
+      <div className="frame aspect-[16/10]">
+        {project.frontmatter.thumbImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.frontmatter.thumbImage}
+            alt={project.frontmatter.thumbImageAlt ?? `${project.frontmatter.client} — website design`}
+            loading="lazy"
+            className="plate-develop absolute inset-0 h-full w-full object-cover object-top"
+          />
+        ) : (
+          <span className="portrait-fill absolute inset-0 flex items-center justify-center">
+            <span className="index-num text-ink/25" aria-hidden>
+              ✦
+            </span>
+          </span>
+        )}
+      </div>
+      <div className="mt-5 flex items-baseline justify-between gap-4 border-t rule-dark pt-4">
+        {/* .card-title (2026-07-11): card titles are captions, not headings —
+            sans, shared with the blog teasers; no Saol em accent. */}
+        <h3 className="card-title text-bone transition-opacity group-hover:opacity-70">
+          {project.frontmatter.client}
+        </h3>
+        <span className="overline text-clay">
+          {project.frontmatter.services.slice(0, 2).join(" · ")}
+        </span>
+      </div>
+      {project.frontmatter.summary && (
+        <p className="body-sm mt-3 max-w-[52ch] text-bone-dim">
+          {project.frontmatter.summary}
+        </p>
+      )}
+    </Link>
+  );
+}
+
 // Editorial date for the blog teaser cards.
 function formatDate(iso: string): string {
   return new Intl.DateTimeFormat("en-AU", {
@@ -50,21 +106,53 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ── First screen — hero AND the trust bar compose ONE viewport
-          (decided 2026-07-10): the H1 makes the claim, the client logos are
-          the receipt, and a first impression should hold both in a single
-          glance. The wrapper is exactly 100svh; the hero flexes to fill
-          whatever the strip doesn't take, so the strip's bottom rule sits on
-          the fold line. min-h (never a hard height): on short laptop
-          viewports the composition takes slightly more than a screen rather
-          than crushing the hero's air — the fold bends before the
-          whitespace does. ── */}
+      {/* ── First screen — the HERO ALONE owns the viewport (2026-07-11:
+          the trust bar moved down the page at the client's call — it now
+          answers The Studio's "one kind of client" instead of crowding the
+          masthead; the 2026-07-10 hero+strip one-viewport composition is
+          superseded). min-h (never a hard height): short viewports bend
+          the fold before crushing the hero's air. ── */}
       <div className="flex min-h-[100svh] flex-col">
         {/* Hero — type only. Two big Saol lines with the italic accent, the
             lede in the sans, the flagship CTA pair. pt clears the absolute
             nav. */}
-        <section className="flex flex-1 flex-col justify-center">
-          <div className="shell pt-28 md:pt-32">
+        <section className="relative flex flex-1 flex-col justify-center overflow-hidden">
+          {/* ⚠ TRIAL (2026-07-11): GRADIENT POOLS in the hero, client-
+              requested — this repeals HOUSE RULE #1 ("the ground is flat",
+              2026-07-09) and drift rule 9 for ONE section, as a trial.
+              Built to the old era's hard-won recipe: OPAQUE champagne-into-
+              ink mixes (never filter-blurred divs — they band into visible
+              rings on dark), closest-side radials with centred geometry
+              that cannot clip, and STILL — no float animation; print
+              stillness survives even where flatness doesn't. If kept:
+              rewrite the flat-ground doctrine in CLAUDE.md + /stylesheet
+              house rules. If killed: delete this layer + the section's
+              relative/overflow-hidden + the shell's z-10. */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+            {/* Crown glow — a breath of champagne behind the masthead */}
+            <div
+              className="absolute inset-x-0 top-0 h-[70vh]"
+              style={{
+                background:
+                  "radial-gradient(85% 90% at 38% 0%, color-mix(in srgb, var(--champagne) 8%, var(--ink)) 0%, var(--ink) 72%)",
+              }}
+            />
+            {/* One low pool near the plate corner — lit air, not a shape */}
+            <div
+              className="absolute bottom-[-10%] right-[-5%] m-auto h-[55vh] w-[42vw] max-w-full"
+              style={{
+                background:
+                  "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
+              }}
+            />
+          </div>
+          {/* Back on .shell (2026-07-10 night, clarified): the client wants
+              ONE left rail — hero content aligned with the strip and body
+              on the SAME content grid (now the live-era 1280). A shell-wide
+              hero was trialled for an hour the same night and read as two
+              different pages sharing a scroll. The masthead cap is tuned to
+              this grid (see --masthead-size). */}
+          <div className="shell relative z-10 pt-28 md:pt-32">
             {/* THE DEAD-CORNER PORTRAIT (round 5, KEPT 2026-07-10 — the
                 composition that ended the hero-image saga after four dead
                 forms: cluster, Deck, panel paste-up, tipped-in landscape).
@@ -80,8 +168,26 @@ export default function HomePage() {
                 measure. lg+ gets this absolute plate; below lg the corner
                 doesn't exist, so mobile carries the in-flow plate below. */}
             <div className="relative">
+              {/* Hard break — the wrap is COMPOSITION, not chance: on the
+                  1520 grid a natural wrap swallowed "patients" into line 1
+                  and stranded "trust." as a widow (2026-07-10 night). Two
+                  lines at every size; "Practices that" fits even at the
+                  52px mobile minimum. */}
+              {/* THE ACCENT LANDS LAST (2026-07-11): the roman text, lede,
+                  buttons and plate develop first; the italic "trust." fades
+                  in a full beat after everything — the claim completes
+                  itself in front of the reader. ONCE, then still (a looping
+                  typewriter rotation was proposed and counselled against:
+                  it repeals print stillness in the most visible position,
+                  and rotating words hedge the one claim the site exists to
+                  make). */}
               <h1 className="display-mega opacity-0 animate-fade-in">
-                Practices that patients <em>trust</em>.
+                Practices that{" "}
+                <br />
+                patients{" "}
+                <span className="opacity-0 animate-fade-in" style={{ animationDelay: "1.1s" }}>
+                  <em>trust</em>.
+                </span>
               </h1>
               {/* The OFFICIAL TAGLINE (2026-07-10) — referenced from
                   SITE.tagline (src/lib/site.ts, the single source of brand
@@ -110,12 +216,11 @@ export default function HomePage() {
               </div>
               {/* MOBILE plate (kept with the set) — in flow below the CTAs,
                   right-anchored like its desktop sibling, modest width.
-                  COST, accepted knowingly (2026-07-10): the phone first
-                  screen was exactly full, so this bends the fold and the
-                  LogoStrip slips just below it on phones — "the fold bends
-                  before the whitespace does". */}
+                  (2026-07-11: the LogoStrip left the first screen, so the
+                  old phone-fold cost note is history — the hero owns the
+                  mobile fold alone now.) */}
               <div
-                className="mt-12 ml-auto w-3/5 max-w-[260px] opacity-0 animate-fade-in lg:hidden"
+                className="mt-12 ml-auto w-3/5 max-w-[260px] opacity-0 animate-fade-in-slow lg:hidden"
                 style={{ animationDelay: "0.65s" }}
               >
                 <div className="frame aspect-[4/5]">
@@ -129,7 +234,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div
-                className="absolute bottom-0 right-0 hidden aspect-[4/5] opacity-0 animate-fade-in lg:block"
+                className="absolute bottom-0 right-0 hidden aspect-[4/5] opacity-0 animate-fade-in-slow lg:block"
                 style={{
                   top: "calc(var(--masthead-line) + 0.75rem)",
                   animationDelay: "0.65s",
@@ -152,11 +257,41 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Trust bar — above the fold, closing the first screen. Present
-            from FIRST PAINT (no load-in, no reveal — 2026-07-10): the hero
-            copy may fade in, but the receipt is just there. ── */}
-        <LogoStrip items={logoStripItems} />
       </div>
+
+      {/* ── Industries band (2026-07-11, client's call) — an END-TO-END
+          full-bleed row directly under the hero: the three sector names in
+          big Saol (.industry-band-title, vw-sized so the set fits the
+          viewport), clay / separators between at full band size (v2 — caps + slashes;
+          ornament glyphs are a sanctioned champagne use). TRUE edge-to-edge
+          on md+ (2026-07-11 "more impact"): zero side padding — the first
+          and last names kiss the viewport edges, wordmark-giant logic.
+          Each name links
+          to its /industries page — the first homepage links those SEO
+          pages have ever had. Mobile: nowrap, reader-scrollable (the
+          LogoStrip pattern — motion only from the reader). ── */}
+      <section className="border-y rule-dark py-7 md:py-9">
+        <nav
+          aria-label="Industries we serve"
+          className="flex flex-nowrap items-baseline gap-x-7 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:justify-between md:gap-x-8 md:overflow-visible md:px-0"
+        >
+          {INDUSTRIES.map((industry, i) => (
+            <Fragment key={industry.slug}>
+              {i > 0 && (
+                <span aria-hidden className="industry-band-title shrink-0 text-clay">
+                  /
+                </span>
+              )}
+              <Link
+                href={`/industries/${industry.slug}`}
+                className="industry-band-title shrink-0 whitespace-nowrap text-bone transition-opacity hover:opacity-70"
+              >
+                {industry.name}
+              </Link>
+            </Fragment>
+          ))}
+        </nav>
+      </section>
 
       {/* ── The studio — moved ABOVE the work 2026-07-09: the statement
           answers the H1's claim directly, so the page reads claim → who's
@@ -229,46 +364,31 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Staggered pair rhythm — the right column starts a beat lower. */}
-          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-16 md:mt-20 md:grid-cols-2">
+          {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
+              all four captures in one beat, reader-driven like the blog
+              rail below. */}
+          <div className="reveal md:hidden" style={{ transitionDelay: "120ms" }}>
+            <Carousel
+              ariaLabel="Selected work"
+              className="mt-14"
+              slideClassName="w-[76vw]"
+            >
+              {featured.map((project) => (
+                <WorkPlate key={project.slug} project={project} />
+              ))}
+            </Carousel>
+          </div>
+
+          {/* Desktop: the staggered pair rhythm — the right column starts a
+              beat lower. */}
+          <div className="mt-14 hidden grid-cols-1 gap-x-8 gap-y-16 md:mt-20 md:grid md:grid-cols-2">
             {featured.map((project, i) => (
-              <Link
+              <WorkPlate
                 key={project.slug}
-                href={`/work/${project.slug}`}
-                className={`group block reveal ${i % 2 === 1 ? "md:mt-28" : ""}`}
-                style={{ transitionDelay: `${(i % 2) * 120}ms` }}
-              >
-                <div className="frame aspect-[16/10]">
-                  {project.frontmatter.thumbImage ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={project.frontmatter.thumbImage}
-                      alt={project.frontmatter.thumbImageAlt ?? `${project.frontmatter.client} — website design`}
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover object-top"
-                    />
-                  ) : (
-                    <span className="portrait-fill absolute inset-0 flex items-center justify-center">
-                      <span className="index-num text-ink/25" aria-hidden>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </span>
-                  )}
-                </div>
-                <div className="mt-5 flex items-baseline justify-between gap-4 border-t rule-dark pt-4">
-                  <h3 className="heading-lg transition-opacity group-hover:opacity-70">
-                    <em>{project.frontmatter.client}</em>
-                  </h3>
-                  <span className="overline text-clay">
-                    {project.frontmatter.services.slice(0, 2).join(" · ")}
-                  </span>
-                </div>
-                {project.frontmatter.summary && (
-                  <p className="body-sm mt-3 max-w-[52ch] text-bone-dim">
-                    {project.frontmatter.summary}
-                  </p>
-                )}
-              </Link>
+                project={project}
+                className={`reveal ${i % 2 === 1 ? "md:mt-28" : ""}`}
+                delay={(i % 2) * 120}
+              />
             ))}
           </div>
 
@@ -300,7 +420,7 @@ export default function HomePage() {
                   src="/assets/plates/kind-words-rowen-phone-05.jpg"
                   alt="A phone on travertine displaying the Dr Yalda Jamali mobile site — brand and web design by North & Refine"
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="plate-develop absolute inset-0 h-full w-full object-cover"
                 />
               </div>
             </div>
@@ -326,7 +446,7 @@ export default function HomePage() {
                   alt=""
                   aria-hidden
                   loading="lazy"
-                  className="h-10 w-10 rounded-full object-cover"
+                  className="plate-develop h-10 w-10 rounded-full object-cover"
                 />
                 <p className="body-sm text-bone">Dr Yalda Jamali</p>
                 <span aria-hidden className="hidden h-3 w-px bg-bone/15 sm:block" />
@@ -336,6 +456,12 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Trust bar — under the testimonial (2026-07-11, second move of
+          the day: first-screen → after The Studio → here): one client
+          speaks in Kind words, then the roster corroborates — words, then
+          receipts. Below the fold it reveals like its neighbours. ── */}
+      <LogoStrip items={logoStripItems} />
 
       {/* ── (The process left the homepage entirely 2026-07-10 late — it
           burned through carousel, spine timeline and a slim method strip
@@ -379,7 +505,7 @@ export default function HomePage() {
                           src={post.frontmatter.featuredImage}
                           alt={post.frontmatter.featuredImageAlt ?? ""}
                           loading="lazy"
-                          className="h-full w-full object-cover"
+                          className="plate-develop h-full w-full object-cover"
                         />
                       ) : (
                         <span className="portrait-fill absolute inset-0 flex items-center justify-center">
@@ -388,7 +514,7 @@ export default function HomePage() {
                       )}
                     </div>
                     <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
-                    <h3 className="heading-sm mt-3 max-w-[28ch] text-bone transition-opacity group-hover:opacity-70">
+                    <h3 className="card-title mt-3 max-w-[28ch] text-bone transition-opacity group-hover:opacity-70">
                       {post.frontmatter.title}
                     </h3>
                   </Link>

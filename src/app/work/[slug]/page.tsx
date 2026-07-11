@@ -122,7 +122,7 @@ export default async function WorkDetailPage({
 
       {/* Hero — title left, stacked project meta right (editorial pattern) */}
       <section className="relative grain scene-ink overflow-hidden">
-        <div className="shell-wide pt-36 pb-12 md:pt-48 md:pb-16 relative z-10 lg:grid lg:grid-cols-12 lg:gap-x-10">
+        <div className="shell-wide pt-36 pb-12 md:pt-48 md:pb-16 relative z-10 lg:grid lg:grid-cols-12 lg:gap-x-10 lg:items-baseline">
           <div className="lg:col-span-8">
             <p className="overline reveal">
               {getSectorLabel(fm.sector)} · {fm.year}
@@ -139,7 +139,7 @@ export default async function WorkDetailPage({
 
           {/* Meta rail */}
           <dl
-            className="mt-12 grid grid-cols-2 gap-8 lg:mt-2 lg:block lg:space-y-7 lg:col-span-3 lg:col-start-10 reveal"
+            className="mt-12 grid grid-cols-2 gap-8 lg:mt-0 lg:block lg:space-y-7 lg:col-span-3 lg:col-start-10 reveal"
             style={{ transitionDelay: "240ms" }}
           >
             <div>
@@ -176,7 +176,7 @@ export default async function WorkDetailPage({
 
         {/* Hero media — the responsive device cluster (BrowserMockup anchored
             right, PhoneMockup overlapping its lower-left corner) lives INSIDE
-            the hero section so the scene-ink glow runs unbroken behind the
+            the hero section so the flat ink scene runs unbroken behind the
             lockup and the mockup alike. */}
         {fm.heroImage && (
           <div className="shell-wide relative z-10 pb-24 md:pb-32">
@@ -195,7 +195,7 @@ export default async function WorkDetailPage({
                 className="absolute -bottom-10 left-0 hidden sm:block md:-bottom-14 reveal"
                 style={{ transitionDelay: "160ms" }}
               >
-                <div className="-rotate-[7deg] animate-float-slower">
+                <div className="-rotate-[7deg]">
                   <PhoneMockup
                     screenshot={fm.mobileImage}
                     screenshotAlt={fm.mobileImageAlt ?? ""}
@@ -209,7 +209,7 @@ export default async function WorkDetailPage({
         )}
       </section>
 
-      {/* Outcomes — a dedicated stats band, big champagne numerals */}
+      {/* Outcomes — a dedicated stats band, big bone numerals */}
       {fm.metrics && fm.metrics.length > 0 && (
         <section className="border-y rule-dark bg-ink-raised/30">
           <div className="shell py-14 md:py-20">
@@ -264,7 +264,7 @@ export default async function WorkDetailPage({
       <section className="shell py-16 border-t rule-dark">
         <Link href={`/work/${next.slug}`} className="group block">
           <p className="overline text-clay">Next project</p>
-          <h2 className="heading-lg text-bone mt-3 transition-opacity group-hover:opacity-70">
+          <h2 className="heading-lg text-bone from-overline transition-opacity group-hover:opacity-70">
             {next.frontmatter.title}
           </h2>
         </Link>

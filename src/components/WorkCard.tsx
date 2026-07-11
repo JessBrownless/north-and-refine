@@ -24,7 +24,16 @@ export default function WorkCard({
   const light = tone === "light";
 
   return (
-    <Link href={`/work/${slug}`} className="group block reveal" style={{ transitionDelay: `${(index % 3) * 80}ms` }}>
+    /* THE EXTENDED SELECTED-WORK BAND (2026-07-10 sweep): /work adopts the
+       homepage's card grammar wholesale — ruled caption (italic client name
+       + services meta on a baseline lock), body-sm summary, and the
+       staggered pair rhythm (odd cards start a beat lower) — so "All work →"
+       lands in the extended edition of the band that sent the reader. */
+    <Link
+      href={`/work/${slug}`}
+      className={`group block reveal ${index % 2 === 1 ? "md:mt-28" : ""}`}
+      style={{ transitionDelay: `${(index % 2) * 120}ms` }}
+    >
       {/* Thumb — the styled device COMPOSITE (cardImage on its own matte,
           so no chrome needed here), falling back to the raw capture
           (thumbImage) or the typographic placeholder until imagery lands.
@@ -42,22 +51,29 @@ export default function WorkCard({
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-display text-bone/20 text-6xl">{num}</span>
-          </div>
+          <span className="portrait-fill absolute inset-0 flex items-center justify-center">
+            <span className="index-num text-ink/25" aria-hidden>
+              {num}
+            </span>
+          </span>
         )}
       </div>
 
-      {/* Meta */}
-      <div className="mt-5 flex items-baseline justify-between gap-4">
-        <p className={`overline ${light ? "text-clay" : ""}`}>{getSectorLabel(fm.sector)}</p>
-        <p className="label text-clay">{fm.year}</p>
+      {/* Ruled caption — the homepage Selected-work grammar (page.tsx):
+          sans .card-title client name, services meta in clay overline,
+          baseline-locked on one hairline. */}
+      <div className={`mt-5 flex items-baseline justify-between gap-4 border-t pt-4 ${light ? "rule-light" : "rule-dark"}`}>
+        <h3 className={`card-title transition-opacity group-hover:opacity-70 ${light ? "text-ink" : "text-bone"}`}>
+          {fm.client}
+        </h3>
+        <span className="overline text-clay">{fm.services.slice(0, 2).join(" · ")}</span>
       </div>
-      <h3 className={`heading-md mt-2 transition-opacity group-hover:opacity-70 ${light ? "text-ink" : "text-bone"}`}>
-        {fm.title}
-      </h3>
-      {fm.summary && <p className={`body mt-2 ${light ? "text-ink/70" : "text-bone-dim"}`}>{fm.summary}</p>}
-      <p className="label mt-4 text-clay">{fm.services.join(" · ")}</p>
+      {fm.summary && (
+        <p className={`body-sm mt-3 max-w-[52ch] ${light ? "text-ink/70" : "text-bone-dim"}`}>{fm.summary}</p>
+      )}
+      <p className="label mt-4 text-clay">
+        {getSectorLabel(fm.sector)} · {fm.year}
+      </p>
     </Link>
   );
 }

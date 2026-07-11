@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { INDUSTRIES, getIndustryBySlug } from "@/lib/industries";
+import { SITE } from "@/lib/site";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import ContactCTA from "@/components/ContactCTA";
@@ -29,6 +30,7 @@ export async function generateMetadata({
       title: industry.heading,
       description: industry.metaDescription,
       url: canonical,
+      images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: SITE.name }],
     },
   };
 }
@@ -81,13 +83,13 @@ export default async function IndustryPage({
               {industry.points.map((point, i) => (
                 <li
                   key={point}
-                  className="flex gap-5 py-5 reveal"
+                  className="flex gap-5 py-5 reveal rule-dark"
                   style={{ transitionDelay: `${i * 60}ms` }}
                 >
                   <span className="index-num text-clay shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="body-lg text-bone/85">{point}</p>
+                  <p className="body-lg text-bone-dim">{point}</p>
                 </li>
               ))}
             </ul>
@@ -104,10 +106,10 @@ export default async function IndustryPage({
           </h2>
           <div className="mt-12 max-w-3xl divide-y rule-light">
             {industry.faqs.map((f) => (
-              <details key={f.question} className="group py-6">
+              <details key={f.question} className="group py-6 rule-light">
                 <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
                   <span className="heading-sm">{f.question}</span>
-                  <span className="text-champagne text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>
+                  <span className="text-ink/70 text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>
                     +
                   </span>
                 </summary>
