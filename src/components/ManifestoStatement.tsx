@@ -66,7 +66,7 @@ export default function ManifestoStatement({ text }: { text: string }) {
   }, []);
 
   return (
-    <p ref={ref} className="heading-xl max-w-4xl">
+    <p ref={ref} className="display max-w-5xl">
       {text.split(" ").map((word, i) => (
         <span key={i} data-word style={{ opacity: 0.15 }}>
           {word}{" "}

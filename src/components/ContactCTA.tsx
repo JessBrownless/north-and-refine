@@ -55,7 +55,7 @@ export default function ContactCTA({
               )}
             </h2>
             <p
-              className="body-lg mt-10 max-w-[44ch] text-ink/70 reveal md:mt-12"
+              className="body-lg md:text-[21px] mt-10 max-w-[44ch] text-ink/70 reveal md:mt-12"
               style={{ transitionDelay: "160ms" }}
             >
               {body}

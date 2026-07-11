@@ -43,15 +43,8 @@ export default function Navbar() {
       {/* When open, the wrapper becomes a fixed full-screen ink overlay:
           bar on top, menu filling the rest of the viewport. */}
       <div className={open ? "fixed inset-0 z-50 bg-ink flex flex-col" : ""}>
-        <div className="border-b rule-dark">
-          {/* TALLER + RULED (2026-07-11, client's call: "something missing
-              from the hero" — the first screen had no frame; the nav's
-              hairline brackets its top the way the industries band's rule
-              closes its bottom). The border runs FULL-BLEED (on this outer
-              div, not the shell) so the line is end-to-end like the band
-              below. */}
-        <div className="shell-wide">
-          <nav className="flex h-28 items-center justify-between md:h-36">
+        <div className={`shell-wide ${open ? "border-b rule-dark" : ""}`}>
+          <nav className="flex h-24 items-center justify-between md:h-32">
             <Link href="/" className="flex items-center gap-2 group" aria-label={`${SITE.name} home`}>
               {/* The NR monogram (swapped in for the text wordmark 2026-07-05);
                   currentColor via ${fg} keeps it correct on any nav tone */}
@@ -74,19 +67,13 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              {/* Secondary outline CTA — the flagship arrow moved back DOWN
-                  to the hero 2026-07-09: the hero owns the view's one
-                  .btn-arrow, and two flagships in the first viewport
-                  violated the one-per-view rule. Restored to FULL pill
-                  scale 2026-07-10 night (btn-sm dropped): demoting the
-                  hierarchy (secondary outline) didn't require demoting the
-                  SIZE — the small pill read as a shrunken nav against the
-                  old build. Tier stays secondary; only the scale returns. */}
+              {/* Flagship arrow CTA (moved up from the hero 2026-07-05) */}
               <Link
                 href="/contact"
-                className={`btn ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
+                className={`btn ${lightTop ? "btn-primary-light" : "btn-primary-dark"} btn-arrow`}
               >
                 Start a project
+                <span className="btn-arrow-chip" aria-hidden>↗</span>
               </Link>
             </div>
 
@@ -108,7 +95,6 @@ export default function Navbar() {
             </button>
           </nav>
         </div>
-        </div>
 
         {/* Mobile menu — fills the rest of the viewport below the bar:
             centred serif links, with the Instagram handle pinned to the foot. */}
@@ -121,7 +107,7 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in ${active ? "underline underline-offset-8 decoration-1" : ""}`}
+                    className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in-up ${active ? "underline underline-offset-8 decoration-1" : ""}`}
                     style={{ animationDelay: `${i * 60}ms` }}
                     onClick={() => setOpen(false)}
                   >
@@ -142,7 +128,7 @@ export default function Navbar() {
                   mobile, not the desktop pill CTA */}
               <Link
                 href="/contact"
-                className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in ${pathname.startsWith("/contact") ? "underline underline-offset-8 decoration-1" : ""}`}
+                className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in-up ${pathname.startsWith("/contact") ? "underline underline-offset-8 decoration-1" : ""}`}
                 style={{ animationDelay: `${NAV.length * 60}ms` }}
                 onClick={() => setOpen(false)}
               >
@@ -164,7 +150,7 @@ export default function Navbar() {
                 href={SITE.sameAs[0]}
                 target="_blank"
                 rel="noreferrer"
-                className="overline inline-flex items-center gap-2 text-bone opacity-0 animate-fade-in"
+                className="overline inline-flex items-center gap-2 text-bone opacity-0 animate-fade-in-up"
                 style={{ animationDelay: `${(NAV.length + 1) * 60}ms` }}
                 onClick={() => setOpen(false)}
               >

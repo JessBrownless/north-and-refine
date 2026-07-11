@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { Fragment } from "react";
-import { SITE } from "@/lib/site";
-import { INDUSTRIES } from "@/lib/industries";
-import { getFeaturedProjects, type WorkEntry } from "@/lib/work";
+import Deck, { type DeckSlide } from "@/components/Deck";
+import ManifestoStatement from "@/components/ManifestoStatement";
+import { getFeaturedProjects, getSectorLabel, type WorkEntry, type WorkSector } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
@@ -95,6 +94,19 @@ function formatDate(iso: string): string {
   }).format(new Date(iso));
 }
 
+// The homepage manifesto — This-January length: one thought, four lines.
+const MANIFESTO =
+  "A studio that treats the clinic\u2019s digital presence with the same care as the practice itself.";
+
+// Deck order tuned to a dark / light / dark / light / dark rhythm (live-era).
+const DECK_ORDER: WorkSector[] = [
+  "dermatology",
+  "cosmetic-surgery",
+  "medical-aesthetics",
+  "cosmetic-surgery",
+  "dermatology",
+];
+
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 6);
@@ -104,226 +116,104 @@ export default function HomePage() {
     href: `/work/${project.slug}`,
   }));
 
+  const featuredBySector = new Map<WorkSector, WorkEntry>();
+  for (const p of getFeaturedProjects()) {
+    if (!featuredBySector.has(p.frontmatter.sector)) {
+      featuredBySector.set(p.frontmatter.sector, p);
+    }
+  }
+  const captureFallback = getFeaturedProjects().find((p) => p.frontmatter.thumbImage);
+  const deckSlides: DeckSlide[] = DECK_ORDER.map((sector) => {
+    const project = featuredBySector.get(sector);
+    if (project?.frontmatter.thumbImage) {
+      return {
+        title: project.frontmatter.client,
+        tag: getSectorLabel(project.frontmatter.sector),
+        href: `/work/${project.slug}`,
+        screenshot: project.frontmatter.thumbImage,
+        screenshotAlt: project.frontmatter.thumbImageAlt ?? `${project.frontmatter.client} — website`,
+      };
+    }
+    return {
+      title: captureFallback ? captureFallback.frontmatter.client : getSectorLabel(sector),
+      tag: captureFallback ? getSectorLabel(captureFallback.frontmatter.sector) : "Selected work",
+      href: captureFallback ? `/work/${captureFallback.slug}` : undefined,
+      screenshot: captureFallback?.frontmatter.thumbImage,
+      screenshotAlt: captureFallback?.frontmatter.thumbImageAlt ?? "Website capture",
+    };
+  });
+
   return (
     <main className="bg-ink text-bone">
-      {/* ── First screen — the HERO ALONE owns the viewport (2026-07-11:
-          the trust bar moved down the page at the client's call — it now
-          answers The Studio's "one kind of client" instead of crowding the
-          masthead; the 2026-07-10 hero+strip one-viewport composition is
-          superseded). min-h (never a hard height): short viewports bend
-          the fold before crushing the hero's air. ── */}
-      <div className="flex min-h-[100svh] flex-col">
-        {/* Hero — type only. Two big Saol lines with the italic accent, the
-            lede in the sans, the flagship CTA pair. pt clears the absolute
-            nav. */}
-        <section className="relative flex flex-1 flex-col justify-center overflow-hidden">
-          {/* ⚠ TRIAL (2026-07-11): GRADIENT POOLS in the hero, client-
-              requested — this repeals HOUSE RULE #1 ("the ground is flat",
-              2026-07-09) and drift rule 9 for ONE section, as a trial.
-              Built to the old era's hard-won recipe: OPAQUE champagne-into-
-              ink mixes (never filter-blurred divs — they band into visible
-              rings on dark), closest-side radials with centred geometry
-              that cannot clip, and STILL — no float animation; print
-              stillness survives even where flatness doesn't. If kept:
-              rewrite the flat-ground doctrine in CLAUDE.md + /stylesheet
-              house rules. If killed: delete this layer + the section's
-              relative/overflow-hidden + the shell's z-10. */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-            {/* Crown glow — a breath of champagne behind the masthead */}
-            <div
-              className="absolute inset-x-0 top-0 h-[70vh]"
-              style={{
-                background:
-                  "radial-gradient(85% 90% at 38% 0%, color-mix(in srgb, var(--champagne) 8%, var(--ink)) 0%, var(--ink) 72%)",
-              }}
-            />
-            {/* One low pool near the plate corner — lit air, not a shape */}
-            <div
-              className="absolute bottom-[-10%] right-[-5%] m-auto h-[55vh] w-[42vw] max-w-full"
-              style={{
-                background:
-                  "radial-gradient(closest-side, color-mix(in srgb, var(--champagne) 7%, transparent) 0%, transparent 100%)",
-              }}
-            />
-          </div>
-          {/* Back on .shell (2026-07-10 night, clarified): the client wants
-              ONE left rail — hero content aligned with the strip and body
-              on the SAME content grid (now the live-era 1280). A shell-wide
-              hero was trialled for an hour the same night and read as two
-              different pages sharing a scroll. The masthead cap is tuned to
-              this grid (see --masthead-size). */}
-          <div className="shell relative z-10 pt-28 md:pt-32">
-            {/* THE DEAD-CORNER PORTRAIT (round 5, KEPT 2026-07-10 — the
-                composition that ended the hero-image saga after four dead
-                forms: cluster, Deck, panel paste-up, tipped-in landscape).
-                It survives because it competes with nothing: the H1 wraps
-                to a short second line, leaving the right of line 2 + the
-                deck row genuinely empty, and the 4:5 plate fills exactly
-                that corner. Absolutely positioned in this relative wrapper:
-                top clears the H1's FIRST line via var(--masthead-line)
-                (globals token — shares .display-mega's size so it cannot
-                drift), bottom locks to the CTA row's bottom, width derives
-                from height via the ratio (~304×380 at 1440). ZERO overlap
-                with type, ZERO pixels added to the fold, H1 at full
-                measure. lg+ gets this absolute plate; below lg the corner
-                doesn't exist, so mobile carries the in-flow plate below. */}
-            <div className="relative">
-              {/* Hard break — the wrap is COMPOSITION, not chance: on the
-                  1520 grid a natural wrap swallowed "patients" into line 1
-                  and stranded "trust." as a widow (2026-07-10 night). Two
-                  lines at every size; "Practices that" fits even at the
-                  52px mobile minimum. */}
-              {/* THE ACCENT LANDS LAST (2026-07-11): the roman text, lede,
-                  buttons and plate develop first; the italic "trust." fades
-                  in a full beat after everything — the claim completes
-                  itself in front of the reader. ONCE, then still (a looping
-                  typewriter rotation was proposed and counselled against:
-                  it repeals print stillness in the most visible position,
-                  and rotating words hedge the one claim the site exists to
-                  make). */}
-              <h1 className="display-mega opacity-0 animate-fade-in">
-                Practices that{" "}
-                <br />
-                patients{" "}
-                <span className="opacity-0 animate-fade-in" style={{ animationDelay: "1.1s" }}>
-                  <em>trust</em>.
-                </span>
+      {/* ══ LIVE-TOP RESTORE (2026-07-11, client-directed): the nav, hero
+          and manifesto below are the LIVE site's versions (74ec384 era,
+          same source as the frozen /mockups/old-hero). The 07-09→11 top —
+          dead-corner plate hero, industries caps band, statement grid,
+          pools trial, accent choreography — is STASHED at checkpoint
+          commit 37f0db9; restore any of it from there. ══ */}
+
+      {/* ── Hero — centred lockup over the fanned Deck showreel, crown
+          glow + grain scoped here (live-era composition). ── */}
+      <section className="grain relative overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          <div
+            className="absolute inset-x-0 top-0 h-[90vh]"
+            style={{
+              background:
+                "radial-gradient(90% 100% at 50% 0%, color-mix(in srgb, var(--champagne) 11%, var(--ink)) 0%, var(--ink) 70%)",
+            }}
+          />
+        </div>
+        <div className="shell-wide relative z-10 flex min-h-[100svh] flex-col md:min-h-[120vh]">
+          <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
+            <div className="mx-auto max-w-5xl">
+              <p className="overline opacity-0 animate-track-in">The studio behind</p>
+              <h1
+                className="display-mega from-overline mx-auto max-w-5xl text-balance opacity-0 animate-fade-in-up"
+                style={{ animationDelay: "0.7s" }}
+              >
+                Practices that Patients Trust
               </h1>
-              {/* The OFFICIAL TAGLINE (2026-07-10) — referenced from
-                  SITE.tagline (src/lib/site.ts, the single source of brand
-                  facts) so the hero can never drift from the canonical
-                  line. Change it there, never here. */}
-              <p
-                className="body-lg mt-10 max-w-[44ch] text-bone-dim opacity-0 animate-fade-in md:mt-12"
-                style={{ animationDelay: "0.25s" }}
-              >
-                {SITE.tagline}.
-              </p>
-              {/* The view's ONE flagship (.btn-arrow — the nav demoted to a
-                  secondary outline in the same change), paired with the
-                  tertiary ghost. Primary action + quiet exploration. */}
-              <div
-                className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 opacity-0 animate-fade-in md:mt-12"
-                style={{ animationDelay: "0.45s" }}
-              >
-                <Link href="/contact" className="btn btn-primary-dark btn-arrow">
-                  Start a project
-                  <span className="btn-arrow-chip" aria-hidden>↗</span>
-                </Link>
-                <Link href="#selected-work" className="btn-ghost text-bone">
-                  See the work <span aria-hidden>→</span>
-                </Link>
-              </div>
-              {/* MOBILE plate (kept with the set) — in flow below the CTAs,
-                  right-anchored like its desktop sibling, modest width.
-                  (2026-07-11: the LogoStrip left the first screen, so the
-                  old phone-fold cost note is history — the hero owns the
-                  mobile fold alone now.) */}
-              <div
-                className="mt-12 ml-auto w-3/5 max-w-[260px] opacity-0 animate-fade-in-slow lg:hidden"
-                style={{ animationDelay: "0.65s" }}
-              >
-                <div className="frame aspect-[4/5]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/plates/hero-rowen-05.jpg"
-                    alt="A laptop on a black side table displaying the Dr Yalda Jamali website — brand and web design by North & Refine"
-                    loading="eager"
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-              <div
-                className="absolute bottom-0 right-0 hidden aspect-[4/5] opacity-0 animate-fade-in-slow lg:block"
-                style={{
-                  top: "calc(var(--masthead-line) + 0.75rem)",
-                  animationDelay: "0.65s",
-                }}
-              >
-                <div className="frame h-full w-full">
-                  {/* Rowen 5 with the real Dr Yalda desktop composited onto
-                      the laptop screen. Content, not decoration. Same asset
-                      as the mobile plate above — one image, two placements. */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/plates/hero-rowen-05.jpg"
-                    alt="A laptop on a black side table displaying the Dr Yalda Jamali website — brand and web design by North & Refine"
-                    loading="eager"
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
-              </div>
             </div>
+            <p
+              className="lede body-lg md:text-[21px] mx-auto max-w-3xl text-bone/80 opacity-0 animate-fade-in-up"
+              style={{ animationDelay: "0.9s" }}
+            >
+              Brand, web design and SEO for cosmetic surgeons, medical aesthetic
+              clinics and dermatology practices.
+            </p>
           </div>
-        </section>
-
-      </div>
-
-      {/* ── Industries band (2026-07-11, client's call) — an END-TO-END
-          full-bleed row directly under the hero: the three sector names in
-          big Saol (.industry-band-title, vw-sized so the set fits the
-          viewport), clay / separators between at full band size (v2 — caps + slashes;
-          ornament glyphs are a sanctioned champagne use). TRUE edge-to-edge
-          on md+ (2026-07-11 "more impact"): zero side padding — the first
-          and last names kiss the viewport edges, wordmark-giant logic.
-          Each name links
-          to its /industries page — the first homepage links those SEO
-          pages have ever had. Mobile: nowrap, reader-scrollable (the
-          LogoStrip pattern — motion only from the reader). ── */}
-      <section className="border-y rule-dark py-7 md:py-9">
-        <nav
-          aria-label="Industries we serve"
-          className="flex flex-nowrap items-baseline gap-x-7 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:justify-between md:gap-x-8 md:overflow-visible md:px-0"
-        >
-          {INDUSTRIES.map((industry, i) => (
-            <Fragment key={industry.slug}>
-              {i > 0 && (
-                <span aria-hidden className="industry-band-title shrink-0 text-clay">
-                  /
-                </span>
-              )}
-              <Link
-                href={`/industries/${industry.slug}`}
-                className="industry-band-title shrink-0 whitespace-nowrap text-bone transition-opacity hover:opacity-70"
-              >
-                {industry.name}
-              </Link>
-            </Fragment>
-          ))}
-        </nav>
+          <div
+            className="relative z-10 -mb-10 opacity-0 animate-fade-in md:-mb-20"
+            style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
+          >
+            <Deck slides={deckSlides} />
+          </div>
+        </div>
+        {/* Fade-to-ink as the hero scrolls out (restored 2026-07-11) */}
+        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
       </section>
 
-      {/* ── The studio — moved ABOVE the work 2026-07-09: the statement
-          answers the H1's claim directly, so the page reads claim → who's
-          behind it → proof → offer → method → act. ── */}
-      <section className="py-32 md:py-44">
-        <div className="shell">
-          <p className="overline mb-8 reveal md:mb-10">The studio</p>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-baseline md:gap-8">
-            <p className="heading-xl max-w-[24ch] text-balance reveal md:col-span-8">
-              A studio that treats the clinic&rsquo;s digital presence with the
-              same care as the practice <em>itself</em>.
-            </p>
-            <div className="md:col-span-4">
-              <p className="body text-bone-dim reveal" style={{ transitionDelay: "120ms" }}>
-                We exist for one kind of client: the practice whose standard of
-                care outruns its website. Clinicians spend years earning trust
-                in the room — then hand the first impression to a template.
-              </p>
-              <p className="body mt-5 text-bone-dim reveal" style={{ transitionDelay: "200ms" }}>
-                So we take on a few projects at a time and design everything —
-                identity, site, search — as one piece. It reads calm because it
-                is considered, and it ranks because the foundations are built
-                for search from day one.
-              </p>
-              <div className="mt-8 reveal" style={{ transitionDelay: "280ms" }}>
-                <Link href="/about" className="btn-ghost text-bone">
-                  Our story <span aria-hidden>→</span>
-                </Link>
-              </div>
+      {/* ── Manifesto (live-era) — the 180vh sticky track: the statement
+          holds while the scroll-scrub lights its words, then releases.
+          "A studio that treats..." in its original This-January form. ── */}
+      {/* Track tightened 180vh -> 140vh (2026-07-11): the dwell was making
+          the approach to What-we-do feel endless — 40vh of scrub keeps the
+          word-lighting readable while roughly halving the toll. */}
+      <section className="relative z-10 h-[140vh] pt-[10vh] pb-[5vh]">
+        <div className="sticky top-0 flex h-screen items-center">
+          <div className="shell w-full">
+            <ManifestoStatement text={MANIFESTO} />
+            <div className="mt-12 reveal" style={{ transitionDelay: "160ms" }}>
+              <Link href="/about" className="btn btn-secondary-dark">
+                <span aria-hidden>↳</span>
+                Our story
+              </Link>
             </div>
           </div>
         </div>
+        {/* Fade-to-ink on exit — the scene hands over to the offer */}
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
 
       {/* ── What we do — three display-scale ruled rows. Sits BETWEEN the
@@ -331,21 +221,12 @@ export default function HomePage() {
           asymmetric (offset statement grid; staggered work pairs), and the
           full-width ruled rows are the page's most formal element — the
           stabiliser between two deliberately jagged sections. ── */}
-      <section className="py-24 md:py-32">
-        <div className="shell">
-          <p className="overline mb-8 reveal md:mb-10">What we do</p>
-          <div className="reveal" style={{ transitionDelay: "120ms" }}>
-            <ServicesShowcase />
-          </div>
-        </div>
-      </section>
-
       {/* ── Selected work — the page's only imagery: plain frames, real
           captures, ruled captions (italic client name, services meta), and
           the project's one-line outcome from its frontmatter. The work IS
           the proof — the receipts strip that used to close this section
           was cut 2026-07-10 (see the header note). ── */}
-      <section id="selected-work" className="scroll-mt-14 py-24 md:py-32">
+      <section id="selected-work" className="relative scroll-mt-14 pb-24 md:pb-32">
         <div className="shell">
           <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
             <div>
@@ -395,6 +276,18 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="relative py-24 md:py-32">
+        <div className="shell">
+          <p className="overline mb-8 reveal md:mb-10">What we do</p>
+          <div className="reveal" style={{ transitionDelay: "120ms" }}>
+            <ServicesShowcase />
+          </div>
+        </div>
+        {/* Fade-to-ink on exit (restored 2026-07-11 — the live-era section handover the client loved) */}
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
+      </section>
+
+
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
           human proof (work → words). The big 4:5 slot carries a PORTRAIT
           MOCKUP at native orientation (client-directed 2026-07-10, after a
@@ -409,7 +302,7 @@ export default function HomePage() {
           ⚠ THE QUOTE is VISIBLY-MARKED PLACEHOLDER until real client words
           + permission exist — we never draft quotes on a client's behalf
           (pre-launch checklist). Swap the words, keep the structure. ── */}
-      <section className="py-24 md:py-32">
+      <section className="relative py-24 md:py-32">
         <div className="shell">
           <p className="overline mb-8 reveal md:mb-10">Kind words</p>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:[align-items:last_baseline] md:gap-8">
@@ -455,6 +348,8 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+        {/* Fade-to-ink on exit (restored 2026-07-11 — the live-era section handover the client loved) */}
+        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
       </section>
 
       {/* ── Trust bar — under the testimonial (2026-07-11, second move of
@@ -473,7 +368,7 @@ export default function HomePage() {
           carousel earns its place by holding SIX posts where the grid held
           three. ── */}
       {posts.length > 0 && (
-        <section className="py-24 md:py-32">
+        <section className="relative py-24 md:py-32">
           <div className="shell">
             <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
               <div>
@@ -522,6 +417,8 @@ export default function HomePage() {
               </Carousel>
             </div>
           </div>
+          {/* Fade-to-ink on exit (restored 2026-07-11 — the live-era section handover the client loved) */}
+          <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
         </section>
       )}
 

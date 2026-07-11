@@ -55,7 +55,7 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.Rea
   { cls: "blockquote", label: ".blockquote", note: "DEPRECATED (sans-era) — quotes use .statement; kept for the /mockups archive only", sample: "Design is the silent ambassador of the practice." },
   { cls: "overline", label: ".overline", note: "11px · uppercase Dia kicker — bone by default (tonal); text-clay or text-ink/45 on light sections", sample: "Selected work" },
   { cls: "nav-link text-bone", label: ".nav-link", note: "12px · uppercase nav item", sample: "Services" },
-  { cls: "cta-label text-bone", label: ".cta-label", note: "11px · button microtype", sample: "Start a project" },
+  { cls: "cta-label text-bone", label: ".cta-label", note: "12px · button microtype (11 -> 12, 2026-07-11 type sweep)", sample: "Start a project" },
   { cls: "index-num text-clay", label: ".index-num", note: "18→24px · Dia list numbering", sample: "01 /" },
   { cls: "stat text-bone", label: ".stat", note: "40→72px · Dia stat numbers (Light 300)", sample: "156%" },
   { cls: "label text-clay", label: ".label", note: "13px · captions & meta", sample: "Brand · Web · SEO" },
@@ -71,7 +71,7 @@ const MOTION: { cls: string; note: string }[] = [
   { cls: ".reveal", note: "scroll-reveal via the global <Reveal /> observer — a pure 1.1s fade, IN PLACE (the rise retired 2026-07-10); stagger with transitionDelay" },
   { cls: ".plate-develop / animate-fade-in-slow", note: "2.4s image tempo (2026-07-11): every homepage image fades slower than the type around it — prints develop after the ink sets. plate-develop rides the parent .reveal (sg-stroke mechanism); fade-in-slow is the load-in variant for the hero plates" },
   { cls: ".sg-stroke / .sg-stroke-2", note: "M·1 draw-on (2026-07-10): StageGlyph strokes draw themselves in on the plate's .reveal entry — 1.1s, the reveal curve; the second form lands +220ms; stagger per plate via --sg-delay. Entrance-only (print stillness holds); fully drawn outside a reveal and under reduced motion" },
-  { cls: ".exit-fade", note: "fade-to-ink overlay on an EXITING section — ContactCTA and interior pages only; homepage sections do NOT perform (2026-07-09). JS-driven by the global <ExitFades />; .exit-fade-long = earlier window" },
+  { cls: ".exit-fade", note: "fade-to-ink overlay on an EXITING section — RESTORED to every homepage section 2026-07-11 with the live-top restore (the section handover the client loved; the 2026-07-09 homepage ban is repealed). JS-driven by the global <ExitFades />; .exit-fade-long = earlier window for dark content sections" },
   { cls: "animate-marquee", note: "PARKED · 28s linear loop · both uses retired (ghost text 2026-07-09; the trust-bar ticker trialled & retired 2026-07-10 — print stillness: nothing moves unbidden)" },
   { cls: "animate-float-slow / -slower", note: "PARKED · 7s / 11s ease loops · was the floating-orb layer; nothing floats on the flat pages" },
 ];

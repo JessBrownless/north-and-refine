@@ -359,7 +359,7 @@
   /* Button microtype */
   .cta-label {
     font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 0.6875rem;
+    font-size: 0.75rem; /* 11 -> 12px, 2026-07-11 type sweep: button labels held their own against the bigger masthead/manifesto scale */
     font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
