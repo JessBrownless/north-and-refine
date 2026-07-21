@@ -19,6 +19,11 @@ const config: Config = {
         "bone-dim": "#C1B9B0", // muted bone — secondary text on ink (deepened from #CBC6BB, settled 2026-07-10)
         "bone-line": "#DAD4C8", // hairline dividers on light
         clay: "#8A8578", // mid warm-grey — captions, fine print
+        // ── On-LIGHT ink text ladder (2026-07-13) — mirror of --ink-dim/mute/faint
+        // in globals.css; the bone-ground counterpart of bone-dim/clay. Keep in sync.
+        "ink-dim": "#51504E", // secondary text on light — body/lede (≈ ink/70 on bone, ~6.9:1)
+        "ink-mute": "#686664", // meta/label on light (≈ ink/60 on bone, ~5.0:1 AA)
+        "ink-faint": "#ADAAA5", // DECORATIVE ONLY — dots, placeholder marks (≈ ink/30, sub-AA)
         // ── Accent (single restrained metallic) ──────────────────────────
         champagne: "#C2A878", // brass/champagne — the one accent
         "champagne-soft": "#D8C6A4",

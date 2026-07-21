@@ -45,6 +45,17 @@
     --bone-dim: #c1b9b0;
     --bone-line: #dad4c8;
     --clay: #8a8578;
+    /* On-LIGHT ink text ladder (2026-07-13) — the mirror of the on-ink
+       bone/bone-dim/clay ladder, for BONE grounds, so light pages stop
+       hand-rolling raw ink opacities and re-deriving the AA maths inline.
+       These are the exact ink-over-bone COMPOSITES of ink/70 and ink/60, so
+       swapping the old opacities for these tokens is visually identical on
+       bone. Contrast on bone: ink-dim ~6.9:1, ink-mute ~5.0:1 (both AA);
+       ink-faint is DECORATIVE ONLY (separators, placeholder marks — sub-AA
+       by design, never for real text). Keep the Tailwind mirror in sync. */
+    --ink-dim: #51504e; /* secondary text on light — body/lede (≈ ink/70) */
+    --ink-mute: #686664; /* meta/label on light (≈ ink/60, AA) */
+    --ink-faint: #adaaa5; /* decorative only — dots, placeholder glyphs (≈ ink/30) */
     /* Accent */
     --champagne: #c2a878;
     --champagne-soft: #d8c6a4;
@@ -180,6 +191,7 @@
   .heading-md em,
   .heading-sm em,
   .blockquote em {
+    font-family: var(--font-saol), Georgia, serif; /* Saol Light Italic accent */
     font-style: italic;
     font-weight: 300;
     font-synthesis: none;
@@ -264,6 +276,17 @@
     font-weight: 400;
   }
 
+  /* THE HERO + CLOSE LEDE tier — 16 → 21px (2026-07-13: the "hero + close
+     ledes 21px md+" canon was an ad-hoc `md:text-[21px]` override on
+     .body-lg; this is the proper utility). One tier above .body-lg; use it
+     on PageHero/ContactCTA ledes, never for body copy. */
+  .body-xl {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: clamp(1rem, 0.82rem + 0.78vw, 1.3125rem); /* 16 → 21px */
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
   /* Long-form reading column — Journal prose and case-study bodies.
      (Formerly .body-serif; renamed when the site went single-family sans.) */
   .body-reading {
@@ -283,10 +306,13 @@
      interactions only (ornament glyphs, link underlines, hovers) — never
      in label type. On light sections override with text-clay or text-ink/45. */
   .overline {
-    font-family: var(--font-sans), system-ui, sans-serif;
+    /* THE KICKER VOICE = Geist Mono (2026-07-20, "unify the kicker"): matches
+       the homepage hero kicker so every tracked-caps kicker sitewide is one
+       face. Tracking 0.24em + 11px mirror the hero. */
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
     font-size: 0.6875rem; /* 11px */
     font-weight: 400;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     line-height: 1.4;
     color: var(--bone);
@@ -322,13 +348,18 @@
     color: var(--clay);
   }
 
-  /* Big numbers for stats — Dia Light (was mono/dashboard-grade) */
+  /* Big numbers for stats — SAOL DISPLAY (client's call, 2026-07-12 night:
+     the DS's big-number register is the serif; was Dia Light 300, and mono
+     before that). Regular 400 — the only upright Saol weight loaded — at
+     the same clamp; tracking eased from the sans's -0.03em (a Didone needs
+     air where a grotesk wanted crush). Sitewide: the about stats, the
+     work/[slug] results band and the pricing figures all sit on this. */
   .stat {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-weight: 300;
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
     font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
     line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.01em;
   }
 
   /* DEPRECATED (2026-07-09) — a sans-era relic; quotes now use .statement
@@ -348,7 +379,10 @@
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 0.18em;
+    /* Tracking opened 0.18em → 0.24em (2026-07-12, client's call: "space
+       out the text in the nav links") — airier than the 0.22em meta tier,
+       a distinct luxury spacing for the short nav caps. */
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     transition: opacity 0.25s ease;
   }
@@ -452,6 +486,27 @@
     opacity: 1;
   }
 
+  /* ── Scroll-drawn progress line (2026-07-14, /work index rows) ───────────
+     A fill that DRAWS left→right when its `.reveal` row enters — the faint
+     track sits under it. Pairs with the global <Reveal /> observer (no scroll
+     library): the row carries `.reveal`, the fill child carries `.line-fill`.
+     Reduced motion snaps it filled. */
+  .line-fill {
+    width: 0;
+    transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: width;
+  }
+  /* !important: the base `.line-fill` outranks this across Tailwind's cascade
+     layers (layer order beats specificity), so the plain override was ignored. */
+  .reveal.is-in .line-fill {
+    width: 100% !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .line-fill {
+      width: 100% !important;
+    }
+  }
+
   /* ── StageGlyph draw-on (M·1 "drawn by the page", 2026-07-10) ────────────
      StageGlyph strokes carry pathLength=100 + .sg-stroke. Inside a `.reveal`
      that hasn't entered yet, the dash offset hides the stroke; when
@@ -465,14 +520,29 @@
      fully drawn at once; do not add a separate guard here. */
   .sg-stroke {
     stroke-dasharray: 100;
-    transition: stroke-dashoffset 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--sg-delay, 0ms);
+    stroke-dashoffset: 0; /* DRAWN by default — the glyph is never invisible */
   }
-  .sg-stroke-2 {
-    transition-delay: calc(var(--sg-delay, 0ms) + 220ms);
-  }
+  /* Hidden until the plate enters; then a keyframe DRAWS it in on .is-in.
+     (2026-07-14: the old transition-on-revert release left the strokes stuck
+     hidden in this build — the icons vanished. A keyframe is explicit and
+     holds its end state, and the drawn-by-default base above is the safety
+     net: worst case the glyph is simply shown, never blank.) */
   .reveal:not(.is-in) .sg-stroke {
     stroke-dashoffset: 100;
+  }
+  .reveal.is-in .sg-stroke {
+    animation: sg-draw 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--sg-delay, 0ms) both;
+  }
+  .reveal.is-in .sg-stroke-2 {
+    animation-delay: calc(var(--sg-delay, 0ms) + 220ms);
+  }
+  @keyframes sg-draw {
+    from {
+      stroke-dashoffset: 100;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
   /* The dot (the only permitted fill) fades in after its form has drawn.

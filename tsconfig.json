@@ -32,7 +32,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "/var/folders/hw/p3fcg7sx58l7rqjjytm8nnmc0000gn/T/north-and-refine-next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

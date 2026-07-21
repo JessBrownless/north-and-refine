@@ -114,8 +114,10 @@ export default async function BlogPostPage({
             the shared left rail, not centred — only work/[slug] holds the
             shell-wide licence. */}
         <div className="shell">
-        {/* Header */}
-        <header className="max-w-[720px] pt-36 md:pt-48 reveal">
+        {/* Header — an ARTICLE HEADER on the sitewide LOAD-IN entrance
+            (2026-07-16 hero-cohesion pass: heroes are first-paint content,
+            never IntersectionObserver sections). */}
+        <header className="max-w-[720px] pt-16 md:pt-24 opacity-0 animate-fade-in">
           <div className="flex flex-col">
             <p className="overline">{getCategoryLabel(fm.category)}</p>
             <h1 className="heading-xl from-overline">{fm.title}</h1>

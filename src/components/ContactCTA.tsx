@@ -42,8 +42,8 @@ export default function ContactCTA({
       <div className="shell relative py-32 md:py-44">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
           <div className="md:col-span-7">
-            {/* Kicker at ink/70 — clay is sub-AA on light grounds */}
-            <p className="overline text-ink/70 reveal">Start a project</p>
+            {/* Kicker at text-ink-dim — the on-light ladder; clay is sub-AA on bone */}
+            <p className="overline text-ink-dim reveal">Start a project</p>
             <h2
               className="heading-xl from-overline max-w-[24ch] text-balance reveal"
               style={{ transitionDelay: "80ms" }}
@@ -55,7 +55,7 @@ export default function ContactCTA({
               )}
             </h2>
             <p
-              className="body-lg md:text-[21px] mt-10 max-w-[44ch] text-ink/70 reveal md:mt-12"
+              className="body-xl mt-10 max-w-[44ch] text-ink-dim reveal md:mt-12"
               style={{ transitionDelay: "160ms" }}
             >
               {body}

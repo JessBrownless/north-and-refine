@@ -44,6 +44,13 @@ export default async function IndustryPage({
   const industry = getIndustryBySlug(slug);
   if (!industry) notFound();
 
+  // The split masthead's lede column is a 46ch measure — the full intros
+  // (3–4 sentences) overflow it. The FIRST sentence opens the hero; the
+  // rest opens the "How we help" section below (2026-07-16 hero-cohesion
+  // pass; no data-shape change, split at render).
+  const [ledeSentence, ...restSentences] = industry.intro.split(/(?<=\.)\s+/);
+  const introRest = restSentences.join(" ");
+
   return (
     <main>
       <JsonLd
@@ -62,14 +69,21 @@ export default async function IndustryPage({
         ]}
       />
 
+      {/* The canonical interior masthead (2026-07-16 hero-cohesion pass) —
+          keeps the hero CTA per the settled policy: these are the SEO
+          landing pages, the most commercial routes on the site. */}
       <PageHero
+        align="split"
+        spacious
+        borderBottom
         overline={industry.name}
         title={industry.heading}
-        lede={industry.intro}
+        lede={ledeSentence}
         cta={{ label: "Start a project", href: "/contact" }}
       />
 
-      {/* What we do for this niche */}
+      {/* What we do for this niche — opens with the rest of the intro (its
+          hero overflow; see the split above) before the points. */}
       <section className="bg-ink">
         <div className="shell py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
@@ -78,6 +92,14 @@ export default async function IndustryPage({
               <h2 className="heading-lg text-bone from-overline reveal" style={{ transitionDelay: "80ms" }}>
                 What we bring to {industry.name.toLowerCase()}
               </h2>
+              {introRest && (
+                <p
+                  className="lede body text-bone-dim reveal"
+                  style={{ transitionDelay: "160ms" }}
+                >
+                  {introRest}
+                </p>
+              )}
             </div>
             <ul className="md:col-span-8 divide-y rule-dark border-y rule-dark">
               {industry.points.map((point, i) => (

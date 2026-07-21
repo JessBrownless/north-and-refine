@@ -1,12 +1,12 @@
 import Link from "next/link";
-import Deck, { type DeckSlide } from "@/components/Deck";
 import ManifestoStatement from "@/components/ManifestoStatement";
-import { getFeaturedProjects, getSectorLabel, type WorkEntry, type WorkSector } from "@/lib/work";
+import { getFeaturedProjects, type WorkEntry } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import Carousel from "@/components/Carousel";
 import ContactCTA from "@/components/ContactCTA";
+import HomeHero from "@/components/HomeHero";
 
 // Homepage — TYPE-LED, FLAT, EDITED (decided 2026-07-09, "rip up the rule
 // book"; tightened same day: "everything should earn its place"). The page
@@ -98,15 +98,6 @@ function formatDate(iso: string): string {
 const MANIFESTO =
   "A studio that treats the clinic\u2019s digital presence with the same care as the practice itself.";
 
-// Deck order tuned to a dark / light / dark / light / dark rhythm (live-era).
-const DECK_ORDER: WorkSector[] = [
-  "dermatology",
-  "cosmetic-surgery",
-  "medical-aesthetics",
-  "cosmetic-surgery",
-  "dermatology",
-];
-
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 6);
@@ -116,83 +107,10 @@ export default function HomePage() {
     href: `/work/${project.slug}`,
   }));
 
-  const featuredBySector = new Map<WorkSector, WorkEntry>();
-  for (const p of getFeaturedProjects()) {
-    if (!featuredBySector.has(p.frontmatter.sector)) {
-      featuredBySector.set(p.frontmatter.sector, p);
-    }
-  }
-  const captureFallback = getFeaturedProjects().find((p) => p.frontmatter.thumbImage);
-  const deckSlides: DeckSlide[] = DECK_ORDER.map((sector) => {
-    const project = featuredBySector.get(sector);
-    if (project?.frontmatter.thumbImage) {
-      return {
-        title: project.frontmatter.client,
-        tag: getSectorLabel(project.frontmatter.sector),
-        href: `/work/${project.slug}`,
-        screenshot: project.frontmatter.thumbImage,
-        screenshotAlt: project.frontmatter.thumbImageAlt ?? `${project.frontmatter.client} — website`,
-      };
-    }
-    return {
-      title: captureFallback ? captureFallback.frontmatter.client : getSectorLabel(sector),
-      tag: captureFallback ? getSectorLabel(captureFallback.frontmatter.sector) : "Selected work",
-      href: captureFallback ? `/work/${captureFallback.slug}` : undefined,
-      screenshot: captureFallback?.frontmatter.thumbImage,
-      screenshotAlt: captureFallback?.frontmatter.thumbImageAlt ?? "Website capture",
-    };
-  });
-
   return (
     <main className="bg-ink text-bone">
-      {/* ══ LIVE-TOP RESTORE (2026-07-11, client-directed): the nav, hero
-          and manifesto below are the LIVE site's versions (74ec384 era,
-          same source as the frozen /mockups/old-hero). The 07-09→11 top —
-          dead-corner plate hero, industries caps band, statement grid,
-          pools trial, accent choreography — is STASHED at checkpoint
-          commit 37f0db9; restore any of it from there. ══ */}
-
-      {/* ── Hero — centred lockup over the fanned Deck showreel, crown
-          glow + grain scoped here (live-era composition). ── */}
-      <section className="grain relative overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div
-            className="absolute inset-x-0 top-0 h-[90vh]"
-            style={{
-              background:
-                "radial-gradient(90% 100% at 50% 0%, color-mix(in srgb, var(--champagne) 11%, var(--ink)) 0%, var(--ink) 70%)",
-            }}
-          />
-        </div>
-        <div className="shell-wide relative z-10 flex min-h-[100svh] flex-col md:min-h-[120vh]">
-          <div className="flex flex-1 flex-col justify-center pt-24 pb-8 text-center md:pt-32 md:pb-10">
-            <div className="mx-auto max-w-5xl">
-              <p className="overline opacity-0 animate-track-in">The studio behind</p>
-              <h1
-                className="display-mega from-overline mx-auto max-w-5xl text-balance opacity-0 animate-fade-in-up"
-                style={{ animationDelay: "0.7s" }}
-              >
-                Practices that Patients Trust
-              </h1>
-            </div>
-            <p
-              className="lede body-lg md:text-[21px] mx-auto max-w-3xl text-bone/80 opacity-0 animate-fade-in-up"
-              style={{ animationDelay: "0.9s" }}
-            >
-              Brand, web design and SEO for cosmetic surgeons, medical aesthetic
-              clinics and dermatology practices.
-            </p>
-          </div>
-          <div
-            className="relative z-10 -mb-10 opacity-0 animate-fade-in md:-mb-20"
-            style={{ animationDelay: "1.5s", animationDuration: "1.4s" }}
-          >
-            <Deck slides={deckSlides} />
-          </div>
-        </div>
-        {/* Fade-to-ink as the hero scrolls out (restored 2026-07-11) */}
-        <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
-      </section>
+      {/* ══ HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19). ══ */}
+      <HomeHero />
 
       {/* ── Manifesto (live-era) — the 180vh sticky track: the statement
           holds while the scroll-scrub lights its words, then releases.

@@ -22,7 +22,10 @@ const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?
   { name: "Bone", cls: "bg-bone", hex: "#F2EEE6", use: "Light sections; primary text on ink", lightCard: true },
   { name: "Bone dim", cls: "bg-bone-dim", hex: "#C1B9B0", use: "Secondary text on ink (deepened 2026-07-10 — three clean tiers: bone / dim / clay)", lightCard: true },
   { name: "Bone line", cls: "bg-bone-line", hex: "#DAD4C8", use: "Hairline dividers on light (rule-light)", lightCard: true },
-  { name: "Clay", cls: "bg-clay", hex: "#8A8578", use: "Captions, fine print, meta" },
+  { name: "Clay", cls: "bg-clay", hex: "#8A8578", use: "Captions, fine print, meta — on INK (sub-AA on bone; use the ink ladder below on light grounds)" },
+  { name: "Ink dim", cls: "bg-ink-dim", hex: "#51504E", use: "On-LIGHT ladder (2026-07-13): secondary text on bone — body/lede (~6.9:1 AA). The bone-ground counterpart of bone-dim", lightCard: true },
+  { name: "Ink mute", cls: "bg-ink-mute", hex: "#686664", use: "On-LIGHT ladder: meta/label on bone — dates, reading time, kickers (~5.0:1 AA). The counterpart of clay-on-ink", lightCard: true },
+  { name: "Ink faint", cls: "bg-ink-faint", hex: "#ADAAA5", use: "On-LIGHT ladder: DECORATIVE ONLY — middots, placeholder glyphs (sub-AA, never body text)", lightCard: true },
   { name: "Champagne", cls: "bg-champagne", hex: "#C2A878", use: "THE accent — details & interactions only (ornament glyphs, links, hovers); never label type (2026-07-09)" },
   { name: "Champagne soft", cls: "bg-champagne-soft", hex: "#D8C6A4", use: "Soft gold — hover fills only (a gold band was trialled & reverted 2026-07-10)", lightCard: true },
   { name: "Cream", cls: "scene-cream", hex: "≈#E9E0CF · champagne-soft 35% into bone", use: "The ivory close (.scene-cream) — a warmer stock of the same paper", lightCard: true },
@@ -48,16 +51,17 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.Rea
   { cls: "heading-md", label: ".heading-md", note: "24→40px · card / sub-heading H3", sample: "Brand identity" },
   { cls: "heading-sm", label: ".heading-sm", note: "20→28px · smallest heading H4", sample: "The approach" },
   { cls: "card-title text-bone", label: ".card-title", note: "17→22px · SANS card captions (2026-07-11): work-card client names + blog teaser titles — captions to their images, not headings; no em accent in sans", sample: "Dr Yalda Jamali" },
+  { cls: "body-xl", label: ".body-xl", note: "16→21px · THE LARGE LEDE (2026-07-13): the centred manifesto hero + the ContactCTA close — one step above body-lg (still the left/split hero lede)", sample: "We build considered brands and high-performing websites for practices." },
   { cls: "body-lg", label: ".body-lg", note: "16→19px · lede / intro copy", sample: "We build considered brands and high-performing websites for practices." },
   { cls: "body", label: ".body", note: "14→16px · default UI/body copy", sample: "The studio takes on a limited number of projects at a time." },
   { cls: "body-sm", label: ".body-sm", note: "13→14px · secondary/meta copy (footer links, attributions)", sample: "Brand identity, web design and SEO — one studio, one standard." },
   { cls: "body-reading", label: ".body-reading", note: "17px · long-form reading column", sample: "A cosmetic surgery website carries unusual weight." },
   { cls: "blockquote", label: ".blockquote", note: "DEPRECATED (sans-era) — quotes use .statement; kept for the /mockups archive only", sample: "Design is the silent ambassador of the practice." },
   { cls: "overline", label: ".overline", note: "11px · uppercase Dia kicker — bone by default (tonal); text-clay or text-ink/45 on light sections", sample: "Selected work" },
-  { cls: "nav-link text-bone", label: ".nav-link", note: "12px · uppercase nav item", sample: "Services" },
+  { cls: "nav-link text-bone", label: ".nav-link", note: "12px · uppercase nav item · tracking 0.24em (opened 2026-07-12 for air)", sample: "Services" },
   { cls: "cta-label text-bone", label: ".cta-label", note: "12px · button microtype (11 -> 12, 2026-07-11 type sweep)", sample: "Start a project" },
   { cls: "index-num text-clay", label: ".index-num", note: "18→24px · Dia list numbering", sample: "01 /" },
-  { cls: "stat text-bone", label: ".stat", note: "40→72px · Dia stat numbers (Light 300)", sample: "156%" },
+  { cls: "stat text-bone", label: ".stat", note: "40→72px · SAOL DISPLAY stat numbers (Regular 400 — the big-number register went serif at the client's call, 2026-07-12)", sample: "156%" },
   { cls: "label text-clay", label: ".label", note: "13px · captions & meta", sample: "Brand · Web · SEO" },
   { cls: "fineprint", label: ".fineprint", note: "12px · fine print", sample: "© 2026 North & Refine Studio." },
   { cls: "industry-band-title", label: ".industry-band-title", note: "28→68px, vw-SIZED (like .wordmark-giant — end-to-end bands fit the viewport, not the grid): the homepage industries band names (2026-07-11)", sample: "Cosmetic Surgery" },
@@ -123,7 +127,7 @@ function Sub({ title, note }: { title: string; note?: string }) {
 export default function StylesheetPage() {
   return (
     <main className="bg-ink text-bone min-h-screen">
-      <div className="shell pt-36 pb-24 md:pt-44">
+      <div className="shell pt-16 pb-24 md:pt-24">
         <p className="overline">Internal reference</p>
         <h1 className="heading-xl from-overline">Design system</h1>
         <p className="lede body-lg text-bone-dim">

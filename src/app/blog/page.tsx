@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { getAllPosts, getCategoryLabel } from "@/lib/journal";
+import { getAllPosts, getCategoryLabel, JOURNAL_CATEGORIES } from "@/lib/journal";
 import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
+import BlogList, { type BlogCard, type BlogFilterOption } from "@/components/BlogList";
 
 export const metadata: Metadata = {
   title: "Blog — Design, branding & SEO for aesthetic practices",
@@ -25,8 +25,34 @@ function formatDate(iso: string): string {
 export default function BlogIndexPage() {
   const posts = getAllPosts();
 
+  // Pre-serialise the cards + filter options here (server) so the client
+  // <BlogList> imports nothing from @/lib/journal (server-only fs code).
+  const cards: BlogCard[] = posts.map((post) => ({
+    slug: post.slug,
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
+    category: post.frontmatter.category,
+    categoryLabel: getCategoryLabel(post.frontmatter.category),
+    dateLabel: formatDate(post.frontmatter.publishedAt),
+    readingMinutes: post.readingMinutes,
+    featuredImage: post.frontmatter.featuredImage ?? null,
+    featuredImageAlt: post.frontmatter.featuredImageAlt ?? null,
+  }));
+  // Only the categories that actually have posts, in the canonical order.
+  const filters: BlogFilterOption[] = JOURNAL_CATEGORIES.filter((c) =>
+    posts.some((p) => p.frontmatter.category === c),
+  ).map((c) => ({ value: c, label: getCategoryLabel(c) }));
+
   return (
-    <main>
+    /* BACK ON INK (2026-07-16, hero-cohesion pass): the 2026-07-12
+       light-topped exploration + experimental glow left with the sweep —
+       every hero now opens on the same flat ink ground ("/blog" removed
+       from Navbar's LIGHT_TOP_ROUTES; the glow prop is deleted from
+       PageHero). The LISTING below keeps its bone ground — sections may
+       alternate; only the hero rejoined the ink family — so main stays
+       bg-bone for the seams below the hero. Post DETAIL pages
+       (/blog/[slug]) were always dark. */
+    <main className="bg-bone">
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
@@ -34,67 +60,38 @@ export default function BlogIndexPage() {
         ])}
       />
 
+      {/* The canonical interior masthead (split, spacious, borderBottom).
+          ⚠ H1: reader-facing, not studio-process ("the craft behind the
+          work" read as behind-the-scenes; this is a blog FOR practices, not
+          a how-we-work page). Medium length for the display face. Swap
+          freely. */}
       <PageHero
+        align="split"
+        spacious
+        borderBottom
         overline="The Blog"
-        title="Notes from the studio."
+        title={
+          <>
+            Notes on brand, web and <em>trust.</em>
+          </>
+        }
         lede="Writing on design, branding, SEO and conversion for practices in medical aesthetics and cosmetic surgery."
       />
 
-      <section className="bg-ink">
-        <div className="shell py-16 md:py-24">
-          {posts.length > 0 ? (
-            <div className="divide-y rule-dark border-y rule-dark">
-              {posts.map((post, i) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 reveal md:items-center rule-dark"
-                  style={{ transitionDelay: `${(i % 6) * 60}ms` }}
-                >
-                  <div className="md:col-span-2">
-                    <p className="overline">{getCategoryLabel(post.frontmatter.category)}</p>
-                    <p className="label text-clay mt-2">{formatDate(post.frontmatter.publishedAt)}</p>
-                  </div>
-                  <div className="md:col-span-6">
-                    <h2 className="card-title text-bone line-clamp-2 transition-opacity group-hover:opacity-70">
-                      {post.frontmatter.title}
-                    </h2>
-                    <p className="body mt-2 line-clamp-2 text-bone-dim">{post.frontmatter.description}</p>
-                    <p className="label mt-3 text-clay">{post.readingMinutes} min read</p>
-                  </div>
-                  {/* Image slot — featuredImage, or quiet parchment until one
-                      lands. 16:10 per the ratio canon (blog imagery is
-                      figures); no hover motion (drift rule 14). */}
-                  <div className="md:col-span-3 md:col-start-9">
-                    <div className="frame aspect-[16/10]">
-                      {post.frontmatter.featuredImage ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={post.frontmatter.featuredImage}
-                          alt={post.frontmatter.featuredImageAlt ?? ""}
-                          loading="lazy"
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <span className="portrait-fill absolute inset-0 flex items-center justify-center">
-                          <span className="index-num text-ink/30" aria-hidden>✦</span>
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="md:col-span-1 hidden md:flex justify-end">
-                    <span className="text-bone-dim transition group-hover:translate-x-1 group-hover:text-champagne" aria-hidden>
-                      →
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="body text-bone-dim">The first entries are being written. Check back soon.</p>
-          )}
-        </div>
-      </section>
+      {/* The category filter strip + the (client-filtered) post list. The
+          strip's top rule is the hero's borderBottom; all posts render into
+          the DOM server-side (SEO), the client only shows/hides. */}
+      {cards.length > 0 ? (
+        <BlogList cards={cards} filters={filters} />
+      ) : (
+        <section className="scene-warm text-ink">
+          <div className="shell py-16 md:py-24">
+            <p className="body text-ink-dim">
+              The first entries are being written. Check back soon.
+            </p>
+          </div>
+        </section>
+      )}
 
       <ContactCTA />
     </main>

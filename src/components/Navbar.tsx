@@ -7,14 +7,21 @@ import { NAV, SITE } from "@/lib/site";
 import NRMonogram from "@/components/NRMonogram";
 
 /**
- * Site navigation. A tall, transparent bar sitting at the TOP of the page —
- * it scrolls away with the hero (no fixed pill, no scroll transform; the
- * footer's back-to-top anchor covers the return trip). Mobile opens a
- * full-screen drawer (solid bar while open). Reuse this — don't fork a
- * second nav.
+ * Site navigation. A tall bar IN NORMAL FLOW at the top of the page
+ * (refactored from absolute 2026-07-12): it takes its own height so heroes
+ * no longer pad their tops to clear a floating bar — hero padding is now
+ * pure, symmetric and independent (the client's "different padding under
+ * things" ask). It still scrolls away (it's simply the first thing on the
+ * page, not fixed). Tone-aware background so it owns its backdrop (ink on
+ * dark pages, bone on light-top pages) and reads continuous with the hero
+ * below. Mobile opens a full-screen drawer (solid bar while open). Reuse
+ * this — don't fork a second nav.
  *
- * Pages whose top-of-page is LIGHT (bone hero) list their route here so the
- * nav renders ink-on-light instead of bone-on-transparent.
+ * Pages whose top-of-page is LIGHT (bone hero) list their EXACT route here
+ * so the nav renders ink-on-light instead of bone-on-transparent. Exact
+ * match, not prefix. EMPTY since 2026-07-16 (the hero-cohesion pass): /blog
+ * rejoined the ink family, so every page now opens dark. The machinery stays
+ * for any future light-topped page.
  */
 const LIGHT_TOP_ROUTES: string[] = [];
 
@@ -22,8 +29,16 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const lightTop = !open && LIGHT_TOP_ROUTES.some((r) => pathname.startsWith(r));
+  const lightTop = !open && LIGHT_TOP_ROUTES.includes(pathname);
   const fg = lightTop ? "text-ink" : "text-bone";
+
+  // IMMERSIVE-RAIL PREVIEW (2026-07-14, client's call): the centred 1520 shell
+  // strands hero content too far in on wide screens, so the print-hero
+  // exploration sits on a near-full-bleed rail. The nav shares it so the logo
+  // lines up with the hero's left edge. Scoped to those mockup routes — every
+  // live page keeps the .shell rail — until the direction is settled.
+  const immersive = pathname.startsWith("/mockups/print-hero");
+  const rail = immersive ? "mx-auto w-full px-6 md:px-12 lg:px-40" : "shell";
 
   // Close the drawer on route change.
   useEffect(() => setOpen(false), [pathname]);
@@ -36,14 +51,38 @@ export default function Navbar() {
     };
   }, [open]);
 
+  // The hero mockups bake their own nav; hide the site chrome there so there's
+  // no double nav. (The homepage uses the real nav again, 2026-07-20 — one nav
+  // sitewide; HomeHero no longer carries its own.)
+  if (pathname === "/mockups/hero-1d") return null;
+
   return (
-    // absolute (not fixed): the nav belongs to the top of the page and
-    // scrolls away with it.
+    // TRANSPARENT OVERLAY on the hero (2026-07-20, client: "the nav needs to be
+    // intrinsically tied to the hero — the gradient runs through both"). Absolute
+    // at the page top so each page's hero GROUND shows continuously behind it;
+    // it scrolls away with the page. Heroes reserve top padding to clear it. The
+    // drawer still goes fixed+solid when open.
     <header className="absolute inset-x-0 top-0 z-50">
       {/* When open, the wrapper becomes a fixed full-screen ink overlay:
-          bar on top, menu filling the rest of the viewport. */}
-      <div className={open ? "fixed inset-0 z-50 bg-ink flex flex-col" : ""}>
-        <div className={`shell-wide ${open ? "border-b rule-dark" : ""}`}>
+          bar on top, menu filling the rest of the viewport.
+          When closed it carries the TONE-AWARE BACKGROUND (ink on dark
+          pages, bone on light-top pages) so the in-flow nav owns its
+          backdrop and reads continuous with the hero, plus the full-bleed
+          bottom hairline ("a thin border to help with layout"). The bg +
+          border live on THIS full-width wrapper (not the .shell content grid,
+          which insets and caps at 1520) so both run edge to edge. When the
+          drawer is open the divider moves to .shell (between bar and menu).
+          The nav CONTENT sits on .shell (2026-07-13, client's call) so the
+          logo + links share ONE grid with every page's content — no more
+          nav-on-shell-wide vs content-on-shell misalignment on wide screens. */}
+      <div
+        className={
+          open
+            ? "fixed inset-0 z-50 bg-ink flex flex-col"
+            : "" /* transparent — the hero ground shows through (2026-07-20) */
+        }
+      >
+        <div className={`${rail} ${open ? "border-b rule-dark" : ""}`}>
           <nav className="flex h-24 items-center justify-between md:h-32">
             <Link href="/" className="flex items-center gap-2 group" aria-label={`${SITE.name} home`}>
               {/* The NR monogram (swapped in for the text wordmark 2026-07-05);
@@ -67,13 +106,16 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              {/* Flagship arrow CTA (moved up from the hero 2026-07-05) */}
+              {/* Nav CTA — a .btn-sm SECONDARY (2026-07-16, hero-cohesion
+                  pass): the homepage hero owns the flagship arrow CTA again
+                  (the three-section hero), and the canon forbids a second
+                  flagship in the first viewport, so the nav steps down to
+                  the quiet tier sitewide. */}
               <Link
                 href="/contact"
-                className={`btn ${lightTop ? "btn-primary-light" : "btn-primary-dark"} btn-arrow`}
+                className={`btn btn-sm ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
               >
                 Start a project
-                <span className="btn-arrow-chip" aria-hidden>↗</span>
               </Link>
             </div>
 
@@ -100,7 +142,7 @@ export default function Navbar() {
             centred serif links, with the Instagram handle pinned to the foot. */}
         {open && (
           <div className="md:hidden flex-1 overflow-y-auto flex flex-col">
-            <nav className="shell-wide w-full flex flex-1 flex-col justify-center gap-7 py-10">
+            <nav className="shell w-full flex flex-1 flex-col justify-center gap-7 py-10">
               {NAV.map((item, i) => {
                 const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (
@@ -145,7 +187,7 @@ export default function Navbar() {
             </nav>
 
             {/* Instagram handle — fixed to the foot of the drawer */}
-            <div className="shell-wide w-full pb-10">
+            <div className="shell w-full pb-10">
               <a
                 href={SITE.sameAs[0]}
                 target="_blank"

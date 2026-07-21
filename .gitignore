@@ -35,6 +35,9 @@ next-env.d.ts
 /var
 /tmp
 
+# local scratch — staging area for files pending deletion (e.g. a repo tarball)
+/_to_delete
+
 # scratch/working assets — not used by the app (Next serves only /public)
 /assets
 

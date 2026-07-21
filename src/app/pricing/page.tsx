@@ -100,10 +100,21 @@ export default function PricingPage() {
         ]}
       />
 
+      {/* The canonical interior masthead (2026-07-16 hero-cohesion pass) —
+          gains the hero CTA per the settled policy: /pricing is a
+          commercial page. */}
       <PageHero
+        align="split"
+        spacious
+        borderBottom
         overline="Pricing"
-        title="Clear packages. No surprises."
+        title={
+          <>
+            Clear packages. No <em>surprises.</em>
+          </>
+        }
         lede="Three ways to work with the studio, with guide pricing to help you plan. We quote precisely after a short discovery call."
+        cta={{ label: "Start a project", href: "/contact" }}
       />
 
       {/* Packages */}

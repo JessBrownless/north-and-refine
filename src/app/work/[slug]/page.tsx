@@ -120,18 +120,28 @@ export default async function WorkDetailPage({
         ]}
       />
 
-      {/* Hero — title left, stacked project meta right (editorial pattern) */}
+      {/* Hero — title left, stacked project meta right (editorial pattern).
+          An ARTICLE HEADER, not a masthead (2026-07-16 hero-cohesion pass):
+          detail pages keep their own openers, but the entrance joins the
+          sitewide LOAD-IN system — heroes are first-paint content, never
+          IntersectionObserver sections (`.reveal` was the bug here). */}
       <section className="relative grain scene-ink overflow-hidden">
-        <div className="shell-wide pt-36 pb-12 md:pt-48 md:pb-16 relative z-10 lg:grid lg:grid-cols-12 lg:gap-x-10 lg:items-baseline">
+        <div className="shell-wide pt-16 pb-12 md:pt-24 md:pb-16 relative z-10 lg:grid lg:grid-cols-12 lg:gap-x-10 lg:items-baseline">
           <div className="lg:col-span-8">
-            <p className="overline reveal">
+            <p className="overline opacity-0 animate-fade-in">
               {getSectorLabel(fm.sector)} · {fm.year}
             </p>
-            <h1 className="heading-xl text-bone from-overline max-w-4xl reveal" style={{ transitionDelay: "80ms" }}>
+            <h1
+              className="heading-xl text-bone from-overline max-w-4xl opacity-0 animate-fade-in"
+              style={{ animationDelay: "0.1s" }}
+            >
               {fm.title}
             </h1>
             {fm.summary && (
-              <p className="lede body-lg text-bone-dim max-w-2xl reveal" style={{ transitionDelay: "160ms" }}>
+              <p
+                className="lede body-lg text-bone-dim max-w-2xl opacity-0 animate-fade-in"
+                style={{ animationDelay: "0.25s" }}
+              >
                 {fm.summary}
               </p>
             )}
@@ -139,8 +149,8 @@ export default async function WorkDetailPage({
 
           {/* Meta rail */}
           <dl
-            className="mt-12 grid grid-cols-2 gap-8 lg:mt-0 lg:block lg:space-y-7 lg:col-span-3 lg:col-start-10 reveal"
-            style={{ transitionDelay: "240ms" }}
+            className="mt-12 grid grid-cols-2 gap-8 lg:mt-0 lg:block lg:space-y-7 lg:col-span-3 lg:col-start-10 opacity-0 animate-fade-in"
+            style={{ animationDelay: "0.35s" }}
           >
             <div>
               <dt className="overline text-clay">Client</dt>
@@ -182,18 +192,21 @@ export default async function WorkDetailPage({
           <div className="shell-wide relative z-10 pb-24 md:pb-32">
           <div className="relative">
             {/* (Cluster glow retired with every background gradient 2026-07-09.) */}
-            <div className="relative sm:ml-20 md:ml-32 lg:ml-44">
+            <div
+              className="relative sm:ml-20 md:ml-32 lg:ml-44 opacity-0 animate-fade-in-slow"
+              style={{ animationDelay: "0.35s" }}
+            >
               <BrowserMockup
                 screenshot={fm.heroImage}
                 screenshotAlt={fm.heroImageAlt ?? fm.title}
                 domain={domainLabel}
-                className="rotate-[0.5deg] reveal"
+                className="rotate-[0.5deg]"
               />
             </div>
             {fm.mobileImage && (
               <div
-                className="absolute -bottom-10 left-0 hidden sm:block md:-bottom-14 reveal"
-                style={{ transitionDelay: "160ms" }}
+                className="absolute -bottom-10 left-0 hidden sm:block md:-bottom-14 opacity-0 animate-fade-in-slow"
+                style={{ animationDelay: "0.5s" }}
               >
                 <div className="-rotate-[7deg]">
                   <PhoneMockup

@@ -23,10 +23,17 @@ export default function IndustriesIndexPage() {
         ])}
       />
 
+      {/* The canonical interior masthead (2026-07-16 hero-cohesion pass) —
+          carries the hero CTA per the settled policy: the industries pages
+          are commercial. Lede dash swept the same day. */}
       <PageHero
+        align="split"
+        spacious
+        borderBottom
         overline="Industries"
         title="We design for one world, and we know it well."
-        lede="Working within medical aesthetics and cosmetic surgery means we understand the patient, the regulation and the search landscape — not as outsiders, but as specialists."
+        lede="Working within medical aesthetics and cosmetic surgery means we understand the patient, the regulation and the search landscape, as specialists rather than outsiders."
+        cta={{ label: "Start a project", href: "/contact" }}
       />
 
       <section className="bg-ink">

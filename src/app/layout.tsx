@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Sans } from "next/font/google";
+import { Instrument_Sans, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SITE } from "@/lib/site";
@@ -11,40 +11,48 @@ import Reveal from "@/components/Reveal";
 import SmoothScroll from "@/components/SmoothScroll";
 import ExitFades from "@/components/ExitFades";
 
-// Type system: a TWO-FONT house (decided 2026-07-09). Saol Display carries
-// every display/heading tier; the sans (--font-sans) carries EVERYTHING
-// else — body, UI, and the meta voice (overlines, index numbers, stats)
-// that Geist Mono used to carry. The mono is retired: it was the
-// "engineered accent" of the old tech-luxury direction, and in the flat
-// editorial system the meta voice comes from the same family as the body.
-// The `font-mono` utility falls back to the system mono stack, which only
-// device-chrome depictions (BrowserMockup's address bar) still use.
+// ── ONE-FONT HOUSE: Instrument Sans ─────────────────────────────────────────
+// (2026-07-14, client's big call: "make all headings and text Instrument Sans"
+// — the Saol serif wasn't working.) A single free Google face now carries every
+// tier. `--font-sans` holds Instrument Sans and `--font-display` is ALIASED to
+// it on <html> below, so the ~27 heading/body rules in globals.css that read
+// those two vars all resolve to Instrument Sans with no per-rule edits.
 //
-// ⚠ PRODUCTION FALLBACK LOADER. The CHOSEN body face is Dia (Schick
-// Toikka) — but Dia is a TRIAL licence whose OTFs are gitignored and MUST
-// NOT ship, so its loader lives ONLY as an uncommitted working-tree change
-// in the dev worktrees (see CLAUDE.md → Fonts). This committed file ships
-// Instrument Sans until Dia is bought; buy Dia → commit licensed webfonts
-// → retire this loader.
-//
-// (Aeonik Pro trial evaluated 2026-06 and parked — files in src/fonts/.)
-const sans = Instrument_Sans({
+// This also RETIRES both licence blockers: Dia (trial) and Saol (licensed) are
+// gone, so this layout can finally ship COMMITTED — no more held-back font block
+// or Instrument-Sans production swap. The old faces stay in src/fonts/ unused.
+// NOTE: the <em> accent-word device now renders Instrument Sans italic, not Saol
+// Light Italic — revisit that device (and the "size-only hierarchy" rule, now
+// that a weighted family is available) separately.
+const instrument = Instrument_Sans({
   subsets: ["latin"],
+  style: ["normal", "italic"],
   variable: "--font-sans",
   display: "swap",
 });
 
-// Saol Display — the wordmark/logo face (decided 2026-07-04): a sharp luxury
-// serif carrying every `font-display` usage (Navbar/Footer wordmarks, the
-// giant NORTH, the coming-soon page, mockup mini-site wordmarks). Body and
-// headings stay Instrument Sans. Licensed webfonts in src/fonts/ (not a
-// trial — confirm the webfont licence covers the live domain).
+// Saol Display — the ACCENT face only (2026-07-20, reintroduced for the hero
+// title device: "one italic serif part in the title"). Headings/body stay
+// Instrument; `--font-saol` is used solely by the <em> accent rule in globals.
 const saol = localFont({
   src: [
     { path: "../fonts/SaolDisplay-Regular.woff2", weight: "400", style: "normal" },
     { path: "../fonts/SaolDisplay-LightItalic.woff", weight: "300", style: "italic" },
   ],
-  variable: "--font-display",
+  variable: "--font-saol",
+  display: "swap",
+});
+
+// Geist Mono — THE KICKER / META VOICE (2026-07-20, client: "unify the kicker").
+// The homepage hero kicker is mono; loading it globally lets .overline (and the
+// homepage inline kicker) share ONE mono face, so every tracked-caps kicker
+// sitewide reads the same. Restores the meta voice the retired-canon note
+// describes ("overlines… that Geist Mono used to carry"). Used by the .overline
+// rule in globals + the homepage hero's inline kicker.
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -81,7 +89,11 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${saol.variable}`}>
+    <html
+      lang="en"
+      className={`${instrument.variable} ${saol.variable} ${geistMono.variable}`}
+      style={{ "--font-display": "var(--font-sans)" } as React.CSSProperties}
+    >
       <body id="top">
         {/* Site-wide structured data: the studio + the website node. */}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
