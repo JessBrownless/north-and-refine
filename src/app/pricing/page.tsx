@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import FaqSection from "@/components/FaqSection";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 import { faqSchema, breadcrumbSchema, serviceSchema } from "@/lib/schema";
@@ -118,8 +119,8 @@ export default function PricingPage() {
       />
 
       {/* Packages */}
-      <section className="bg-ink">
-        <div className="shell py-16 md:py-24">
+      <section className="relative overflow-hidden grain bg-ink">
+        <div className="shell relative z-10 py-16 md:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {PACKAGES.map((p, i) => (
               <div
@@ -165,28 +166,15 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="bg-bone text-ink">
-        <div className="shell py-20 md:py-28">
-          <p className="overline text-clay reveal">Questions</p>
-          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-            Pricing questions
-          </h2>
-          <div className="mt-12 max-w-3xl divide-y rule-light">
-            {FAQS.map((f) => (
-              <details key={f.question} className="group py-6 rule-light">
-                <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                  <span className="heading-sm">{f.question}</span>
-                  <span className="text-ink/70 text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>
-                    +
-                  </span>
-                </summary>
-                <p className="body mt-4 text-ink/70">{f.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* FAQ — the shared <FaqSection> (2026-07-24: the last bespoke
+          <details> block on the site folded into the one component, per the
+          client's "make ALL FAQs the same styling"). */}
+      <FaqSection
+        kicker="Questions"
+        heading="Pricing questions."
+        faqs={FAQS}
+        cta={{ label: "Ask us directly", href: "/contact" }}
+      />
 
       <ContactCTA />
     </main>

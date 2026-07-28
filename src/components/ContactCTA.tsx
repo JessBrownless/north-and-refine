@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HeroGlow from "@/components/HeroGlow";
 
 interface ContactCTAProps {
   /** Override the default heading (plain text — no italic accent). */
@@ -8,97 +9,104 @@ interface ContactCTAProps {
 }
 
 /**
- * Standard "start a project" CTA band — the page's single light interruption,
- * and its close. Drop at the foot of most pages; don't hand-roll a parallel
- * CTA block.
+ * Standard "start a project" CTA band — the sitewide close. Drop at the foot
+ * of most pages; don't hand-roll a parallel CTA block.
  *
- * THE CLOSE MIRRORS THE HERO (rebuilt 2026-07-10 — the previous side-kicker
- * grid with its second hairline and split footer row read "bitty" and
- * matched nothing else on the page). Same grammar as every section and the
- * hero itself: kicker above, heading, lede, flagship + ghost — left on the
- * rail. The page opens with the claim + CTA pair on ink and shuts with the
- * invitation + CTA pair on bone: cover and back cover, inverted stock.
- * The heading sits at heading-xl (the MOMENTS register) to answer the
- * hero's display-mega; .statement is the quote register.
+ * THE GRADIENT CARD (2026-07-24, client: "a gradient card where the card's
+ * inside the CTA, black background but gradienty card"). The cream back-cover
+ * era (2026-07-10 → 24) ended here: the section is INK, and the close is a
+ * rounded card carrying the HERO'S OWN GROUND — warm base + <HeroGlow> +
+ * grain — with the CTA content inside it. The page opens under a warm glow
+ * and shuts on the same light held in a card: bookends, in the site's one
+ * gradient language. Rounded corners per the curved direction (the /about
+ * tiles' family); the card, like the homepage craft card before it, is a
+ * SCOPED exception to the flat-ground rule — the gradient lives INSIDE the
+ * card, never on the section ground.
  *
- * THE CLOSE PLATE (round 5, KEPT 2026-07-10). Static, never overlapping —
- * the close is the back cover; it resolves, it doesn't perform. Rowen 8
- * LANDSCAPE (16:10) right of the text on md+, bottom-locked to the CTA row
- * (items-end — the hero plate's bottom-lock, mirrored); the hero holds
- * Rowen 5 PORTRAIT — same room, same suite, same client on screen: one
- * shoot bookending the page. Mobile: in flow after the buttons,
- * right-anchored at 3/5 width like the hero's mobile plate. Bone-on-cream
- * keeps it tonally inside the band; the black table is the ink accent.
- * Plate rebuild recipe: docs/briefs/hero-plates.md.
+ * THE CLOSE MIRRORS THE HERO (kept from the cream era): kicker, heading-xl
+ * (the MOMENTS register), lede, flagship + ghost, left on the rail — and THE
+ * CLOSE PLATE (Rowen 8, 16:10) right of the text, bottom-locked to the CTA
+ * row (items-end). Static, never overlapping: the close is the back cover;
+ * it resolves, it doesn't perform. Type is the ON-INK ladder now
+ * (bone/bone-dim); the flagship is the dark-ground pair (btn-primary-dark).
+ * Mobile: plate in flow after the buttons, right-anchored at 3/5.
+ *
+ * The exit-fade left with the cream: this band already ends every page on
+ * ink, so there is nothing to fade into. data-nav-light removed — the band
+ * is dark; LIGHT_TOP_ROUTES logic is untouched elsewhere.
  */
 export default function ContactCTA({
   heading,
   body = "Tell us about your practice and where you want it to be. We take on a limited number of projects at a time, so the right fit matters.",
 }: ContactCTAProps) {
   return (
-    <section data-nav-light className="scene-cream relative overflow-hidden text-ink">
+    <section className="relative overflow-hidden grain bg-ink">
       {/* Statement-moment spacing tier: py-32 md:py-44 — the studio moment
           and this close share it; standard sections sit on py-24 md:py-32. */}
-      <div className="shell relative py-32 md:py-44">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
-          <div className="md:col-span-7">
-            {/* Kicker at text-ink-dim — the on-light ladder; clay is sub-AA on bone */}
-            <p className="overline text-ink-dim reveal">Start a project</p>
-            <h2
-              className="heading-xl from-overline max-w-[24ch] text-balance reveal"
-              style={{ transitionDelay: "80ms" }}
-            >
-              {heading ?? (
-                <>
-                  Let&rsquo;s build something your patients <em>trust</em>.
-                </>
-              )}
-            </h2>
-            <p
-              className="body-xl mt-10 max-w-[44ch] text-ink-dim reveal md:mt-12"
-              style={{ transitionDelay: "160ms" }}
-            >
-              {body}
-            </p>
-            {/* The foot view's flagship + the tertiary ghost — the hero pair,
-                on light. */}
-            <div
-              className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 reveal md:mt-12"
-              style={{ transitionDelay: "240ms" }}
-            >
-              <Link href="/contact" className="btn btn-primary-light btn-arrow">
-                Start a project
-                <span className="btn-arrow-chip" aria-hidden>↗</span>
-              </Link>
-              <Link href="/work" className="btn-ghost text-ink">
-                See the work <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </div>
-          {/* The close plate — col 8 stays empty (the hero's gutter of air,
-              mirrored). Below md it stacks after the buttons, right-anchored
-              like the hero's mobile plate. */}
-          <div
-            className="ml-auto w-3/5 max-w-[280px] reveal md:col-span-4 md:col-start-9 md:ml-0 md:w-auto md:max-w-none"
-            style={{ transitionDelay: "320ms" }}
-          >
-            <div className="frame aspect-[16/10]">
-              {/* Rowen 8 with the real Dr Yalda desktop composited onto the
-                  laptop screen — the hero plate's sibling frame. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/plates/cta-rowen-08.jpg"
-                alt="A laptop on a travertine plinth displaying the Dr Yalda Jamali website — brand and web design by North & Refine"
-                loading="lazy"
-                className="plate-develop absolute inset-0 h-full w-full object-cover"
-              />
+      <div className="shell relative z-10 py-32 md:py-44">
+        {/* THE CARD — the hero ground, held. relative + overflow-hidden +
+            grain per the .grain contract; content rides z-10 above the glow.
+            Radius in the /about tiles' clamp family. */}
+        <div className="reveal relative overflow-hidden grain rounded-[clamp(20px,2vw,34px)] bg-[#16110C]">
+          <HeroGlow intensity={0.8} />
+          <div className="relative z-10 p-10 sm:p-14 md:p-20">
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
+              <div className="md:col-span-7">
+                <p className="overline reveal">Start a project</p>
+                <h2
+                  className="heading-xl from-overline max-w-[24ch] text-balance text-bone reveal"
+                  style={{ transitionDelay: "80ms" }}
+                >
+                  {heading ?? (
+                    <>
+                      Let&rsquo;s build something your patients <em>trust</em>.
+                    </>
+                  )}
+                </h2>
+                <p
+                  className="body-xl mt-10 max-w-[44ch] text-bone-dim reveal md:mt-12"
+                  style={{ transitionDelay: "160ms" }}
+                >
+                  {body}
+                </p>
+                {/* The foot view's flagship + the tertiary ghost — the hero
+                    pair, on the card's dark ground. */}
+                <div
+                  className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 reveal md:mt-12"
+                  style={{ transitionDelay: "240ms" }}
+                >
+                  <Link href="/contact" className="btn btn-primary-dark btn-arrow">
+                    Start a project
+                    <span className="btn-arrow-chip" aria-hidden>↗</span>
+                  </Link>
+                  <Link href="/work" className="btn-ghost text-bone">
+                    See the work <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </div>
+              {/* The close plate — col 8 stays empty (the hero's gutter of
+                  air, mirrored). Below md it stacks after the buttons,
+                  right-anchored like the hero's mobile plate. */}
+              <div
+                className="ml-auto w-3/5 max-w-[280px] reveal md:col-span-4 md:col-start-9 md:ml-0 md:w-auto md:max-w-none"
+                style={{ transitionDelay: "320ms" }}
+              >
+                <div className="frame aspect-[16/10]">
+                  {/* Rowen 8 with the real Dr Yalda desktop composited onto
+                      the laptop screen — the hero plate's sibling frame. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/plates/cta-rowen-08.jpg"
+                    alt="A laptop on a travertine plinth displaying the Dr Yalda Jamali website — web and brand design by North & Refine"
+                    loading="lazy"
+                    className="plate-develop absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Fade-to-ink on exit — the bone band dims into darkness as what
-          follows arrives (JS-driven, pointer-events-none) */}
-      <div aria-hidden className="exit-fade absolute inset-0 z-20 bg-ink" />
     </section>
   );
 }

@@ -36,8 +36,8 @@ export default function IndustriesIndexPage() {
         cta={{ label: "Start a project", href: "/contact" }}
       />
 
-      <section className="bg-ink">
-        <div className="shell py-16 md:py-24">
+      <section className="relative overflow-hidden grain bg-ink">
+        <div className="shell relative z-10 py-16 md:py-24">
           <div className="divide-y rule-dark border-y rule-dark">
             {INDUSTRIES.map((industry, i) => (
               <Link

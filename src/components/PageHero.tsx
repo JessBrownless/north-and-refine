@@ -38,6 +38,13 @@ interface PageHeroProps {
    *   2026-07-16 — reach for split first.
    */
   align?: "left" | "center" | "split";
+  /** Split only (2026-07-23, born on /work with the inline title chips): let
+      the DISPLAY heading run the FULL rail (cols 1–12) instead of cols 1–7,
+      with the lede dropping to a second row in the right columns. For pages
+      whose H1 carries its own imagery or needs long-line energy — the
+      narrow-column split wrapped it into short stacked lines against a dead
+      right half at wide viewports. */
+  wide?: boolean;
   /** "light" = a BONE hero: flat scene-warm ground, ink type, clay kicker,
       `text-ink-dim` lede (the on-light ladder), the light primary pill, and
       NO grain (grain is a dark-hero texture). The route MUST be registered
@@ -58,6 +65,15 @@ interface PageHeroProps {
       the text hero flows straight into the work grid, so both must be ONE
       continuous flat ink). No effect on light heroes (grain is dark-only). */
   grain?: boolean;
+  /** THE SHARED-CANVAS ESCAPE HATCH (2026-07-23, born on /about): set false
+      and the hero renders NO ground of its own — no bg, no HeroGlow, no seam
+      strip, no overflow clip — so the PAGE can wrap the hero and its
+      neighbour section in ONE relative/overflow-hidden canvas carrying ONE
+      glow across both. For pages where the hero and the section below must
+      be literally one surface (matching two separate gradients at a seam is
+      brittle when the glow is still bright at the hero's foot). Dark tone
+      only; the wrapper owns base colour, glow, grain and the fade to ink. */
+  ground?: boolean;
 }
 
 /**
@@ -88,10 +104,12 @@ export default function PageHero({
   meta,
   media,
   align = "left",
+  wide = false,
   tone = "dark",
   spacious = false,
   borderBottom = false,
   grain = true,
+  ground = true,
 }: PageHeroProps) {
   const light = tone === "light";
   const centered = align === "center";
@@ -118,10 +136,39 @@ export default function PageHero({
   // its film texture over it if set.
   const sectionCls = light
     ? "relative scene-warm overflow-hidden"
-    : `relative overflow-hidden bg-[#16110C]${grain ? " grain" : ""}`;
-  const heroGlow = light ? null : <HeroGlow intensity={0.85} />;
-  // The nav is IN FLOW (2026-07-12), so hero padding is pure, SYMMETRIC
-  // top/bottom air. Set freely per page; no nav-height math anywhere.
+    : ground
+      ? `relative overflow-hidden bg-[#16110C]${grain ? " grain" : ""}`
+      : "relative"; // shared canvas: the page's wrapper owns ground + clip
+  const heroGlow = light || !ground ? null : (
+    <>
+      {/* 0.85 → 0.6 (2026-07-24, client: the blurs read "a bit much" on
+          some pages) — the interior dose steps further below the homepage's
+          full ground. */}
+      <HeroGlow intensity={0.6} />
+      {/* THE SEAM ANCHOR (2026-07-23, client: hero and next section "need to
+          almost be one"): the ground resolves to ONE FIXED TONE (#14100B) at
+          the hero's foot, and SectionGlow's wash starts from exactly that
+          tone on the other side of the boundary — matched colour, invisible
+          seam. Change one, change both. */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          insetInline: 0,
+          bottom: 0,
+          height: "clamp(120px,18vh,220px)",
+          background:
+            "linear-gradient(180deg, rgba(20,16,11,0) 0%, #14100B 100%)",
+          pointerEvents: "none",
+        }}
+      />
+    </>
+  );
+  // ⚠ The nav is ABSOLUTE + TRANSPARENT (the warm-glow era floats it over
+  // the hero ground) — the old "nav in flow, no nav-height math" note here
+  // was stale and cost a padding whiplash on 2026-07-24. Hero top padding
+  // MUST include nav clearance (h-32 = 128px at md); judge air OPTICALLY
+  // from the nav's foot. The split/media branches handle this themselves.
   const padY = spacious ? "py-24 md:py-36" : "py-16 md:py-24";
 
   const overlineEl = overline ? (
@@ -181,16 +228,34 @@ export default function PageHero({
       ? "min-h-[48vh] py-20 md:min-h-[56vh] md:py-28"
       : "min-h-[40vh] py-16 md:min-h-[46vh] md:py-20";
 
-    // SPLIT + MEDIA: the graphic variant. Text stack cols 1–6 (the lede
-    // joins the left column), the media node cols 8–12, vertically centred
-    // against the text — col 7 the gutter.
+    // SPLIT + MEDIA: the graphic variant. REBALANCED 2026-07-24 (client: the
+    // hero "feels unbalanced" — measured on /services, three faults):
+    //  1. AIR — corrected TWICE, record straight (2026-07-24): the NAV IS
+    //     ABSOLUTE and transparent (the warm-glow era floats it over the
+    //     hero ground; the docs' "nav in normal flow" note was stale), so
+    //     the section's first ~128px sit BEHIND the nav and top padding MUST
+    //     carry nav clearance. Stripping `pt-44` as "leftover nav math" put
+    //     the kicker 40px under the nav. The target is OPTICAL symmetry —
+    //     air below the nav's foot ≈ air below the content: with splitBox's
+    //     md:py-28 (112) both sides, pt-40 (160) + pb-8 (32) gives
+    //     160+112−128 = 144 above vs 112+32 = 144 below.
+    //  2. THE MIDDLE. Text cols 1–6 + media cols 8–12 left a two-column
+    //     trough: the H1's longest line ended at x=591 and the graphic began
+    //     at x=851, so 260px of dead ground sat between the halves and they
+    //     read as two separate things. Media now starts at col 7 — 6 and 6,
+    //     no gutter column, the halves meeting in the middle.
+    //  3. THE SHARED LINE. `items-center` box-centred the graphic against
+    //     the text, landing it 16px off the H1's top and 65px off the stack's
+    //     bottom — near-misses, which is what the baseline-lock rule exists
+    //     to prevent. `items-end` locks the graphic's foot to the bottom of
+    //     the text stack, so the CTA and the image close on one line.
     if (media) {
       return (
         <section className={sectionCls}>
         {heroGlow}
-          <div className="shell relative z-10 pt-28 md:pt-44">
+          <div className="shell relative z-10 pt-32 pb-6 md:pt-40 md:pb-8">
             <div className={`flex items-center ${splitBox}${shellBorder}`}>
-              <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8">
+              <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
                 <div className="md:col-span-6">
                   {overlineEl}
                   {h1El}
@@ -205,7 +270,7 @@ export default function PageHero({
                   {actionsEl}
                 </div>
                 <div
-                  className="opacity-0 animate-fade-in-slow md:col-span-5 md:col-start-8"
+                  className="opacity-0 animate-fade-in-slow md:col-span-6 md:col-start-7"
                   style={{ animationDelay: "0.35s" }}
                 >
                   {media}
@@ -231,13 +296,30 @@ export default function PageHero({
                 heading↔lede distance, so it must match the lede system, not
                 the wider desktop column gap-8 (which only ever acts
                 horizontally, the lede being baseline-locked at md). */}
-            <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-12 md:items-end md:[align-items:last_baseline] md:gap-8">
-              <div className="md:col-span-7">
+            <div
+              className={`grid w-full grid-cols-1 gap-6 md:grid-cols-12 md:gap-8${
+                wide ? "" : " md:items-end md:[align-items:last_baseline]"
+              }`}
+            >
+              {/* WIDE (2026-07-23): the heading owns the FULL rail in long
+                  lines and the WHOLE stack stays FLUSH LEFT — the lede sits
+                  under the heading on the .lede system (client's call, same
+                  day: the bottom-right lede read as scattered). The
+                  last-baseline lock only applies to the two-column split. */}
+              <div className={wide ? "md:col-span-12" : "md:col-span-7"}>
                 {overlineEl}
                 {h1El}
+                {wide && lede && (
+                  <p
+                    className={`lede body-lg ${ledeColor} max-w-[46ch] opacity-0 animate-fade-in`}
+                    style={{ animationDelay: "0.25s" }}
+                  >
+                    {lede}
+                  </p>
+                )}
                 {actionsEl}
               </div>
-              {lede && (
+              {!wide && lede && (
                 <p
                   className={`body-lg ${ledeColor} max-w-[46ch] opacity-0 animate-fade-in md:col-span-4 md:col-start-9`}
                   style={{ animationDelay: "0.25s" }}

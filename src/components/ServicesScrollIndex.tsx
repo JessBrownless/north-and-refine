@@ -1,13 +1,23 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 type Service = {
   num: string;
   title: string;
   lead: string;
-  body: string;
-  deliverables: string[];
+  /** Both OPTIONAL since the 2026-07-24 split, but note WHAT actually moved:
+      only the DASH-RULED DELIVERABLES went to the detail pages ("the
+      excessive text with the lines"). The client's follow-up was explicit —
+      keep the paragraphs, move just the bits after the dashes — because a row
+      of heading + one line reads far too thin on desktop beside the big
+      rolling numeral. So the hub passes `body`; it omits `deliverables`. */
+  body?: string;
+  deliverables?: string[];
+  /** Detail page for this service (2026-07-24, the /services split). When
+      present the row title links to it and gains a ghost onward link. */
+  href?: string;
 };
 
 /**
@@ -119,20 +129,39 @@ export default function ServicesScrollIndex({ services }: { services: Service[] 
                 className="absolute left-0 top-0 h-px w-0 bg-bone transition-[width] duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
               />
             </div>
-            <h2 className="heading-lg mt-12 text-bone">{s.title}</h2>
+            <h2 className="heading-lg mt-12 text-bone">
+              {s.href ? (
+                <Link href={s.href} className="transition-opacity hover:opacity-70">
+                  {s.title}
+                </Link>
+              ) : (
+                s.title
+              )}
+            </h2>
             <p className="body-lg mt-4 max-w-[36ch] text-bone-dim">{s.lead}</p>
-            <p className="body mt-5 max-w-[54ch] text-bone-dim">{s.body}</p>
-            <ul className="mt-9 grid grid-cols-1 gap-x-10 gap-y-3.5 border-t rule-dark pt-7 sm:grid-cols-2">
-              {s.deliverables.map((d) => (
-                <li
-                  key={d}
-                  className="body-sm flex items-center gap-3 text-bone-dim"
-                >
-                  <span aria-hidden className="h-px w-4 shrink-0 bg-clay" />
-                  {d}
-                </li>
-              ))}
-            </ul>
+            {s.body && (
+              <p className="body mt-5 max-w-[54ch] text-bone-dim">{s.body}</p>
+            )}
+            {s.deliverables && s.deliverables.length > 0 && (
+              <ul className="mt-9 grid grid-cols-1 gap-x-10 gap-y-3.5 border-t rule-dark pt-7 sm:grid-cols-2">
+                {s.deliverables.map((d) => (
+                  <li
+                    key={d}
+                    className="body-sm flex items-center gap-3 text-bone-dim"
+                  >
+                    <span aria-hidden className="h-px w-4 shrink-0 bg-clay" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {s.href && (
+              <div className="mt-9">
+                <Link href={s.href} className="btn-ghost text-bone">
+                  More on {s.title.toLowerCase()} <span aria-hidden>→</span>
+                </Link>
+              </div>
+            )}
           </div>
         ))}
       </div>

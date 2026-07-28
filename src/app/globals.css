@@ -423,17 +423,16 @@
   /* Standard contained section width + responsive padding. The content grid:
      use on body sections so copy keeps a comfortable measure. */
   .shell {
-    /* 1520px (2026-07-10 night, third and final width of the evening):
-       widened past 1400 at the client's call — on her MacBook Air (1470
-       viewport) the grid now fills the screen minus padding, and on big
-       monitors caps at 1520. The night's journey for the record: live-era
-       1280 restored and rejected (too narrow) → 1400 (the all-day state,
-       still not wide enough on the Air) → 1520. Don't re-narrow below
-       1400 without her asking. */
+    /* 1600px (2026-07-23: "widen the content grid — it seems a bit skinny";
+       fourth width, following the 2026-07-10 journey 1280 → 1400 → 1520).
+       The side padding eased with it (4vw/4rem → 3vw/3rem) so the gain
+       shows on laptop viewports too — on the MacBook Air (1470) the cap
+       never binds; padding is the real constraint there. Don't re-narrow
+       below 1400 without the client asking. */
     width: 100%;
-    max-width: 1520px;
+    max-width: 1600px;
     margin-inline: auto;
-    padding-inline: clamp(1.5rem, 4vw, 4rem);
+    padding-inline: clamp(1.5rem, 3vw, 3rem);
   }
 
   /* Open, near-full-width container — HEROES ONLY. Content breathes to the
@@ -454,7 +453,7 @@
     border-color: var(--bone-line);
   }
 
-  /* Film-grain overlay for dark hero sections */
+  /* Film-grain overlay for dark sections */
   .grain::before {
     content: "";
     position: absolute;
@@ -464,6 +463,44 @@
     z-index: 1;
     background-image: url("/grain.svg");
     background-size: 200px 200px;
+  }
+
+  /* PAPER TOOTH — the light-ground grain (2026-07-24, client: the backgrounds
+     "feel like there's a disconnect visually"). Grain had been dark-only, so
+     every dark surface on the site was a material and every light one was a
+     flat paint; that split is what read as two different sites. The answer is
+     TEXTURE, not gradient: a blurred bloom on bone reads as a stain (paper is
+     expected to be even, and the 2026-07-10 gold band was reverted for
+     exactly that), while grain reads as tooth and makes both grounds the same
+     stock. `multiply` so the noise DARKENS the paper instead of lifting it —
+     the dark overlay's normal blend would wash bone out. It also dithers,
+     which is what stops low-contrast light grounds banding.
+     Same contract as .grain: parent needs position:relative + overflow-hidden,
+     content above on z-10. */
+  .grain-light::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    z-index: 1;
+    mix-blend-mode: multiply;
+    background-image: url("/grain.svg");
+    background-size: 200px 200px;
+  }
+
+  /* THE FIELDS RIBBON pause (2026-07-24). The marquee itself is the
+     Tailwind `animate-marquee` utility (tailwind.config.ts — the retired
+     2026-07-10 device, back in live service at the client's explicit call
+     for the /services who-we-work-with band: "make it scroll so we can fit
+     lots more in". THE ONE SANCTIONED AUTO-MOTION on the site; the
+     nothing-auto-moves rule holds everywhere else). Two identical copies in
+     a w-max flex track make the -50% loop seamless. This rule adds the
+     hover pause (the Deck's precedent: the reader can always stop the
+     motion); under reduced motion the global guard snaps the animation to
+     its end state and the duplicate copy still reads as a full row. */
+  .animate-marquee:hover {
+    animation-play-state: paused;
   }
 
   /* Standard portrait/landscape media wrapper */
@@ -798,6 +835,24 @@
      lede/kicker (clay is sub-AA on light grounds). */
   .scene-cream {
     background: color-mix(in srgb, var(--champagne-soft) 35%, var(--bone));
+  }
+
+  /* THE DEEPER IVORY — the FAQ stock (2026-07-24, client: the FAQ cream "has
+     ended up the same colour as the CTAs"). One step DOWN from .scene-cream,
+     so the FAQ reads as its own band and the close still lifts to finish the
+     page. Darkened with a touch of INK, not more champagne: raising the
+     champagne share is what made the 2026-07-10 band read "too gold", so the
+     hue holds and only the value moves. #DCD3C3.
+     ⚠ TEXT ON THE CREAMS: ink 13.2:1, ink-dim 5.4:1, but ink-MUTE is only
+     3.85:1 here (4.36:1 even on .scene-cream) — SUB-AA. On either cream the
+     meta tier is `text-ink-dim`, not ink-mute; ink-mute's ~5:1 holds on BONE
+     only. */
+  .scene-cream-deep {
+    background: color-mix(
+      in srgb,
+      var(--ink) 6%,
+      color-mix(in srgb, var(--champagne-soft) 35%, var(--bone))
+    );
   }
 
   /* Elevated card on light surfaces — STRAIGHT corners (2026-07-09: all

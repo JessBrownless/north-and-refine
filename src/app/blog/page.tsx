@@ -72,7 +72,7 @@ export default function BlogIndexPage() {
         overline="The Blog"
         title={
           <>
-            Notes on brand, web and <em>trust.</em>
+            Notes on web, brand and <em>trust.</em>
           </>
         }
         lede="Writing on design, branding, SEO and conversion for practices in medical aesthetics and cosmetic surgery."

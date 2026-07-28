@@ -5,6 +5,7 @@ import FaqSection from "@/components/FaqSection";
 import MethodSection from "@/components/MethodSection";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
+import HeroGlow from "@/components/HeroGlow";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 /**
@@ -59,14 +60,6 @@ export const metadata: Metadata = {
    ("What we believe"), the fields band ("Where we work") and the
    how-we-work section ("Working together") — their copy survives in git
    and the brief if any of it returns. */
-
-const STATS = [
-  { value: "10", label: "Years in the craft" },
-  { value: "1", label: "Field, known deeply" },
-  /* ⚠ PLACEHOLDER — "3" is provisional; confirm the projects-at-a-time
-     number with Jess before launch. */
-  { value: "3", label: "Projects at a time" },
-];
 
 /* The three method beats — the 1a comp's indexed list (2026-07-12 night):
    clay indices + hairline rows on bone, no StageGlyphs (the glyph plates
@@ -142,7 +135,7 @@ const FAQS = [
     /* ⚠ Confirm the six-to-ten-week typical timeline with Jess before
        launch (brief placeholder #2). */
     answer:
-      "Six to ten weeks is typical for a brand and website together, depending on scope. We will give you an honest timeline before we start, and because we only run a few projects at once, the timeline we give is one we keep.",
+      "Six to ten weeks is typical for a website and brand together, depending on scope. We will give you an honest timeline before we start, and because we only run a few projects at once, the timeline we give is one we keep.",
   },
   {
     question: "Who owns the website when it’s done?",
@@ -158,6 +151,131 @@ const FAQS = [
       "We stay close. Launch is the midpoint of the method, not the end of it. We watch how patients find and use the site, and keep refining what the numbers ask us to.",
   },
 ];
+
+/* ── The double ream (2026-07-23) ─────────────────────────────────────
+   Two staggered, edge-cropped rows of rounded tiles under the hero text,
+   each a semi-transparent black glass card with a blank device rising
+   from its foot (same-day revision: per-tile gradients CUT at the
+   client's call — the SECTION ground carries the gradient, like the
+   other pages' SectionGlow grounds, and the tiles let it read through).
+   Local to this page while the direction settles; promote to a component
+   if a second page wants it. */
+
+function BlankPhone() {
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "34%",
+        aspectRatio: "320 / 680",
+        background: "#060607",
+        // White bezel edge (2026-07-23, with the pure-black tiles): the
+        // device contrasts against the black pane by its own rim.
+        border: "1px solid #FFFFFF",
+        borderRadius: "clamp(14px,1.4vw,24px)",
+        padding: "clamp(3px,0.3vw,5px)",
+        boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+      }}
+    >
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "clamp(7px,0.7vw,12px)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "clamp(24px,2.4vw,40px)",
+          height: "clamp(7px,0.7vw,12px)",
+          background: "#000",
+          borderRadius: "999px",
+          zIndex: 2,
+        }}
+      />
+      <div style={{ width: "100%", height: "100%", borderRadius: "clamp(11px,1.15vw,20px)", background: "#121112" }} />
+    </div>
+  );
+}
+
+function BlankLaptop() {
+  return (
+    <div
+      style={{
+        width: "72%",
+        background: "#060607",
+        // White bezel edge — see BlankPhone.
+        border: "1px solid #FFFFFF",
+        borderRadius: "clamp(8px,0.8vw,14px)",
+        padding: "clamp(4px,0.4vw,7px)",
+        boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+      }}
+    >
+      <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "clamp(5px,0.5vw,9px)", background: "#121112" }} />
+    </div>
+  );
+}
+
+function MockupReam({ row }: { row: 0 | 1 }) {
+  // Six larger tiles ≈ 170vw (2026-07-23 same-day: six SHOWING per row read
+  // as too many — bigger tiles, ~3–4 in view) — the row always overflows
+  // and crops at the screen edges. The second row shifts the device pattern
+  // and slides sideways, so the two reams read as a staggered contact
+  // sheet, not a grid.
+  const tiles = Array.from({ length: 6 }, (_, i) => i);
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: "clamp(12px,1.4vw,24px)",
+        transform: row === 0 ? "translateX(-6vw)" : "translateX(6vw)",
+      }}
+    >
+      {tiles.map((i) => {
+        const phone = (i + row) % 2 === 0;
+        return (
+          <div
+            key={i}
+            style={{
+              position: "relative",
+              flexShrink: 0,
+              width: "max(280px, 27vw)",
+              aspectRatio: "4 / 3",
+              borderRadius: "clamp(18px,1.8vw,30px)",
+              overflow: "hidden",
+              // Tiles are LIGHT GLASS (2026-07-23, third revision of the
+              // day: dark glass → "make the background lighter") — the
+              // .card-glass idiom's bone-tinted lift, rounded per the
+              // current direction: the tiles now read as lifted panes ON
+              // the glowing canvas rather than holes in it. The ground
+              // still owns the colour; the glass only lightens it.
+              // SOLID PURE BLACK (client, same day, after white: "try pure
+              // black") — the devices contrast via their WHITE BEZEL BORDER
+              // instead of the card; the black panes read as windows cut
+              // into the warm canvas.
+              background: "#000000",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+            }}
+          >
+            {/* Device rises from the tile's foot and crops there — the tile
+                is the frame, the screen stays blank glass. */}
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                transform: phone ? "translateY(18%)" : "translateY(14%)",
+              }}
+            >
+              {phone ? <BlankPhone /> : <BlankLaptop />}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -182,9 +300,45 @@ export default function AboutPage() {
           them). No borderBottom: the full-bleed scene band directly below
           is the hero's own visual half — a rule between them would cut the
           pair apart. */}
+      {/* THE SHARED CANVAS (2026-07-23, third pass of the day): hero + ream
+          are ONE surface. The seam-contract approach (hero fades to an
+          anchor tone, section wash resumes from it) failed HERE because
+          /about's glow is still bright at the hero's foot — both sides
+          dipped dark at the boundary and the join read as a line with a
+          film over the ream. So: one wrapper owns the ground (warm base,
+          ONE HeroGlow spanning both, grain), the hero renders bare
+          (ground={false}) and the ream sits lower on the same canvas — no
+          seam exists to hide. The wrapper's foot fades to ink so the
+          who-we-are section joins invisibly (ink meets ink). */}
+      <div className="relative overflow-hidden grain bg-[#16110C]">
+        {/* 0.9 → 0.7 (2026-07-24, the sitewide "bit much" trim) — the canvas
+            keeps a touch more than the interior heroes since it feeds the
+            glass tiles too. */}
+        <HeroGlow intensity={0.7} />
+        {/* The canvas foot resolves to page ink over its last stretch — the
+            method band below is BONE, so the dark story ends on canonical
+            ink before the designed ink→bone cut. (The 2026-07-23 attempt to
+            END the canvas at the ream and hand off to a SectionGlow seam in
+            Who-we-are left a visible line — the seam-matching contract is
+            retired on this page; ONE CANVAS is the fix. See CLAUDE.md
+            "Blending dark sections".) */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            insetInline: 0,
+            bottom: 0,
+            height: "clamp(200px,26vh,340px)",
+            background:
+              "linear-gradient(180deg, rgba(12,12,13,0) 0%, #0C0C0D 100%)",
+            pointerEvents: "none",
+          }}
+        />
+
       <PageHero
         align="split"
         spacious
+        ground={false}
         overline="The studio"
         title={
           <>
@@ -194,31 +348,34 @@ export default function AboutPage() {
         lede="North & Refine designs websites for surgical and medical clinics and practitioners. One field, known deeply."
       />
 
-      {/* The hero's visual half — a FULL-BLEED scene band, edge to edge
-          (the 1a comp): the studio's craft on a laptop, bright against the
-          ink above and below. Rowen laptop 4 (round travertine, sheer
-          curtains) — the close's Rowen 8 stays unique to the ContactCTA.
-          Height is a viewport band, not a figure ratio: this is scenery the
-          page moves through, cropped by the band (photography may crop;
-          only SCREEN CAPTURES are never cropped). First-paint content, so
-          it rides the LOAD-IN system (animate-fade-in-slow continuing the
-          hero's stagger), not .reveal — heroes never wait for the
-          IntersectionObserver.
-          ⚠ RETINA: this file is a 1200px blog export now serving 100vw —
-          re-export at 2400px+ before launch (added to the CLAUDE.md
-          checklist alongside Rowen 5 and 8).
-          ⚠ The comp shows a small "DESIGNED IN PLACE" chip on this image —
-          words unexplained, so it is left off; add it back when Jess
-          confirms the real label. */}
-      <section>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/assets/blog/plate-rowen-laptop-4.jpg"
-          alt="A laptop on a round travertine table displaying the Dr Yalda Jamali website, brand and web design by North & Refine"
-          loading="eager"
-          className="h-[55vh] w-full object-cover opacity-0 animate-fade-in-slow md:h-[72vh]"
-          style={{ animationDelay: "0.45s" }}
-        />
+      {/* The hero's visual half — a DOUBLE REAM of device mock-ups
+          (2026-07-23, client's call, replacing the 1a comp's full-bleed
+          Rowen scene band): two staggered rows of quiet glass tiles, each a
+          rounded card carrying a blank device (screens stay blank while
+          imagery is being rechosen — same call as the homepage hero). The
+          CANVAS ground glows through the glass; the tiles carry no colour
+          of their own. Both rows overflow the viewport and crop at the
+          screen edges like the homepage device row. Purely decorative →
+          aria-hidden. First-paint content, so it rides the LOAD-IN system
+          (animate-fade-in-slow continuing the hero's stagger), not
+          .reveal. (Rowen laptop 4 is freed up — its retina re-export note
+          moves out with it if this stays.) */}
+      <section aria-hidden className="relative">
+        <div
+          className="relative z-10 opacity-0 animate-fade-in-slow"
+          style={{
+            animationDelay: "0.45s",
+            display: "flex",
+            flexDirection: "column",
+            gap: "clamp(12px,1.4vw,24px)",
+            // Modest air between the hero text and the tiles — same canvas,
+            // so this is rhythm, not a seam.
+            paddingBlock: "clamp(32px,5vh,72px) clamp(40px,6vw,80px)",
+          }}
+        >
+          <MockupReam row={0} />
+          <MockupReam row={1} />
+        </div>
       </section>
 
       {/* TEXT · who we are — the 1a comp's grammar: kicker in the left
@@ -229,8 +386,28 @@ export default function AboutPage() {
           (The ghost marquee that closed this section was cut at the
           client's call, 2026-07-12 late — the parked device goes back in
           the drawer.) */}
-      <section className="bg-ink">
-        <div className="shell pt-20 pb-16 md:pt-28 md:pb-24">
+      {/* INSIDE THE SHARED CANVAS (2026-07-24: the SectionGlow seam handoff
+          left a visible line here twice — the client called it: fix it the
+          way that WORKED, one wrapper). No ground of its own — the canvas
+          carries base, glow, grain and the foot fade; this band adds only
+          its own quiet blob (right, since the canvas glow leans left). */}
+      <section className="relative">
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            right: "-14%",
+            top: "20%",
+            width: "46%",
+            height: "60%",
+            borderRadius: "50%",
+            background: "#C2A878",
+            opacity: 0.07,
+            filter: "blur(150px)",
+            pointerEvents: "none",
+          }}
+        />
+        <div className="shell relative z-10 pt-20 pb-16 md:pt-28 md:pb-24">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
             <p className="overline reveal md:col-span-4">Who we are</p>
             <div className="max-w-2xl space-y-6 md:col-span-7 md:col-start-6">
@@ -259,25 +436,14 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-
-          {/* The stats rule the section off — the results-band grammar
-              (hairline top, ruled left separators from sm). */}
-          <div className="mt-16 border-t rule-dark pt-10 md:mt-24 md:pt-12">
-            <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
-              {STATS.map((s, i) => (
-                <div
-                  key={s.label}
-                  className="reveal sm:border-l sm:border-ink-line sm:pl-8 sm:first:border-l-0 sm:first:pl-0"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <p className="stat text-bone">{s.value}</p>
-                  <p className="label text-bone-dim mt-3">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* The STATS ROW that closed this band was cut 2026-07-24 at the
+              client's call ("remove the stats section, I don't like it") —
+              it also took the flagged "3 projects at a time" placeholder off
+              the pre-launch list. The narrative now closes the band. */}
         </div>
       </section>
+      {/* ── shared canvas ends: hero → ream → who-we-are, one ground ── */}
+      </div>
 
       {/* TEXT · the method — the 1a comp's convictions layout on BONE
           (the light middle returns at the client's call): header stack
@@ -287,11 +453,15 @@ export default function AboutPage() {
           ABOVE every row per the comp, index on the title's baseline.
           Relabelled from the comp's "What we believe" to the method's own
           voice — the values stack below owns that kicker. */}
-      {/* Image LEFT, all text RIGHT (2026-07-16, client test) — rendered TWICE,
-          light then dark, otherwise identical, to compare the two grounds.
-          ⚠ placeholder image in MethodSection until the real asset lands. */}
-      <MethodSection tone="light" method={METHOD} />
-      <MethodSection tone="dark" method={METHOD} />
+      {/* GROUND SETTLED 2026-07-24: the 2026-07-16 test rendered this band
+          TWICE (bone then ink) to compare grounds and the comparison never
+          got called — it was still shipping both, ~30% of the page, with a
+          duplicate H2 on an SEO-led route. The client chose BONE; the ink
+          copy and the `tone` prop are gone. This is now the page's ONE light
+          act, between the dark canvas above and the ink FAQ below.
+          ⚠ placeholder image in MethodSection until the Claude Design asset
+          lands. */}
+      <MethodSection method={METHOD} />
 
       {/* TEXT · FAQ — the split band, via the shared <FaqSection>
           (componentised 2026-07-12 at the client's call; /services uses

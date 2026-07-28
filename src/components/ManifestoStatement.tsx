@@ -3,12 +3,24 @@
 import { useEffect, useRef } from "react";
 
 /**
- * The homepage manifesto with a SCROLL-SCRUBBED word highlight: every word
- * starts dim (15% bone) and brightens to full as you scroll through the
- * statement's sticky track — tied to scroll position, not time, so it moves
- * exactly at your pace and rewinds when you scroll back. One rAF-throttled
- * listener; measures the nearest <section> (the 170vh sticky track).
+ * THE STATEMENT COMPARTMENT — a big statement with a SCROLL-SCRUBBED word
+ * highlight: every word starts dim (15% bone) and brightens to full as you
+ * scroll through the statement's sticky track. Tied to scroll position, not
+ * time, so it moves exactly at your pace and rewinds when you scroll back.
+ * One rAF-throttled listener; measures the nearest <section>.
  * Reduced-motion users see the statement fully lit from the start.
+ *
+ * SHARED, NOT HOMEPAGE-ONLY (2026-07-24, client: "the same, layout-wise…
+ * I don't want them to feel too different"): the homepage manifesto and the
+ * /services belief both render through here. Consumers own the track, and it
+ * must be the SAME one or the scrub timing differs — a `h-[140vh] pt-[10vh]
+ * pb-[5vh]` section wrapping a `sticky top-0 flex h-screen items-center`
+ * child. `text` is a PLAIN STRING (it is split per word), so a statement in
+ * this compartment carries no italic accent: the fill is the emphasis.
+ *
+ * ⚠ position:sticky breaks under an overflow-hidden ancestor — if the section
+ * also carries a SectionGlow, the glow needs its own absolutely-positioned
+ * clipping layer as a SIBLING of the sticky child (see /services).
  */
 export default function ManifestoStatement({ text }: { text: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
@@ -24,7 +36,14 @@ export default function ManifestoStatement({ text }: { text: string }) {
       return;
     }
 
-    const section = el.closest("section");
+    // Measure the TRACK, not blindly the section: when the statement shares
+    // a section with other content (/services — the belief + index share one
+    // surface since 2026-07-24), closest("section") would measure the whole
+    // combined block and the fill would complete deep in the neighbouring
+    // content instead of during the dwell. A consumer whose track is an
+    // inner div marks it with data-manifesto-track; a section that IS the
+    // track (the homepage) needs no attribute.
+    const section = el.closest<HTMLElement>("[data-manifesto-track]") ?? el.closest("section");
     if (!section) return;
 
     let raf = 0;
@@ -66,9 +85,21 @@ export default function ManifestoStatement({ text }: { text: string }) {
   }, []);
 
   return (
-    <p ref={ref} className="display max-w-5xl">
+    /* FULL RAIL (2026-07-24, client: "I don't feel like the text goes wide
+       enough"). Was max-w-5xl (1024px), which left ~330px of the rail empty
+       and pushed a 15-word statement onto six narrow lines. Uncapped, it runs
+       the .shell rail and settles into three or four long lines — the same
+       long-line treatment the `wide` PageHero gives its display H1s, and the
+       shell's own 1600px cap keeps line length bounded on big monitors.
+       Applies to BOTH consumers on purpose: the homepage manifesto and the
+       /services belief are meant to be the same compartment. */
+    <p ref={ref} className="display max-w-none">
       {text.split(" ").map((word, i) => (
-        <span key={i} data-word style={{ opacity: 0.15 }}>
+        /* willChange: the fill now also runs UNSTUCK (/services), so
+           opacities change WHILE the text moves — without their own
+           compositor layers the display-size glyphs repaint every scroll
+           frame, which read as scroll friction (2026-07-24). */
+        <span key={i} data-word style={{ opacity: 0.15, willChange: "opacity" }}>
           {word}{" "}
         </span>
       ))}

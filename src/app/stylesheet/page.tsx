@@ -28,7 +28,8 @@ const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?
   { name: "Ink faint", cls: "bg-ink-faint", hex: "#ADAAA5", use: "On-LIGHT ladder: DECORATIVE ONLY — middots, placeholder glyphs (sub-AA, never body text)", lightCard: true },
   { name: "Champagne", cls: "bg-champagne", hex: "#C2A878", use: "THE accent — details & interactions only (ornament glyphs, links, hovers); never label type (2026-07-09)" },
   { name: "Champagne soft", cls: "bg-champagne-soft", hex: "#D8C6A4", use: "Soft gold — hover fills only (a gold band was trialled & reverted 2026-07-10)", lightCard: true },
-  { name: "Cream", cls: "scene-cream", hex: "≈#E9E0CF · champagne-soft 35% into bone", use: "The ivory close (.scene-cream) — a warmer stock of the same paper", lightCard: true },
+  { name: "Cream", cls: "scene-cream", hex: "≈#E9E0CF · champagne-soft 35% into bone", use: "The ivory CLOSE (.scene-cream) — a warmer stock of the same paper", lightCard: true },
+  { name: "Cream deep", cls: "scene-cream-deep", hex: "#DCD3C3 · cream + ink 6%", use: "The FAQ stock (.scene-cream-deep, 2026-07-24) — one step down from the close so the FAQ owns its band; darkened with ink, never more champagne. Meta on either cream is ink-dim: ink-mute is sub-AA here (3.85:1)", lightCard: true },
   { name: "Ember", cls: "bg-ember", hex: "#FF7A00", use: "The 10 of 60-30-10 — live dots only, ONE per view" },
 ];
 
@@ -246,7 +247,7 @@ export default function StylesheetPage() {
             <p className="label text-bone">.shell-wide <span className="text-clay">· max 1760px · padding clamp(1.5rem, 4vw, 4rem)</span></p>
           </div>
           <div className="mx-auto w-[72%] rounded-none border rule-dark bg-ink-raised py-3 text-center">
-            <p className="label text-bone">.shell <span className="text-clay">· max 1400px · padding clamp(1.5rem, 4vw, 4rem)</span></p>
+            <p className="label text-bone">.shell <span className="text-clay">· max 1600px · padding clamp(1.5rem, 3vw, 3rem)</span></p>
           </div>
           <div className="mx-auto w-[40%] rounded-none border border-champagne/40 py-3 text-center">
             <p className="label text-bone">reading measure <span className="text-clay">· ~60–70ch</span></p>
@@ -275,7 +276,11 @@ export default function StylesheetPage() {
           </div>
           <div className="scene-cream rounded-none p-8 text-ink">
             <p className="label">.scene-cream</p>
-            <p className="fineprint text-ink/70">The ivory close — champagne-soft 35% into bone (2026-07-10)</p>
+            <p className="fineprint text-ink-dim">The ivory close — champagne-soft 35% into bone (2026-07-10)</p>
+          </div>
+          <div className="scene-cream-deep rounded-none p-8 text-ink">
+            <p className="label">.scene-cream-deep</p>
+            <p className="fineprint text-ink-dim">The FAQ stock — the ivory one step down, ink 6% (2026-07-24)</p>
           </div>
           <div className="scene-ink rounded-none p-8 border rule-dark">
             <p className="label text-bone">.scene-ink</p>

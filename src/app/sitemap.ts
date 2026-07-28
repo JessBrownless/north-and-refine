@@ -3,6 +3,7 @@ import { SITE } from "@/lib/site";
 import { getAllPosts } from "@/lib/journal";
 import { getAllProjects } from "@/lib/work";
 import { INDUSTRIES } from "@/lib/industries";
+import { SERVICES } from "@/lib/services";
 
 // Public, indexable routes. The /stylesheet design canon is intentionally
 // excluded (it's an internal reference, also blocked in robots.ts). /pricing
@@ -54,5 +55,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...workEntries, ...journalEntries, ...industryEntries];
+  // The per-discipline service pages (2026-07-24 split). Priority above the
+  // other statics: with the hub these are the most commercial routes.
+  const serviceEntries: MetadataRoute.Sitemap = SERVICES.map((s) => ({
+    url: `${SITE.url}/services/${s.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [
+    ...staticEntries,
+    ...serviceEntries,
+    ...workEntries,
+    ...journalEntries,
+    ...industryEntries,
+  ];
 }

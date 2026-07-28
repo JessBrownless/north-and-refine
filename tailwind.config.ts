@@ -72,7 +72,10 @@ const config: Config = {
         "fade-in": "fadeIn 1.2s ease-out forwards",
         "fade-in-slow": "fadeIn 2.4s ease-out forwards", // the plate tempo — images develop slower than type (2026-07-11)
         "track-in": "trackIn 1.1s cubic-bezier(0.16,1,0.3,1) forwards",
-        marquee: "marquee 28s linear infinite",
+        // 28s → 60s (2026-07-24): back in live service for the /services
+        // fields ribbon — the ONE sanctioned auto-motion; ~80px/s reads as
+        // drift, not scroll. Pause-on-hover lives in globals.css.
+        marquee: "marquee 60s linear infinite",
         // Floaty hero elements — stagger depths by mixing the two speeds.
         "float-slow": "float 7s ease-in-out infinite",
         "float-slower": "float 11s ease-in-out infinite",

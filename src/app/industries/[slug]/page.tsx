@@ -4,6 +4,7 @@ import { INDUSTRIES, getIndustryBySlug } from "@/lib/industries";
 import { SITE } from "@/lib/site";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
+import FaqSection from "@/components/FaqSection";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 
@@ -84,8 +85,8 @@ export default async function IndustryPage({
 
       {/* What we do for this niche — opens with the rest of the intro (its
           hero overflow; see the split above) before the points. */}
-      <section className="bg-ink">
-        <div className="shell py-16 md:py-24">
+      <section className="relative overflow-hidden grain bg-ink">
+        <div className="shell relative z-10 py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div className="md:col-span-4">
               <p className="overline reveal">How we help</p>
@@ -119,28 +120,15 @@ export default async function IndustryPage({
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="bg-bone text-ink">
-        <div className="shell py-20 md:py-28">
-          <p className="overline text-clay reveal">Questions</p>
-          <h2 className="heading-lg from-overline reveal" style={{ transitionDelay: "80ms" }}>
-            {industry.name} FAQs
-          </h2>
-          <div className="mt-12 max-w-3xl divide-y rule-light">
-            {industry.faqs.map((f) => (
-              <details key={f.question} className="group py-6 rule-light">
-                <summary className="flex items-baseline justify-between gap-6 cursor-pointer list-none">
-                  <span className="heading-sm">{f.question}</span>
-                  <span className="text-ink/70 text-2xl leading-none transition-transform group-open:rotate-45" aria-hidden>
-                    +
-                  </span>
-                </summary>
-                <p className="body mt-4 text-ink/70">{f.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* FAQ — moved to the shared <FaqSection> 2026-07-24 with the cream
+          change ("FAQs should be like a brand cream"): one FAQ band across
+          the site, on the ivory stock, flowing into the cream close. */}
+      <FaqSection
+        kicker="Questions"
+        heading={`${industry.name} questions.`}
+        faqs={industry.faqs}
+        cta={{ label: "Ask us directly", href: "/contact" }}
+      />
 
       <ContactCTA />
     </main>

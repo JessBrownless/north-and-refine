@@ -4,8 +4,8 @@
     {
       "name": "dev",
       "runtimeExecutable": "zsh",
-      "runtimeArgs": ["-c", "source ~/.nvm/nvm.sh && nvm use && npm run dev"],
-      "port": 3000,
+      "runtimeArgs": ["-c", "source ~/.nvm/nvm.sh && nvm use 20 && npm run dev -- -p 3001"],
+      "port": 3001,
       "autoPort": true
     }
   ]

@@ -18,10 +18,11 @@
 export default function HeroGlow({ intensity = 1 }: { intensity?: number }) {
   return (
     <>
-      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "62%", height: "68%", borderRadius: "50%", background: "#C2A878", opacity: 0.5 * intensity, filter: "blur(130px)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", right: "-15%", top: "-13%", width: "57%", height: "66%", borderRadius: "50%", background: "#8A5A2E", opacity: 0.55 * intensity, filter: "blur(140px)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", left: "30%", bottom: "-28%", width: "62%", height: "56%", borderRadius: "50%", background: "#3E2E1C", opacity: 0.85 * intensity, filter: "blur(120px)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(120% 90% at 50% 18%, transparent 42%, rgba(10,8,6,0.55) 100%)" }} />
+      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "62%", height: "68%", borderRadius: "50%", background: "#C2A878", opacity: 0.5 * intensity, filter: "blur(130px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+      <div aria-hidden style={{ position: "absolute", right: "-15%", top: "-13%", width: "57%", height: "66%", borderRadius: "50%", background: "#8A5A2E", opacity: 0.55 * intensity, filter: "blur(140px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+      <div aria-hidden style={{ position: "absolute", left: "30%", bottom: "-28%", width: "62%", height: "56%", borderRadius: "50%", background: "#3E2E1C", opacity: 0.85 * intensity, filter: "blur(120px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none",
+          transform: "translateZ(0)", background: "radial-gradient(120% 90% at 50% 18%, transparent 42%, rgba(10,8,6,0.55) 100%)" }} />
     </>
   );
 }

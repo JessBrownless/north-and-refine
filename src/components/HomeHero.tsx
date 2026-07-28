@@ -22,17 +22,18 @@ import HeroGlow from "@/components/HeroGlow";
  * captures for the phones.
  */
 
-// Device screens (our real client captures) — left phone · centre desktop · right phone.
-const SINCLAIR = "/assets/desktops/selv.jpg";
-const ALDER = "/assets/desktops/aven.jpg";
-const LUMEN = "/assets/desktops/dr-yalda-jamali.png";
-
-function Phone({ src, label }: { src: string; label: string }) {
+// Device screens — BLANK for now (2026-07-23, client: the captures were
+// throwing her eye). The frames hold their shape; screens are quiet dark
+// glass until new imagery is chosen.
+function Phone() {
   return (
     <div
       style={{
         position: "relative",
-        width: "clamp(150px,18vw,320px)",
+        // 23vw with a floor, NO ceiling — the row must always overflow the
+        // viewport so the outer phones crop at the screen edges (the 1D
+        // comp's edge-to-edge device row, restored 2026-07-23).
+        width: "max(150px, 23vw)",
         aspectRatio: "320 / 680",
         background: "#060607",
         borderRadius: "clamp(26px,3vw,50px)",
@@ -64,27 +65,7 @@ function Phone({ src, label }: { src: string; label: string }) {
           overflow: "hidden",
           background: "#121112",
         }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt=""
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
-        />
-        <span
-          style={{
-            position: "absolute",
-            top: "clamp(40px,5vw,58px)",
-            left: "clamp(14px,1.6vw,22px)",
-            fontSize: "clamp(9px,0.9vw,12px)",
-            letterSpacing: "0.34em",
-            fontWeight: 500,
-            color: "#F2EEE6",
-          }}
-        >
-          {label}
-        </span>
-      </div>
+      />
     </div>
   );
 }
@@ -119,16 +100,17 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* DEVICE ROW — phone · desktop · phone, bled off the bottom edge */}
-        <div style={{ position: "absolute", left: 0, right: 0, top: "60%", zIndex: 10, display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "clamp(8px,2vw,28px)", paddingInline: "clamp(8px,2vw,24px)" }}>
-          <Phone src={SINCLAIR} label="SINCLAIR" />
-          <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "clamp(300px,44vw,722px)" }}>
-            <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "11px", overflow: "hidden", position: "relative" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={ALDER} alt="A clinic website designed by North & Refine" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
-            </div>
+        {/* DEVICE ROW — phone · desktop · phone, bled off the bottom edge AND
+            the sides (2026-07-23, per the 1D comp: the row is wider than the
+            viewport — ~106vw all told — so the outer phones crop at the
+            screen edges; no padding, no ceilings, the section's
+            overflow-hidden does the cropping). */}
+        <div style={{ position: "absolute", left: 0, right: 0, top: "60%", zIndex: 10, display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "clamp(16px,4.5vw,80px)" }}>
+          <Phone />
+          <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "max(300px, 51.5vw)" }}>
+            <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "11px", overflow: "hidden", position: "relative", background: "#121112" }} />
           </div>
-          <Phone src={LUMEN} label="LUMEN" />
+          <Phone />
         </div>
     </section>
   );

@@ -4,11 +4,12 @@ import { breadcrumbSchema, contactPageSchema } from "@/lib/schema";
 import JsonLd from "@/components/JsonLd";
 import ContactForm from "@/components/ContactForm";
 import PageHero from "@/components/PageHero";
+import SectionGlow from "@/components/SectionGlow";
 
 export const metadata: Metadata = {
   title: "Contact — Start a project",
   description:
-    "Tell us about your practice. North & Refine takes on a limited number of brand and website projects at a time for medical aesthetic and cosmetic surgery clients.",
+    "Tell us about your practice. North & Refine takes on a limited number of website and brand projects at a time for medical aesthetic and cosmetic surgery clients.",
   alternates: { canonical: "/contact" },
 };
 
@@ -33,13 +34,16 @@ export default function ContactPage() {
       <PageHero
         align="split"
         spacious
-        borderBottom
         overline="Start a project"
         title="Let’s talk about your practice."
         lede="Tell us where you are and where you want to be. We’ll reply within two working days. If we’re not the right fit, we’ll tell you that too."
       />
 
+      {/* The hero blend decays THROUGH this section (2026-07-23): SectionGlow
+          carries the warm ground past the hairline; /contact's individual
+          blob sits on the RIGHT, behind the form column. */}
       <section className="relative grain overflow-hidden">
+        <SectionGlow blob="right" />
         <div className="shell pt-16 pb-16 md:pt-20 md:pb-20 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             {/* Intro rail — contact facts + the page's plate */}
@@ -72,7 +76,7 @@ export default function ContactPage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/assets/plates/contact-rowen-phone-02.jpg"
-                    alt="A phone on pale stone displaying the Dr Yalda Jamali mobile site — brand and web design by North & Refine"
+                    alt="A phone on pale stone displaying the Dr Yalda Jamali mobile site — web and brand design by North & Refine"
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover"
                   />

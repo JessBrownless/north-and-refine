@@ -7,6 +7,7 @@ import ServicesShowcase from "@/components/ServicesShowcase";
 import Carousel from "@/components/Carousel";
 import ContactCTA from "@/components/ContactCTA";
 import HomeHero from "@/components/HomeHero";
+import Testimonial from "@/components/Testimonial";
 
 // Homepage — TYPE-LED, FLAT, EDITED (decided 2026-07-09, "rip up the rule
 // book"; tightened same day: "everything should earn its place"). The page
@@ -207,68 +208,13 @@ export default function HomePage() {
 
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
-          human proof (work → words). The big 4:5 slot carries a PORTRAIT
-          MOCKUP at native orientation (client-directed 2026-07-10, after a
-          landscape-recut was killed: RowenPhone 5 — her mobile site on a
-          phone lying on TRAVERTINE, the same stone as the close plate's
-          plinth, so the two plates read as one shoot; recipe in
-          docs/briefs/hero-plates.md). The human stays present as the
-          CIRCULAR avatar in the attribution (the corners rule's third
-          exception — faces in circles read as people); her full portrait
-          (assets/testimonials/client-portrait.jpg) is in reserve for
-          /about.
-          ⚠ THE QUOTE is VISIBLY-MARKED PLACEHOLDER until real client words
-          + permission exist — we never draft quotes on a client's behalf
-          (pre-launch checklist). Swap the words, keep the structure. ── */}
-      <section className="relative py-24 md:py-32">
-        <div className="shell">
-          <p className="overline mb-8 reveal md:mb-10">Kind words</p>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:[align-items:last_baseline] md:gap-8">
-            <div className="reveal md:col-span-4">
-              <div className="frame aspect-[4/5]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/plates/kind-words-rowen-phone-05.jpg"
-                  alt="A phone on travertine displaying the Dr Yalda Jamali mobile site — brand and web design by North & Refine"
-                  loading="lazy"
-                  className="plate-develop absolute inset-0 h-full w-full object-cover"
-                />
-              </div>
-            </div>
-            <div className="md:col-span-7 md:col-start-6">
-              <blockquote
-                className="statement max-w-[24ch] text-balance reveal"
-                style={{ transitionDelay: "80ms" }}
-              >
-                &ldquo;Placeholder — the client&rsquo;s real words will sit
-                here. We don&rsquo;t write these <em>ourselves</em>.&rdquo;
-              </blockquote>
-              {/* Attribution — the client as a small CIRCULAR avatar chip
-                  beside her name (corners rule, third exception: faces in
-                  circles read as people). items-center, not baseline: the
-                  row mixes image and type. */}
-              <div
-                className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t rule-dark pt-5 reveal"
-                style={{ transitionDelay: "160ms" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/testimonials/client-avatar.jpg"
-                  alt=""
-                  aria-hidden
-                  loading="lazy"
-                  className="plate-develop h-10 w-10 rounded-full object-cover"
-                />
-                <p className="body-sm text-bone">Dr Yalda Jamali</p>
-                <span aria-hidden className="hidden h-3 w-px bg-bone/15 sm:block" />
-                <p className="body-sm text-bone-dim">Cosmetic doctor — real words to come</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Fade-to-ink on exit (restored 2026-07-11 — the live-era section handover the client loved) */}
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
+          human proof (work → words). COMPONENTISED 2026-07-24 when /services
+          gained the same band — the canonical commentary (the RowenPhone 5
+          plate, the avatar exception, the PLACEHOLDER-quote rule) moved into
+          <Testimonial>; her full portrait
+          (assets/testimonials/client-portrait.jpg) stays in reserve for
+          /about. exitFade: the live-era section handover, homepage only. ── */}
+      <Testimonial exitFade />
 
       {/* ── Trust bar — under the testimonial (2026-07-11, second move of
           the day: first-screen → after The Studio → here): one client
