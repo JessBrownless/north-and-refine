@@ -16,6 +16,7 @@ const config: Config = {
         "ink-line": "#3A3A3E",
         // ── Light surfaces & text ────────────────────────────────────────
         bone: "#F2EEE6", // warm off-white — light sections, text on ink
+        ivory: "#FBF8F1", // near-white — the light act's STEP UP (2026-07-24 services-pacing handoff: bone index → ivory testimonial)
         "bone-dim": "#C1B9B0", // muted bone — secondary text on ink (deepened from #CBC6BB, settled 2026-07-10)
         "bone-line": "#DAD4C8", // hairline dividers on light
         clay: "#8A8578", // mid warm-grey — captions, fine print

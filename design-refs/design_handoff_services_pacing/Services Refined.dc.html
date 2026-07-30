@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;450;500&amp;family=Geist+Mono:wght@400&amp;display=swap" rel="stylesheet">
+  <style>
+    @font-face { font-family: 'Saol Display'; src: url('src/fonts/SaolDisplay-LightItalic.woff2') format('woff2'); font-weight: 300; font-style: italic; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #0C0C0D; color: #F2EEE6; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: #F2EEE6; text-decoration: none; }
+    a:hover { color: #F2EEE6; }
+    summary { list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    ::selection { background: #C2A878; color: #0C0C0D; }
+    @keyframes om-fade { to { opacity: 1; } }
+    @keyframes om-marquee { to { transform: translateX(-50%); } }
+  </style>
+</helmet>
+
+<header data-screen-label="Nav" style="position:absolute;left:0;right:0;top:0;z-index:50">
+  <div style="width:100%;max-width:1600px;margin:0 auto;padding:0 clamp(24px,3vw,48px)">
+    <nav style="display:flex;height:128px;align-items:center;justify-content:space-between">
+      <a href="#" aria-label="North and Refine home" style="display:flex;align-items:center"><img src="public/nr-monogram-white.svg" alt="N/R" style="height:22px;width:auto;display:block"></a>
+      <div style="display:flex;align-items:center;gap:36px">
+        <a href="#" style="font-size:12px;letter-spacing:0.24em;text-transform:uppercase;opacity:0.8;transition:opacity 0.3s ease" style-hover="opacity:1">Work</a>
+        <a href="#" style="font-size:12px;letter-spacing:0.24em;text-transform:uppercase;opacity:0.8;transition:opacity 0.3s ease" style-hover="opacity:1">About</a>
+        <a href="#" style="font-size:12px;letter-spacing:0.24em;text-transform:uppercase;opacity:1">Services</a>
+        <a href="#" style="font-size:12px;letter-spacing:0.24em;text-transform:uppercase;opacity:0.8;transition:opacity 0.3s ease" style-hover="opacity:1">Blog</a>
+        <a href="#" style="display:inline-flex;align-items:center;gap:0.6em;border-radius:9999px;padding:16px 24px;border:1px solid rgba(242,238,230,0.4);font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;line-height:1;transition:border-color 0.3s ease,background-color 0.3s ease" style-hover="border-color:#C2A878;background:rgba(194,168,120,0.08)">Start a project</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16110C">
+  <div aria-hidden="true" style="position:absolute;left:-12%;top:-24%;width:62%;height:68%;border-radius:50%;background:#C2A878;opacity:0.30;filter:blur(130px);pointer-events:none;transform:translateZ(0)"></div>
+  <div aria-hidden="true" style="position:absolute;right:-15%;top:-13%;width:57%;height:66%;border-radius:50%;background:#8A5A2E;opacity:0.33;filter:blur(140px);pointer-events:none;transform:translateZ(0)"></div>
+  <div aria-hidden="true" style="position:absolute;left:30%;bottom:-28%;width:62%;height:56%;border-radius:50%;background:#3E2E1C;opacity:0.51;filter:blur(120px);pointer-events:none;transform:translateZ(0)"></div>
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 18%, transparent 42%, rgba(10,8,6,0.55) 100%)"></div>
+  <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:clamp(120px,18vh,220px);background:linear-gradient(180deg, rgba(20,16,11,0) 0%, #14100B 100%);pointer-events:none"></div>
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0.04;z-index:1;background-image:url('public/grain.svg');background-size:200px 200px"></div>
+  <div style="position:relative;z-index:10;width:100%;max-width:1600px;margin:0 auto;padding:160px clamp(24px,3vw,48px) 32px">
+    <div style="display:flex;align-items:center;min-height:56vh;padding:96px 0">
+      <div style="display:grid;width:100%;grid-template-columns:repeat(12,1fr);gap:32px;align-items:end">
+        <div style="grid-column:1/7">
+          <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;line-height:1.4;opacity:0;animation:om-fade 1s ease forwards">Services</p>
+          <h1 style="margin:0.35em 0 0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(44px,1.4rem + 6.75vw,112px);line-height:1;letter-spacing:-0.035em;color:#F2EEE6;text-wrap:balance;opacity:0;animation:om-fade 1s ease 0.1s forwards">Websites that work as hard as your <em style="font-family:'Saol Display',Georgia,serif;font-style:italic;font-weight:300;letter-spacing:-0.01em">practice</em> does.</h1>
+          <p style="margin:clamp(24px,1rem + 1.5vw,36px) 0 0;max-width:46ch;font-size:clamp(16px,0.86rem + 0.6vw,19px);line-height:1.65;color:#c1b9b0;opacity:0;animation:om-fade 1s ease 0.25s forwards">The design and build, the search that brings patients to it, and the brand behind both. One studio, for private medical and surgical practices.</p>
+          <div style="margin-top:40px;display:flex;flex-wrap:wrap;align-items:baseline;gap:24px;opacity:0;animation:om-fade 1s ease 0.45s forwards">
+            <a href="#" style="display:inline-flex;align-items:center;gap:0.6em;border-radius:9999px;padding:16px 32px;border:1px solid rgba(242,238,230,0.9);background:rgba(242,238,230,0.9);color:#0C0C0D;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;line-height:1;transition:background-color 0.3s ease,border-color 0.3s ease" style-hover="background:#D8C6A4;border-color:#D8C6A4;color:#0C0C0D">Start a project <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div style="grid-column:7/13;opacity:0;animation:om-fade 2.4s cubic-bezier(0.16,1,0.3,1) 0.35s forwards">
+          <img src="public/services-hero-square.png" alt="A clinic website shown on a phone against a warm amber ground" style="width:100%;height:auto;display:block">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Credit strip + belief" style="position:relative;background:#0C0C0D">
+  <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+    <div data-glow-blob="true" style="position:absolute;left:-14%;top:30%;width:46%;height:44%;border-radius:50%;background:#C2A878;opacity:0.09;filter:blur(150px);transform:translateZ(0)"></div>
+    <div data-glow-tail="true" style="position:absolute;left:50%;top:-10%;transform:translateX(-50%) translateZ(0);width:84%;height:44%;border-radius:50%;background:#8A5A2E;opacity:0.16;filter:blur(140px)"></div>
+    <div style="position:absolute;left:0;right:0;top:0;height:52%;max-height:640px;background:linear-gradient(180deg, #14100B 0%, rgba(20,16,11,0.7) 30%, rgba(20,16,11,0) 100%);transform:translateZ(0)"></div>
+  </div>
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0.04;z-index:1;background-image:url('public/grain.svg');background-size:200px 200px"></div>
+
+  <div style="position:relative;z-index:10;width:100%;max-width:1600px;margin:0 auto;padding:28px clamp(24px,3vw,48px) 0">
+    <div style="display:flex;align-items:center;gap:48px;border-top:1px solid rgba(242,238,230,0.12);border-bottom:1px solid rgba(242,238,230,0.12);padding:22px 0">
+      <p style="margin:0;flex-shrink:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;line-height:1.4;color:#8a8578">Who we work with</p>
+      <div style="flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,black 7%,black 93%,transparent);mask-image:linear-gradient(90deg,transparent,black 7%,black 93%,transparent)">
+        <div style="display:flex;width:max-content;animation:om-marquee 64s linear infinite" style-hover="animation-play-state:paused">
+          <div style="display:flex;align-items:center">
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Cosmetic Surgery</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Medical Aesthetics</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Dermatology</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Plastic Surgery</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Dentistry</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Ophthalmology</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Hair Restoration</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Cosmetic Dentistry</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Fertility</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+          </div>
+          <div aria-hidden="true" style="display:flex;align-items:center">
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Cosmetic Surgery</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Medical Aesthetics</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Dermatology</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Plastic Surgery</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Dentistry</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Ophthalmology</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Hair Restoration</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Cosmetic Dentistry</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+            <span style="white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#c1b9b0;margin-right:28px">Fertility</span><span aria-hidden="true" style="font-size:8px;color:#C2A878;margin-right:28px">✦</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-belief-track="true" style="position:relative;z-index:10;padding-top:160px;padding-bottom:160px">
+    <div style="width:100%;max-width:1600px;margin:0 auto;padding:0 clamp(24px,3vw,48px)">
+      <p style="margin:0;max-width:24ch;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(32px,1rem + 4.5vw,80px);line-height:1.08;letter-spacing:-0.03em;color:#F2EEE6">
+        <span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">We</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">believe</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">that</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">your</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">online</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">presence</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">should</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">reflect</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">the</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">excellence</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">and</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">integrity</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">of</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity;margin-right:0.24em">your</span><span data-word="1" style="display:inline-block;opacity:0.35;will-change:opacity">practice.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Service index (bone)" style="position:relative;background:#F2EEE6;color:#0C0C0D">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0.05;z-index:1;mix-blend-mode:multiply;background-image:url('public/grain.svg');background-size:200px 200px"></div>
+  <div style="position:relative;z-index:10;width:100%;max-width:1600px;margin:0 auto;padding:96px clamp(24px,3vw,48px) 128px">
+    <div data-reveal="true" style="opacity:0;transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1)">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px">
+        <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;line-height:1.4;color:#686664">What we do</p>
+        <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;line-height:1.4;color:#686664">Three disciplines, one studio</p>
+      </div>
+      <div style="height:1px;background:#DAD4C8;margin-top:20px"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:32px;margin-top:72px">
+      <div style="grid-column:1/5">
+        <div style="position:sticky;top:160px">
+          <div aria-hidden="true" style="height:1em;overflow:hidden;font-weight:500;font-size:clamp(52px,1.5rem + 8.75vw,152px);line-height:0.94;letter-spacing:-0.04em;color:#CFC7B8">
+            <div data-digit-stack="true" style="transition:transform 900ms cubic-bezier(0.65,0,0.35,1)">
+              <div style="height:1em">01</div>
+              <div style="height:1em">02</div>
+              <div style="height:1em">03</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="grid-column:6/13;display:flex;flex-direction:column;gap:144px">
+        <div data-svc-row="true" data-idx="0" data-reveal="true" style="opacity:0;transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1)">
+          <div style="position:relative;height:1px;background:#DAD4C8;overflow:hidden"><span data-fillspan="true" style="position:absolute;left:0;top:0;height:1px;width:0;background:#0C0C0D;transition:width 1.3s cubic-bezier(0.16,1,0.3,1)"></span></div>
+          <h2 style="margin:48px 0 0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(28px,1.3rem + 2.3vw,48px);line-height:1.18;letter-spacing:-0.02em;color:#0C0C0D">Web design &amp; build</h2>
+          <p style="margin:16px 0 0;max-width:36ch;font-size:clamp(16px,0.86rem + 0.6vw,19px);line-height:1.65;color:#51504E">A first consultation that happens before they call.</p>
+          <p style="margin:20px 0 0;max-width:54ch;font-size:16px;line-height:1.6;color:#51504E">We design and build fast, accessible, beautifully crafted websites on a modern stack. Considered information architecture, procedure-led page structures and friction-free enquiry flows turn an anxious first visit into a booked consultation, without ever feeling like a sales pitch.</p>
+          <div style="margin-top:36px"><a href="#" style="display:inline-flex;align-items:center;gap:0.5em;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:#0C0C0D;transition:gap 0.3s ease" style-hover="gap:0.85em">More on web design &amp; build <span aria-hidden="true">→</span></a></div>
+        </div>
+        <div data-svc-row="true" data-idx="1" data-reveal="true" style="opacity:0;transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1)">
+          <div style="position:relative;height:1px;background:#DAD4C8;overflow:hidden"><span data-fillspan="true" style="position:absolute;left:0;top:0;height:1px;width:0;background:#0C0C0D;transition:width 1.3s cubic-bezier(0.16,1,0.3,1)"></span></div>
+          <h2 style="margin:48px 0 0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(28px,1.3rem + 2.3vw,48px);line-height:1.18;letter-spacing:-0.02em;color:#0C0C0D">SEO &amp; content</h2>
+          <p style="margin:16px 0 0;max-width:36ch;font-size:clamp(16px,0.86rem + 0.6vw,19px);line-height:1.65;color:#51504E">Found by the right patients, on your terms.</p>
+          <p style="margin:20px 0 0;max-width:54ch;font-size:16px;line-height:1.6;color:#51504E">SEO is not bolted on afterwards; it is in the foundations. Technical SEO, structured data and a content engine built around how patients actually search mean each procedure and condition can earn its own ranking. The model compounds over time, lowering your reliance on paid advertising.</p>
+          <div style="margin-top:36px"><a href="#" style="display:inline-flex;align-items:center;gap:0.5em;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:#0C0C0D;transition:gap 0.3s ease" style-hover="gap:0.85em">More on SEO &amp; content <span aria-hidden="true">→</span></a></div>
+        </div>
+        <div data-svc-row="true" data-idx="2" data-reveal="true" style="opacity:0;transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1)">
+          <div style="position:relative;height:1px;background:#DAD4C8;overflow:hidden"><span data-fillspan="true" style="position:absolute;left:0;top:0;height:1px;width:0;background:#0C0C0D;transition:width 1.3s cubic-bezier(0.16,1,0.3,1)"></span></div>
+          <h2 style="margin:48px 0 0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(28px,1.3rem + 2.3vw,48px);line-height:1.18;letter-spacing:-0.02em;color:#0C0C0D">Brand identity</h2>
+          <p style="margin:16px 0 0;max-width:36ch;font-size:clamp(16px,0.86rem + 0.6vw,19px);line-height:1.65;color:#51504E">The standard of your care, made visible.</p>
+          <p style="margin:20px 0 0;max-width:54ch;font-size:16px;line-height:1.6;color:#51504E">Before a patient reads a word, your brand has already told them what to expect. We build identity systems, from name and logotype through palette, typography, art direction and voice, that feel calm, credible and premium, and that hold together across every touchpoint from signage to social.</p>
+          <div style="margin-top:36px"><a href="#" style="display:inline-flex;align-items:center;gap:0.5em;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:#0C0C0D;transition:gap 0.3s ease" style-hover="gap:0.85em">More on brand identity <span aria-hidden="true">→</span></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section data-screen-label="Kind words (ivory)" style="position:relative;background:#FBF8F1;color:#0C0C0D">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0.05;z-index:1;mix-blend-mode:multiply;background-image:url('public/grain.svg');background-size:200px 200px"></div>
+  <div style="position:relative;z-index:10;width:100%;max-width:1600px;margin:0 auto;padding:112px clamp(24px,3vw,48px) 128px">
+    <p style="margin:0 0 40px;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;line-height:1.4;color:#686664">Kind words</p>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:32px;align-items:end">
+      <div data-reveal="true" style="grid-column:1/6;opacity:0;transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1)">
+        <img src="public/services-hero-square.png" alt="The Lumen hero graphic standing in for the testimonial plate" style="width:100%;height:auto;display:block">
+      </div>
+      <div style="grid-column:7/12">
+        <blockquote data-reveal="true" style="margin:0;max-width:24ch;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:450;font-size:clamp(28px,1.1rem + 3.25vw,56px);line-height:1.14;letter-spacing:-0.02em;color:#0C0C0D;text-wrap:balance;opacity:0;transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1);transition-delay:80ms">&ldquo;Placeholder &mdash; the client&rsquo;s real words will sit here. We don&rsquo;t write these <em style="font-family:'Saol Display',Georgia,serif;font-style:italic;font-weight:300">ourselves</em>.&rdquo;</blockquote>
+        <div data-reveal="true" style="margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;border-top:1px solid #DAD4C8;padding-top:20px;opacity:0;transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1);transition-delay:160ms">
+          <img src="public/assets/testimonials/client-avatar.jpg" alt="" aria-hidden="true" style="height:40px;width:40px;border-radius:50%;object-fit:cover;display:block">
+          <p style="margin:0;font-size:14px;line-height:1.55;color:#0C0C0D">Dr Yalda Jamali</p>
+          <span aria-hidden="true" style="height:12px;width:1px;background:rgba(12,12,13,0.15)"></span>
+          <p style="margin:0;font-size:14px;line-height:1.55;color:#686664">Cosmetic doctor &mdash; real words to come</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="FAQ (ink)" style="position:relative;background:#0C0C0D;color:#F2EEE6">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0.04;z-index:1;background-image:url('public/grain.svg');background-size:200px 200px"></div>
+  <div style="position:relative;z-index:10;width:100%;max-width:1600px;margin:0 auto;padding:128px clamp(24px,3vw,48px)">
+    <p style="margin:0 0 40px;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;line-height:1.4;color:#8a8578">Questions</p>
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:32px;align-items:start">
+      <div style="grid-column:1/5">
+        <h2 style="margin:0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(28px,1.3rem + 2.3vw,48px);line-height:1.18;letter-spacing:-0.02em;color:#F2EEE6">Common questions.</h2>
+        <div style="margin-top:40px"><a href="#" style="display:inline-flex;align-items:center;gap:0.6em;border-radius:9999px;padding:16px 32px;border:1px solid rgba(242,238,230,0.4);color:#F2EEE6;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;line-height:1;transition:border-color 0.3s ease,background-color 0.3s ease" style-hover="border-color:#C2A878;background:rgba(194,168,120,0.08);color:#F2EEE6">Ask us directly</a></div>
+      </div>
+      <div style="grid-column:6/13;border-top:1px solid rgba(242,238,230,0.16);border-bottom:1px solid rgba(242,238,230,0.16)">
+        <details data-faq="true" style="padding:24px 0;border-bottom:1px solid rgba(242,238,230,0.16)">
+          <summary style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;cursor:pointer"><span style="font-size:clamp(17px,1rem + 0.5vw,20px);font-weight:450;line-height:1.35">Do you only work with medical aesthetic and cosmetic surgery practices?</span><span data-plus="true" aria-hidden="true" style="color:#C2A878;font-size:24px;line-height:1;transition:transform 0.3s ease">+</span></summary>
+          <p style="margin:16px 0 8px;max-width:60ch;font-size:16px;line-height:1.6;color:#c1b9b0">That&rsquo;s our focus, and it&rsquo;s deliberate. Working within one field means we understand the patient psychology, the regulatory landscape and the search behaviour far better than a generalist studio could.</p>
+        </details>
+        <details data-faq="true" style="padding:24px 0;border-bottom:1px solid rgba(242,238,230,0.16)">
+          <summary style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;cursor:pointer"><span style="font-size:clamp(17px,1rem + 0.5vw,20px);font-weight:450;line-height:1.35">Can you do just branding, or just the website?</span><span data-plus="true" aria-hidden="true" style="color:#C2A878;font-size:24px;line-height:1;transition:transform 0.3s ease">+</span></summary>
+          <p style="margin:16px 0 8px;max-width:60ch;font-size:16px;line-height:1.6;color:#c1b9b0">Yes. Many engagements are brand-and-website together because they reinforce each other, but we&rsquo;re happy to take on either on its own, and we&rsquo;ll be honest if doing only one will hold the result back.</p>
+        </details>
+        <details data-faq="true" style="padding:24px 0;border-bottom:1px solid rgba(242,238,230,0.16)">
+          <summary style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;cursor:pointer"><span style="font-size:clamp(17px,1rem + 0.5vw,20px);font-weight:450;line-height:1.35">How long does a project take?</span><span data-plus="true" aria-hidden="true" style="color:#C2A878;font-size:24px;line-height:1;transition:transform 0.3s ease">+</span></summary>
+          <p style="margin:16px 0 8px;max-width:60ch;font-size:16px;line-height:1.6;color:#c1b9b0">A focused brand-and-website project typically runs six to ten weeks depending on scope and how quickly we can gather content. We&rsquo;ll give you a realistic timeline up front.</p>
+        </details>
+        <details data-faq="true" style="padding:24px 0;border-bottom:1px solid rgba(242,238,230,0.16)">
+          <summary style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;cursor:pointer"><span style="font-size:clamp(17px,1rem + 0.5vw,20px);font-weight:450;line-height:1.35">Do you understand the advertising rules for medical practices?</span><span data-plus="true" aria-hidden="true" style="color:#C2A878;font-size:24px;line-height:1;transition:transform 0.3s ease">+</span></summary>
+          <p style="margin:16px 0 8px;max-width:60ch;font-size:16px;line-height:1.6;color:#c1b9b0">Yes; designing inside them is part of the specialism. Copy and imagery are written to the codes that govern regulated health services: generic treatment terms rather than prescription brand names, restraint around testimonials and outcomes where the rules require it, and no claims a practitioner could not stand behind in a consulting room.</p>
+        </details>
+        <details data-faq="true" style="padding:24px 0">
+          <summary style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;cursor:pointer"><span style="font-size:clamp(17px,1rem + 0.5vw,20px);font-weight:450;line-height:1.35">What happens when we get in touch?</span><span data-plus="true" aria-hidden="true" style="color:#C2A878;font-size:24px;line-height:1;transition:transform 0.3s ease">+</span></summary>
+          <p style="margin:16px 0 8px;max-width:60ch;font-size:16px;line-height:1.6;color:#c1b9b0">A conversation, not a pitch. We reply within two working days and set up a short call: you tell us where the practice is and where you want it to be, and we tell you honestly whether we are the right studio for it.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-screen-label="End of recreation" style="background:#0C0C0D;padding:48px 24px;text-align:center">
+  <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a8578">Refined cut ends here &mdash; the dark close (warm-card CTA, strip, footer) follows &middot; <a href="Services Teardown.dc.html" style="color:#c1b9b0">see the teardown</a></p>
+</div>
+
+<nav aria-label="Review switcher" style="position:fixed;right:20px;bottom:20px;z-index:90;display:flex;gap:2px;background:rgba(22,22,24,0.92);border:1px solid #3a3a3e;border-radius:9999px;padding:4px;backdrop-filter:blur(8px)">
+  <a href="Services Teardown.dc.html" style="padding:8px 14px;border-radius:9999px;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#c1b9b0;transition:color 0.2s ease" style-hover="color:#F2EEE6">Teardown</a>
+  <a href="Services Current.dc.html" style="padding:8px 14px;border-radius:9999px;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#c1b9b0;transition:color 0.2s ease" style-hover="color:#F2EEE6">Current</a>
+  <span style="padding:8px 14px;border-radius:9999px;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;background:#F2EEE6;color:#0C0C0D">Refined</span>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;afterglow&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 1, &quot;min&quot;: 0, &quot;max&quot;: 2, &quot;step&quot;: 0.1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Hero handover&quot; },
+  &quot;beliefRest&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.35, &quot;min&quot;: 0.15, &quot;max&quot;: 0.55, &quot;step&quot;: 0.05, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Hero handover&quot; }
+}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const $$ = (s) => Array.from(document.querySelectorAll(s));
+    this._cleanup = [];
+
+    // Single scroll-driven tick re-queries the DOM each pass, so it survives
+    // template re-renders replacing nodes (IntersectionObserver did not).
+    let raf = 0;
+    const tick = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      $$('[data-reveal]').forEach((el) => {
+        if (el.dataset.shown) return;
+        const rb = el.getBoundingClientRect();
+        if (rb.top < vh * 0.92 && rb.bottom > 0) {
+          el.dataset.shown = '1';
+          el.style.opacity = '1';
+          el.querySelectorAll('[data-fillspan]').forEach((f) => { f.style.width = '100%'; });
+        }
+      });
+      const stack = document.querySelector('[data-digit-stack]');
+      const rows = $$('[data-svc-row]');
+      if (stack && rows.length) {
+        let active = 0;
+        rows.forEach((row, i) => { if (row.getBoundingClientRect().top < vh * 0.5) active = i; });
+        stack.style.transform = 'translateY(-' + ((active * 100) / rows.length) + '%)';
+      }
+      const track = document.querySelector('[data-belief-track]');
+      const words = $$('[data-word]');
+      if (track && words.length) {
+        const r = track.getBoundingClientRect();
+        const start = vh * 0.8, end = vh * 0.45;
+        const p = Math.min(1, Math.max(0, (start - r.top) / (start - end)));
+        const n = words.length;
+        const REST = Math.min(0.9, Math.max(0.1, this.props.beliefRest ?? 0.35));
+        for (let i = 0; i < n; i++) {
+          const t = (i / n) * 0.82;
+          const o = REST + (1 - REST) * Math.min(1, Math.max(0, (p - t) / 0.24));
+          words[i].style.opacity = o.toFixed(3);
+        }
+      }
+    };
+    this._tick = tick;
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    tick();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    const iv = setInterval(tick, 500);
+    this._cleanup.push(() => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      clearInterval(iv);
+      if (raf) cancelAnimationFrame(raf);
+    });
+
+    // Delegated so re-rendered <details> nodes keep working
+    const onToggle = (e) => {
+      const d = e.target;
+      if (!d || !d.matches || !d.matches('details[data-faq]')) return;
+      const p = d.querySelector('[data-plus]');
+      if (p) p.style.transform = d.open ? 'rotate(45deg)' : 'none';
+    };
+    document.addEventListener('toggle', onToggle, true);
+    this._cleanup.push(() => document.removeEventListener('toggle', onToggle, true));
+
+    this._applyGlow();
+  }
+  _applyGlow() {
+    const x = Math.max(0, this.props.afterglow ?? 1);
+    const tail = document.querySelector('[data-glow-tail]');
+    const blob = document.querySelector('[data-glow-blob]');
+    if (tail) tail.style.opacity = (0.16 * x).toFixed(3);
+    if (blob) blob.style.opacity = (0.09 * x).toFixed(3);
+  }
+  componentDidUpdate() {
+    this._applyGlow();
+    if (this._tick) this._tick();
+  }
+  componentWillUnmount() { (this._cleanup || []).forEach((f) => f()); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

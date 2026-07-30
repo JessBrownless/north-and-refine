@@ -453,6 +453,20 @@
     border-color: var(--bone-line);
   }
 
+  /* THE BELIEF REGISTER (2026-07-24, services-pacing handoff): the /services
+     belief statement STEPS DOWN from the H1 — 32→80px against .display's
+     42→100 — so the hero keeps the loudest voice on the page and the belief
+     reads as commentary, not a second masthead. Weight 500 (the sans
+     statement weight, like the homepage H1); tighter lh/tracking than body
+     because it sets at display-adjacent sizes. Consumer passes its own
+     measure (max-w-[24ch]). One utility, no inline clamp (drift rule 3). */
+  .belief-statement {
+    font-size: clamp(2rem, 1rem + 4.5vw, 5rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+  }
+
   /* Film-grain overlay for dark sections */
   .grain::before {
     content: "";
@@ -652,8 +666,11 @@
     align-items: center;
     gap: 0.6em;
     border-radius: 9999px;
-    /* Padding sits on the 8px grid — chunky by design: 16 / 32 (sm: 16 / 24) */
-    padding: 1rem 2rem;
+    /* Chunkier still 2026-07-24 (client: "more padding on buttons") —
+       16/32 → 20/40. The horizontal holds the 8px grid; the vertical sits
+       on the 4px half-step (24 read too tall against the 11px labels).
+       .btn-sm keeps 16/24. */
+    padding: 1.25rem 2.5rem;
     border: 1px solid transparent;
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 0.6875rem;
@@ -748,6 +765,24 @@
     background: var(--champagne-soft);
     border-color: var(--champagne-soft);
   }
+  /* THE GLASS PILL (2026-07-24, client trial on the /services hero: "a
+     glassy button") — the .card-glass surface in button form: low bone fill
+     + backdrop blur, so the warm hero ground reads through the pill. Dark
+     grounds only (blur needs something behind it). Hover follows the gold
+     rule like every tier: champagne rim + faint wash, never a solid fill. */
+  .btn-glass {
+    background: color-mix(in srgb, var(--bone) 9%, transparent);
+    color: var(--bone);
+    border-color: color-mix(in srgb, var(--bone) 25%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .btn-glass:hover {
+    background: color-mix(in srgb, var(--champagne) 8%, transparent);
+    border-color: var(--champagne);
+    color: var(--bone);
+  }
+
   .btn-secondary-dark {
     background: transparent;
     color: var(--bone);

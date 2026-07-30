@@ -7,7 +7,6 @@ import ServicesScrollIndex from "@/components/ServicesScrollIndex";
 import ManifestoStatement from "@/components/ManifestoStatement";
 import SectionGlow from "@/components/SectionGlow";
 import { SERVICES } from "@/lib/services";
-import { INDUSTRIES } from "@/lib/industries";
 import Testimonial from "@/components/Testimonial";
 import { serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
@@ -38,12 +37,15 @@ import { serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
    text, no markup: <ManifestoStatement> splits it word by word for the
    scroll-fill, and the fill is the emphasis (see the section note).
 
-   COPY IS THE CLIENT'S OWN, supplied verbatim 2026-07-24. It replaced two
-   drafted versions (the second was rewritten for fluency, then this arrived);
-   don't "improve" it. Note it names no disciplines, so the three-noun order
-   rule has nothing to bite on here, and the scroll-fill lands on "practice". */
+   CLIENT'S OWN COPY, supplied verbatim 2026-07-24 (the fourth wording of
+   the day, replacing the drafted colon extension) — don't "improve" it.
+   ⚠ Two knowing deviations from the house rules, flagged to her when it
+   shipped: it names BRAND BEFORE SEARCH (the sitewide order rule says
+   web → search → brand), and it carries an en dash (the dash-sweep rule).
+   Her verbatim copy outranks both until she says otherwise. The hanging
+   kicker stays "Our belief"; scroll-fill lands on "thing". */
 const BELIEF =
-  "We believe that your online presence should reflect the excellence and integrity of your practice.";
+  "Your website should reflect the excellence of your practice, from the brand behind it, to the search that finds it – all saying one thing.";
 
 export const metadata: Metadata = {
   title: "Services — Web design, SEO & branding",
@@ -60,19 +62,14 @@ export const metadata: Metadata = {
    the DASH-RULED DELIVERABLES list moved. The paragraph (`intro`) stays on
    the hub, so each row still makes its argument; the detail page carries the
    list, the process and the FAQs. */
-/* The fields ribbon's names (2026-07-24): the three landing-page industries
-   first, then the wider fields the studio serves — names only, no links, no
-   claims (naming a field we design for is positioning, not a testimonial).
-   Add freely; the marquee absorbs any length. */
-const FIELDS = [
-  ...INDUSTRIES.map((i) => i.name),
-  "Plastic Surgery",
-  "Dentistry",
-  "Ophthalmology",
-  "Hair Restoration",
-  "Cosmetic Dentistry",
-  "Fertility",
-];
+/* Row-tile devices by discipline (2026-07-24 experiment): laptop for the
+   website row, phone for search, the square plate for brand — blank until
+   real imagery is chosen. */
+const ROW_ART: Record<string, "laptop" | "phone" | "plate"> = {
+  "web-design": "laptop",
+  seo: "phone",
+  "brand-identity": "plate",
+};
 
 const INDEX_ROWS = SERVICES.map((s) => ({
   num: s.num,
@@ -80,6 +77,7 @@ const INDEX_ROWS = SERVICES.map((s) => ({
   lead: s.lead,
   body: s.intro,
   href: `/services/${s.slug}`,
+  art: ROW_ART[s.slug],
 }));
 
 /* CROSS-DISCIPLINE questions only (2026-07-24). The per-discipline ones moved
@@ -172,11 +170,17 @@ export default function ServicesPage() {
         overline="Services"
         title={
           <>
-            Websites that work as hard as your <em>practice</em> does.
+            {/* SHORTENED 2026-07-24 (client: the long H1 was "just repeating
+                the we believe bit"), then reworded to the client's "websites
+                that just work" the same day — the em moves to "just": the
+                claim is the effortlessness, and "just" is where the voice
+                leans. Stays on .display per the ladder. */}
+            Websites that <em>just</em> work.
           </>
         }
         lede="The design and build, the search that brings patients to it, and the brand behind both. One studio, for private medical and surgical practices."
         cta={{ label: "Start a project", href: "/contact" }}
+        ctaVariant="glass"
         media={
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -231,71 +235,154 @@ export default function ServicesPage() {
           sticky content, never its ancestor. */}
       <section className="relative grain bg-ink">
         <div aria-hidden className="absolute inset-0 overflow-hidden">
-          <SectionGlow blob="left" />
+          {/* seamEmphasis (handoff): richer amber tail on THIS seam only —
+              the hero's warmth carries further into the belief before
+              decaying. */}
+          <SectionGlow blob="left" seamEmphasis />
+          {/* The canvas blobs (2026-07-24, "blurred gradient blobs" down the
+              dark middle): two quiet pools past the seam glow's reach, so
+              the belief and the index rows sit in atmosphere rather than on
+              flat ink — the /about shared-canvas grammar, hub doses. */}
+          <div
+            style={{
+              position: "absolute",
+              right: "-12%",
+              top: "38%",
+              width: "44%",
+              height: "26%",
+              borderRadius: "50%",
+              background: "#C2A878",
+              opacity: 0.06,
+              filter: "blur(150px)",
+              transform: "translateZ(0)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              left: "-10%",
+              top: "68%",
+              width: "48%",
+              height: "26%",
+              borderRadius: "50%",
+              background: "#8A5A2E",
+              opacity: 0.08,
+              filter: "blur(150px)",
+              transform: "translateZ(0)",
+            }}
+          />
         </div>
 
-        {/* THE FIELDS RIBBON — who we work with, directly under the hero
-            (2026-07-24, client: "move industries under the hero section and
-            make it scroll so we can fit lots more in"). The .animate-marquee
-            auto-scroll — THE ONE SANCTIONED AUTO-MOTION on the site (see
-            globals.css; pauses on hover, freezes under reduced motion). Two
-            identical copies make the -50% loop seamless; the second is
-            aria-hidden so screen readers hear the list once. Names only, no
-            links (the client's call — the footer carries the /industries
-            route); FIELDS goes beyond the three landing pages to the wider
-            fields the studio serves. Lives INSIDE this section so it sits on
-            the seam wash continuing the hero ground — a separate flat-ink
-            band here would cut the blend. */}
-        <div className="relative z-10 overflow-hidden pt-12 md:pt-16">
-          <div className="animate-marquee flex w-max">
-            {[0, 1].map((copy) => (
-              <div key={copy} aria-hidden={copy === 1} className="flex">
-                {FIELDS.map((name) => (
-                  <span
-                    key={name}
-                    className="industry-band-title inline-flex items-baseline gap-x-8 whitespace-nowrap pr-8 text-bone md:gap-x-12 md:pr-12"
-                  >
-                    <span>{name}</span>
-                    <span aria-hidden className="self-center text-[0.4em] text-champagne">
-                      ✦
-                    </span>
-                  </span>
-                ))}
-              </div>
-            ))}
+        {/* THE CREDIT STRIP left this page 2026-07-24 (client: "drop the
+            industries strip now… we might bring it back") — PARKED as
+            <CreditStrip> in the components drawer, alongside Deck and
+            NewsletterSignup. The belief now opens the dark middle directly
+            under the hero. */}
+
+        {/* THE BELIEF — the HANGING-KICKER INDENT (2026-07-24, client ref:
+            the "[Our Approach]" statement pattern — kicker sits inside the
+            first line's indent, the statement runs flush left underneath and
+            fills the rail). The wrapper carries .belief-statement too, so
+            the kicker's em-offsets track the statement's own clamp; the
+            indent is md+ only — on mobile the kicker stacks above and the
+            text runs unindented (22% of a phone is less than the label).
+            Kicker says "Our belief" and the statement drops its old "We
+            believe that" opener (client, same day) — the belief-verb lives
+            once, in the label, and the big words start at the substance.
+            Word-fill unchanged (data-manifesto-track = the scrub's measure).
+            AIR: 160px both sides at md+ (the handoff value), stepped down to
+            96px on mobile — 2026-07-24, client: "padding feels a bit off" on
+            the phone, where the desktop pads stacked into dead screens.
+            The whole block also rides .reveal now (client: the section
+            "needs to fade in a bit in some way") — the fill completes by
+            mid-viewport per the handoff, so a fast scroller met it already
+            lit and static; the 1.1s entrance fade gives it an arrival, and
+            the word opacities compose with it untouched. */}
+        <div data-manifesto-track className="relative z-10 py-24 md:py-40">
+          <div className="shell">
+            <div className="belief-statement reveal relative">
+              <p className="overline mb-6 text-clay reveal md:absolute md:left-0 md:top-[0.3em] md:mb-0">
+                Our belief
+              </p>
+              <ManifestoStatement
+                text={BELIEF}
+                className="belief-statement max-w-none text-bone md:indent-[22%]"
+              />
+            </div>
           </div>
         </div>
 
-        {/* The belief — the homepage manifesto's WORD-FILL, in NORMAL FLOW
-            (2026-07-24, third pass: the client felt "friction" here — the
-            STICKY PIN was the culprit. The track had been tightened 140vh →
-            118vh, which cut the dwell to ~18vh: long enough to snag the
-            scroll, too short to read as a deliberate hold. Rather than
-            lengthen the hold, the pin is GONE — <ManifestoStatement>
-            handles unstuck consumers, filling the words as the section
-            travels up the viewport and completing as it nears the top.
-            Nothing stops the scroll; the fill is the only event.) The
-            homepage KEEPS its 140vh pin — its statement is the page's
-            centrepiece and the long dwell reads as intent; this one just
-            opens the index.
-            data-manifesto-track stays: the scrub measures this div, not the
-            shared section — see the note in ManifestoStatement. */}
-        {/* py stepped back up 2026-07-24 (client): with the fields ribbon
-            now directly above, the belief needs its air back — the tight
-            spacing read as crowding the marquee. Asymmetric on purpose: more
-            above (clearing the ribbon) than below (the index follows as the
-            statement's answer). */}
-        <div data-manifesto-track className="relative pt-40 pb-28 md:pt-56 md:pb-40">
-          <div className="shell relative z-10">
-            <ManifestoStatement text={BELIEF} />
+        {/* THE SUPPORTING PARAGRAPH (2026-07-24, client: "a paragraph of
+            text after the we believe section… aligned off to the right") —
+            the prose-beside-statement grammar: the belief speaks at display
+            scale flush left, the elaboration answers at body scale seated
+            in the right columns. A SIBLING of the manifesto track on
+            purpose: inside it, the extra height could tip the scrub into
+            its sticky-dwell branch and stall the fill.
+            ⚠ COPY IS DRAFTED (not client-supplied) — review before launch.
+            Order holds web → search → brand; the fragmentation line
+            describes the practice's situation, not a rival's failing. */}
+        {/* TWO-COLUMN EDITORIAL PAIR (2026-07-25, three seats in one
+            morning — full-rail edges, then right-half 3+3, then the final:
+            "it needs to span the width of the border above the image
+            below"). The pair now occupies EXACTLY the index rows' content
+            column — cols 6–8 and 10–12 — so the first column's left edge
+            and the second's right edge align with the row hairline's ends
+            below; col 9 is the centre gutter, and the numeral's left third
+            stays air. Stacks to one column below md. */}
+        <div className="shell relative z-10 pb-24 md:pb-36">
+          {/* Outer grid gap-10 MATCHES the index's grid below (it runs
+              gap-10, not the usual md:gap-8) so the col-6 edge sits exactly
+              on the hairline's start. The pair itself is an INNER two-column
+              split of that span (fourth seat, client: the spare-column
+              gutter looked "huge") — equal halves, one standard gutter. */}
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
+            {/* CSS MULTI-COLUMNS, not a grid (fifth seat, client: "paragraphs
+                need to be even… any fancy css stuff?"): both paragraphs FLOW
+                through columns-2 and the browser BALANCES them (column-fill:
+                balance is the default), so the two columns bottom out even
+                at every viewport regardless of copy length — true newspaper
+                setting. The trade: a paragraph may break across the column
+                gutter mid-sentence, which is exactly how editorial columns
+                behave. Reveal rides the wrapper (per-paragraph reveals would
+                fade a split paragraph in two stages). */}
+            {/* [orphans:1]/[widows:1]: browsers default both to 2 in column
+                fragmentation, so the balancer can only move lines in PAIRS —
+                that quantisation was the stubborn two-line offset. Allowing
+                single-line breaks lets balance land within one line. */}
+            <div className="reveal md:col-span-7 md:col-start-6 md:columns-2 md:gap-10 [orphans:1] [widows:1]">
+              <p className="body-lg mb-6 text-bone-dim md:mb-0">
+                It rarely does by accident. Most practices inherit a website
+                from one supplier, search from another and a brand from a
+                third, and the seams show. We keep all three in one studio,
+                designed together, so what a patient meets online is as
+                considered as the care itself.
+              </p>
+              {/* ⚠ COPY IS DRAFTED (both paragraphs) — review before launch.
+                  md:indent-8 + no inter-paragraph margin: the newspaper
+                  convention (a first-line indent marks the new paragraph in
+                  continuous flow) — a margin at the column break defeats
+                  column-fill: balance; the indent costs no vertical space. */}
+              <p className="body-lg text-bone-dim md:indent-8">
+                That is also why the work compounds. The website is built to
+                rank from its first wireframe, the writing carries the
+                brand&rsquo;s voice into every procedure page, and each piece
+                strengthens the others the way good clinical practice does:
+                quietly, and over time. The result is a presence that keeps
+                earning trust while you are in the consulting room.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* The scroll index — the ODOMETER (2026-07-14, client ref: Relume
-            layout485). One big display-mega number pinned in a clipped
-            window, rolling as the rows pass; per-row hairlines draw in; each
-            row links to its detail page (2026-07-24 split). */}
-        <div className="shell relative z-10 pt-4 pb-24 md:pt-6 md:pb-32">
+        {/* THE INDEX — straight into the odometer rows (the "What we do /
+            Three disciplines, one studio" kicker pair was cut 2026-07-24,
+            client: "can totally go" — with the belief naming all three
+            disciplines one beat above, the labels were narration; the rows'
+            own hairlines are the structure now). ⚠ The odometer is
+            position:sticky — the glow stays in the clipped SIBLING layer
+            above; nothing here may be overflow-hidden. */}
+        <div className="shell relative z-10 pb-24 md:pb-44">
           <ServicesScrollIndex services={INDEX_ROWS} />
         </div>
       </section>
@@ -310,13 +397,17 @@ export default function ServicesPage() {
           the client's call: "I don't like the recent work as social proof.
           Let's just put a testimonial. We can use the Dr Yalda one from the
           homepage. Image left, text.") — the shared <Testimonial> band, so
-          homepage and hub can't drift. rule: dark-on-dark band boundary.
+          homepage and hub can't drift.
+          tone="ivory" (services-pacing handoff): the light act STEPS UP —
+          bone index to near-white ivory testimonial, its own section with
+          the handoff's pads (112/128). The ground step IS the boundary; no
+          hairline between the light bands.
           image: the hero's Lumen graphic as a STAND-IN (same day: the photo
           plate "doesn't fit the rest of the site"); square = native ratio.
           ⚠ placeholder on placeholder — real image + real words together
           when they land. */}
       <Testimonial
-        rule
+        tone="ivory"
         image={{ src: "/services-hero-square.png", alt: "", square: true }}
       />
 

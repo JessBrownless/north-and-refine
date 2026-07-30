@@ -18,7 +18,178 @@ type Service = {
   /** Detail page for this service (2026-07-24, the /services split). When
       present the row title links to it and gains a ghost onward link. */
   href?: string;
+  /** THE ROW TILE (2026-07-24, client experiment: "an image above each
+      thing… a little mockup for each maybe with a gradient blob
+      background"). A rounded warm-gradient tile above the title carrying a
+      BLANK device (the /about ream language — screens stay blank sitewide
+      until imagery is chosen). Device fits the discipline: laptop for web,
+      phone for search, a square plate for brand. Omit for no tile. */
+  art?: "laptop" | "phone" | "plate";
 };
+
+/* The tile grounds — the /about ream's retired TILE_GRADIENTS, back in
+   service: dosed, in-family, warm ink with one low champagne bloom, always
+   INSIDE a tile (never on the ground). Cycled per row. */
+/* PURE BLACK TILES (2026-07-25, closing the ground search — gradients were
+   trialled bright then darkened and still "idk why" didn't sit right): the
+   /about ream answered this exact question weeks ago after its own cycle
+   (gradients → glass → white → BLACK with white-rimmed devices), and the
+   services tiles now speak the same dialect — cross-page cohesion is the
+   point. Devices carry the white bezel rim for contrast, as on /about.
+   The gradient presets live in git history if the ground ever reopens.
+   2026-07-25: solid black → TRANSLUCENT black ("a transparent black like
+   very low opacity") — the section's warm ground and canvas blobs now read
+   through the pane, deepened rather than blocked; the tile is tinted glass
+   over the atmosphere instead of a hole cut in it. */
+const TILE_GROUND = "rgba(0,0,0,0.32)";
+
+/* Blank devices — the ream's shapes, sized for the row tile. Dark bezel,
+   dark glass; decorative only. */
+function TileDevice({ art }: { art: NonNullable<Service["art"]> }) {
+  if (art === "phone") {
+    return (
+      <div
+        style={{
+          position: "relative",
+          width: "22%",
+          aspectRatio: "320 / 680",
+          background: "#060607",
+          border: "1px solid #FFFFFF",
+          borderRadius: "clamp(12px,1.2vw,22px)",
+          padding: "clamp(3px,0.3vw,5px)",
+          boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: "clamp(6px,0.6vw,10px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "clamp(22px,2.2vw,36px)",
+            height: "clamp(6px,0.6vw,10px)",
+            background: "#000",
+            borderRadius: "999px",
+            zIndex: 2,
+          }}
+        />
+        <div style={{ width: "100%", height: "100%", borderRadius: "clamp(9px,0.95vw,18px)", background: "#121112" }} />
+      </div>
+    );
+  }
+  if (art === "plate") {
+    return (
+      <div
+        style={{
+          width: "34%",
+          aspectRatio: "1 / 1",
+          background: "#060607",
+          border: "1px solid #FFFFFF",
+          borderRadius: "clamp(10px,1vw,18px)",
+          padding: "clamp(4px,0.4vw,7px)",
+          boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+        }}
+      >
+        <div style={{ width: "100%", height: "100%", borderRadius: "clamp(7px,0.7vw,13px)", background: "#121112" }} />
+      </div>
+    );
+  }
+  return (
+    <div
+      style={{
+        width: "62%",
+        background: "#060607",
+        border: "1px solid #FFFFFF",
+        borderRadius: "clamp(8px,0.8vw,14px)",
+        padding: "clamp(4px,0.4vw,7px)",
+        boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+      }}
+    >
+      <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "clamp(5px,0.5vw,9px)", background: "#121112" }} />
+    </div>
+  );
+}
+
+/* THE FLYING FRAGMENTS (2026-07-24, client: "little bits flying out like
+   code or a #1 result or like a pen tool") — two floating chips per tile,
+   signing the discipline: mono code chips for web (font-mono is sanctioned
+   here: these are device-chrome depictions), a #1-result chip for search,
+   a hand-drawn pen-tool glyph + swatch dots for brand (never an imported
+   icon set — the StageGlyph rule; hairline strokes, champagne on ink, the
+   ornament-glyph colour). They ride the canon float utilities
+   (animate-float-slow/-slower, staggered inline delays; the global
+   reduced-motion guard stills them). Glass = .card-glass, straight corners
+   per the print rule. Decorative → aria-hidden. */
+function TileFragments({ art }: { art: NonNullable<Service["art"]> }) {
+  if (art === "phone") {
+    return (
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div
+          className="card-glass animate-float-slow absolute flex items-baseline gap-2 px-4 py-3"
+          style={{ left: "16%", top: "24%", rotate: "-5deg" }}
+        >
+          <span className="text-champagne" style={{ fontSize: "clamp(14px,1.3vw,20px)", fontWeight: 500 }}>
+            #1
+          </span>
+          <span className="overline text-bone-dim" style={{ fontSize: "9px" }}>
+            Result
+          </span>
+        </div>
+        <div
+          className="card-glass animate-float-slower absolute px-3 py-2.5"
+          style={{ right: "16%", top: "44%", rotate: "4deg", animationDelay: "1.2s" }}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-champagne">
+            <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" strokeWidth="1" />
+            <path d="M10 10 L14 14" stroke="currentColor" strokeWidth="1" />
+          </svg>
+        </div>
+      </div>
+    );
+  }
+  if (art === "plate") {
+    return (
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div
+          className="card-glass animate-float-slow absolute px-3 py-2.5"
+          style={{ left: "18%", top: "26%", rotate: "-4deg" }}
+        >
+          {/* Pen tool — anchor, handles, nib: hand-drawn, hairline. */}
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-champagne">
+            <path d="M9 2 L13.5 9 L9 16 L4.5 9 Z" stroke="currentColor" strokeWidth="1" />
+            <circle cx="9" cy="9" r="1.4" stroke="currentColor" strokeWidth="1" />
+            <path d="M2 4 L7.5 7.5 M16 4 L10.5 7.5" stroke="currentColor" strokeWidth="1" />
+          </svg>
+        </div>
+        <div
+          className="card-glass animate-float-slower absolute flex items-center gap-2 px-3 py-2.5"
+          style={{ right: "17%", top: "46%", rotate: "5deg", animationDelay: "0.9s" }}
+        >
+          <span className="h-2.5 w-2.5 rounded-full bg-champagne" />
+          <span className="h-2.5 w-2.5 rounded-full bg-bone" />
+          <span className="h-2.5 w-2.5 rounded-full bg-bone-dim" />
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0">
+      <div
+        className="card-glass animate-float-slow absolute px-3.5 py-2.5 font-mono text-[11px] text-bone-dim"
+        style={{ left: "15%", top: "24%", rotate: "-5deg" }}
+      >
+        {"<h1>"}
+      </div>
+      <div
+        className="card-glass animate-float-slower absolute px-3.5 py-2.5 font-mono text-[13px] text-champagne"
+        style={{ right: "15%", top: "42%", rotate: "4deg", animationDelay: "1.4s" }}
+      >
+        {"</>"}
+      </div>
+    </div>
+  );
+}
 
 /**
  * The /services scroll index (2026-07-14, client ref: Relume layout485). ONE
@@ -32,7 +203,25 @@ type Service = {
  * where an `!important` override was still outranked, so we set width/transform
  * directly here where nothing can outrank it. Content still fades via `.reveal`.
  */
-export default function ServicesScrollIndex({ services }: { services: Service[] }) {
+export default function ServicesScrollIndex({
+  services,
+  tone = "dark",
+}: {
+  services: Service[];
+  /** Ground the rows sit on (2026-07-24, the /services light-act trial).
+      Dark by default; light swaps the whole ladder — the odometer numeral,
+      the row rules, the drawing hairline and the ghost. */
+  tone?: "dark" | "light";
+}) {
+  const dark = tone === "dark";
+  const numeralColor = dark ? "text-bone-dim" : "text-ink-faint";
+  const indexColor = dark ? "text-clay" : "text-ink-mute";
+  const trackColor = dark ? "bg-ink-line" : "bg-bone-line";
+  const fillColor = dark ? "bg-bone" : "bg-ink";
+  const headingColor = dark ? "text-bone" : "text-ink";
+  const bodyColor = dark ? "text-bone-dim" : "text-ink-dim";
+  const ruleCls = dark ? "rule-dark" : "rule-light";
+  const dashColor = dark ? "bg-clay" : "bg-ink-mute";
   const [active, setActive] = useState(0);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
   const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -87,7 +276,7 @@ export default function ServicesScrollIndex({ services }: { services: Service[] 
       <div className="hidden md:col-span-4 md:block">
         <div className="sticky top-40">
           <div
-            className="display-mega overflow-hidden leading-none text-bone-dim"
+            className={`display-mega overflow-hidden leading-none ${numeralColor}`}
             style={{ height: "1em" }}
             aria-hidden
           >
@@ -119,17 +308,36 @@ export default function ServicesScrollIndex({ services }: { services: Service[] 
             className="reveal"
           >
             {/* Mobile keeps a small inline number (the rolling one is desktop-only) */}
-            <p className="index-num text-clay md:hidden">{s.num}</p>
+            <p className={`index-num ${indexColor} md:hidden`}>{s.num}</p>
             {/* Progress hairline: faint track + the fill that draws (JS width) */}
-            <div className="relative mt-4 h-px w-full overflow-hidden bg-ink-line md:mt-0">
+            <div className={`relative mt-4 h-px w-full overflow-hidden ${trackColor} md:mt-0`}>
               <span
                 ref={(el) => {
                   fillRefs.current[i] = el;
                 }}
-                className="absolute left-0 top-0 h-px w-0 bg-bone transition-[width] duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className={`absolute left-0 top-0 h-px w-0 ${fillColor} transition-[width] duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)]`}
               />
             </div>
-            <h2 className="heading-lg mt-12 text-bone">
+            {s.art && (
+              <div
+                className="relative mt-10 flex items-end justify-center overflow-hidden rounded-[clamp(16px,1.6vw,26px)]"
+                style={{
+                  background: TILE_GROUND,
+                  aspectRatio: "16 / 9",
+                }}
+              >
+                {/* Device rises from the tile's foot and crops there — the
+                    ream grammar. */}
+                <div
+                  className="flex w-full items-end justify-center"
+                  style={{ transform: "translateY(14%)" }}
+                >
+                  <TileDevice art={s.art} />
+                </div>
+                <TileFragments art={s.art} />
+              </div>
+            )}
+            <h2 className={`heading-lg mt-12 ${headingColor}`}>
               {s.href ? (
                 <Link href={s.href} className="transition-opacity hover:opacity-70">
                   {s.title}
@@ -138,18 +346,18 @@ export default function ServicesScrollIndex({ services }: { services: Service[] 
                 s.title
               )}
             </h2>
-            <p className="body-lg mt-4 max-w-[36ch] text-bone-dim">{s.lead}</p>
+            <p className={`body-lg mt-4 max-w-[36ch] ${bodyColor}`}>{s.lead}</p>
             {s.body && (
-              <p className="body mt-5 max-w-[54ch] text-bone-dim">{s.body}</p>
+              <p className={`body mt-5 max-w-[54ch] ${bodyColor}`}>{s.body}</p>
             )}
             {s.deliverables && s.deliverables.length > 0 && (
-              <ul className="mt-9 grid grid-cols-1 gap-x-10 gap-y-3.5 border-t rule-dark pt-7 sm:grid-cols-2">
+              <ul className={`mt-9 grid grid-cols-1 gap-x-10 gap-y-3.5 border-t ${ruleCls} pt-7 sm:grid-cols-2`}>
                 {s.deliverables.map((d) => (
                   <li
                     key={d}
-                    className="body-sm flex items-center gap-3 text-bone-dim"
+                    className={`body-sm flex items-center gap-3 ${bodyColor}`}
                   >
-                    <span aria-hidden className="h-px w-4 shrink-0 bg-clay" />
+                    <span aria-hidden className={`h-px w-4 shrink-0 ${dashColor}`} />
                     {d}
                   </li>
                 ))}
@@ -157,7 +365,7 @@ export default function ServicesScrollIndex({ services }: { services: Service[] 
             )}
             {s.href && (
               <div className="mt-9">
-                <Link href={s.href} className="btn-ghost text-bone">
+                <Link href={s.href} className={`btn-ghost ${headingColor}`}>
                   More on {s.title.toLowerCase()} <span aria-hidden>→</span>
                 </Link>
               </div>

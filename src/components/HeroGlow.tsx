@@ -15,10 +15,21 @@
  * darker vignette gives white elements (the logo, nav) the contrast they need.
  * These are the original values; don't lighten without checking logo contrast.
  */
-export default function HeroGlow({ intensity = 1 }: { intensity?: number }) {
+export default function HeroGlow({
+  intensity = 1,
+  topLeft = 1,
+}: {
+  intensity?: number;
+  /** Extra multiplier on the TOP-LEFT champagne pool alone (2026-07-24,
+      client: "really decrease the opacity of the top left gradient on the
+      services page hero") — the interior PageHero passes a low value so the
+      pool behind the H1 quietens; the homepage, the /about canvas and the
+      CTA card keep the full pool. */
+  topLeft?: number;
+}) {
   return (
     <>
-      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "62%", height: "68%", borderRadius: "50%", background: "#C2A878", opacity: 0.5 * intensity, filter: "blur(130px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "62%", height: "68%", borderRadius: "50%", background: "#C2A878", opacity: 0.5 * intensity * topLeft, filter: "blur(130px)", pointerEvents: "none", transform: "translateZ(0)" }} />
       <div aria-hidden style={{ position: "absolute", right: "-15%", top: "-13%", width: "57%", height: "66%", borderRadius: "50%", background: "#8A5A2E", opacity: 0.55 * intensity, filter: "blur(140px)", pointerEvents: "none", transform: "translateZ(0)" }} />
       <div aria-hidden style={{ position: "absolute", left: "30%", bottom: "-28%", width: "62%", height: "56%", borderRadius: "50%", background: "#3E2E1C", opacity: 0.85 * intensity, filter: "blur(120px)", pointerEvents: "none", transform: "translateZ(0)" }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none",

@@ -23,11 +23,17 @@
  * plate "doesn't fit the rest of the site" — it passes the hero's Lumen
  * graphic as a stand-in "to get more of a feel". `square` renders the frame
  * 1:1 for native-ratio artwork, per the graphics-run-native rule; the 4:5
- * default stays the photographic canon).
+ * default stays the photographic canon); `tone` swaps the ground and the
+ * whole type ladder (2026-07-24, the homepage light-act trial — bone band
+ * with the on-light ladder, clay kicker per the tracked-caps exception).
+ * `spacious` is the statement-moment padding tier, for a light act that
+ * wants room.
  */
 export default function Testimonial({
   rule = false,
   exitFade = false,
+  tone = "dark",
+  spacious = false,
   image = {
     src: "/assets/plates/kind-words-rowen-phone-05.jpg",
     alt: "A phone on travertine displaying the Dr Yalda Jamali mobile site — brand and web design by North & Refine",
@@ -35,16 +41,40 @@ export default function Testimonial({
 }: {
   rule?: boolean;
   exitFade?: boolean;
+  /** "ivory" (2026-07-24 services-pacing handoff): the light act's STEP UP —
+      near-white #FBF8F1 with its own tighter padding (112/128), so the
+      testimonial lifts off the bone index above it. Light ladder otherwise. */
+  tone?: "dark" | "light" | "ivory";
+  spacious?: boolean;
   image?: { src: string; alt: string; square?: boolean };
 }) {
+  const dark = tone === "dark";
+  const ivory = tone === "ivory";
+  const ground = dark
+    ? "grain bg-ink"
+    : `grain-light ${ivory ? "bg-ivory" : "bg-bone"} text-ink`;
+  const ruleCls = dark ? "rule-dark" : "rule-light";
+  // Kicker: bone on ink; clay on bone — the tracked-caps ornament exception
+  // (the one sanctioned clay-on-light, as MethodSection uses).
+  const kickerColor = dark ? "" : " text-clay";
+  const nameColor = dark ? "text-bone" : "text-ink";
+  const metaColor = dark ? "text-bone-dim" : "text-ink-dim";
+  const middot = dark ? "bg-bone/15" : "bg-ink/15";
+  // Ivory carries the handoff's exact pads (112 top / 128 bottom).
+  const pad = ivory
+    ? "pt-28 pb-32"
+    : spacious
+      ? "py-32 md:py-44"
+      : "py-24 md:py-32";
+
   return (
     <section
-      className={`relative overflow-hidden grain bg-ink${
-        rule ? " border-t rule-dark" : ""
+      className={`relative overflow-hidden ${ground}${
+        rule ? ` border-t ${ruleCls}` : ""
       }`}
     >
-      <div className="shell relative z-10 py-24 md:py-32">
-        <p className="overline mb-8 reveal md:mb-10">Kind words</p>
+      <div className={`shell relative z-10 ${pad}`}>
+        <p className={`overline${kickerColor} mb-8 reveal md:mb-10`}>Kind words</p>
         {/* 5 / break / 5 / break (2026-07-24, client's call, third shape of
             the day — 4/7 → 6/6 → this): image cols 1–5, col 6 the gutter,
             words cols 7–11, col 12 open air on the right — the balanced
@@ -73,7 +103,7 @@ export default function Testimonial({
             {/* Attribution — items-center, not baseline: the row mixes image
                 and type. */}
             <div
-              className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t rule-dark pt-5 reveal"
+              className={`mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t ${ruleCls} pt-5 reveal`}
               style={{ transitionDelay: "160ms" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -84,9 +114,9 @@ export default function Testimonial({
                 loading="lazy"
                 className="plate-develop h-10 w-10 rounded-full object-cover"
               />
-              <p className="body-sm text-bone">Dr Yalda Jamali</p>
-              <span aria-hidden className="hidden h-3 w-px bg-bone/15 sm:block" />
-              <p className="body-sm text-bone-dim">
+              <p className={`body-sm ${nameColor}`}>Dr Yalda Jamali</p>
+              <span aria-hidden className={`hidden h-3 w-px ${middot} sm:block`} />
+              <p className={`body-sm ${metaColor}`}>
                 Cosmetic doctor — real words to come
               </p>
             </div>

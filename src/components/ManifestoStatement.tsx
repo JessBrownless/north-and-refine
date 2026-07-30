@@ -22,7 +22,16 @@ import { useEffect, useRef } from "react";
  * also carries a SectionGlow, the glow needs its own absolutely-positioned
  * clipping layer as a SIBLING of the sticky child (see /services).
  */
-export default function ManifestoStatement({ text }: { text: string }) {
+export default function ManifestoStatement({
+  text,
+  className = "display max-w-none",
+}: {
+  text: string;
+  /** Type register override (2026-07-24 services-pacing handoff): the
+      homepage keeps the .display default; /services passes the stepped-down
+      .belief-statement so the hero stays the loudest voice on that page. */
+  className?: string;
+}) {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
@@ -59,14 +68,20 @@ export default function ManifestoStatement({ text }: { text: string }) {
       // Weighted so ~half the fill happens DURING the pin: it begins once
       // the statement is well into view and completes only near the end of
       // the dwell — the hold always has something happening in it.
-      const start = vh * 0.55;
-      const end = rect.height > vh * 1.1 ? -(rect.height - vh) * 0.9 : vh * 0.12;
+      // Window retuned 2026-07-24 (services-pacing handoff): start 0.8vh,
+      // normal-flow end 0.45vh — the fill COMPLETES BY MID-VIEWPORT, so a
+      // fast scroller never passes an unlit statement. The sticky-track end
+      // (the homepage dwell) is unchanged.
+      const start = vh * 0.8;
+      const end = rect.height > vh * 1.1 ? -(rect.height - vh) * 0.9 : vh * 0.45;
       const p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
       const n = words.length;
       for (let i = 0; i < n; i++) {
         // Each word ramps over a short window, staggered across the run
         const t = (i / n) * 0.82;
-        const o = 0.15 + 0.85 * Math.min(1, Math.max(0, (p - t) / 0.24));
+        // Resting 0.35 (was 0.15, services-pacing handoff) — the dim words
+        // stay legible while they wait for the fill.
+        const o = 0.35 + 0.65 * Math.min(1, Math.max(0, (p - t) / 0.24));
         words[i].style.opacity = o.toFixed(3);
       }
     };
@@ -93,13 +108,13 @@ export default function ManifestoStatement({ text }: { text: string }) {
        shell's own 1600px cap keeps line length bounded on big monitors.
        Applies to BOTH consumers on purpose: the homepage manifesto and the
        /services belief are meant to be the same compartment. */
-    <p ref={ref} className="display max-w-none">
+    <p ref={ref} className={className}>
       {text.split(" ").map((word, i) => (
         /* willChange: the fill now also runs UNSTUCK (/services), so
            opacities change WHILE the text moves — without their own
            compositor layers the display-size glyphs repaint every scroll
            frame, which read as scroll friction (2026-07-24). */
-        <span key={i} data-word style={{ opacity: 0.15, willChange: "opacity" }}>
+        <span key={i} data-word style={{ opacity: 0.35, willChange: "opacity" }}>
           {word}{" "}
         </span>
       ))}

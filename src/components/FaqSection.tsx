@@ -63,7 +63,12 @@ export default function FaqSection({
     ? "relative overflow-hidden grain border-t rule-dark bg-ink text-bone"
     : "scene-cream-deep relative overflow-hidden grain-light text-ink";
   const rule = dark ? "rule-dark" : "rule-light";
-  const kickerColor = dark ? "" : " text-ink-dim";
+  // Dark kicker at CLAY (2026-07-24 services-pacing handoff, #8a8578): the
+  // dark FAQ is the start of the close, and its kicker steps down to the
+  // meta tier rather than speaking at full bone. A deliberate exception to
+  // the bone-kicker default, scoped to this component's dark tone (one
+  // consumer: /services).
+  const kickerColor = dark ? " text-clay" : " text-ink-dim";
   const answerColor = dark ? "text-bone-dim" : "text-ink-dim";
   const button = dark ? "btn-secondary-dark" : "btn-secondary-light";
 

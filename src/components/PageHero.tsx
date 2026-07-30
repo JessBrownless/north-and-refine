@@ -10,6 +10,11 @@ interface PageHeroProps {
       /work, /blog and /about stay button-free (the nav and the ContactCTA
       close carry theirs). */
   cta?: { label: string; href: string };
+  /** Pill style for the hero CTA (2026-07-24, client trial on /services):
+      "glass" renders `.btn-glass` — the card-glass surface as a pill, so
+      the warm ground reads through it. Dark heroes only (the blur needs a
+      lit ground behind it); default stays the solid primary. */
+  ctaVariant?: "primary" | "glass";
   /** Small meta line under the lede (e.g. breadcrumb-style context). */
   meta?: string;
   /** THE GRAPHIC SLOT (2026-07-16, client's call: "write space for nice
@@ -101,6 +106,7 @@ export default function PageHero({
   title,
   lede,
   cta,
+  ctaVariant = "primary",
   meta,
   media,
   align = "left",
@@ -143,8 +149,10 @@ export default function PageHero({
     <>
       {/* 0.85 → 0.6 (2026-07-24, client: the blurs read "a bit much" on
           some pages) — the interior dose steps further below the homepage's
-          full ground. */}
-      <HeroGlow intensity={0.6} />
+          full ground. topLeft 0.3 the same day ("REALLY decrease the opacity
+          of the top left gradient"): the champagne pool behind the H1 drops
+          to ~0.09 effective while the right and foot blobs hold the blend. */}
+      <HeroGlow intensity={0.6} topLeft={0.3} />
       {/* THE SEAM ANCHOR (2026-07-23, client: hero and next section "need to
           almost be one"): the ground resolves to ONE FIXED TONE (#14100B) at
           the hero's foot, and SectionGlow's wash starts from exactly that
@@ -201,7 +209,13 @@ export default function PageHero({
         {cta && (
           <Link
             href={cta.href}
-            className={`btn ${light ? "btn-primary-light" : "btn-primary-dark"}`}
+            className={`btn ${
+              ctaVariant === "glass" && !light
+                ? "btn-glass"
+                : light
+                  ? "btn-primary-light"
+                  : "btn-primary-dark"
+            }`}
           >
             {cta.label}
             <span aria-hidden>→</span>
@@ -244,18 +258,19 @@ export default function PageHero({
     //     at x=851, so 260px of dead ground sat between the halves and they
     //     read as two separate things. Media now starts at col 7 — 6 and 6,
     //     no gutter column, the halves meeting in the middle.
-    //  3. THE SHARED LINE. `items-center` box-centred the graphic against
-    //     the text, landing it 16px off the H1's top and 65px off the stack's
-    //     bottom — near-misses, which is what the baseline-lock rule exists
-    //     to prevent. `items-end` locks the graphic's foot to the bottom of
-    //     the text stack, so the CTA and the image close on one line.
+    //  3. ALIGNMENT: bottom-lock → CENTRED (2026-07-24, client's call on the
+    //     /services hero: "centre aligning the H1 to the image"). items-end
+    //     had locked the graphic's foot to the CTA row; with the shortened
+    //     three-word H1 the text stack is much shorter than the square, and
+    //     the bottom-lock left the title riding low. items-center balances
+    //     the stack against the graphic's midline instead.
     if (media) {
       return (
         <section className={sectionCls}>
         {heroGlow}
           <div className="shell relative z-10 pt-32 pb-6 md:pt-40 md:pb-8">
             <div className={`flex items-center ${splitBox}${shellBorder}`}>
-              <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
+              <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8">
                 <div className="md:col-span-6">
                   {overlineEl}
                   {h1El}

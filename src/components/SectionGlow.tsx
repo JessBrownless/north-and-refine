@@ -27,11 +27,23 @@
 export default function SectionGlow({
   blob = "right",
   intensity = 1,
+  seamEmphasis = false,
 }: {
   /** Which side the section's individual blob sits — vary per page. */
   blob?: "left" | "right";
   intensity?: number;
+  /** The /services hero→belief seam ONLY (2026-07-24 services-pacing
+      handoff): richer tail (opacity 0.16, ~44% tall, 84% wide) and a
+      slightly stronger side blob (0.09), so the hero's warmth carries
+      further into the belief before decaying to flat ink. Exact spec
+      values — other pages keep the standard dose; don't reach for this
+      to "warm up" a section. */
+  seamEmphasis?: boolean;
 }) {
+  const blobOpacity = (seamEmphasis ? 0.09 : 0.07) * intensity;
+  const tailOpacity = (seamEmphasis ? 0.16 : 0.11) * intensity;
+  const tailHeight = seamEmphasis ? "44%" : "34%";
+  const tailWidth = seamEmphasis ? "84%" : "80%";
   return (
     <>
       {/* 1 — the individual blob, one per section, side varies per page. */}
@@ -47,7 +59,7 @@ export default function SectionGlow({
           background: "#C2A878",
           // Doses trimmed ~30% 2026-07-24 (client: "a bit much" on some
           // pages) — blob 0.10 → 0.07, tail 0.16 → 0.11.
-          opacity: 0.07 * intensity,
+          opacity: blobOpacity,
           filter: "blur(150px)",
           pointerEvents: "none",
           transform: "translateZ(0)",
@@ -64,11 +76,11 @@ export default function SectionGlow({
           // (a bare translateZ once overwrote the translateX and shoved the
           // tail off-centre, 2026-07-24).
           transform: "translateX(-50%) translateZ(0)",
-          width: "80%",
-          height: "34%",
+          width: tailWidth,
+          height: tailHeight,
           borderRadius: "50%",
           background: "#8A5A2E",
-          opacity: 0.11 * intensity,
+          opacity: tailOpacity,
           filter: "blur(140px)",
           pointerEvents: "none",
         }}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;450;500&amp;family=Geist+Mono:wght@400&amp;display=swap" rel="stylesheet">
+  <style>
+    @font-face { font-family: 'Saol Display'; src: url('src/fonts/SaolDisplay-LightItalic.woff2') format('woff2'); font-weight: 300; font-style: italic; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #0C0C0D; color: #F2EEE6; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: #F2EEE6; text-decoration: none; }
+    a:hover { color: #D8C6A4; }
+    ::selection { background: #C2A878; color: #0C0C0D; }
+  </style>
+</helmet>
+
+<div data-screen-label="Teardown" style="position:relative;background:#0C0C0D;min-height:100vh">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0.04;background-image:url('public/grain.svg');background-size:200px 200px"></div>
+
+  <div style="position:relative;width:100%;max-width:1280px;margin:0 auto;padding:96px clamp(24px,3vw,48px) 64px">
+
+    <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;line-height:1.4;color:#C2A878">Design review &middot; /services &middot; the hero handover</p>
+    <h1 style="margin:0.4em 0 0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(40px,3rem + 3vw,84px);line-height:1.02;letter-spacing:-0.03em;color:#F2EEE6;max-width:18ch;text-wrap:balance">Nice in the screenshot, <em style="font-family:'Saol Display',Georgia,serif;font-style:italic;font-weight:300">awkward</em> in the scroll.</h1>
+    <p style="margin:36px 0 0;max-width:64ch;font-size:clamp(16px,1rem + 0.3vw,19px);line-height:1.65;color:#c1b9b0">A full-page screenshot shows composition and hides pacing &mdash; and pacing is where this page fails. Scrolled at viewport scale, the hero hands over to roughly two and a half screens of near-empty ink, three display-scale moments compete at the same volume, and the first tonal event after the silence is a maximum-contrast cut that arrives unframed. None of that exists in a compressed capture, which is exactly why it looks composed in the screenshot and feels cheap in the browser.</p>
+    <div style="margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+      <a href="Services Current.dc.html" style="display:inline-flex;align-items:center;gap:0.6em;border-radius:9999px;padding:16px 28px;border:1px solid rgba(242,238,230,0.4);color:#F2EEE6;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;line-height:1;transition:border-color 0.3s ease" style-hover="border-color:#C2A878;color:#F2EEE6">Scroll the current build <span aria-hidden="true">→</span></a>
+      <a href="Services Refined.dc.html" style="display:inline-flex;align-items:center;gap:0.6em;border-radius:9999px;padding:16px 28px;border:1px solid rgba(242,238,230,0.9);background:rgba(242,238,230,0.9);color:#0C0C0D;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;line-height:1;transition:background-color 0.3s ease" style-hover="background:#D8C6A4;border-color:#D8C6A4;color:#0C0C0D">Scroll the refined cut <span aria-hidden="true">→</span></a>
+      <p style="margin:0;font-size:13px;color:#8a8578">Both are live rebuilds using your repo&rsquo;s real values. The refined cut exposes two dials in Tweaks.</p>
+    </div>
+
+    <div style="margin-top:96px;border-top:1px solid #2A2A2C;padding-top:32px">
+      <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#F2EEE6">Exhibit A &mdash; the tonal arc</p>
+      <p style="margin:16px 0 0;max-width:62ch;font-size:15px;line-height:1.6;color:#c1b9b0">Widths are proportional to each section&rsquo;s real height. The current page flips ground four times and improvises a different seam device at each boundary; the refined arc is three acts, two flips, one grammar.</p>
+
+      <p style="margin:36px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8578">Current &middot; 4 ground flips <span style="color:#C2A878">▲</span></p>
+      <div style="position:relative;margin-top:10px">
+        <div style="display:flex;width:100%">
+          <div style="width:14%"><div style="height:56px;background:linear-gradient(120deg,#4A3520 0%,#16110C 70%)"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Hero</p></div>
+          <div style="width:5%"><div style="height:56px;background:#100D0A"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Fields</p></div>
+          <div style="width:15%"><div style="height:56px;background:#0C0C0D"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Belief</p></div>
+          <div style="width:22%"><div style="height:56px;background:#F2EEE6"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Index</p></div>
+          <div style="width:12%"><div style="height:56px;background:#EFEAE0"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Kind words</p></div>
+          <div style="width:12%"><div style="height:56px;background:#0C0C0D;border-left:1px solid #2A2A2C"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">FAQ</p></div>
+          <div style="width:9%"><div style="height:56px;background:#0C0C0D"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">CTA</p></div>
+          <div style="width:4%"><div style="height:56px;background:#EFEAE0"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">IG</p></div>
+          <div style="width:7%"><div style="height:56px;background:#0C0C0D;border-left:1px solid #2A2A2C"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Footer</p></div>
+        </div>
+        <span aria-hidden="true" style="position:absolute;top:-16px;left:calc(34% - 5px);color:#C2A878;font-size:10px">▲</span>
+        <span aria-hidden="true" style="position:absolute;top:-16px;left:calc(68% - 5px);color:#C2A878;font-size:10px">▲</span>
+        <span aria-hidden="true" style="position:absolute;top:-16px;left:calc(89% - 5px);color:#C2A878;font-size:10px">▲</span>
+        <span aria-hidden="true" style="position:absolute;top:-16px;left:calc(93% - 5px);color:#C2A878;font-size:10px">▲</span>
+      </div>
+
+      <p style="margin:44px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8578">Refined &middot; 2 flips, three acts</p>
+      <div style="position:relative;margin-top:10px">
+        <div style="display:flex;width:100%">
+          <div style="width:32%"><div style="height:56px;background:linear-gradient(90deg,#4A3520 0%,#1B140D 35%,#0C0C0D 100%)"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Dark act &mdash; hero, credit strip &amp; belief in one decaying scene</p></div>
+          <div style="width:44%"><div style="height:56px;background:linear-gradient(90deg,#F2EEE6 0%,#F2EEE6 72%,#DCD3C3 72%,#DCD3C3 100%)"></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Light act &mdash; index, kind words, FAQ steps to the deeper ivory</p></div>
+          <div style="width:24%"><div style="height:56px;background:#0C0C0D;position:relative"><div aria-hidden="true" style="position:absolute;top:10px;bottom:10px;left:18%;right:18%;border-radius:6px;background:linear-gradient(120deg,#4A3520 0%,#1B140D 80%)"></div></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8578">Dark close &mdash; the hero&rsquo;s warmth held in the CTA card</p></div>
+        </div>
+        <span aria-hidden="true" style="position:absolute;top:-16px;left:calc(32% - 5px);color:#C2A878;font-size:10px">▲</span>
+        <span aria-hidden="true" style="position:absolute;top:-16px;left:calc(76% - 5px);color:#C2A878;font-size:10px">▲</span>
+      </div>
+    </div>
+
+    <div style="margin-top:96px">
+      <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#F2EEE6">Five findings</p>
+
+      <div style="margin-top:32px;border-top:1px solid #2A2A2C;padding:40px 0;display:grid;grid-template-columns:repeat(12,1fr);gap:32px">
+        <p style="margin:0;grid-column:1/2;font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;color:#C2A878">01</p>
+        <div style="grid-column:2/9">
+          <h2 style="margin:0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(22px,1.2rem + 1vw,30px);line-height:1.2;letter-spacing:-0.015em;color:#F2EEE6">The hero spends the whole budget in one screen</h2>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.65;color:#c1b9b0">All of the page&rsquo;s warmth, imagery and light live in the hero&rsquo;s right column. Scroll once and the material story ends: nothing warm or pictorial recurs until the CTA, four sections later. The following two-and-a-half viewports are flat ink and type, so the hero reads as a promise the page doesn&rsquo;t keep. This, more than any single seam, is the &ldquo;not premium&rdquo; feeling &mdash; luxury is continuity of material.</p>
+          <p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#D8C6A4"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#C2A878;margin-right:10px">Fix</span>Let the hero&rsquo;s afterglow decay through the strip and the belief &mdash; SectionGlow&rsquo;s amber tail up from 0.11 to ~0.16 at this seam only, taller, dying out before the light act. One continuous scene instead of hero + black void.</p>
+        </div>
+        <div style="grid-column:9/13;display:flex;gap:12px;align-items:flex-start">
+          <div style="flex:1"><div style="aspect-ratio:4/3;border:1px solid #2A2A2C;background:linear-gradient(140deg,rgba(138,90,46,0.45) 0%,#16110C 75%);position:relative"><div aria-hidden="true" style="position:absolute;right:12%;top:14%;width:34%;height:46%;border-radius:4px;background:linear-gradient(160deg,#C77B3A,#7A4A20)"></div></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">Screen 1</p></div>
+          <div style="flex:1"><div style="aspect-ratio:4/3;border:1px solid #2A2A2C;background:#0C0C0D;position:relative"><div aria-hidden="true" style="position:absolute;left:10%;top:46%;width:60%;height:3px;background:rgba(242,238,230,0.15)"></div></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">Screens 2&ndash;4</p></div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #2A2A2C;padding:40px 0;display:grid;grid-template-columns:repeat(12,1fr);gap:32px">
+        <p style="margin:0;grid-column:1/2;font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;color:#C2A878">02</p>
+        <div style="grid-column:2/9">
+          <h2 style="margin:0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(22px,1.2rem + 1vw,30px);line-height:1.2;letter-spacing:-0.015em;color:#F2EEE6">Three moments, one volume</h2>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.65;color:#c1b9b0">H1 at display scale, then the fields ribbon at 80px full-bleed caps, then the belief at display scale again &mdash; three headline-sized statements stacked with nothing between them. When everything is a moment, nothing is. The ribbon is the offender: it&rsquo;s meta content (a list of client fields) dressed as a headline, and it&rsquo;s also the only thing on the page that moves unbidden &mdash; right at the handover, it outshouts both the H1 above it and the belief below it.</p>
+          <p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#D8C6A4"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#C2A878;margin-right:10px">Fix</span>Demote it to a credit strip: &ldquo;Who we work with&rdquo; kicker + 12px mono caps between hairlines, marquee kept but quiet, tight under the hero as its colophon. The belief becomes the undisputed second moment.</p>
+        </div>
+        <div style="grid-column:9/13;display:flex;gap:12px;align-items:flex-start">
+          <div style="flex:1"><div style="border:1px solid #2A2A2C;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="height:10px;width:100%;background:rgba(242,238,230,0.9)"></div><div style="height:10px;width:94%;background:rgba(242,238,230,0.85)"></div><div style="height:10px;width:100%;background:rgba(242,238,230,0.9)"></div></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">Current</p></div>
+          <div style="flex:1"><div style="border:1px solid #2A2A2C;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="height:10px;width:100%;background:rgba(242,238,230,0.9)"></div><div style="height:3px;width:24%;background:rgba(242,238,230,0.4)"></div><div style="height:10px;width:88%;background:rgba(242,238,230,0.9)"></div></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">Refined</p></div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #2A2A2C;padding:40px 0;display:grid;grid-template-columns:repeat(12,1fr);gap:32px">
+        <p style="margin:0;grid-column:1/2;font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;color:#C2A878">03</p>
+        <div style="grid-column:2/9">
+          <h2 style="margin:0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(22px,1.2rem + 1vw,30px);line-height:1.2;letter-spacing:-0.015em;color:#F2EEE6">The void between ribbon and index</h2>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.65;color:#c1b9b0">224px of padding above the belief, 160px below, and the statement rests at 15% opacity until the scroll-fill lights it &mdash; with the fill only completing as the track nears the top of the viewport. Mid-scroll, the frame is roughly three-quarters empty ink, and a fast scroller passes the statement before it ever finishes lighting. The screenshot compresses this to nothing; the browser makes you live in it for two screens.</p>
+          <p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#D8C6A4"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#C2A878;margin-right:10px">Fix</span>Halve the air (pt-56 &rarr; pt-28), raise the resting fill 0.15 &rarr; 0.35, finish the fill by mid-viewport. The statement is always legible as a mass; the fill stays as the event.</p>
+        </div>
+        <div style="grid-column:9/13">
+          <div style="aspect-ratio:16/10;border:1px solid #2A2A2C;background:#0C0C0D;position:relative"><div aria-hidden="true" style="position:absolute;left:8%;top:44%;width:78%;height:4px;background:rgba(242,238,230,0.15)"></div><div aria-hidden="true" style="position:absolute;left:8%;top:56%;width:44%;height:4px;background:rgba(242,238,230,0.15)"></div></div>
+          <p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">A mid-scroll frame, to scale</p>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #2A2A2C;padding:40px 0;display:grid;grid-template-columns:repeat(12,1fr);gap:32px">
+        <p style="margin:0;grid-column:1/2;font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;color:#C2A878">04</p>
+        <div style="grid-column:2/9">
+          <h2 style="margin:0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(22px,1.2rem + 1vw,30px);line-height:1.2;letter-spacing:-0.015em;color:#F2EEE6">The cut to bone has no arrival</h2>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.65;color:#c1b9b0">The dark-to-light razor cut is legitimate in this system &mdash; but here the bone act opens with ~190px of empty paper, then a hairline floating mid-air, then a heading that belongs to a row, not to the act. After a hero whose whole seam philosophy is &ldquo;the two sides must read as one&rdquo;, the loudest boundary on the page is the one with no design in it. A cut this hard needs the new chapter to start speaking immediately, or it reads like a template change.</p>
+          <p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#D8C6A4"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#C2A878;margin-right:10px">Fix</span>Open the light act with structure inside the first 120px: &ldquo;What we do&rdquo; kicker + a full-width rule, then the rows. The cut becomes a deliberate page-turn.</p>
+        </div>
+        <div style="grid-column:9/13;display:flex;gap:12px;align-items:flex-start">
+          <div style="flex:1"><div style="aspect-ratio:4/3;background:#F2EEE6;border:1px solid #2A2A2C;position:relative"><div aria-hidden="true" style="position:absolute;left:10%;right:10%;top:58%;height:1px;background:#C9C2B4"></div></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">Unframed</p></div>
+          <div style="flex:1"><div style="aspect-ratio:4/3;background:#F2EEE6;border:1px solid #2A2A2C;position:relative"><div aria-hidden="true" style="position:absolute;left:10%;top:12%;width:22%;height:3px;background:#686664"></div><div aria-hidden="true" style="position:absolute;left:10%;right:10%;top:24%;height:1px;background:#9B937F"></div><div aria-hidden="true" style="position:absolute;left:10%;width:34%;top:38%;height:6px;background:#0C0C0D"></div></div><p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">Framed</p></div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #2A2A2C;border-bottom:1px solid #2A2A2C;padding:40px 0;display:grid;grid-template-columns:repeat(12,1fr);gap:32px">
+        <p style="margin:0;grid-column:1/2;font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;color:#C2A878">05</p>
+        <div style="grid-column:2/9">
+          <h2 style="margin:0;font-family:'Instrument Sans',system-ui,sans-serif;font-weight:500;font-size:clamp(22px,1.2rem + 1vw,30px);line-height:1.2;letter-spacing:-0.015em;color:#F2EEE6">The FAQ obeys the wrong era&rsquo;s rule</h2>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.65;color:#c1b9b0">Your own FaqSection contract: cream for pages with a light middle act, dark for pages that run dark hero-to-close. This page has a light middle <em style="font-family:'Saol Display',Georgia,serif;font-style:italic;font-weight:300">and</em> a dark FAQ &mdash; decisions from two different versions of the page cohabiting. That&rsquo;s where the zebra comes from: dark, light, dark, light, dark. Restlessness reads as indecision, and indecision never reads premium.</p>
+          <p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#D8C6A4"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#C2A878;margin-right:10px">Fix</span>tone=&quot;cream&quot; here &mdash; the deeper ivory (#DCD3C3) steps the light act down instead of cutting out of it, and the dark close (the warm-card CTA + footer) finishes the page as the hero&rsquo;s bookend.</p>
+        </div>
+        <div style="grid-column:9/13">
+          <div style="border:1px solid #2A2A2C;padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;height:12px"><div style="width:34%;background:#16110C"></div><div style="width:34%;background:#F2EEE6"></div><div style="width:12%;background:#0C0C0D"></div><div style="width:13%;background:#0C0C0D"></div><div style="width:4%;background:#F2EEE6"></div><div style="width:3%;background:#0C0C0D"></div></div>
+            <div style="display:flex;height:12px"><div style="width:32%;background:#16110C"></div><div style="width:32%;background:#F2EEE6"></div><div style="width:12%;background:#DCD3C3"></div><div style="width:24%;background:#0C0C0D"></div></div>
+          </div>
+          <p style="margin:8px 0 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8578">Five stripes vs three acts</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:96px;display:grid;grid-template-columns:repeat(12,1fr);gap:32px">
+      <div style="grid-column:1/6">
+        <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#F2EEE6">The seam rules</p>
+        <p style="margin:20px 0 0;font-size:15px;line-height:1.7;color:#c1b9b0">One grammar, applied everywhere:</p>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:16px">
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#c1b9b0"><span style="color:#C2A878">&mdash;</span>&ensp;<strong style="color:#F2EEE6;font-weight:500">Dark into dark:</strong> both sides resolve to the anchor tone (#14100B); the wash decays it to flat ink. One colour on both sides of the line means no line.</p>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#c1b9b0"><span style="color:#C2A878">&mdash;</span>&ensp;<strong style="color:#F2EEE6;font-weight:500">Dark into light:</strong> always a deliberate cut &mdash; and the light side leads with structure (kicker + rule) inside its first 120px.</p>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#c1b9b0"><span style="color:#C2A878">&mdash;</span>&ensp;<strong style="color:#F2EEE6;font-weight:500">Never two devices at one boundary:</strong> a glow handover or a page-turn, decided per seam, never both half-happening.</p>
+        </div>
+      </div>
+      <div style="grid-column:7/13">
+        <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#F2EEE6">Where this lands in the repo</p>
+        <div style="margin-top:20px;border-top:1px solid #2A2A2C">
+          <div style="display:flex;gap:20px;padding:14px 0;border-bottom:1px solid #2A2A2C"><p style="margin:0;flex-shrink:0;width:230px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#D8C6A4">services/page.tsx</p><p style="margin:0;font-size:13px;line-height:1.6;color:#c1b9b0">Ribbon block &rarr; credit register; belief track pt-56 &rarr; pt-28, pb-40 &rarr; pb-28; light act opens with kicker + rule</p></div>
+          <div style="display:flex;gap:20px;padding:14px 0;border-bottom:1px solid #2A2A2C"><p style="margin:0;flex-shrink:0;width:230px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#D8C6A4">ManifestoStatement.tsx</p><p style="margin:0;font-size:13px;line-height:1.6;color:#c1b9b0">Resting opacity 0.15 &rarr; 0.35; normal-flow window ends ~0.45vh so the fill completes mid-viewport</p></div>
+          <div style="display:flex;gap:20px;padding:14px 0;border-bottom:1px solid #2A2A2C"><p style="margin:0;flex-shrink:0;width:230px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#D8C6A4">SectionGlow.tsx</p><p style="margin:0;font-size:13px;line-height:1.6;color:#c1b9b0">Amber tail 0.11 &rarr; ~0.16 and taller on this seam only (use the intensity prop); still fully decayed before the light cut</p></div>
+          <div style="display:flex;gap:20px;padding:14px 0;border-bottom:1px solid #2A2A2C"><p style="margin:0;flex-shrink:0;width:230px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#D8C6A4">FaqSection.tsx</p><p style="margin:0;font-size:13px;line-height:1.6;color:#c1b9b0">tone=&quot;cream&quot; on /services while the middle act is light &mdash; per the component&rsquo;s own contract</p></div>
+          <div style="display:flex;gap:20px;padding:14px 0;border-bottom:1px solid #2A2A2C"><p style="margin:0;flex-shrink:0;width:230px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#D8C6A4">ContactCTA.tsx</p><p style="margin:0;font-size:13px;line-height:1.6;color:#c1b9b0">Keep the gradient-card close: the hero&rsquo;s ground, held in a card, bookends the warmth the handover now carries through</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:96px;border-top:1px solid #2A2A2C;padding-top:40px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:24px">
+      <p style="margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8a8578">N/R &middot; handover review &middot; July 2026</p>
+      <div style="display:flex;gap:28px">
+        <a href="Services Current.dc.html" style="display:inline-flex;align-items:center;gap:0.5em;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:#F2EEE6;transition:gap 0.3s ease" style-hover="gap:0.85em;color:#F2EEE6">Current <span aria-hidden="true">→</span></a>
+        <a href="Services Refined.dc.html" style="display:inline-flex;align-items:center;gap:0.5em;font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:#F2EEE6;transition:gap 0.3s ease" style-hover="gap:0.85em;color:#F2EEE6">Refined <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

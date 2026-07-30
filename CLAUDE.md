@@ -30,6 +30,7 @@ All in `globals.css`, mirrored at `/stylesheet` (the visual canon — keep them 
 | `bg-ink-raised` | `#161618` | Raised surfaces / cards on dark |
 | `rule-dark` (border) | `#3A3A3E` | Hairline dividers on dark |
 | `bg-bone` / `text-bone` | `#F2EEE6` | Light sections; primary text on ink |
+| `bg-ivory` | `#FBF8F1` | The near-white STEP UP (2026-07-24 services-pacing handoff) — a light act may climb bone → ivory to lift its second band (/services: bone index → ivory testimonial). Light-ladder text; `grain-light` applies. |
 | `text-bone-dim` | `#C1B9B0` | Secondary text on ink (deepened from `#CBC6BB` 2026-07-10 — spaces the on-ink ladder into three clean tiers: bone ~17:1 / dim ~10:1 / clay ~5:1) |
 | `rule-light` (border) | `#DAD4C8` | Hairline dividers on light |
 | `text-clay` | `#8A8578` | Captions, fine print, meta — the third tier of the on-**INK** ladder. It is **sub-AA on bone** (~3.6:1): on LIGHT grounds use the ink ladder below, not clay. (The one sanctioned clay-on-light survivor is the `.overline` KICKER — tracked-caps brand ornament, not read as running meta; see the overline note.) |
@@ -64,7 +65,8 @@ Fluid modular scale, one `clamp()` per class. Body is fluid 14→16px (mobile→
 3. **Secondary outline** — `.btn-secondary-dark` / `.btn-secondary-light`. Hover → **champagne rim** + faint champagne wash. It must NEVER fill solid on hover (that made it impersonate the primary — fixed 2026-07-09).
 4. **Ghost** — `.btn-ghost` + explicit text colour, arrow as `<span aria-hidden>→</span>`. The tertiary workhorse: every section's onward link ("All work →", "Our story →", "Read more →"). Hover: gap opens, arrow turns champagne. Never dim the whole link on hover — fading reads as disabled.
 
-- `.btn-sm` size modifier. Padding sits on the **8px grid** — chunky by design: 16/32 (`.btn-sm` 16/24). Keep it there.
+- `.btn-sm` size modifier. `.btn` padding is **20/40** (2026-07-24, client: "more padding on buttons" — was 16/32; the vertical sits on the 4px half-step, the horizontal on the 8px grid). `.btn-sm` keeps 16/24.
+- `.btn-glass` — the GLASS PILL (2026-07-24, client trial, /services hero CTA): the card-glass surface as a button — 9% bone fill + backdrop blur + 25% bone rim, so the warm ground reads through it. DARK grounds only. Hover follows the gold rule (champagne rim + 8% wash). Via PageHero's `ctaVariant="glass"`.
 - `.live-dot` — the pulsing ember availability signal (PARKED: currently unused — it was the nav availability badge, removed 2026-07-04; the utility + swatch remain in the system).
 
 ### Layout helpers
@@ -116,6 +118,7 @@ Fluid modular scale, one `clamp()` per class. Body is fluid 14→16px (mobile→
 | `Carousel` | The contact-sheet rail (2026-07-10): native scroll-snap plates, hard-clipped at the shell edge, with a FOLIO line for controls (hairline · arrow buttons, champagne on hover · page counter). NEVER autoplays — the reader turns the pages; the folio hides itself when everything fits. Homepage: blog teasers (all sizes) + Selected work's MOBILE rail (2026-07-11 — desktop keeps the pair grid). Never stack two rails in the same viewport (the 2026-07-10 double-carousel lesson). |
 | `PhoneMockup` | iPhone frame holding a real `screenshot` (preferred) or a CSS clinic micro-site. Props: `name`, `specialty`, `screenshot`, `screenshotAlt`, `screen` (editorial/ink), `size` (sm/md/lg). |
 | `BrowserMockup` | macOS browser-window frame holding a real desktop `screenshot` or a CSS editorial desktop site. Props: `name`, `specialty`, `domain`, `screenshot`, `screenshotAlt`. The wide companion to `PhoneMockup`. |
+| `CreditStrip` | PARKED (2026-07-24, same day it was built — client: "drop the industries strip… we might bring it back"). The who-we-work-with fields as a one-row mono credit line with the ✦-separated 64s marquee — THE ONE SANCTIONED AUTO-MOTION (`.animate-marquee`, pause on hover, frozen under reduced motion). Lived under the /services hero for an afternoon; renders inside any dark section at gutter width. |
 | `Deck` | PARKED showreel (was the homepage hero until 2026-07-09). A fanned, auto-cycling stack of "desktop screen" cards (the OmenFlex shape). Prop: `slides` (`DeckSlide[]` — `title`, `tag`, optional `href`/`screenshot`/`screenshotAlt`). Pauses on hover, respects reduced-motion. With `href`, the FRONT card is a link (hover reveals a "View case study" pill); other cards click forward. The homepage feeds it one card per sector — each card shows a real case-study capture and links to the study that owns it (the sector's own where it has a `thumbImage`, else the newest featured study with one). Born in `/mockups/showreel`. |
 
 ### Design direction: flat editorial ink (decided 2026-07-09; supersedes Obsidian)
