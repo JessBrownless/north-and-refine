@@ -23,6 +23,16 @@ export default function SmoothScroll() {
       anchors: true,
     });
 
+    // THE MODAL HANDLE (2026-08-01). Lenis swallows wheel/touch globally, so
+    // a full-screen overlay cannot simply rely on `body { overflow: hidden }`
+    // — the page keeps glide-scrolling underneath and, worse, a nested
+    // scroll container inside the overlay never receives the events (this is
+    // exactly why the Start-a-project overlay's form was unreachable below
+    // the fold). Anything that opens a modal calls stop() on the way in and
+    // start() on the way out; nested scrollers also carry
+    // `data-lenis-prevent`, which Lenis honours natively.
+    window.__nrLenis = lenis;
+
     let raf = requestAnimationFrame(function loop(time) {
       lenis.raf(time);
       raf = requestAnimationFrame(loop);
@@ -31,6 +41,7 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(raf);
       lenis.destroy();
+      if (window.__nrLenis === lenis) delete window.__nrLenis;
     };
   }, []);
 

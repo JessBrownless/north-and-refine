@@ -79,21 +79,28 @@ const ROW_ART: Record<string, "laptop" | "phone" | "plate"> = {
    discipline, exported to AVIF at 1440 (14–25KB each). They depict the
    standing Lumen mock practice, same pre-launch confirmation item as the
    hero graphic. */
-/* ⚠ VISUAL-DIRECTION TRIAL (2026-08-01, client: "put this image for all the
-   images in the one, two, three section… just so I can see it as a visual
-   direction") — ALL THREE rows show the same landscape composite (real
-   photography in the browser + glass result/markup panels on a blurred warm
-   ground) while the direction is judged. The per-discipline square set
-   (services-tile-web/-search/-brand.avif) stays on disk; restore the map
-   below when the direction is settled. */
-const DIRECTION_TILE = {
-  src: "/assets/graphics/services-tile-direction.avif",
-  alt: "A clinic website in a browser window carrying warm portrait photography, with a glass search result card and page markup panels floating over a blurred amber ground.",
-};
+/* THE DIRECTION IS SETTLED (2026-08-01) — the landscape composite language:
+   real photography inside a device or browser, glass panels floating over a
+   blurred warm ground, one artefact per discipline. Per-discipline plates
+   arrived in two passes: the all-three direction trial first, then the SEO
+   and brand plates ("put the Brand one in the Brand one, and the SEO one in
+   the SEO one"). The web row keeps the original composite — its browser +
+   markup + result panels ARE the web-design artefact.
+   The retired 2026-08-01 square set (services-tile-web/-search/-brand.avif)
+   stays on disk until the page is signed off. */
 const ROW_IMAGE: Record<string, { src: string; alt: string }> = {
-  "web-design": DIRECTION_TILE,
-  seo: DIRECTION_TILE,
-  "brand-identity": DIRECTION_TILE,
+  "web-design": {
+    src: "/assets/graphics/services-tile-direction.avif",
+    alt: "A clinic website in a browser window carrying warm portrait photography, with a glass search result card and page markup panels floating over a blurred amber ground.",
+  },
+  seo: {
+    src: "/assets/graphics/services-tile-seo-v2.avif",
+    alt: "A phone showing a clinic website, with glass panels beside it: ranked number one for “rhinoplasty surgeon london”, and enquiries up 212 per cent.",
+  },
+  "brand-identity": {
+    src: "/assets/graphics/services-tile-brand-v2.avif",
+    alt: "A clinic website in a browser window, with glass panels carrying the Lumen wordmark and its four-colour palette, and an Instrument Sans typeface specimen.",
+  },
 };
 
 const INDEX_ROWS = SERVICES.map((s) => ({

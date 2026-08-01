@@ -155,17 +155,21 @@ export default function StylesheetPage() {
             </p>
           </div>
           <div>
-            <p className="overline">Corners are straight — imagery rounds</p>
+            <p className="overline">We are a rounded brand</p>
             <p className="body mt-4 max-w-[52ch] text-bone-dim">
-              Saol is a scalpel-sharp Didone; its character is crisp edges and
-              hairline strokes. Straight corners are print logic, and the
-              TYPE SYSTEM stays print logic: hairline rules, tracked kickers,
-              inputs, layout chrome — none of it curves. AMENDED 2026-08-01
-              (the client&rsquo;s imagery sweep): ALL IMAGERY ROUNDS, on the
-              plate radius scale below — the curve belongs to plates, cards
-              and pictures, sized to the plate. The standing exceptions hold:
-              device mockups keep their hardware radii, the pill buttons stay
-              — a wax seal on a printed page — and avatar chips are circles.
+              SETTLED 2026-08-01, in two passes: first every image rounded,
+              then the client called the rest of it (&ldquo;it all feels very
+              square — this is a rounded brand isn&rsquo;t it&rdquo;). So the
+              straight-corner era is over for anything with an AREA: imagery
+              takes the plate scale, and panels, cards, glass and choice
+              controls take the surface scale — both below. What still
+              doesn&rsquo;t curve is anything with no corner to round:
+              hairline rules, underline-only inputs, tracked type, the
+              wordmark. Pills stay pills (the wax seal), avatar chips stay
+              circles, device mockups keep their hardware radii, and logo
+              marks and the OG card are untouched. Saol&rsquo;s scalpel edges
+              still set the TYPE&rsquo;s character; the curve is the
+              furniture&rsquo;s, not the letterform&rsquo;s.
             </p>
           </div>
           <div>
@@ -356,11 +360,33 @@ export default function StylesheetPage() {
           </div>
         </div>
 
-        {/* The plate radius scale (2026-08-01, the imagery sweep) — values
-            in globals.css :root, mirrored in tailwind.config. */}
+        {/* The radius scales (2026-08-01) — values in globals.css :root,
+            mirrored in tailwind.config. */}
+        <Sub
+          title="The radius scales"
+          note="TWO scales, and everything with an area takes one. PLATES (imagery) use fluid vw clamps — a picture may grow its corner with the viewport. SURFACES (panels, cards, glass, choice controls) use fixed px — a control shouldn't. .frame carries the plate standard automatically; .card-soft and .card-glass carry the surface standard. Never a raw rounded-[…] on either."
+        />
+        <div className="mt-6 grid grid-cols-3 items-end gap-5">
+          <div>
+            <div className="rounded-ui-sm aspect-[16/10] w-full max-w-[160px] border rule-dark bg-ink-raised" />
+            <p className="label mt-3 text-bone">rounded-ui-sm</p>
+            <p className="fineprint">10px — chips, choice cards, small controls</p>
+          </div>
+          <div>
+            <div className="rounded-ui aspect-[16/10] w-full max-w-[260px] border rule-dark bg-ink-raised" />
+            <p className="label mt-3 text-bone">rounded-ui</p>
+            <p className="fineprint">16px — THE surface standard: panels, cards, glass</p>
+          </div>
+          <div>
+            <div className="rounded-ui-lg aspect-[16/10] w-full border rule-dark bg-ink-raised" />
+            <p className="label mt-3 text-bone">rounded-ui-lg</p>
+            <p className="fineprint">22px — the largest contained surfaces</p>
+          </div>
+        </div>
+
         <Sub
           title="The plate radius scale"
-          note="All imagery rounds (2026-08-01), sized to the plate: less curve on small figures, more on large cards. Three stops — .frame carries the standard automatically; reach for -sm / -lg only when the plate's size genuinely leaves the middle. Type, rules, inputs and layout chrome stay straight; marks, bezels and the OG card are exempt."
+          note="Imagery, sized to the plate: less curve on small figures, more on large ones. .frame carries the standard automatically; reach for -sm / -lg only when the plate's size genuinely leaves the middle. Marks, bezels and the OG card are exempt."
         />
         <div className="mt-6 grid grid-cols-3 items-end gap-5">
           <div>

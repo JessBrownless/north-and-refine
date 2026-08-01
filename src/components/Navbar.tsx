@@ -44,11 +44,22 @@ export default function Navbar() {
   // Close the drawer on route change.
   useEffect(() => setOpen(false), [pathname]);
 
-  // Lock body scroll while the drawer is open.
+  // Lock page scroll while the drawer is open. THE ROOT, NOT THE BODY
+  // (2026-08-01): `body { overflow: hidden }` never reached the viewport here
+  // — overflow propagates from the ROOT element, and body is as tall as its
+  // content, so the drawer was open over a page that still scrolled. Lenis
+  // owns wheel/touch, so it is stopped too (it doesn't mount under reduced
+  // motion, where the root lock is the only thing holding).
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    const root = document.documentElement;
+    if (!open) return;
+    const lenis = window.__nrLenis;
+    lenis?.stop();
+    const prevOverflow = root.style.overflow;
+    root.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "";
+      root.style.overflow = prevOverflow;
+      lenis?.start();
     };
   }, [open]);
 

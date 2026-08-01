@@ -100,6 +100,23 @@
     --radius-plate-sm: clamp(10px, 1vw, 16px); /* small figures: teaser thumbs, chips-of-imagery */
     --radius-plate: clamp(16px, 1.6vw, 26px); /* THE standard — .frame, editorial figures, tiles */
     --radius-plate-lg: clamp(20px, 2vw, 34px); /* the big cards: CTA close card, full-rail plates */
+    /* ── SURFACE RADII — WE ARE A ROUNDED BRAND (2026-08-01) ───────────────
+       The 2026-08-01 imagery sweep rounded every plate; the client's next
+       pass settled the rest of it ("it all feels very square — this is a
+       rounded brand isn't it. Follow the design system and if the design
+       system is saying otherwise, update it to say we're a rounded brand").
+       So the straight-corner era is OVER for SURFACES too: panels, cards,
+       glass, choice controls and any contained UI take one of these. Fixed
+       px, not the plates' vw-fluid clamps — a control shouldn't grow its
+       corner with the viewport; a picture may.
+       WHAT STILL DOESN'T ROUND: hairline RULES (a 1px line has no corner),
+       underline-only text INPUTS (their only edge is the rule beneath),
+       tracked type, and the wordmark. Pills stay pills (.btn is 9999px, the
+       wax seal), avatar chips stay circles, device bezels keep their
+       hardware radii, and logo marks and the OG card are untouched. */
+    --radius-ui-sm: 10px; /* chips, choice cards, small controls, swatches */
+    --radius-ui: 16px; /* panels, cards, glass surfaces, form containers */
+    --radius-ui-lg: 22px; /* the largest contained surfaces on a page */
     /* Masthead metrics (2026-07-10, the dead-corner hero plate) —
        .display-mega's fluid size, and the height of ONE rendered line of it
        (× its 0.94 line-height — keep the multiplier in sync). The homepage
@@ -939,17 +956,19 @@
      imagery, frames and cards are square — print logic to match Saol's
      scalpel contrast; only device-mockup hardware and the pill buttons
      keep their radii) */
+  /* ROUNDED 2026-08-01 (the rounded-brand pass — cards are surfaces, and
+     surfaces curve now; see the radius contract in :root). */
   .card-soft {
-    border-radius: 0;
+    border-radius: var(--radius-ui);
     border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
     box-shadow:
       0 1px 2px rgb(12 12 13 / 0.05),
       0 24px 48px -24px rgb(12 12 13 / 0.25);
   }
 
-  /* Glassy card on dark surfaces — straight corners, like every card */
+  /* Glassy card on dark surfaces — ROUNDED 2026-08-01 with .card-soft. */
   .card-glass {
-    border-radius: 0;
+    border-radius: var(--radius-ui);
     border: 1px solid color-mix(in srgb, var(--bone) 14%, transparent);
     background: color-mix(in srgb, var(--bone) 5%, transparent);
     backdrop-filter: blur(10px);

@@ -4,6 +4,14 @@ const config: Config = {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // src/lib WAS MISSING until 2026-08-01 and it was a silent bug factory:
+    // shared class strings live there (lib/forms.ts's FIELD_BASE), and any
+    // utility unique to that file was never scanned, so it was never
+    // generated. That is why the form placeholder stayed Tailwind Preflight's
+    // gray-400 (#9CA3AF — a BLUE-grey) through two attempts at warming it:
+    // `placeholder:text-clay/60` and `placeholder:text-bone-dim/40` never
+    // existed in the CSS at all. Keep this glob.
+    "./src/lib/**/*.{js,ts}",
     // Root-level MDX element overrides (prose styling for Journal/Work bodies)
     "./mdx-components.tsx",
   ],
@@ -17,6 +25,11 @@ const config: Config = {
         "plate-sm": "var(--radius-plate-sm)",
         plate: "var(--radius-plate)",
         "plate-lg": "var(--radius-plate-lg)",
+        // SURFACE radii — the rounded-brand pass (2026-08-01). Panels, cards,
+        // glass and choice controls; see the contract in globals.css :root.
+        "ui-sm": "var(--radius-ui-sm)",
+        ui: "var(--radius-ui)",
+        "ui-lg": "var(--radius-ui-lg)",
       },
       colors: {
         // ── Base (dark, premium agency) ──────────────────────────────────

@@ -54,7 +54,7 @@ export default function StartAProjectPage() {
             Tell us about your <em>practice</em>.
           </>
         }
-        lede="Five questions, two minutes. Enough for the first conversation to be a useful one; nothing here commits you to anything."
+        lede="Four questions, two minutes. Enough for the first conversation to be a useful one; nothing here commits you to anything."
       />
 
       {/* The hero blend decays through the form section (the seam contract);
@@ -62,8 +62,17 @@ export default function StartAProjectPage() {
           quiet behind the fields. */}
       <section className="relative grain overflow-hidden">
         <SectionGlow blob="left" />
+        {/* The compact grid form (rebuilt 2026-08-01) seats in the left
+            two-thirds here — on the fallback page the masthead above already
+            carries the heading and lede, so the form needs no header of its
+            own. */}
         <div className="shell relative z-10 pt-10 pb-24 md:pt-12 md:pb-32">
-          <StartProjectForm />
+          <div className="grid grid-cols-1 md:grid-cols-12">
+            {/* max-w caps the MEASURE: at full col-span-8 of the 1600 shell
+                the radio cards stretched to ~446px each and read sparse. The
+                overlay's column (~590px) is the reference width. */}
+            <StartProjectForm className="max-w-[680px] md:col-span-8" />
+          </div>
         </div>
       </section>
     </main>

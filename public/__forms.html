@@ -23,9 +23,10 @@
       <input type="checkbox" name="marketing-opt-in" />
     </form>
 
-    <!-- /start-a-project: the full-page project form
-         (src/components/StartProjectForm.tsx). `needs` arrives as one
-         comma-joined string from the choice chips. -->
+    <!-- /start-a-project: the project form, in the overlay and on the
+         fallback page (src/components/StartProjectForm.tsx). `needs` is a
+         SINGLE value since 2026-08-01 (the choice chips became radio cards —
+         one service per enquiry, or "Not sure yet"). -->
     <form name="start-project" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="start-project" />
       <input name="bot-field" />

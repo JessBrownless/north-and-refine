@@ -16,8 +16,16 @@ export const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
 /** The shared on-ink field treatment: bottom-rule only, champagne on focus.
     Border tone comes from `fieldBorder` so an invalid field can carry the
     champagne rule at rest. */
+/* Placeholder tone, WARMED TWICE (2026-08-01). The client flagged it once
+   ("looks too blue-grey"), clay/60 → bone-dim/40 wasn't enough ("still looks
+   really grey/blue"), so it now takes CHAMPAGNE at low alpha: the only tone
+   in the palette with enough warm saturation to survive being dimmed against
+   the warm ground. At 35% over ink it composites to ≈#524632 — a warm brown
+   hint, nowhere near gold. This does NOT breach the champagne rule: that
+   governs LABEL type and fills; a placeholder is neither (it's the field's
+   own ghost, and it disappears the moment anything is typed). */
 export const FIELD_BASE =
-  "w-full bg-transparent border-0 border-b py-3 text-bone placeholder:text-clay/60 focus:outline-none focus:border-champagne transition-colors";
+  "w-full bg-transparent border-0 border-b py-3 text-bone placeholder:text-champagne/35 focus:outline-none focus:border-champagne transition-colors";
 
 export function fieldBorder(error?: string) {
   return error ? "border-champagne" : "rule-dark";

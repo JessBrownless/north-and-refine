@@ -125,7 +125,9 @@ export default function PricingPage() {
             {PACKAGES.map((p, i) => (
               <div
                 key={p.name}
-                className={`reveal border p-8 flex flex-col ${
+                /* rounded-ui: package cards are surfaces (2026-08-01, the
+                   rounded-brand pass) — the last hand-rolled square card. */
+                className={`reveal rounded-ui border p-8 flex flex-col ${
                   p.featured ? "rule-dark bg-ink-raised" : "rule-dark"
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
