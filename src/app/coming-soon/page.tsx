@@ -61,7 +61,9 @@ export default function ComingSoonPage() {
 
             {/* The form — the right half of the 50/50 split; email line sits
                 OUTSIDE the frosted glass, close in; the card is purely the
-                form. Same Netlify form as /contact, minimal fields */}
+                form. Same lean Netlify form as /contact (name, email,
+                message — the old minimal variant became the only form when
+                the project questions moved to /start-a-project) */}
             <div
               className="md:col-span-6 opacity-0 animate-fade-in"
               style={{ animationDelay: "1.1s" }}
@@ -70,7 +72,7 @@ export default function ComingSoonPage() {
                 Enquire <span aria-hidden>↓</span>
               </p>
               <div className="card-glass mt-4 px-8 py-5 md:px-9 md:py-6">
-                <ContactForm variant="minimal" />
+                <ContactForm />
               </div>
               <p className="body mt-4 text-bone-dim">
                 Prefer email?{" "}

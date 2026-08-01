@@ -29,12 +29,17 @@ export interface NavItem {
 }
 
 // Primary navigation — the lean header spine (MVP). Held to the core
-// conversion path: see the work, what we do, who we are.
+// conversion path: see the work, what we do, who we are. Contact joined
+// 2026-07-31 (client: contact and Start-a-project are "two different
+// things") — when the Start-a-project pill became the overlay trigger,
+// /contact lost its only header entry point, so the plain contact page
+// gets its own link beside the button.
 export const NAV: NavItem[] = [
   { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 // Footer "Explore" column — fuller than the header so the secondary SEO

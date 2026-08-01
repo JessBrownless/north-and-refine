@@ -34,17 +34,28 @@
        lives in the light surfaces, accents and the warm-graded plates.
        Rejected candidates on record: warm #1c1710/#26201a/#484036, darker
        warm #130f09/#1d1813/#3f382e. Tailwind mirrors must match. */
-    --ink: #0c0c0d;
-    --ink-raised: #161618;
-    --ink-line: #3a3a3e;
+    /* RE-TONED (2026-07-31, the ember-palette handoff): the whole neutral
+       family moved onto the WARM AXIS (h 32–40°) so inks, bones, golds and
+       embers tone together — the old ink (~h 240°) was the palette's sole
+       cool outlier, which is what kept orange from ever toning. Lightness
+       held per token (ink 5% → raised 8% → line 15%); key pairs stay
+       WCAG-clear (bone/ink ≈ 17:1, champagne/ink ≈ 9:1, ink/bone ≈ 15:1).
+       Note this is distinct from the rejected 2026-07-09 warm-ink era
+       above: that was a lightness/character change (#1c1710, l≈9%), this
+       holds the settled near-black depth and rotates hue only. */
+    --ink: #110e0a;
+    --ink-raised: #1a1610;
+    --ink-line: #2f2820;
     /* Light surfaces & text */
-    --bone: #f2eee6;
+    --bone: #f4eddf;
     /* SETTLED (2026-07-10, ratified): deepened #cbc6bb → #c1b9b0
        (client-proposed) — spaces the on-ink ladder into three clean tiers:
-       bone ~17:1 / dim ~10:1 / clay ~5:1 (the old dim crowded bone). */
-    --bone-dim: #c1b9b0;
-    --bone-line: #dad4c8;
-    --clay: #8a8578;
+       bone ~17:1 / dim ~10:1 / clay ~5:1 (the old dim crowded bone).
+       Re-toned onto the warm axis 2026-07-31 with the family (see the ink
+       note); the three-tier spacing holds. */
+    --bone-dim: #cfc5b2;
+    --bone-line: #ded2bf;
+    --clay: #8e8270;
     /* On-LIGHT ink text ladder (2026-07-13) — the mirror of the on-ink
        bone/bone-dim/clay ladder, for BONE grounds, so light pages stop
        hand-rolling raw ink opacities and re-deriving the AA maths inline.
@@ -53,15 +64,42 @@
        bone. Contrast on bone: ink-dim ~6.9:1, ink-mute ~5.0:1 (both AA);
        ink-faint is DECORATIVE ONLY (separators, placeholder marks — sub-AA
        by design, never for real text). Keep the Tailwind mirror in sync. */
-    --ink-dim: #51504e; /* secondary text on light — body/lede (≈ ink/70) */
-    --ink-mute: #686664; /* meta/label on light (≈ ink/60, AA) */
-    --ink-faint: #adaaa5; /* decorative only — dots, placeholder glyphs (≈ ink/30) */
+    /* Re-derived 2026-07-31 with the warm re-tone: same ink/70–/60–/30
+       composite maths, recomputed from the NEW ink and bone endpoints, so
+       the ladder rides the warm axis instead of reading cool against the
+       new bone. Contrast on bone holds (dim ~6.8:1, mute ~4.9:1 AA). */
+    --ink-dim: #55514a; /* secondary text on light — body/lede (≈ ink/70) */
+    --ink-mute: #6c675f; /* meta/label on light (≈ ink/60, AA) */
+    --ink-faint: #b0aa9f; /* decorative only — dots, placeholder glyphs (≈ ink/30) */
     /* Accent */
     --champagne: #c2a878;
     --champagne-soft: #d8c6a4;
     /* Signal — the 10 of the 60-30-10: a bright ember used at dot scale
        (live-availability dots, ONE per view). Never body copy, never fills. */
     --ember: #ff7a00;
+    /* THE EMBER RAMP (2026-07-31) — champagne's saturated, low-value sibling.
+       Lives ONLY inside contained hero imagery (a cropped square, a photo
+       grade), max one per page; gradients within the image may run
+       ember-deep → ember-burnt → champagne-soft → bone. Page grounds stay
+       flat ink/bone (flat-scenes, 2026-07-09, unchanged). Ember #FF7A00
+       itself stays dot-scale (one live dot per view; never fills). */
+    --ember-burnt: #8a3411; /* hsla(17, 78%, 30%, 1) — hero-imagery mid-tone */
+    --ember-deep: #5e1f0a; /* hsla(15, 81%, 20%, 1) — shadow end, bridges into ink */
+    /* THE PLATE RADIUS SCALE (2026-08-01, client's sweep: "all images on
+       site should be rounded… in a scale — a bit less on smaller shapes, a
+       bit more on larger ones"). ALL IMAGERY ROUNDS on one of three stops;
+       the radius scales with the plate so small figures don't read bulbous
+       and large cards don't read sharp. This AMENDS the corners-are-straight
+       canon: type, rules, inputs and layout chrome STAY straight — the curve
+       belongs to imagery (and the standing pill/bezel/avatar exceptions).
+       Stops are the values the curved family already used, so nothing
+       shipped moved: plate = the services tiles' clamp, plate-lg = the
+       ContactCTA card's. Mirrored in tailwind.config.ts (rounded-plate-sm /
+       rounded-plate / rounded-plate-lg) and applied to .frame; logged on
+       /stylesheet → "All imagery rounds". */
+    --radius-plate-sm: clamp(10px, 1vw, 16px); /* small figures: teaser thumbs, chips-of-imagery */
+    --radius-plate: clamp(16px, 1.6vw, 26px); /* THE standard — .frame, editorial figures, tiles */
+    --radius-plate-lg: clamp(20px, 2vw, 34px); /* the big cards: CTA close card, full-rail plates */
     /* Masthead metrics (2026-07-10, the dead-corner hero plate) —
        .display-mega's fluid size, and the height of ONE rendered line of it
        (× its 0.94 line-height — keep the multiplier in sync). The homepage
@@ -517,11 +555,14 @@
     animation-play-state: paused;
   }
 
-  /* Standard portrait/landscape media wrapper */
+  /* Standard portrait/landscape media wrapper. ROUNDED since 2026-08-01
+     (the client's imagery sweep) on the plate scale's standard stop — every
+     .frame on the site curves together; see the scale note in :root. */
   .frame {
     position: relative;
     overflow: hidden;
     background: var(--ink-raised);
+    border-radius: var(--radius-plate);
   }
 
   /* ── Reveal-on-scroll (paired with IntersectionObserver in Reveal.tsx) ─────
@@ -678,6 +719,10 @@
     letter-spacing: 0.22em;
     text-transform: uppercase;
     line-height: 1;
+    /* A pill label never wraps (2026-07-31 — the mobile-bar Start-a-project
+       pill folded to two lines in a tight flex row; a wrapped pill reads
+       broken at any width). */
+    white-space: nowrap;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease,
       opacity 0.3s ease;
     cursor: pointer;
@@ -957,7 +1002,7 @@
   line-height: 1.22;
   letter-spacing: -0.02em;
   font-weight: 500;
-  color: #f2eee6;
+  color: var(--bone);
   margin-top: 1rem;
 }
 /* At lg the kicker and statement share a grid row (their columns don't

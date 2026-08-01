@@ -153,6 +153,14 @@ export default function Footer() {
             <Link href="/privacy" className="underline underline-offset-2 hover:text-bone transition-colors">
               Privacy
             </Link>
+            {/* The design system, clickable (2026-08-01, client: "can it be
+                a page I can click please") — /stylesheet stays noindexed +
+                robots-blocked; this quiet fineprint link is for the studio,
+                not a nav surface. */}
+            {" · "}
+            <Link href="/stylesheet" className="underline underline-offset-2 hover:text-bone transition-colors">
+              Design system
+            </Link>
           </p>
           <p className="fineprint">
             Web, search and brand, built for medical and surgical practitioners and clinics.

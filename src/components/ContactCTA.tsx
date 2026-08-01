@@ -47,7 +47,7 @@ export default function ContactCTA({
         {/* THE CARD — the hero ground, held. relative + overflow-hidden +
             grain per the .grain contract; content rides z-10 above the glow.
             Radius in the /about tiles' clamp family. */}
-        <div className="reveal relative overflow-hidden grain rounded-[clamp(20px,2vw,34px)] bg-[#16110C]">
+        <div className="reveal relative overflow-hidden grain rounded-plate-lg bg-[#16110C]">
           <HeroGlow intensity={0.8} />
           <div className="relative z-10 p-10 sm:p-14 md:p-20">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
@@ -75,7 +75,7 @@ export default function ContactCTA({
                   className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 reveal md:mt-12"
                   style={{ transitionDelay: "240ms" }}
                 >
-                  <Link href="/contact" className="btn btn-primary-dark btn-arrow">
+                  <Link href="/start-a-project" className="btn btn-primary-dark btn-arrow">
                     Start a project
                     <span className="btn-arrow-chip" aria-hidden>↗</span>
                   </Link>

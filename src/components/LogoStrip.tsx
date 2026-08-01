@@ -14,7 +14,7 @@ interface LogoStripProps {
 }
 
 // THE LOGO POOL (2026-07-10): real client marks, ALWAYS flattened to
-// MONOCHROME BONE (#F2EEE6) before they enter the strip — colour logos
+// MONOCHROME BONE (#F4EDDF since the 2026-07-31 re-tone; pool files still carry the old #F2EEE6 — imperceptible at mark scale) before they enter the strip — colour logos
 // would puncture the ink; the trust bar is tonal like the type system.
 // (The earlier white + pale-blue dr-yalda.svg is retired from the strip
 // for exactly that reason.) Each mark matches its own practice by name so

@@ -9,27 +9,45 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // THE PLATE RADIUS SCALE (2026-08-01) — all imagery rounds, sized to
+      // the plate. Values live in globals.css :root (decision record there);
+      // these mirrors must match. rounded-plate is the standard (.frame
+      // carries it in CSS); -sm for small figures, -lg for the big cards.
+      borderRadius: {
+        "plate-sm": "var(--radius-plate-sm)",
+        plate: "var(--radius-plate)",
+        "plate-lg": "var(--radius-plate-lg)",
+      },
       colors: {
         // ── Base (dark, premium agency) ──────────────────────────────────
-        ink: "#0C0C0D",
-        "ink-raised": "#161618",
-        "ink-line": "#3A3A3E",
+        // RE-TONED 2026-07-31 (ember-palette handoff): the whole neutral
+        // family moved onto the warm axis (h 32–40°) to tone with the ember
+        // ramp — lightness held per token; see the decision record in
+        // globals.css. Mirrors must match globals.css exactly.
+        ink: "#110E0A",
+        "ink-raised": "#1A1610",
+        "ink-line": "#2F2820",
         // ── Light surfaces & text ────────────────────────────────────────
-        bone: "#F2EEE6", // warm off-white — light sections, text on ink
-        ivory: "#FBF8F1", // near-white — the light act's STEP UP (2026-07-24 services-pacing handoff: bone index → ivory testimonial)
-        "bone-dim": "#C1B9B0", // muted bone — secondary text on ink (deepened from #CBC6BB, settled 2026-07-10)
-        "bone-line": "#DAD4C8", // hairline dividers on light
-        clay: "#8A8578", // mid warm-grey — captions, fine print
+        bone: "#F4EDDF", // warm off-white — light sections, text on ink
+        ivory: "#FDF8EF", // near-white — the light act's STEP UP (2026-07-24 services-pacing handoff); warm-leaned with the family 2026-07-31
+        "bone-dim": "#CFC5B2", // muted bone — secondary text on ink (three-tier spacing settled 2026-07-10 holds)
+        "bone-line": "#DED2BF", // hairline dividers on light
+        clay: "#8E8270", // mid warm-grey — captions, fine print
         // ── On-LIGHT ink text ladder (2026-07-13) — mirror of --ink-dim/mute/faint
         // in globals.css; the bone-ground counterpart of bone-dim/clay. Keep in sync.
-        "ink-dim": "#51504E", // secondary text on light — body/lede (≈ ink/70 on bone, ~6.9:1)
-        "ink-mute": "#686664", // meta/label on light (≈ ink/60 on bone, ~5.0:1 AA)
-        "ink-faint": "#ADAAA5", // DECORATIVE ONLY — dots, placeholder marks (≈ ink/30, sub-AA)
+        // Re-derived 2026-07-31 from the new ink/bone endpoints (same composite maths).
+        "ink-dim": "#55514A", // secondary text on light — body/lede (≈ ink/70 on bone, ~6.8:1)
+        "ink-mute": "#6C675F", // meta/label on light (≈ ink/60 on bone, ~4.9:1 AA)
+        "ink-faint": "#B0AA9F", // DECORATIVE ONLY — dots, placeholder marks (≈ ink/30, sub-AA)
         // ── Accent (single restrained metallic) ──────────────────────────
         champagne: "#C2A878", // brass/champagne — the one accent
         "champagne-soft": "#D8C6A4",
         // ── Signal (the 10 of 60-30-10) ──────────────────────────────────
         ember: "#FF7A00", // bright ember — live/availability dots only, one per view
+        // ── The ember ramp (2026-07-31) — hero-IMAGERY tones only, never
+        // section grounds; contract comment lives with the CSS vars.
+        "ember-burnt": "#8A3411",
+        "ember-deep": "#5E1F0A",
       },
       fontFamily: {
         // Two-font house: Dia (--font-sans) for body/UI/meta, Saol Display for

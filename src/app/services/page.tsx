@@ -9,6 +9,7 @@ import SectionGlow from "@/components/SectionGlow";
 import { SERVICES } from "@/lib/services";
 import Testimonial from "@/components/Testimonial";
 import { serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import ServicesHeroGraphic from "@/components/graphics/ServicesHeroGraphic";
 
 /**
  * /services — THE HUB (2026-07-24). Each discipline now owns a page of its
@@ -64,11 +65,35 @@ export const metadata: Metadata = {
    list, the process and the FAQs. */
 /* Row-tile devices by discipline (2026-07-24 experiment): laptop for the
    website row, phone for search, the square plate for brand — blank until
-   real imagery is chosen. */
+   real imagery is chosen. Superseded as the LIVE tiles 2026-08-01 by the
+   ROW_IMAGE graphics below; kept as the fallback for any future row that
+   ships before its graphic does. */
 const ROW_ART: Record<string, "laptop" | "phone" | "plate"> = {
   "web-design": "laptop",
   seo: "phone",
   "brand-identity": "plate",
+};
+
+/* THE REAL TILE GRAPHICS (2026-08-01, client: "put these images in the
+   services 123") — the Website Graphics design set, one square graphic per
+   discipline, exported to AVIF at 1440 (14–25KB each). They depict the
+   standing Lumen mock practice, same pre-launch confirmation item as the
+   hero graphic. */
+/* ⚠ VISUAL-DIRECTION TRIAL (2026-08-01, client: "put this image for all the
+   images in the one, two, three section… just so I can see it as a visual
+   direction") — ALL THREE rows show the same landscape composite (real
+   photography in the browser + glass result/markup panels on a blurred warm
+   ground) while the direction is judged. The per-discipline square set
+   (services-tile-web/-search/-brand.avif) stays on disk; restore the map
+   below when the direction is settled. */
+const DIRECTION_TILE = {
+  src: "/assets/graphics/services-tile-direction.avif",
+  alt: "A clinic website in a browser window carrying warm portrait photography, with a glass search result card and page markup panels floating over a blurred amber ground.",
+};
+const ROW_IMAGE: Record<string, { src: string; alt: string }> = {
+  "web-design": DIRECTION_TILE,
+  seo: DIRECTION_TILE,
+  "brand-identity": DIRECTION_TILE,
 };
 
 const INDEX_ROWS = SERVICES.map((s) => ({
@@ -78,6 +103,7 @@ const INDEX_ROWS = SERVICES.map((s) => ({
   body: s.intro,
   href: `/services/${s.slug}`,
   art: ROW_ART[s.slug],
+  image: ROW_IMAGE[s.slug],
 }));
 
 /* CROSS-DISCIPLINE questions only (2026-07-24). The per-discipline ones moved
@@ -164,9 +190,17 @@ export default function ServicesPage() {
           masthead now leads on the WEBSITE and on what it does for the
           practice; search and brand arrive in the lede, in that order —
           never brand first (see the voice rules in CLAUDE.md). */}
+      {/* borderBottom joined 2026-07-31 (client: "something needs to break
+          up the hero section and the We Believe section… a horizontal
+          divide") — the standard interior hairline at the hero's foot;
+          /services had been the one masthead without it, relying on the
+          seam blend alone. The belief's SectionGlow stepped down from
+          seamEmphasis to the standard dose in the same change, so the hero
+          resolves at the line instead of washing over it. */}
       <PageHero
         align="split"
         spacious
+        borderBottom
         overline="Services"
         title={
           <>
@@ -179,16 +213,16 @@ export default function ServicesPage() {
           </>
         }
         lede="The design and build, the search that brings patients to it, and the brand behind both. One studio, for private medical and surgical practices."
-        cta={{ label: "Start a project", href: "/contact" }}
+        cta={{ label: "Start a project", href: "/start-a-project" }}
         ctaVariant="glass"
         media={
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src="/services-hero-square.png"
-            alt="A clinic website shown on a phone against a warm amber ground — web design by North & Refine"
-            loading="eager"
-            className="w-full"
-          />
+          /* GRAPHIC 09 LIVE (2026-07-31): the design project's services-hero
+             composition as DOM (<ServicesHeroGraphic>), replacing the 1.7MB
+             services-hero-square.png export — same artwork, crisp at every
+             density, ember gradient straight from the tokens, plus the
+             frosted markup/SEO/schema panels from the design. The PNG stays
+             in public/ (the Testimonial band below still uses it). */
+          <ServicesHeroGraphic className="w-full" />
         }
       />
 
@@ -235,10 +269,11 @@ export default function ServicesPage() {
           sticky content, never its ancestor. */}
       <section className="relative grain bg-ink">
         <div aria-hidden className="absolute inset-0 overflow-hidden">
-          {/* seamEmphasis (handoff): richer amber tail on THIS seam only —
-              the hero's warmth carries further into the belief before
-              decaying. */}
-          <SectionGlow blob="left" seamEmphasis />
+          {/* Standard dose since 2026-07-31 (was seamEmphasis, the handoff's
+              richer amber tail): with the hero's new foot hairline the
+              boundary is a stated divide, so the warmth resolves at the
+              line rather than carrying through it. */}
+          <SectionGlow blob="left" />
           {/* The canvas blobs (2026-07-24, "blurred gradient blobs" down the
               dark middle): two quiet pools past the seam glow's reach, so
               the belief and the index rows sit in atmosphere rather than on
@@ -252,7 +287,7 @@ export default function ServicesPage() {
               height: "26%",
               borderRadius: "50%",
               background: "#C2A878",
-              opacity: 0.06,
+              opacity: 0.04,
               filter: "blur(150px)",
               transform: "translateZ(0)",
             }}
@@ -266,7 +301,7 @@ export default function ServicesPage() {
               height: "26%",
               borderRadius: "50%",
               background: "#8A5A2E",
-              opacity: 0.08,
+              opacity: 0.06,
               filter: "blur(150px)",
               transform: "translateZ(0)",
             }}
@@ -298,7 +333,13 @@ export default function ServicesPage() {
             mid-viewport per the handoff, so a fast scroller met it already
             lit and static; the 1.1s entrance fade gives it an arrival, and
             the word opacities compose with it untouched. */}
-        <div data-manifesto-track className="relative z-10 py-24 md:py-40">
+        {/* Desktop top air stepped up 160 → 208 (2026-07-31, client: "a bit
+            more padding on top of the We Believe section… on desktop at
+            least") — with the new hero-foot hairline the belief opens a
+            stated new chapter, and the deeper breath before the kicker sells
+            it. Mobile keeps 96 (the phone pads were tuned down 2026-07-24
+            and stay). Foot holds the handoff's 160. */}
+        <div data-manifesto-track className="relative z-10 py-24 md:pb-40 md:pt-52">
           <div className="shell">
             <div className="belief-statement reveal relative">
               <p className="overline mb-6 text-clay reveal md:absolute md:left-0 md:top-[0.3em] md:mb-0">
@@ -330,7 +371,10 @@ export default function ServicesPage() {
             and the second's right edge align with the row hairline's ends
             below; col 9 is the centre gutter, and the numeral's left third
             stays air. Stacks to one column below md. */}
-        <div className="shell relative z-10 pb-24 md:pb-36">
+        {/* Desktop foot 144 → 192 (same 2026-07-31 ask: more air "under the
+            two paragraphs") — the editorial pair releases with a fuller
+            breath before the index rows arrive. */}
+        <div className="shell relative z-10 pb-24 md:pb-48">
           {/* Outer grid gap-10 MATCHES the index's grid below (it runs
               gap-10, not the usual md:gap-8) so the col-6 edge sits exactly
               on the hairline's start. The pair itself is an INNER two-column
@@ -359,11 +403,15 @@ export default function ServicesPage() {
                 considered as the care itself.
               </p>
               {/* ⚠ COPY IS DRAFTED (both paragraphs) — review before launch.
-                  md:indent-8 + no inter-paragraph margin: the newspaper
-                  convention (a first-line indent marks the new paragraph in
-                  continuous flow) — a margin at the column break defeats
-                  column-fill: balance; the indent costs no vertical space. */}
-              <p className="body-lg text-bone-dim md:indent-8">
+                  No inter-paragraph margin OR indent at md (2026-07-31,
+                  client: the indent made the second paragraph "jut in" and
+                  unbalance the columns — "make it very flowing"): the two
+                  paragraphs read as one continuous stream through the
+                  balanced columns. The newspaper first-line indent lives in
+                  git history if paragraph marks are ever wanted back; a
+                  margin stays off the table (it defeats column-fill:
+                  balance). Mobile keeps the stacked mb-6 separation. */}
+              <p className="body-lg text-bone-dim">
                 That is also why the work compounds. The website is built to
                 rank from its first wireframe, the writing carries the
                 brand&rsquo;s voice into every procedure page, and each piece

@@ -91,7 +91,7 @@ function Phone({ src, label }: { src: string; label: string }) {
             fontSize: "clamp(9px,0.9vw,12px)",
             letterSpacing: "0.34em",
             fontWeight: 500,
-            color: "#F2EEE6",
+            color: "var(--bone)",
           }}
         >
           {label}
@@ -128,7 +128,7 @@ export default function Hero1DPage() {
         <nav
           style={{ position: "relative", zIndex: 30, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "clamp(22px,3.5vw,44px) clamp(24px,5vw,72px)" }}
         >
-          <span style={{ display: "flex", alignItems: "baseline", gap: "6px", fontSize: "16px", fontWeight: 500, letterSpacing: "0.04em", color: "#F2EEE6" }}>
+          <span style={{ display: "flex", alignItems: "baseline", gap: "6px", fontSize: "16px", fontWeight: 500, letterSpacing: "0.04em", color: "var(--bone)" }}>
             North{" "}
             <span style={{ fontFamily: "var(--font-saol), Georgia, serif", fontStyle: "italic", fontWeight: 300, color: "#D8C6A4", fontSize: "18px" }}>&amp;</span>{" "}
             Refine
@@ -139,27 +139,27 @@ export default function Hero1DPage() {
             <span>Studio</span>
             <span>Journal</span>
           </span>
-          <span style={{ border: "1px solid rgba(242,238,230,0.45)", borderRadius: "999px", padding: "11px 18px", whiteSpace: "nowrap", fontSize: "10px", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", color: "#F2EEE6" }}>
+          <span style={{ border: "1px solid color-mix(in srgb, var(--bone) 45%, transparent)", borderRadius: "999px", padding: "11px 18px", whiteSpace: "nowrap", fontSize: "10px", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--bone)" }}>
             Start a project
           </span>
         </nav>
 
         {/* CENTRED TITLE BLOCK */}
         <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(36px,6vw,90px) 24px 0" }}>
-          <p style={{ margin: 0, fontFamily: "var(--font-geist-mono), monospace", fontSize: "clamp(9px,0.9vw,11px)", letterSpacing: "0.24em", textTransform: "uppercase", color: "#F2EEE6", opacity: 0.85 }}>
+          <p style={{ margin: 0, fontFamily: "var(--font-geist-mono), monospace", fontSize: "clamp(9px,0.9vw,11px)", letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--bone)", opacity: 0.85 }}>
             Web, search &amp; SEO for clinics
           </p>
-          <h1 style={{ margin: "clamp(16px,2vw,26px) 0 0", fontSize: "clamp(38px,7vw,92px)", fontWeight: 500, lineHeight: 1, letterSpacing: "-0.045em", color: "#F2EEE6" }}>
+          <h1 style={{ margin: "clamp(16px,2vw,26px) 0 0", fontSize: "clamp(38px,7vw,92px)", fontWeight: 500, lineHeight: 1, letterSpacing: "-0.045em", color: "var(--bone)" }}>
             Building websites
             <br />
             that patients{" "}
             <em style={{ fontFamily: "var(--font-saol), Georgia, serif", fontStyle: "italic", fontWeight: 300, letterSpacing: "-0.01em", color: "#F6E8CD" }}>trust.</em>
           </h1>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginTop: "clamp(26px,3vw,38px)", flexWrap: "wrap" }}>
-            <Link href="/contact" style={{ background: "#F2EEE6", color: "#0C0C0D", borderRadius: "999px", padding: "16px 28px", whiteSpace: "nowrap", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase" }}>
+            <Link href="/contact" style={{ background: "var(--bone)", color: "var(--ink)", borderRadius: "999px", padding: "16px 28px", whiteSpace: "nowrap", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase" }}>
               Start a project
             </Link>
-            <Link href="/work" style={{ fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "#F2EEE6" }}>
+            <Link href="/work" style={{ fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--bone)" }}>
               View the work →
             </Link>
           </div>

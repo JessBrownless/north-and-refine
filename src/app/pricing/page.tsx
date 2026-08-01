@@ -115,7 +115,7 @@ export default function PricingPage() {
           </>
         }
         lede="Three ways to work with the studio, with guide pricing to help you plan. We quote precisely after a short discovery call."
-        cta={{ label: "Start a project", href: "/contact" }}
+        cta={{ label: "Start a project", href: "/start-a-project" }}
       />
 
       {/* Packages */}
@@ -150,7 +150,7 @@ export default function PricingPage() {
                 </ul>
 
                 <Link
-                  href="/contact"
+                  href="/start-a-project"
                   className={`btn mt-8 ${p.featured ? "btn-primary-dark" : "btn-secondary-dark"}`}
                 >
                   Enquire

@@ -163,13 +163,19 @@ export function faqSchema(faqs: { question: string; answer: string }[]) {
   };
 }
 
-/** ContactPage schema — the /contact page's own node. */
-export function contactPageSchema(description: string) {
+/** ContactPage schema. Defaults to the /contact page's own node; the
+    /start-a-project form page passes its path + name (2026-07-31 — it's a
+    conversion surface of the same kind, so it shares the type). */
+export function contactPageSchema(
+  description: string,
+  path = "/contact",
+  name = `Contact ${SITE.name}`,
+) {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: `Contact ${SITE.name}`,
-    url: absoluteUrl("/contact"),
+    name,
+    url: absoluteUrl(path),
     description,
   };
 }

@@ -102,7 +102,7 @@ export default async function ServicePage({
         overline="Services"
         title={service.heading}
         lede={service.lead}
-        cta={{ label: "Start a project", href: "/contact" }}
+        cta={{ label: "Start a project", href: "/start-a-project" }}
       />
 
       {/* WHAT IT IS — the intro in the left rail, the deliverables ruled

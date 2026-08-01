@@ -84,17 +84,17 @@ export default function HomeHero() {
           <p className="overline" style={{ margin: 0, opacity: 0.85 }}>
             Web, search &amp; SEO for clinics
           </p>
-          <h1 style={{ margin: "clamp(22px,2.4vw,32px) 0 0", fontSize: "clamp(38px,7vw,92px)", fontWeight: 500, lineHeight: 1, letterSpacing: "-0.045em", color: "#F2EEE6" }}>
+          <h1 style={{ margin: "clamp(22px,2.4vw,32px) 0 0", fontSize: "clamp(38px,7vw,92px)", fontWeight: 500, lineHeight: 1, letterSpacing: "-0.045em", color: "var(--bone)" }}>
             Building websites
             <br />
             that patients{" "}
             <em style={{ fontFamily: "var(--font-saol), Georgia, serif", fontStyle: "italic", fontWeight: 300, letterSpacing: "-0.01em", color: "#F6E8CD" }}>trust.</em>
           </h1>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)", flexWrap: "wrap" }}>
-            <Link href="/contact" style={{ background: "#F2EEE6", color: "#0C0C0D", borderRadius: "999px", padding: "16px 28px", whiteSpace: "nowrap", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase" }}>
+            <Link href="/start-a-project" style={{ background: "var(--bone)", color: "var(--ink)", borderRadius: "999px", padding: "16px 28px", whiteSpace: "nowrap", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase" }}>
               Start a project
             </Link>
-            <Link href="/work" style={{ fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "#F2EEE6" }}>
+            <Link href="/work" style={{ fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--bone)" }}>
               View the work →
             </Link>
           </div>

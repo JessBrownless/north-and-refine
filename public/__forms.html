@@ -11,13 +11,28 @@
       form in src/components/ContactForm.tsx POSTs url-encoded data to this
       file's path. Field names here MUST stay in sync with that component.
     -->
+    <!-- /contact (and the coming-soon page): the lean contact form. The
+         practice + interest fields moved to the start-project form below
+         when /start-a-project split off (2026-07-31). -->
     <form name="project-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="project-enquiry" />
       <input name="bot-field" />
       <input type="text" name="name" />
       <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input type="checkbox" name="marketing-opt-in" />
+    </form>
+
+    <!-- /start-a-project: the full-page project form
+         (src/components/StartProjectForm.tsx). `needs` arrives as one
+         comma-joined string from the choice chips. -->
+    <form name="start-project" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="start-project" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
       <input type="text" name="practice" />
-      <select name="interest"></select>
+      <input type="text" name="needs" />
       <textarea name="message"></textarea>
       <input type="checkbox" name="marketing-opt-in" />
     </form>

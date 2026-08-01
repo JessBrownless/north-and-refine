@@ -330,7 +330,7 @@ export default function AboutPage() {
             bottom: 0,
             height: "clamp(200px,26vh,340px)",
             background:
-              "linear-gradient(180deg, rgba(12,12,13,0) 0%, #0C0C0D 100%)",
+              "linear-gradient(180deg, rgba(17,14,10,0) 0%, var(--ink) 100%)",
             pointerEvents: "none",
           }}
         />
@@ -402,7 +402,7 @@ export default function AboutPage() {
             height: "60%",
             borderRadius: "50%",
             background: "#C2A878",
-            opacity: 0.07,
+            opacity: 0.05,
             filter: "blur(150px)",
             pointerEvents: "none",
           }}

@@ -86,11 +86,13 @@ export const proseMdxComponents: MDXComponents = {
   img: ({ src, alt, title, ...props }) => (
     <figure className="my-10">
       {/* eslint-disable-next-line @next/next/no-img-element */}
+      {/* rounded-plate: the imagery radius scale (2026-08-01 sweep — all
+          images on the site round; article figures take the standard stop) */}
       <img
         src={typeof src === "string" ? src : undefined}
         alt={alt ?? ""}
         loading="lazy"
-        className="w-full h-auto"
+        className="w-full h-auto rounded-plate"
         {...props}
       />
       {title ? <figcaption className="label mt-3 text-clay">{title}</figcaption> : null}

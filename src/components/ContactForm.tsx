@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SITE } from "@/lib/site";
+import { EMAIL_RE, FIELD_BASE, fieldBorder, postNetlifyForm } from "@/lib/forms";
 
 /**
  * The /contact enquiry form, wired for Netlify Forms via the Next.js runtime
@@ -9,58 +10,88 @@ import { SITE } from "@/lib/site";
  * public/__forms.html, and this component POSTs url-encoded data to that
  * path. Field names must stay in sync with that file.
  *
- * `variant="minimal"` (the /coming-soon holding page) drops the practice and
- * interest fields — same form name, so every enquiry lands in one Netlify
- * inbox and the static definition needs no second entry.
+ * LEAN SINCE 2026-07-31 (the contact/start split): /contact says CONTACT —
+ * name, email, message. The what-do-you-need questions (practice, interests)
+ * moved to the full-page form at /start-a-project (StartProjectForm), so the
+ * old `practice` + `interest` fields and the full/minimal variant left with
+ * them; the coming-soon page renders this same lean form.
+ *
+ * VALIDATION IS DESIGNED, NOT NATIVE (same pass): `noValidate` on the form,
+ * inline champagne errors under each field (see lib/forms.ts). Fields
+ * validate on blur once touched, clear as they're corrected, and a failed
+ * submit focuses the first invalid field.
  */
 
-const FIELD =
-  "w-full bg-transparent border-0 border-b rule-dark py-3 text-bone placeholder:text-clay/60 focus:outline-none focus:border-champagne transition-colors";
-
-// Stricter than type="email" alone (which accepts "name@server" with no
-// TLD): require a dot-separated domain. Mirrored in the email input's
-// `pattern` so native bubbles catch it before JS does.
-const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
-
+type Field = "name" | "email" | "message";
+type Errors = Partial<Record<Field, string>>;
 type Status = "idle" | "sending" | "sent" | "error";
 
-export default function ContactForm({ variant = "full" }: { variant?: "full" | "minimal" }) {
-  const [status, setStatus] = useState<Status>("idle");
+function validate(field: Field, raw: string): string | undefined {
+  const value = raw.trim();
+  switch (field) {
+    case "name":
+      if (value.length < 2) return "Please tell us your name.";
+      return undefined;
+    case "email":
+      if (value.length === 0) return "Please add your email so we can reply.";
+      if (!EMAIL_RE.test(value))
+        return "That email doesn’t look complete. Check for a typo, e.g. name@example.com";
+      return undefined;
+    case "message":
+      if (value.trim().length < 10)
+        return "Tell us a little more; a sentence or two is plenty.";
+      return undefined;
+  }
+}
 
-  // Surface a validation problem on a specific field via the native bubble.
-  function reject(form: HTMLFormElement, selector: string, message: string) {
-    const el = form.querySelector<HTMLInputElement | HTMLTextAreaElement>(selector);
-    el?.setCustomValidity(message);
-    el?.reportValidity();
-    el?.setCustomValidity("");
+export default function ContactForm() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [errors, setErrors] = useState<Errors>({});
+  const formRef = useRef<HTMLFormElement>(null);
+
+  function setFieldError(field: Field, message: string | undefined) {
+    setErrors((prev) => {
+      if (prev[field] === message) return prev;
+      const next = { ...prev };
+      if (message) next[field] = message;
+      else delete next[field];
+      return next;
+    });
+  }
+
+  function handleBlur(field: Field) {
+    return (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      // Don't scold an untouched empty field on a stray tab-through.
+      if (e.target.value.trim() === "" && !errors[field]) return;
+      setFieldError(field, validate(field, e.target.value));
+    };
+  }
+
+  function handleChange(field: Field) {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      // Only re-validate live once the field is already in error, so the
+      // message clears the moment it's fixed but never nags mid-typing.
+      if (errors[field]) setFieldError(field, validate(field, e.target.value));
+    };
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-
-    // Belt-and-braces: re-run native constraint validation explicitly, so
-    // programmatic submits and quirky browsers can't skip it.
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    // JS-side re-checks that native constraints can't guarantee: minLength
-    // only applies to user-typed ("dirty") values per spec, and none of the
-    // native checks trim whitespace.
     const data = new FormData(form);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
-    const message = String(data.get("message") ?? "").trim();
-    if (name.length < 2) {
-      return reject(form, "#name", "Please enter your name.");
+
+    const next: Errors = {};
+    for (const field of ["name", "email", "message"] as const) {
+      const message = validate(field, String(data.get(field) ?? ""));
+      if (message) next[field] = message;
     }
-    if (!EMAIL_RE.test(email)) {
-      return reject(form, "#email", "Enter a valid email address, e.g. name@example.com");
-    }
-    if (message.length < 10) {
-      return reject(form, "#message", "Tell us a little more — at least a sentence.");
+    setErrors(next);
+    const firstInvalid = (["name", "email", "message"] as const).find(
+      (f) => next[f],
+    );
+    if (firstInvalid) {
+      form.querySelector<HTMLElement>(`#${firstInvalid}`)?.focus();
+      return;
     }
 
     // Honeypot: bots that fill the hidden field get a silent "success" and
@@ -73,27 +104,21 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
     }
 
     setStatus("sending");
-    const body = new URLSearchParams();
-    for (const [key, value] of data.entries()) {
-      body.append(key, String(value).trim());
-    }
-    try {
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
-      setStatus(res.ok ? "sent" : "error");
-    } catch {
-      setStatus("error");
-    }
+    const ok = await postNetlifyForm({
+      "form-name": "project-enquiry",
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      message: String(data.get("message") ?? ""),
+      "marketing-opt-in": String(data.get("marketing-opt-in") ?? ""),
+    });
+    setStatus(ok ? "sent" : "error");
   }
 
   if (status === "sent") {
     return (
       <div className="space-y-4">
         <p className="overline">Thank you</p>
-        <h2 className="heading-md text-bone">Enquiry received.</h2>
+        <h2 className="heading-md text-bone">Message received.</h2>
         <p className="body text-bone-dim">
           We&rsquo;ll reply within two working days. If anything&rsquo;s urgent in the
           meantime, email{" "}
@@ -111,12 +136,18 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
     // at opacity 0 waiting for an observer (it raced hydration on the
     // coming-soon overlay and could stay invisible). Entrances belong to the
     // surrounding section, not the form itself.
-    <form name="project-enquiry" onSubmit={handleSubmit} className="space-y-5">
+    <form
+      ref={formRef}
+      name="project-enquiry"
+      onSubmit={handleSubmit}
+      noValidate
+      className="space-y-5"
+    >
       <input type="hidden" name="form-name" value="project-enquiry" />
       {/* Honeypot — hidden from people, tempting to bots */}
       <p className="hidden">
         <label>
-          Don&rsquo;t fill this in: <input name="bot-field" />
+          Don&rsquo;t fill this in: <input name="bot-field" tabIndex={-1} autoComplete="off" />
         </label>
       </p>
 
@@ -129,12 +160,20 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
           name="name"
           type="text"
           required
-          minLength={2}
           maxLength={100}
           autoComplete="name"
-          className={FIELD}
+          aria-invalid={errors.name ? true : undefined}
+          aria-describedby={errors.name ? "name-error" : undefined}
+          onBlur={handleBlur("name")}
+          onChange={handleChange("name")}
+          className={`${FIELD_BASE} ${fieldBorder(errors.name)}`}
           placeholder="Your full name"
         />
+        {errors.name && (
+          <p id="name-error" role="alert" className="fineprint mt-2 text-champagne">
+            {errors.name}
+          </p>
+        )}
       </div>
       <div>
         <label htmlFor="email" className="overline text-clay">
@@ -149,48 +188,41 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
           autoComplete="email"
           inputMode="email"
           spellCheck={false}
-          pattern="[^@\s]+@[^@\s]+\.[^@\s]{2,}"
-          title="Enter a valid email address, e.g. name@example.com"
-          className={FIELD}
+          aria-invalid={errors.email ? true : undefined}
+          aria-describedby={errors.email ? "email-error" : undefined}
+          onBlur={handleBlur("email")}
+          onChange={handleChange("email")}
+          className={`${FIELD_BASE} ${fieldBorder(errors.email)}`}
           placeholder="Your email address"
         />
+        {errors.email && (
+          <p id="email-error" role="alert" className="fineprint mt-2 text-champagne">
+            {errors.email}
+          </p>
+        )}
       </div>
-      {variant === "full" && (
-        <>
-          <div>
-            <label htmlFor="practice" className="overline text-clay">
-              Practice / clinic
-            </label>
-            <input id="practice" name="practice" type="text" maxLength={120} autoComplete="organization" className={FIELD} placeholder="Practice name" />
-          </div>
-          <div>
-            <label htmlFor="interest" className="overline text-clay">
-              What you&rsquo;re after
-            </label>
-            <select id="interest" name="interest" className={`${FIELD} appearance-none`}>
-              <option className="bg-ink">Brand &amp; website</option>
-              <option className="bg-ink">Website only</option>
-              <option className="bg-ink">Brand only</option>
-              <option className="bg-ink">Ongoing SEO &amp; growth</option>
-              <option className="bg-ink">Not sure yet</option>
-            </select>
-          </div>
-        </>
-      )}
       <div>
         <label htmlFor="message" className="overline text-clay">
-          Tell us a little more
+          How can we help?
         </label>
         <textarea
           id="message"
           name="message"
           rows={4}
           required
-          minLength={10}
           maxLength={2000}
-          className={`${FIELD} resize-none`}
-          placeholder="Where your practice is now, and what you'd like to change."
+          aria-invalid={errors.message ? true : undefined}
+          aria-describedby={errors.message ? "message-error" : undefined}
+          onBlur={handleBlur("message")}
+          onChange={handleChange("message")}
+          className={`${FIELD_BASE} ${fieldBorder(errors.message)} resize-none`}
+          placeholder="Your question, or a little about the practice."
         />
+        {errors.message && (
+          <p id="message-error" role="alert" className="fineprint mt-2 text-champagne">
+            {errors.message}
+          </p>
+        )}
       </div>
 
       {/* Marketing consent — UNTICKED and optional (UK GDPR/PECR): the
@@ -226,11 +258,11 @@ export default function ContactForm({ variant = "full" }: { variant?: "full" | "
       </label>
 
       <button type="submit" className="btn btn-primary-dark btn-arrow" disabled={status === "sending"}>
-        {status === "sending" ? "Sending…" : "Send enquiry"}
+        {status === "sending" ? "Sending…" : "Send message"}
         <span className="btn-arrow-chip" aria-hidden>↗</span>
       </button>
       {status === "error" && (
-        <p className="fineprint text-champagne">
+        <p role="alert" className="fineprint text-champagne">
           Something went wrong sending that. Please try again, or email us at {SITE.email}.
         </p>
       )}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import BrowserMockup from "@/components/BrowserMockup";
 import PhoneMockup from "@/components/PhoneMockup";
 import StageGlyph from "@/components/StageGlyph";
+import SectionGlow from "@/components/SectionGlow";
 
 // Internal design canon — noindex (also disallowed in robots.ts).
 // Organised atomically (Frost): 01 Atoms → 02 Molecules → 03 Organisms.
@@ -16,22 +17,24 @@ export const metadata: Metadata = {
 /* ── Data ─────────────────────────────────────────────────────────────── */
 
 const COLOURS: { name: string; cls: string; hex: string; use: string; lightCard?: boolean }[] = [
-  { name: "Ink", cls: "bg-ink", hex: "#0C0C0D", use: "Default page background — deep neutral black (settled 2026-07-10: the warm-ink era was trialled against it and the deep black kept; warmth lives in the light surfaces, accents and plates)" },
-  { name: "Ink raised", cls: "bg-ink-raised", hex: "#161618", use: "Raised surfaces / cards on dark" },
-  { name: "Ink line", cls: "bg-ink-line", hex: "#3A3A3E", use: "Hairline dividers on dark (rule-dark)" },
-  { name: "Bone", cls: "bg-bone", hex: "#F2EEE6", use: "Light sections; primary text on ink", lightCard: true },
-  { name: "Bone dim", cls: "bg-bone-dim", hex: "#C1B9B0", use: "Secondary text on ink (deepened 2026-07-10 — three clean tiers: bone / dim / clay)", lightCard: true },
-  { name: "Bone line", cls: "bg-bone-line", hex: "#DAD4C8", use: "Hairline dividers on light (rule-light)", lightCard: true },
-  { name: "Clay", cls: "bg-clay", hex: "#8A8578", use: "Captions, fine print, meta — on INK (sub-AA on bone; use the ink ladder below on light grounds)" },
-  { name: "Ink dim", cls: "bg-ink-dim", hex: "#51504E", use: "On-LIGHT ladder (2026-07-13): secondary text on bone — body/lede (~6.9:1 AA). The bone-ground counterpart of bone-dim", lightCard: true },
-  { name: "Ink mute", cls: "bg-ink-mute", hex: "#686664", use: "On-LIGHT ladder: meta/label on bone — dates, reading time, kickers (~5.0:1 AA). The counterpart of clay-on-ink", lightCard: true },
-  { name: "Ink faint", cls: "bg-ink-faint", hex: "#ADAAA5", use: "On-LIGHT ladder: DECORATIVE ONLY — middots, placeholder glyphs (sub-AA, never body text)", lightCard: true },
+  { name: "Ink", cls: "bg-ink", hex: "#110E0A", use: "Default page background — near-black on the WARM AXIS (re-toned 2026-07-31 with the ember-palette handoff: the whole neutral family sits on h 32–40° so inks, bones, golds and embers tone together; the settled near-black depth holds)" },
+  { name: "Ink raised", cls: "bg-ink-raised", hex: "#1A1610", use: "Raised surfaces / cards on dark" },
+  { name: "Ink line", cls: "bg-ink-line", hex: "#2F2820", use: "Hairline dividers on dark (rule-dark)" },
+  { name: "Bone", cls: "bg-bone", hex: "#F4EDDF", use: "Light sections; primary text on ink", lightCard: true },
+  { name: "Bone dim", cls: "bg-bone-dim", hex: "#CFC5B2", use: "Secondary text on ink (deepened 2026-07-10 — three clean tiers: bone / dim / clay)", lightCard: true },
+  { name: "Bone line", cls: "bg-bone-line", hex: "#DED2BF", use: "Hairline dividers on light (rule-light)", lightCard: true },
+  { name: "Clay", cls: "bg-clay", hex: "#8E8270", use: "Captions, fine print, meta — on INK (sub-AA on bone; use the ink ladder below on light grounds)" },
+  { name: "Ink dim", cls: "bg-ink-dim", hex: "#55514A", use: "On-LIGHT ladder (2026-07-13): secondary text on bone — body/lede (~6.9:1 AA). The bone-ground counterpart of bone-dim", lightCard: true },
+  { name: "Ink mute", cls: "bg-ink-mute", hex: "#6C675F", use: "On-LIGHT ladder: meta/label on bone — dates, reading time, kickers (~5.0:1 AA). The counterpart of clay-on-ink", lightCard: true },
+  { name: "Ink faint", cls: "bg-ink-faint", hex: "#B0AA9F", use: "On-LIGHT ladder: DECORATIVE ONLY — middots, placeholder glyphs (sub-AA, never body text)", lightCard: true },
   { name: "Champagne", cls: "bg-champagne", hex: "#C2A878", use: "THE accent — details & interactions only (ornament glyphs, links, hovers); never label type (2026-07-09)" },
   { name: "Champagne soft", cls: "bg-champagne-soft", hex: "#D8C6A4", use: "Soft gold — hover fills only (a gold band was trialled & reverted 2026-07-10)", lightCard: true },
-  { name: "Ivory", cls: "bg-ivory", hex: "#FBF8F1", use: "The near-white STEP UP (2026-07-24 services-pacing handoff) — the /services light act climbs bone → ivory for the testimonial", lightCard: true },
-  { name: "Cream", cls: "scene-cream", hex: "≈#E9E0CF · champagne-soft 35% into bone", use: "The ivory CLOSE (.scene-cream) — a warmer stock of the same paper", lightCard: true },
-  { name: "Cream deep", cls: "scene-cream-deep", hex: "#DCD3C3 · cream + ink 6%", use: "The FAQ stock (.scene-cream-deep, 2026-07-24) — one step down from the close so the FAQ owns its band; darkened with ink, never more champagne. Meta on either cream is ink-dim: ink-mute is sub-AA here (3.85:1)", lightCard: true },
+  { name: "Ivory", cls: "bg-ivory", hex: "#FDF8EF", use: "The near-white STEP UP (2026-07-24 services-pacing handoff) — the /services light act climbs bone → ivory for the testimonial", lightCard: true },
+  { name: "Cream", cls: "scene-cream", hex: "≈#EADFCA · champagne-soft 35% into bone", use: "The ivory CLOSE (.scene-cream) — a warmer stock of the same paper", lightCard: true },
+  { name: "Cream deep", cls: "scene-cream-deep", hex: "≈#DED4C0 · cream + ink 6%", use: "The FAQ stock (.scene-cream-deep, 2026-07-24) — one step down from the close so the FAQ owns its band; darkened with ink, never more champagne. Meta on either cream is ink-dim: ink-mute is sub-AA here (3.85:1)", lightCard: true },
   { name: "Ember", cls: "bg-ember", hex: "#FF7A00", use: "The 10 of 60-30-10 — live dots only, ONE per view" },
+  { name: "Ember burnt", cls: "bg-ember-burnt", hex: "#8A3411", use: "THE EMBER RAMP (2026-07-31) — hero-IMAGERY mid-tone only (a cropped square, a photo grade; max one per page). Never a section ground, never type" },
+  { name: "Ember deep", cls: "bg-ember-deep", hex: "#5E1F0A", use: "Ember ramp shadow end — bridges hero imagery into ink. Same contract: contained imagery only" },
 ];
 
 const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.ReactNode }[] = [
@@ -152,18 +155,17 @@ export default function StylesheetPage() {
             </p>
           </div>
           <div>
-            <p className="overline">Corners are straight</p>
+            <p className="overline">Corners are straight — imagery rounds</p>
             <p className="body mt-4 max-w-[52ch] text-bone-dim">
               Saol is a scalpel-sharp Didone; its character is crisp edges and
-              hairline strokes. Rounded corners are app logic — friendly,
-              soft, SaaS. Straight corners are print logic, and this whole
-              system is print logic: hairline rules, tracked kickers,
-              editorial captions. Frames behave like plates in a book, not
-              cards in an app. Three exceptions, all deliberate: device
-              mockups keep their hardware radii, the pill buttons stay — a
-              wax seal on a printed page — and avatar chips are circles
-              (a face in a circle reads as a person; in a square, a
-              thumbnail). Nothing else curves.
+              hairline strokes. Straight corners are print logic, and the
+              TYPE SYSTEM stays print logic: hairline rules, tracked kickers,
+              inputs, layout chrome — none of it curves. AMENDED 2026-08-01
+              (the client&rsquo;s imagery sweep): ALL IMAGERY ROUNDS, on the
+              plate radius scale below — the curve belongs to plates, cards
+              and pictures, sized to the plate. The standing exceptions hold:
+              device mockups keep their hardware radii, the pill buttons stay
+              — a wax seal on a printed page — and avatar chips are circles.
             </p>
           </div>
           <div>
@@ -188,13 +190,27 @@ export default function StylesheetPage() {
               statement; a signpost never shouts like a moment.
             </p>
           </div>
-          <div className="md:col-span-2">
+          <div>
             <p className="overline">Baselines lock</p>
             <p className="body mt-4 max-w-[52ch] text-bone-dim">
               Side-by-side type aligns on baselines, never box edges — first
               baselines where prose sits beside a display line, last baselines
               where a link meets a heading&rsquo;s bottom line. No eyeballed
               padding nudges. Print rules the page; boxes are invisible.
+            </p>
+          </div>
+          <div>
+            <p className="overline">UK first</p>
+            <p className="body mt-4 max-w-[52ch] text-bone-dim">
+              We are not an American studio (2026-08-01). Machine vocabulary
+              stays American where the platform demands it — code, CSS
+              <span className="text-bone"> color</span>, real schema.org type
+              names — but everything a reader sees is UK and Australian
+              English: enquiry, not inquiry; speciality, not specialty;
+              consultant surgeon, never board-certified physician. This
+              governs DEPICTED code too: a marketing graphic showing schema
+              chooses UK-neutral vocabulary the spec actually offers
+              (MedicalClinic, PlasticSurgery), never Physician.
             </p>
           </div>
         </div>
@@ -265,7 +281,7 @@ export default function StylesheetPage() {
           </div>
           <div className="rounded-none bg-bone p-6">
             <div className="border-t rule-light" />
-            <p className="fineprint mt-3 text-clay">.rule-light on bone · #DAD4C8</p>
+            <p className="fineprint mt-3 text-clay">.rule-light on bone · #DED2BF</p>
           </div>
         </div>
 
@@ -311,10 +327,63 @@ export default function StylesheetPage() {
           <p className="display text-ghost-on-dark whitespace-nowrap">.text-ghost-on-dark</p>
         </div>
 
+        {/* Atmosphere — the glow doses (logged 2026-08-01 at the client's
+            call: trim the blobs again AND record the numbers here so the
+            doses live in the design system, not in scattered magic
+            numbers). */}
+        <Sub
+          title="Atmosphere"
+          note="Grain is the material and is constant; glow is light and decays. Every ambient gradient on the site is one of these three devices at these doses — trimmed 2026-07-24 and again 2026-08-01 (both at the client's call: 'a bit much'). If a section feels dead, the answer is content or type, never more glow."
+        />
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="relative overflow-hidden grain scene-ink rounded-none border rule-dark p-8 min-h-[220px]">
+            <SectionGlow />
+            <p className="label relative z-10 text-bone">SectionGlow — live, canon dose</p>
+            <p className="fineprint relative z-10">
+              The hero blend&rsquo;s decay: one champagne blob (opacity 0.05, blur 150) +
+              the amber tail (0.08, blur 140) + the seam wash from #14100B.
+              seamEmphasis steps to 0.07 / 0.12 — one seam per site, currently unused.
+            </p>
+          </div>
+          <div className="rounded-none border rule-dark p-8">
+            <p className="label text-bone">The dose table</p>
+            <ul className="fineprint mt-3 space-y-2">
+              <li>HeroGlow — hero grounds only: homepage 1.0 · interior heroes 0.6 with topLeft 0.3 · the ContactCTA card 0.8.</li>
+              <li>SectionGlow — the section adjoining a hero: blob 0.05 · tail 0.08.</li>
+              <li>Canvas pool blobs (page-placed, shared-canvas middles): 0.04–0.06, blur 150, in-family colours only (#C2A878 / #8A5A2E).</li>
+              <li>Never on light grounds (a bloom on bone reads as a stain — the grain carries light sections).</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* The plate radius scale (2026-08-01, the imagery sweep) — values
+            in globals.css :root, mirrored in tailwind.config. */}
+        <Sub
+          title="The plate radius scale"
+          note="All imagery rounds (2026-08-01), sized to the plate: less curve on small figures, more on large cards. Three stops — .frame carries the standard automatically; reach for -sm / -lg only when the plate's size genuinely leaves the middle. Type, rules, inputs and layout chrome stay straight; marks, bezels and the OG card are exempt."
+        />
+        <div className="mt-6 grid grid-cols-3 items-end gap-5">
+          <div>
+            <div className="rounded-plate-sm aspect-[16/10] w-full max-w-[160px] bg-ink-raised border rule-dark" />
+            <p className="label mt-3 text-bone">rounded-plate-sm</p>
+            <p className="fineprint">clamp(10px, 1vw, 16px) — small figures</p>
+          </div>
+          <div>
+            <div className="rounded-plate aspect-[16/10] w-full max-w-[260px] bg-ink-raised border rule-dark" />
+            <p className="label mt-3 text-bone">rounded-plate</p>
+            <p className="fineprint">clamp(16px, 1.6vw, 26px) — THE standard; .frame carries it</p>
+          </div>
+          <div>
+            <div className="rounded-plate-lg aspect-[16/10] w-full bg-ink-raised border rule-dark" />
+            <p className="label mt-3 text-bone">rounded-plate-lg</p>
+            <p className="fineprint">clamp(20px, 2vw, 34px) — the big cards (the CTA close)</p>
+          </div>
+        </div>
+
         {/* Imagery ratios — the two-plate canon (2026-07-10). */}
         <Sub
           title="Imagery ratios"
-          note="Two ratios, no freelancing (2026-07-10): landscape 16:10 — screens & editorial figures; desktop captures shot at 1440×900 fit uncropped. Portrait 4:5 — people & Instagram (IG posts are 4:5 native and are never cropped). Device bezels, the OG card and logo marks are the only exceptions; square is retired from content imagery."
+          note="Two ratios, no freelancing (2026-07-10): landscape 16:10 — screens & editorial figures; desktop captures shot at 1440×900 fit uncropped. Portrait 4:5 — people & Instagram (IG posts are 4:5 native and are never cropped). Device bezels, the OG card and logo marks are the only exceptions; square is retired from content imagery. All plates round per the radius scale above."
         />
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
           <div className="sm:col-span-2">

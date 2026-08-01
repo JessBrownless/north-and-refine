@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV, SITE } from "@/lib/site";
 import NRMonogram from "@/components/NRMonogram";
+import StartProjectOverlayHost from "@/components/StartProjectOverlay";
 
 /**
  * Site navigation. A tall bar IN NORMAL FLOW at the top of the page
@@ -57,11 +58,12 @@ export default function Navbar() {
   if (pathname === "/mockups/hero-1d") return null;
 
   return (
-    // TRANSPARENT OVERLAY on the hero (2026-07-20, client: "the nav needs to be
-    // intrinsically tied to the hero — the gradient runs through both"). Absolute
-    // at the page top so each page's hero GROUND shows continuously behind it;
-    // it scrolls away with the page. Heroes reserve top padding to clear it. The
-    // drawer still goes fixed+solid when open.
+    <>
+    {/* TRANSPARENT OVERLAY on the hero (2026-07-20, client: "the nav needs to be
+        intrinsically tied to the hero — the gradient runs through both"). Absolute
+        at the page top so each page's hero GROUND shows continuously behind it;
+        it scrolls away with the page. Heroes reserve top padding to clear it. The
+        drawer still goes fixed+solid when open. */}
     <header className="absolute inset-x-0 top-0 z-50">
       {/* When open, the wrapper becomes a fixed full-screen ink overlay:
           bar on top, menu filling the rest of the viewport.
@@ -106,35 +108,53 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              {/* Nav CTA — a .btn-sm SECONDARY (2026-07-16, hero-cohesion
-                  pass): the homepage hero owns the flagship arrow CTA again
-                  (the three-section hero), and the canon forbids a second
-                  flagship in the first viewport, so the nav steps down to
-                  the quiet tier sitewide. */}
+              {/* Nav CTA — PRIMARY since 2026-07-31 (client: "Start a
+                  project" should be "like a primary button" that "does a
+                  form overlay"). Steps UP from the 2026-07-16 secondary:
+                  a tier-2 primary pill, still not a flagship (no arrow
+                  chip), so the homepage hero keeps the only flagship in
+                  the first viewport. The href is real (/start-a-project,
+                  the no-JS fallback) but clicks are intercepted by
+                  <StartProjectOverlayHost> below, which opens the
+                  full-page form overlay in place. */}
               <Link
-                href="/contact"
-                className={`btn btn-sm ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
+                href="/start-a-project"
+                className={`btn btn-sm ${lightTop ? "btn-primary-light" : "btn-primary-dark"}`}
               >
                 Start a project
               </Link>
             </div>
 
-            {/* Mobile toggle */}
-            <button
-              type="button"
-              className="md:hidden flex flex-col gap-[5px] p-2 -mr-2"
-              aria-label={open ? "Close menu" : "Open menu"}
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span
-                className={`block h-px w-6 ${lightTop ? "bg-ink" : "bg-bone"} transition-transform ${open ? "translate-y-[6px] rotate-45" : ""}`}
-              />
-              <span className={`block h-px w-6 ${lightTop ? "bg-ink" : "bg-bone"} transition-opacity ${open ? "opacity-0" : ""}`} />
-              <span
-                className={`block h-px w-6 ${lightTop ? "bg-ink" : "bg-bone"} transition-transform ${open ? "-translate-y-[6px] -rotate-45" : ""}`}
-              />
-            </button>
+            {/* Mobile: the Start-a-project pill LEFT THE BURGER DRAWER
+                (2026-07-31, client: "out of the burger nav and like a
+                primary button") — it rides the bar itself, always visible,
+                beside the toggle. Clicking it also closes the drawer if
+                open (the overlay covers everything; the drawer shouldn't
+                still be open underneath when it closes). */}
+            <div className="flex items-center gap-4 md:hidden">
+              <Link
+                href="/start-a-project"
+                onClick={() => setOpen(false)}
+                className={`btn btn-sm ${lightTop ? "btn-primary-light" : "btn-primary-dark"}`}
+              >
+                Start a project
+              </Link>
+              <button
+                type="button"
+                className="flex flex-col gap-[5px] p-2 -mr-2"
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+              >
+                <span
+                  className={`block h-px w-6 ${lightTop ? "bg-ink" : "bg-bone"} transition-transform ${open ? "translate-y-[6px] rotate-45" : ""}`}
+                />
+                <span className={`block h-px w-6 ${lightTop ? "bg-ink" : "bg-bone"} transition-opacity ${open ? "opacity-0" : ""}`} />
+                <span
+                  className={`block h-px w-6 ${lightTop ? "bg-ink" : "bg-bone"} transition-transform ${open ? "-translate-y-[6px] -rotate-45" : ""}`}
+                />
+              </button>
+            </div>
           </nav>
         </div>
 
@@ -166,24 +186,9 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              {/* Start a project — a serif word in line with the rest on
-                  mobile, not the desktop pill CTA */}
-              <Link
-                href="/contact"
-                className={`heading-xl text-bone group relative w-fit opacity-0 animate-fade-in-up ${pathname.startsWith("/contact") ? "underline underline-offset-8 decoration-1" : ""}`}
-                style={{ animationDelay: `${NAV.length * 60}ms` }}
-                onClick={() => setOpen(false)}
-              >
-                <span className="transition-opacity duration-300 group-hover:opacity-0">
-                  Start a project
-                </span>
-                <span
-                  aria-hidden
-                  className="italic absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                >
-                  Start a project
-                </span>
-              </Link>
+              {/* Start a project LEFT THE DRAWER 2026-07-31 (client: "out
+                  of the burger nav") — it's the always-visible primary pill
+                  on the mobile bar now. */}
             </nav>
 
             {/* Instagram handle — fixed to the foot of the drawer */}
@@ -193,7 +198,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noreferrer"
                 className="overline inline-flex items-center gap-2 text-bone opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${(NAV.length + 1) * 60}ms` }}
+                style={{ animationDelay: `${NAV.length * 60}ms` }}
                 onClick={() => setOpen(false)}
               >
                 <svg
@@ -215,5 +220,11 @@ export default function Navbar() {
         )}
       </div>
     </header>
+
+    {/* The Start-a-project form overlay + its sitewide click interceptor.
+        Mounted here (not layout.tsx — that file is held back for the Dia
+        licence) so it rides every page with the chrome. */}
+    <StartProjectOverlayHost />
+    </>
   );
 }

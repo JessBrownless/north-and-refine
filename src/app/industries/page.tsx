@@ -9,7 +9,7 @@ import JsonLd from "@/components/JsonLd";
 export const metadata: Metadata = {
   title: "Industries — Who we design for",
   description:
-    "We design brands and websites for cosmetic surgeons, medical aesthetic clinics and dermatology practices. Explore our work by specialty.",
+    "We design brands and websites for cosmetic surgeons, medical aesthetic clinics and dermatology practices. Explore our work by speciality.",
   alternates: { canonical: "/industries" },
 };
 
@@ -33,7 +33,7 @@ export default function IndustriesIndexPage() {
         overline="Industries"
         title="We design for one world, and we know it well."
         lede="Working within medical aesthetics and cosmetic surgery means we understand the patient, the regulation and the search landscape, as specialists rather than outsiders."
-        cta={{ label: "Start a project", href: "/contact" }}
+        cta={{ label: "Start a project", href: "/start-a-project" }}
       />
 
       <section className="relative overflow-hidden grain bg-ink">

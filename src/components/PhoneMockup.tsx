@@ -40,7 +40,7 @@ export default function PhoneMockup({
   return (
     <div className={`${width} shrink-0 ${className}`}>
       {/* Frame */}
-      <div className="rounded-[2.75rem] border border-ink-line bg-ink p-[7px] shadow-[0_32px_64px_-28px_rgba(12,12,13,0.55)]">
+      <div className="rounded-[2.75rem] border border-ink-line bg-ink p-[7px] shadow-[0_32px_64px_-28px_rgba(17,14,10,0.55)]">
         {/* Screen */}
         <div
           className={`relative overflow-hidden rounded-[2.35rem] aspect-[0.462] ${

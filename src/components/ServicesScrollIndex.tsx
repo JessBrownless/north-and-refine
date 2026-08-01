@@ -25,6 +25,14 @@ type Service = {
       until imagery is chosen). Device fits the discipline: laptop for web,
       phone for search, a square plate for brand. Omit for no tile. */
   art?: "laptop" | "phone" | "plate";
+  /** THE REAL TILE IMAGE (2026-08-01, client: "put these images in the
+      services 123") — a finished graphic from the Website Graphics design
+      set, one per discipline. Renders at its NATIVE ratio (artwork, not
+      photography — the brand-graphic exception to the 16:10/4:5 canon),
+      replacing the blank-device tile; `art` remains the fallback for rows
+      without an image. No grain over it: grain is a GROUND material,
+      imagery ships as exported. */
+  image?: { src: string; alt: string };
 };
 
 /* The tile grounds — the /about ream's retired TILE_GRADIENTS, back in
@@ -41,7 +49,39 @@ type Service = {
    very low opacity") — the section's warm ground and canvas blobs now read
    through the pane, deepened rather than blocked; the tile is tinted glass
    over the atmosphere instead of a hole cut in it. */
-const TILE_GROUND = "rgba(0,0,0,0.32)";
+/* THE LIGHT-TILE TRIAL (2026-07-31, client: "try lighter backgrounds…
+   on the background images in the 1-2-3 section, to have some contrast
+   against the dark. Maybe like bone with some gradient in"). The tile
+   flips to the site's own paper ladder — ivory → bone → cream, the three
+   light stocks, as one quiet diagonal wash — with `grain-light` for the
+   paper tooth, so each row carries a lit plate against the dark ground.
+   Devices swap their white rims for a soft ink hairline (a white rim
+   vanishes on bone) and the fragment chips move from dark glass to
+   .card-soft with the on-light ink ladder. Flip LIGHT_TILES to false to
+   restore the translucent-black glass tiles wholesale. */
+const LIGHT_TILES = true;
+/* Stops re-toned 2026-07-31 with the ember-palette handoff: the new warm
+   stocks — ivory #FDF8EF → bone #F4EDDF → cream (champagne-soft 35% into
+   the new bone). Rim/shadow rgb = the new ink (17,14,10). */
+const TILE_GROUND = LIGHT_TILES
+  ? "linear-gradient(165deg, #FDF8EF 0%, #F4EDDF 48%, #EADFCA 100%)"
+  : "rgba(0,0,0,0.32)";
+const DEVICE_RIM = LIGHT_TILES
+  ? "1px solid rgba(17,14,10,0.18)"
+  : "1px solid #FFFFFF";
+const DEVICE_SHADOW = LIGHT_TILES
+  ? "0 30px 60px -18px rgba(17,14,10,0.35)"
+  : "0 30px 60px -18px rgba(0,0,0,0.55)";
+/* Fragment-chip surfaces + type tones per ground. */
+const CHIP = LIGHT_TILES ? "card-soft" : "card-glass";
+const CHIP_META = LIGHT_TILES ? "text-ink-mute" : "text-bone-dim";
+
+/* THE ROW HAIRLINES ARE PARKED (2026-07-31, client: "hide the little borders
+   on top of the images… I might bring them back, but I'm not sure they're
+   actually adding anything"). Flip to true to restore the draw-in progress
+   rules above each row — the observers still run and null-guard the refs, so
+   nothing else changes. */
+const SHOW_ROW_RULES = false;
 
 /* Blank devices — the ream's shapes, sized for the row tile. Dark bezel,
    dark glass; decorative only. */
@@ -54,10 +94,10 @@ function TileDevice({ art }: { art: NonNullable<Service["art"]> }) {
           width: "22%",
           aspectRatio: "320 / 680",
           background: "#060607",
-          border: "1px solid #FFFFFF",
+          border: DEVICE_RIM,
           borderRadius: "clamp(12px,1.2vw,22px)",
           padding: "clamp(3px,0.3vw,5px)",
-          boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+          boxShadow: DEVICE_SHADOW,
         }}
       >
         <div
@@ -85,10 +125,10 @@ function TileDevice({ art }: { art: NonNullable<Service["art"]> }) {
           width: "34%",
           aspectRatio: "1 / 1",
           background: "#060607",
-          border: "1px solid #FFFFFF",
+          border: DEVICE_RIM,
           borderRadius: "clamp(10px,1vw,18px)",
           padding: "clamp(4px,0.4vw,7px)",
-          boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+          boxShadow: DEVICE_SHADOW,
         }}
       >
         <div style={{ width: "100%", height: "100%", borderRadius: "clamp(7px,0.7vw,13px)", background: "#121112" }} />
@@ -100,10 +140,10 @@ function TileDevice({ art }: { art: NonNullable<Service["art"]> }) {
       style={{
         width: "62%",
         background: "#060607",
-        border: "1px solid #FFFFFF",
+        border: DEVICE_RIM,
         borderRadius: "clamp(8px,0.8vw,14px)",
         padding: "clamp(4px,0.4vw,7px)",
-        boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
+        boxShadow: DEVICE_SHADOW,
       }}
     >
       <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "clamp(5px,0.5vw,9px)", background: "#121112" }} />
@@ -124,20 +164,20 @@ function TileDevice({ art }: { art: NonNullable<Service["art"]> }) {
 function TileFragments({ art }: { art: NonNullable<Service["art"]> }) {
   if (art === "phone") {
     return (
-      <div aria-hidden className="pointer-events-none absolute inset-0">
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
         <div
-          className="card-glass animate-float-slow absolute flex items-baseline gap-2 px-4 py-3"
+          className={`${CHIP} animate-float-slow absolute flex items-baseline gap-2 px-4 py-3`}
           style={{ left: "16%", top: "24%", rotate: "-5deg" }}
         >
           <span className="text-champagne" style={{ fontSize: "clamp(14px,1.3vw,20px)", fontWeight: 500 }}>
             #1
           </span>
-          <span className="overline text-bone-dim" style={{ fontSize: "9px" }}>
+          <span className={`overline ${CHIP_META}`} style={{ fontSize: "9px" }}>
             Result
           </span>
         </div>
         <div
-          className="card-glass animate-float-slower absolute px-3 py-2.5"
+          className={`${CHIP} animate-float-slower absolute px-3 py-2.5`}
           style={{ right: "16%", top: "44%", rotate: "4deg", animationDelay: "1.2s" }}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-champagne">
@@ -150,9 +190,9 @@ function TileFragments({ art }: { art: NonNullable<Service["art"]> }) {
   }
   if (art === "plate") {
     return (
-      <div aria-hidden className="pointer-events-none absolute inset-0">
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
         <div
-          className="card-glass animate-float-slow absolute px-3 py-2.5"
+          className={`${CHIP} animate-float-slow absolute px-3 py-2.5`}
           style={{ left: "18%", top: "26%", rotate: "-4deg" }}
         >
           {/* Pen tool — anchor, handles, nib: hand-drawn, hairline. */}
@@ -163,26 +203,26 @@ function TileFragments({ art }: { art: NonNullable<Service["art"]> }) {
           </svg>
         </div>
         <div
-          className="card-glass animate-float-slower absolute flex items-center gap-2 px-3 py-2.5"
+          className={`${CHIP} animate-float-slower absolute flex items-center gap-2 px-3 py-2.5`}
           style={{ right: "17%", top: "46%", rotate: "5deg", animationDelay: "0.9s" }}
         >
           <span className="h-2.5 w-2.5 rounded-full bg-champagne" />
-          <span className="h-2.5 w-2.5 rounded-full bg-bone" />
-          <span className="h-2.5 w-2.5 rounded-full bg-bone-dim" />
+          <span className={`h-2.5 w-2.5 rounded-full ${LIGHT_TILES ? "bg-ink" : "bg-bone"}`} />
+          <span className={`h-2.5 w-2.5 rounded-full ${LIGHT_TILES ? "bg-ink-faint" : "bg-bone-dim"}`} />
         </div>
       </div>
     );
   }
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0">
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
       <div
-        className="card-glass animate-float-slow absolute px-3.5 py-2.5 font-mono text-[11px] text-bone-dim"
+        className={`${CHIP} animate-float-slow absolute px-3.5 py-2.5 font-mono text-[11px] ${CHIP_META}`}
         style={{ left: "15%", top: "24%", rotate: "-5deg" }}
       >
         {"<h1>"}
       </div>
       <div
-        className="card-glass animate-float-slower absolute px-3.5 py-2.5 font-mono text-[13px] text-champagne"
+        className={`${CHIP} animate-float-slower absolute px-3.5 py-2.5 font-mono text-[13px] text-champagne`}
         style={{ right: "15%", top: "42%", rotate: "4deg", animationDelay: "1.4s" }}
       >
         {"</>"}
@@ -309,27 +349,44 @@ export default function ServicesScrollIndex({
           >
             {/* Mobile keeps a small inline number (the rolling one is desktop-only) */}
             <p className={`index-num ${indexColor} md:hidden`}>{s.num}</p>
-            {/* Progress hairline: faint track + the fill that draws (JS width) */}
-            <div className={`relative mt-4 h-px w-full overflow-hidden ${trackColor} md:mt-0`}>
-              <span
-                ref={(el) => {
-                  fillRefs.current[i] = el;
-                }}
-                className={`absolute left-0 top-0 h-px w-0 ${fillColor} transition-[width] duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)]`}
-              />
-            </div>
-            {s.art && (
+            {/* Progress hairline: faint track + the fill that draws (JS
+                width). PARKED behind SHOW_ROW_RULES — see the flag note. */}
+            {SHOW_ROW_RULES && (
+              <div className={`relative mt-4 h-px w-full overflow-hidden ${trackColor} md:mt-0`}>
+                <span
+                  ref={(el) => {
+                    fillRefs.current[i] = el;
+                  }}
+                  className={`absolute left-0 top-0 h-px w-0 ${fillColor} transition-[width] duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)]`}
+                />
+              </div>
+            )}
+            {s.image && (
+              <div className="mt-10 overflow-hidden rounded-plate">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={s.image.src}
+                  alt={s.image.alt}
+                  loading="lazy"
+                  className="h-auto w-full"
+                />
+              </div>
+            )}
+            {!s.image && s.art && (
               <div
-                className="relative mt-10 flex items-end justify-center overflow-hidden rounded-[clamp(16px,1.6vw,26px)]"
+                className={`relative mt-10 flex items-end justify-center overflow-hidden rounded-plate${
+                  LIGHT_TILES ? " grain-light" : ""
+                }`}
                 style={{
                   background: TILE_GROUND,
                   aspectRatio: "16 / 9",
                 }}
               >
                 {/* Device rises from the tile's foot and crops there — the
-                    ream grammar. */}
+                    ream grammar. z-10 lifts device + fragments above the
+                    grain-light film (its ::before sits at z-index 1). */}
                 <div
-                  className="flex w-full items-end justify-center"
+                  className="relative z-10 flex w-full items-end justify-center"
                   style={{ transform: "translateY(14%)" }}
                 >
                   <TileDevice art={s.art} />

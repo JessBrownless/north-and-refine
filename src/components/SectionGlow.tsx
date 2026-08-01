@@ -40,8 +40,13 @@ export default function SectionGlow({
       to "warm up" a section. */
   seamEmphasis?: boolean;
 }) {
-  const blobOpacity = (seamEmphasis ? 0.09 : 0.07) * intensity;
-  const tailOpacity = (seamEmphasis ? 0.16 : 0.11) * intensity;
+  /* THE CANON DOSES (logged at /stylesheet → Atmosphere). Second trim
+     2026-08-01 (client: "the gradient blobs opacity overlay is a bit much
+     on the pages") — blob 0.07 → 0.05, tail 0.11 → 0.08, the same ~30%
+     step as the 2026-07-24 trim; seamEmphasis stepped with them. Change
+     these, change the /stylesheet Atmosphere entry in the same commit. */
+  const blobOpacity = (seamEmphasis ? 0.07 : 0.05) * intensity;
+  const tailOpacity = (seamEmphasis ? 0.12 : 0.08) * intensity;
   const tailHeight = seamEmphasis ? "44%" : "34%";
   const tailWidth = seamEmphasis ? "84%" : "80%";
   return (
