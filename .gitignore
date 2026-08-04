@@ -51,3 +51,14 @@ next-env.d.ts
 
 # Netlify CLI local-deploy artefact (edge-function bundling)
 deno.lock
+
+# Claude Design source drops — the exported design project ("Website graphics
+# request", ~204MB incl. a 105MB zip and the AdobeStock originals). It is
+# design SOURCE, not app code: the site consumes captures of it under
+# public/assets/graphics/. Ignored wherever it lands so a `git add -A` can
+# never pull it in. Re-drops arrive as "… (2)", "… (3)" etc, hence the glob.
+/src/components/Website graphics request*/
+/design-refs/Website graphics request*/
+
+# local working copy / backup dirs
+/_local-backup

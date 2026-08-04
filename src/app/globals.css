@@ -396,6 +396,35 @@
     font-weight: 400;
   }
 
+  /* THE FORM SECTION TITLE (2026-08-01, client on the Start-a-project form:
+     "titles on the form smaller and bolder").
+
+     The first register where WEIGHT does the leading rather than size —
+     .belief-statement already sets at 500, but it is display-sized too. It
+     needs saying why that's legal: the size-only hierarchy rule belonged to
+     the two-font house, where Saol shipped ONE upright weight and a
+     `font-medium` heading would have synthesised a fake bold. Since the
+     2026-07-14 one-font call the house face is Instrument Sans, which
+     carries REAL weights, and the layout.tsx note flagged the rule for
+     exactly this revisit.
+
+     It is a UI register, not a ladder rung: a form's sections are furniture
+     the reader scans, not editorial moments, so they lead by emphasis and
+     stay smaller than .card-title. It also settles the standoff between the
+     two rejected drafts — .overline read as eyebrow text ("I want actual
+     titles"), .heading-sm read as an editorial heading dropped inside a
+     form. Small, weighted, sentence case: a title that knows it's a label.
+
+     Scope: form section headings. Not for page or section headings, which
+     stay on THE LADDER. */
+  .form-title {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 0.9375rem; /* 15px */
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
   .fineprint {
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 0.75rem; /* 12px */
@@ -966,12 +995,120 @@
       0 24px 48px -24px rgb(12 12 13 / 0.25);
   }
 
-  /* Glassy card on dark surfaces — ROUNDED 2026-08-01 with .card-soft. */
+  /* Glassy card on dark surfaces — ROUNDED 2026-08-01 with .card-soft.
+     LIGHT-POLARITY glass: a bone wash that LIFTS a flat ground. Its sibling
+     .glass-float below is the DARK-polarity one; pick by what is behind the
+     panel, not by taste (the rule is in .glass-float's note). */
   .card-glass {
     border-radius: var(--radius-ui);
     border: 1px solid color-mix(in srgb, var(--bone) 14%, transparent);
     background: color-mix(in srgb, var(--bone) 5%, transparent);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* ── THE FLOATING FROSTED PANEL (2026-08-02, client handoff: "Frosted glass
+     panels must read as FLOATING, not stuck on") ──────────────────────────
+     The DARK-polarity glass, and the second half of a pair. `.card-glass` is
+     a bone wash that LIFTS a flat ground; this is an ink wash that DARKENS
+     what is behind it so bone type reads over busy imagery. It is not a
+     restyle of that card — it is the recipe the design source has been
+     running in its graphics all along (the same fill/rim/radius family
+     appears throughout Website Graphics.dc.html), promoted here so the live
+     graphics and the app share ONE definition instead of an inline const.
+
+     PICK BY GROUND, NEVER BY TASTE:
+       over IMAGERY or a gradient  → .glass-float (there is something to blur,
+                                     and something to float above)
+       over a FLAT ink section     → .card-glass (a 38% ink fill on flat ink
+                                     is invisible, and a 44px drop shadow on
+                                     a flat ground is a shadow cast by
+                                     nothing — it reads as a bug)
+
+     The three shadows do three different jobs, which is why none is
+     redundant: a broad soft LIFT, a tight CONTACT shadow that stops the
+     panel hovering in nowhere, and an inset top-edge HIGHLIGHT that gives
+     the rim a lit edge. The translucent background is deliberately set
+     unconditionally as the no-backdrop-filter FALLBACK.
+
+     RADIUS: the handoff says 14px; this takes --radius-ui (16px). 14 is not
+     on the surface scale (10/16/22) and a raw radius is drift pattern #10.
+     Two pixels at panel scale is imperceptible; a fourth token is not worth
+     minting for it. If a 14px rung is ever genuinely wanted, add it to the
+     scale here and in tailwind.config, don't inline it.
+
+     POSITIONING IS THE CONSUMER'S JOB. The handoff's "panels OVERHANG the
+     device edges", z-index 3–4 and "wrapper needs overflow visible" are
+     composition rules, not material: they live in the graphic that places
+     the panel. Do NOT add them here. ⚠ The overhang only survives if the
+     placing wrapper is unclipped — an `overflow-hidden` ancestor silently
+     eats both the overhang and these shadows. */
+  /* THE GLASS ENTRANCE (2026-08-02, client: "the glassy bits animate in" —
+     and then she built it into the design source as `glassIn`). The panel
+     FROSTS INTO BEING: opacity 0→1 with the blur burning off, which is the
+     one entrance that is *about* glass rather than applied to it.
+
+     ⚠ ADAPTED FROM THE SOURCE, deliberately. The design's `glassIn` also
+     rides `translateY(14px) scale(.985)`, and the 16px rise is RETIRED from
+     this brand (2026-07-10: "sliding in is a screen idiom, ink develops
+     where it sits"). Dropping the transform keeps the canon and costs the
+     effect nothing — the blur burn-off IS the develop, and it reads more
+     like a photograph coming up than a card being dealt.
+
+     Paired with `.reveal` on the same element: `.reveal` owns the opacity
+     (so the panel cannot strand invisible if the observer never fires) and
+     this owns the blur. Stagger with an inline transitionDelay. */
+  .reveal .glass-frost,
+  .glass-frost {
+    filter: blur(6px);
+    transition: filter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: filter;
+  }
+  .reveal.is-in .glass-frost,
+  .reveal.is-in.glass-frost {
+    filter: blur(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-frost,
+    .reveal .glass-frost {
+      filter: none;
+      transition: none;
+    }
+  }
+
+  /* The stroke DRAW-ON inside a tile panel (the ring gauge, the enquiries
+     curve) — the design source ran these as keyframes; here they are a
+     transition gated on `.reveal.is-in`, same as `.line-fill`, so they
+     cannot start before the panel they live in has arrived. The consumer
+     sets --draw-len to the path length. */
+  .tile-draw {
+    stroke-dasharray: var(--draw-len);
+    stroke-dashoffset: var(--draw-len);
+    transition: stroke-dashoffset 1.15s cubic-bezier(0.3, 0.8, 0.3, 1);
+  }
+  .reveal.is-in .tile-draw {
+    stroke-dashoffset: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tile-draw {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+
+  .glass-float {
+    background: color-mix(in srgb, var(--ink) 38%, transparent);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid color-mix(in srgb, var(--bone) 24%, transparent);
+    border-radius: var(--radius-ui);
+    /* Raw rgba, not color-mix: these ARE the ink/bone tokens (#110E0A /
+       #F4EDDF) and box-shadow colour interpolation has the shakiest
+       color-mix support of anywhere we use it. */
+    box-shadow:
+      0 44px 80px -26px rgba(17, 14, 10, 0.78),
+      0 10px 24px -12px rgba(17, 14, 10, 0.5),
+      inset 0 1px 0 rgba(244, 237, 223, 0.2);
   }
 
   /* Flat parchment stand-in for client imagery — placeholders should read
@@ -1032,6 +1169,35 @@
   .prose-work > h2 + p {
     margin-top: 7rem;
   }
+}
+
+/* ── AUTOFILL (2026-08-01, client: "filled state on fields looks super ugly
+   and grey"). That grey is Chrome/Safari's own -webkit-autofill paint — the
+   pale blue #E8F0FE the browser stamps over any background the moment it
+   fills a field, which on the bone form read as a dead grey slab. It ignores
+   `background-color`; the ONLY reliable override is an opaque inset
+   box-shadow the size of the field. One class per ground, carried by the
+   FIELD_BASE strings in lib/forms.ts. The absurd transition is the standard
+   second belt: engines that ignore the shadow at least never get to show
+   their colour. Unlayered on purpose, like the .overline override — an
+   @layer rule loses to the UA's specificity games here. */
+input.field-on-light:-webkit-autofill,
+input.field-on-light:-webkit-autofill:hover,
+input.field-on-light:-webkit-autofill:focus,
+textarea.field-on-light:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--bone) inset;
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  transition: background-color 600000s 0s;
+}
+input.field-on-dark:-webkit-autofill,
+input.field-on-dark:-webkit-autofill:hover,
+input.field-on-dark:-webkit-autofill:focus,
+textarea.field-on-dark:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--ink) inset;
+  -webkit-text-fill-color: var(--bone);
+  caret-color: var(--bone);
+  transition: background-color 600000s 0s;
 }
 
 /* Reduced motion: snap all keyframe animations to their end state instantly.

@@ -10,6 +10,11 @@ import { SERVICES } from "@/lib/services";
 import Testimonial from "@/components/Testimonial";
 import { serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import ServicesHeroGraphic from "@/components/graphics/ServicesHeroGraphic";
+import {
+  ServicesTileBrand,
+  ServicesTileSeo,
+  ServicesTileWeb,
+} from "@/components/graphics/ServicesTiles";
 
 /**
  * /services — THE HUB (2026-07-24). Each discipline now owns a page of its
@@ -74,33 +79,55 @@ const ROW_ART: Record<string, "laptop" | "phone" | "plate"> = {
   "brand-identity": "plate",
 };
 
-/* THE REAL TILE GRAPHICS (2026-08-01, client: "put these images in the
-   services 123") — the Website Graphics design set, one square graphic per
-   discipline, exported to AVIF at 1440 (14–25KB each). They depict the
-   standing Lumen mock practice, same pre-launch confirmation item as the
-   hero graphic. */
-/* THE DIRECTION IS SETTLED (2026-08-01) — the landscape composite language:
-   real photography inside a device or browser, glass panels floating over a
-   blurred warm ground, one artefact per discipline. Per-discipline plates
-   arrived in two passes: the all-three direction trial first, then the SEO
-   and brand plates ("put the Brand one in the Brand one, and the SEO one in
-   the SEO one"). The web row keeps the original composite — its browser +
-   markup + result panels ARE the web-design artefact.
-   The retired 2026-08-01 square set (services-tile-web/-search/-brand.avif)
-   stays on disk until the page is signed off. */
+/* THE TILE GRAPHICS — v3 SET (2026-08-01 night, the "Website graphics
+   request services" drop; client: "use the images in there to replace
+   services 1 2 3 images"). Captured from the design set's own export sheet
+   ("Services Graphics - Export.dc.html", three 900×600 tiles) by the sheet's
+   sanctioned route — a real browser at 200% (headless Chrome, device scale 2:
+   the frosted glass needs a live renderer, the PNG exporter flattens it) —
+   then sharp → AVIF at 1440 (27–32KB each).
+   The landscape composite language holds: real photography inside a device
+   or browser, glass panels floating over a blurred warm ground, one artefact
+   per discipline. THE MOCK PRACTICES ARE THE CLIENT'S TO CHANGE and they
+   have moved twice in a day — Lumen retired from the tiles (it survives in
+   the hero graphic), then the 2026-08-02 drop swapped two of the three
+   again. Current: web = Aurelle (non-surgical aesthetics) · seo = Halden
+   Osteopathy · brand = norva (women's health). Because the depicted names
+   and figures live in the DESIGN SOURCE, not here, ALT TEXT IS THE ONE
+   THING THAT DRIFTS SILENTLY — re-read the capture and rewrite these
+   strings on every drop, or the page describes a practice that is no
+   longer in the picture.
+   Bakes that are GONE with this line of sets: the old "+212% enquiries"
+   figure and the US "Board-certified" line. The in-tile figures that remain
+   (143 Google reviews · 320 monthly searches · the site-health 100 · the
+   enquiries curve) are depictions of FICTIONAL practices, not studio
+   claims — same pre-launch confirmation item as the hero graphic. The
+   2026-08-02 drop also brought them down to plausible small-practice
+   numbers, which reads truer than the earlier set did.
+   The v2 set + the retired square set stay on disk until sign-off. */
 const ROW_IMAGE: Record<string, { src: string; alt: string }> = {
   "web-design": {
-    src: "/assets/graphics/services-tile-direction.avif",
-    alt: "A clinic website in a browser window carrying warm portrait photography, with a glass search result card and page markup panels floating over a blurred amber ground.",
+    src: "/assets/graphics/services-tile-web-v3.avif",
+    alt: "A non-surgical aesthetics clinic website on desktop and mobile: the Aurelle hero reading “Radiance, made effortless.”, with a next-available booking panel and page markup floating over a blurred amber ground.",
   },
   seo: {
-    src: "/assets/graphics/services-tile-seo-v2.avif",
-    alt: "A phone showing a clinic website, with glass panels beside it: ranked number one for “rhinoplasty surgeon london”, and enquiries up 212 per cent.",
+    src: "/assets/graphics/services-tile-seo-v3.avif",
+    alt: "An osteopathy practice site on a phone ranking for “osteopath islington”, surrounded by glass panels: local monthly search volume, a technical SEO audit score, the practice’s schema markup and a rising enquiries line.",
   },
   "brand-identity": {
-    src: "/assets/graphics/services-tile-brand-v2.avif",
-    alt: "A clinic website in a browser window, with glass panels carrying the Lumen wordmark and its four-colour palette, and an Instrument Sans typeface specimen.",
+    src: "/assets/graphics/services-tile-brand-v3.avif",
+    alt: "A brand board for a women’s health practice open in a design canvas: the norva logotype, type specimen, palette swatches and imagery, with the same brand carried onto a phone screen.",
   },
+};
+
+/* THE LIVE TILES (2026-08-02) — these three rows stopped being flat images
+   when the design gained motion; ROW_IMAGE above is kept only as the record
+   of what each plate depicts (and as the fallback path in the row renderer).
+   See ServicesTiles.tsx. */
+const ROW_TILE: Record<string, React.ReactNode> = {
+  "web-design": <ServicesTileWeb />,
+  seo: <ServicesTileSeo />,
+  "brand-identity": <ServicesTileBrand />,
 };
 
 const INDEX_ROWS = SERVICES.map((s) => ({
@@ -110,6 +137,10 @@ const INDEX_ROWS = SERVICES.map((s) => ({
   body: s.intro,
   href: `/services/${s.slug}`,
   art: ROW_ART[s.slug],
+  tile: ROW_TILE[s.slug],
+  /* Kept as the live FALLBACK, not dead weight: the renderer prefers `tile`
+     and falls back to `image`, so a row whose graphic is re-cut before it is
+     ported still shows something real. */
   image: ROW_IMAGE[s.slug],
 }));
 
@@ -457,13 +488,33 @@ export default function ServicesPage() {
           bone index to near-white ivory testimonial, its own section with
           the handoff's pads (112/128). The ground step IS the boundary; no
           hairline between the light bands.
-          image: the hero's Lumen graphic as a STAND-IN (same day: the photo
-          plate "doesn't fit the rest of the site"); square = native ratio.
-          ⚠ placeholder on placeholder — real image + real words together
-          when they land. */}
+          image: GRAPHIC 19e (2026-08-02, from the client's Website Graphics
+          design project — captioned there "Services · Client site, square"),
+          replacing the Lumen hero stand-in that sat here as a placeholder.
+          Square = its native 600×600, which is what this slot wants.
+          It ships as a PLATE, not DOM, and the reasoning is the same test the
+          row tiles were built on: those went plate-plus-live-panels because
+          their glass ANIMATES, and a raster can only be an animation's last
+          frame. 19e carries no `glassIn` at all (verified in the source), so
+          there is no motion to lose and a 16KB plate is the honest form. Its
+          panels are the `.glass-float` recipe — captured, the frosted blur is
+          real (a browser screenshot renders backdrop-filter; only the design
+          tool's own PNG exporter flattens it).
+          ⚠ THE QUOTE IS STILL A PLACEHOLDER — real words to land with it.
+          ⚠ AND THE DEPICTED FIGURES ARE UNVERIFIED CLAIMS about a REAL
+          client's site (Speed 98 · Accessibility AA · Mobile Pass · a
+          five-star Google rating). They are baked into the plate, so they sit
+          outside the DOM, but the no-numbers-we-cannot-defend rule does not
+          care where a claim is printed. Confirm each against a real Lighthouse
+          run and the practice's live rating, or have the panels re-cut,
+          before this page goes near launch. Logged in the checklist. */}
       <Testimonial
         tone="ivory"
-        image={{ src: "/services-hero-square.png", alt: "", square: true }}
+        image={{
+          src: "/assets/graphics/services-testimonial-client.avif",
+          alt: "The Dr Yalda Jamali mobile site shown on a phone over a softly blurred bleed of its own hero, with two glass panels summarising build quality and review rating — web design by North & Refine",
+          square: true,
+        }}
       />
 
       {/* FAQ — the shared split band (componentised from /about). The same

@@ -11,8 +11,10 @@ import StartProjectForm from "@/components/StartProjectForm";
  * on the site; /contact stays plain contact). Every "Start a project" CTA
  * links here, and <StartProjectOverlayHost> (mounted via Navbar) intercepts
  * those clicks to open the overlay in place — so this page is what no-JS
- * visitors, middle-clicks, crawlers and shared links get. Same form, same
- * ledger grammar (see StartProjectForm), so the two paths can't drift.
+ * visitors, middle-clicks, crawlers and shared links get. THE SAME COMPONENT
+ * on both paths, so they can't drift: the overlay renders it `tone="light"`
+ * on its bone column, this page keeps the default dark tone on ink. Both are
+ * the same three steps (see StartProjectForm).
  *
  * The page is the canonical split masthead over ONE section: the form as the
  * content. No ContactCTA at the foot — this IS the conversion page, same as
@@ -51,10 +53,15 @@ export default function StartAProjectPage() {
         overline="Start a project"
         title={
           <>
-            Tell us about your <em>practice</em>.
+            {/* Accent on YOUR (2026-08-01) — matches the overlay's H2. */}
+            Tell us about <em>your</em> practice.
           </>
         }
-        lede="Four questions, two minutes. Enough for the first conversation to be a useful one; nothing here commits you to anything."
+        /* "Three steps" since the form went stepped (2026-08-01), and the
+           reply promise lives HERE now — it left the form's foot the same
+           day (client: "it looks awful where it is"); the subtitle is where
+           it reads as a promise rather than a footnote. */
+        lede="Three steps, two minutes, and we reply within two working days. Nothing here commits you to anything."
       />
 
       {/* The hero blend decays through the form section (the seam contract);

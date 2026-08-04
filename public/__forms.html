@@ -27,6 +27,11 @@
          fallback page (src/components/StartProjectForm.tsx). `needs` is a
          SINGLE value since 2026-08-01 (the choice chips became radio cards —
          one service per enquiry, or "Not sure yet"). -->
+    <!-- marketing-opt-in REMOVED 2026-08-01 (client: the consent line
+         "kinda looks awful too - remove it") — the form posts no marketing
+         consent, so none is recorded and no marketing email may be sent to
+         these addresses (Spam Act/PECR). If marketing ever returns to this
+         form, the checkbox and the consent record come back TOGETHER. -->
     <form name="start-project" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="start-project" />
       <input name="bot-field" />
@@ -35,7 +40,6 @@
       <input type="text" name="practice" />
       <input type="text" name="needs" />
       <textarea name="message"></textarea>
-      <input type="checkbox" name="marketing-opt-in" />
     </form>
 
     <!-- Homepage mailing-list capture (the freebie band) — lives in

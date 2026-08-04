@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import HeroGlow from "@/components/HeroGlow";
+import NRMonogram from "@/components/NRMonogram";
 import StartProjectForm from "@/components/StartProjectForm";
+import { SITE } from "@/lib/site";
 
 /**
  * THE START-A-PROJECT OVERLAY (2026-07-31; REBUILT 2026-08-01).
@@ -24,18 +25,34 @@ import StartProjectForm from "@/components/StartProjectForm";
  *     TRANSITION: the end state is plain CSS, reachable with or without
  *     motion, and reduced-motion simply arrives instantly.
  *
- * THE COMPOSITION — THE SPLIT PLATE. Two columns filling the viewport: a
- * full-height portrait plate carries the heading and the reassurance over a
- * graded scrim (so the form column pays no vertical rent for them), and the
- * form sits in the right column, vertically centred, whole and visible. It is
- * the /work hero's asymmetry and the ContactCTA card's material, in a modal.
- * Below md the plate becomes a short banner and the (short) form flows under
- * it, scrollable via the prevented scroller.
+ * THE COMPOSITION — THE HALF-AND-HALF (2026-08-01, the client's third and
+ * settled direction, on a Relume split-screen reference: "we need to go for
+ * this kind of layout. It doesn't feel immersive at all — maybe a light
+ * background too on the form bit").
+ *
+ *   LEFT   the form column on BONE + `grain-light`: mark, close, masthead,
+ *          then the STEPPED form (see StartProjectForm), then a quiet foot.
+ *   RIGHT  the portrait, FULL BLEED, floor to ceiling.
+ *
+ * WHY LIGHT WON. The two dark attempts of the same day are the argument. The
+ * warm hero ground read as one more page; dropping it to ink with a deepened
+ * vignette made it darker but not more immersive, because the form was still
+ * a small object floating in a large empty room. Immersion here is not a
+ * ground treatment at all: it is the IMAGE holding half the screen and the
+ * reader's own column being a lit, close, finite surface. The site's own
+ * grammar already said so — a light act inside a dark site is the strongest
+ * change of register it has.
+ *
+ * ONE ratio exception, deliberate: the image is architecture, not a plate. It
+ * runs the full half at whatever the viewport is, flush to the edges — so no
+ * 16:10/4:5 crop and no corner radius (the same reason a full-bleed band
+ * doesn't round). The source is 1500×2000, so `object-cover` always has
+ * portrait to work with.
  *
  * THE ENTRANCE, layer by layer (all opacity only — the brand's entrances fade
- * IN PLACE; the 16px rise is retired): scrim 0→260ms, plate 120→800ms (the
- * slower plate tempo: images develop), plate type 300ms, form 380ms. Escape,
- * ✕ and browser-back all close; open pushes a history entry so a phone's back
+ * IN PLACE; the 16px rise is retired): ground 0→260ms, image 120→800ms (the
+ * slower plate tempo: images develop), masthead 220ms, form 340ms. Escape, ✕
+ * and browser-back all close; open pushes a history entry so a phone's back
  * gesture closes the overlay rather than leaving the page.
  */
 
@@ -188,127 +205,254 @@ export default function StartProjectOverlayHost() {
          viewport (100vh lies while the browser chrome collapses). */
       className="fixed inset-0 z-[70] h-[100dvh] w-screen"
     >
-      {/* LAYER 1 — the ground: the site's warm hero material, fixed behind
-          the content (grain's ::before is inset-0, so it must sit on a
-          non-scrolling layer or it would scroll away). */}
+      {/* THE GROUND — bone, so the whole overlay is a light act. */}
       <div
         aria-hidden
-        className={`absolute inset-0 overflow-hidden grain bg-[#16110C] ${LAYER} ${
+        className={`absolute inset-0 bg-bone ${LAYER} ${
           shown ? "opacity-100" : "opacity-0"
         }`}
         style={{ transitionDuration: "260ms" }}
-      >
-        {/* 0.8 → 0.4 (2026-08-01, client: "the background blurs feel a bit
-            too much — can we decrease opacity"). The overlay is a reading
-            surface: the glow is atmosphere behind type, not a hero ground.
-            topLeft steps down with it so the pool behind the H1 stays quiet. */}
-        <HeroGlow intensity={0.4} topLeft={0.5} />
-      </div>
+      />
 
-      {/* THE SCROLL LAYER. data-lenis-prevent lets the wheel reach it on
-          short screens; the content itself is sized to need no scroll on a
-          laptop. */}
-      <div
-        data-lenis-prevent
-        className="absolute inset-0 overflow-y-auto overscroll-contain"
-      >
-        <div className="mx-auto flex min-h-[100dvh] w-full max-w-[1600px] flex-col px-6 md:px-10">
-          {/* The bar — kicker left, close right, on the nav's own height. */}
+      {/* THE HALF-AND-HALF. On md+ two equal columns; below it the image
+          becomes a 12rem banner and the form column takes the rest. The DOM
+          order is form-then-image (the form is what the reader came for, and
+          the Close button must be first in the tab order); `order` does the
+          visual flip. */}
+      <div className="relative grid h-full grid-rows-[12rem_1fr] md:grid-cols-2 md:grid-rows-1">
+        {/* ── THE FORM COLUMN ──────────────────────────────────────────────
+            grain-light is the light ground's material (the one-material rule:
+            every surface on the site carries grain or grain-light). It needs
+            the clip + a z-10 content layer, and it must sit on the NON-scrolling
+            wrapper: an inset-0 ::before inside a scroller scrolls away with the
+            content. */}
+        <div className="relative order-2 overflow-hidden bg-bone grain-light md:order-1">
           <div
-            className={`flex h-14 shrink-0 items-center justify-between md:h-16 ${LAYER} ${
-              shown ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ transitionDelay: shown ? "220ms" : "0ms" }}
+            data-lenis-prevent
+            className="relative z-10 h-full overflow-y-auto overscroll-contain"
           >
-            <p className="overline">Start a project</p>
-            <button
-              type="button"
-              onClick={() => closeOverlay()}
-              className="nav-link inline-flex items-center gap-2 text-bone transition-colors hover:text-champagne"
-            >
-              Close <span aria-hidden>✕</span>
-            </button>
-          </div>
-
-          {/* THE SPLIT — TITLE COLUMN left (cols 1–5), form right (cols 7–12).
-              RESTRUCTURED 2026-08-01 at the client's instruction: "There is NO
-              breathing room around the H1 — if you can't add breathing room,
-              put it to the left of the form and make the image smaller." The
-              full-rail masthead row was the problem: it sat between the bar
-              and the split, so every pixel of air above the H1 pushed the form
-              down and got clawed back again. Moving the heading INTO the left
-              column decouples the two — the title now has a whole column to
-              breathe in, and the plate shrinks to sit beneath it. One H2
-              still, so the dialog's aria-labelledby always resolves. */}
-          <div className="grid flex-1 grid-cols-1 items-center gap-9 pb-8 pt-4 md:grid-cols-12 md:gap-12 md:pb-6 md:pt-4">
-            {/* THE TITLE COLUMN — heading, one quiet line, then the plate. */}
-            <div className="md:col-span-5">
+            <div className="flex min-h-full flex-col px-6 py-6 md:px-10 md:py-7 lg:px-16">
+              {/* The bar — THE MARK alone (2026-08-01, client: "the logo
+                  actually should be on it"). The overlay covers the nav, so
+                  without it the studio's name leaves the screen at the exact
+                  moment a visitor decides to hand over their details. It is a
+                  STAMP, not a link: a form is the one place the brand must
+                  not offer an exit. NRMonogram carries its own role="img" +
+                  label, so the name is still read aloud. Close left this bar
+                  for the overlay's true top-right corner — see the chip after
+                  the grid. */}
               <div
-                className={`${LAYER} ${shown ? "opacity-100" : "opacity-0"}`}
-                style={{ transitionDelay: shown ? "180ms" : "0ms" }}
-              >
-                <h2
-                  id="sp-overlay-title"
-                  className="heading-xl text-balance text-bone"
-                >
-                  Tell us about your <em>practice</em>.
-                </h2>
-                {/* The invitation (the client's own line) and the reassurance,
-                    together under the heading now the plate no longer carries
-                    type. The reply promise stays once, by the button. */}
-                <p className="body-lg mt-6 max-w-[30ch] text-bone-dim">
-                  Ready to be the next top-rated clinic? We read every enquiry
-                  ourselves.
-                </p>
-              </div>
-
-              {/* THE PLATE — SMALLER (client's call), and it no longer needs a
-                  scrim or a caption now the type lives above it: a clean
-                  landscape figure closing the column. 16:10 per the imagery
-                  ratio canon, on the plate radius scale. */}
-              <div
-                className={`relative mt-8 overflow-hidden rounded-plate ${LAYER} ${
+                className={`flex shrink-0 items-center ${LAYER} ${
                   shown ? "opacity-100" : "opacity-0"
                 }`}
-                style={{
-                  transitionDuration: "800ms",
-                  transitionDelay: shown ? "300ms" : "0ms",
-                }}
+                style={{ transitionDelay: shown ? "220ms" : "0ms" }}
               >
-                <div className="aspect-[16/10] w-full max-w-[420px]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/graphics/start-project-portrait.avif"
-                    alt=""
-                    loading="eager"
-                    className="h-full w-full rounded-plate object-cover object-[50%_28%]"
-                  />
+                <NRMonogram className="h-5 w-auto text-ink md:h-6" />
+              </div>
+
+              {/* THE READING COLUMN — ONE PANEL holding masthead + form,
+                  centred in whatever height is left. THE PANEL RETURNED
+                  2026-08-01 ("it feels a little unstructured — do you think a
+                  rounded border around the title and form fields is a good
+                  idea?"), and it is NOT the panel we stripped that morning:
+                  that one was a dark box around bare fields on a dark ground,
+                  a container defending itself. RE-SCOPED the same evening
+                  (client: "the border should just be around the stepper and
+                  the form fields, not the whole thing"): the masthead sits
+                  free on the bone above it, and the panel wraps exactly what
+                  the reader ACTS on — marks, step title, fields, foot. The
+                  title speaks, the panel is the instrument. Hairline stepped
+                  ink/15 → ink/25 in the same pass ("needs to be darker to
+                  help balance") — still a step under the fields' ink/35, so
+                  furniture stays under affordance. Rounded on the surface
+                  scale, no fill — the bone and its grain run through. */}
+              <div className="flex flex-1 flex-col justify-center py-4 md:py-3">
+                <div className="w-full max-w-[640px]">
+                  <div
+                    className={`${LAYER} ${shown ? "opacity-100" : "opacity-0"}`}
+                    style={{ transitionDelay: shown ? "260ms" : "0ms" }}
+                  >
+                    {/* The kicker over the H1, house grammar: direct
+                        siblings, `.from-overline` carrying the gap. On light
+                        the kicker takes clay — the sanctioned tracked-caps
+                        exception. */}
+                    <p className="overline text-clay">Start a project</p>
+                    {/* The accent word is YOUR (2026-08-01, client's call) —
+                        the possessive is the point of the sentence: their
+                        practice, not practices in general. */}
+                    <h2
+                      id="sp-overlay-title"
+                      className="heading-xl from-overline text-balance text-ink"
+                    >
+                      Tell us about <em>your</em> practice.
+                    </h2>
+                    {/* Short again: the reply promise moved to the proof
+                        bento's wide tile (its third home, and the right one —
+                        a real number, presented AS the number it is). */}
+                    <p className="body mt-3 max-w-[46ch] text-ink-dim">
+                      Ready to be the next top-rated clinic? Give us a few
+                      details to get started.
+                    </p>
+                  </div>
+
+                  {/* The form owns no opacity class of its own — the wrapper
+                      carries the entrance, so a stranded animation can never
+                      leave a conversion-critical form invisible. */}
+                  <div
+                    className={`mt-6 rounded-ui-lg border border-ink/25 p-6 sm:p-7 ${LAYER} ${
+                      shown ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{ transitionDelay: shown ? "360ms" : "0ms" }}
+                  >
+                    <StartProjectForm tone="light" />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* THE FORM — cols 7–12, whole and visible at 1440×900. The
-                wrapper owns the entrance so the form itself never carries an
-                opacity class it could strand on. */}
-            <div
-              className={`md:col-span-6 md:col-start-7 ${LAYER} ${
-                shown ? "opacity-100" : "opacity-0"
-              }`}
-              style={{ transitionDelay: shown ? "380ms" : "0ms" }}
-            >
-              {/* THE PANEL (2026-08-01, client: "the form feels like it maybe
-                  needs a border or something"; padding bumped the same day —
-                  "the form feels not nicely padded, bump it up a bit"). A
-                  contained surface: hairline rim, a whisper of raised ink so
-                  it reads as a card on the glow, rounded on the surface scale
-                  (we are a rounded brand). */}
-              <div className="rounded-ui border rule-dark bg-ink-raised/40 p-6 sm:p-8">
-                <StartProjectForm />
+              {/* The foot line — the wireframe's © slot, earning its keep as
+                  the escape hatch for anyone who would rather just email. */}
+              <div
+                className={`shrink-0 ${LAYER} ${shown ? "opacity-100" : "opacity-0"}`}
+                style={{ transitionDelay: shown ? "420ms" : "0ms" }}
+              >
+                <p className="fineprint text-ink-mute">
+                  Prefer email?{" "}
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    className="text-ink underline decoration-champagne underline-offset-4 transition-colors hover:text-champagne"
+                  >
+                    {SITE.email}
+                  </a>
+                </p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* ── THE IMAGE ────────────────────────────────────────────────────
+            Full bleed, floor to ceiling: architecture, not a plate, so no
+            ratio box and no radius. RESTAGED 2026-08-01 to the client's
+            ember-tile reference ("the image needs to match our imagery
+            style… use social proof or stats overlayed over the BG image as a
+            reason to continue"), in the tiles' own grammar:
+             · THE GRADE — the stock shot is bright daylight; the reference
+               is lit warmth on dark. An ember-burnt multiply wash + a slight
+               settle on the img pull it onto the palette's warm axis (the
+               in-image grade the ember-ramp rule sanctions), and an ink
+               scrim rises from the foot for the stat to sit on.
+             · THE GRAIN — the one material; the tiles are grainy too. (The
+               big inset hairline frame retired when the bento arrived — the
+               tiles carry their own hairlines; two frames was chrome.)
+             · THE PROOF — the PROMISE BENTO at the foot (see its own
+               comment below): the studio's true numbers, ready to take
+               real anonymised client results when they exist. */}
+        <div
+          className={`relative order-1 overflow-hidden bg-ink grain md:order-2 ${LAYER} ${
+            shown ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            transitionDuration: "800ms",
+            transitionDelay: shown ? "120ms" : "0ms",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/assets/graphics/start-project-portrait.avif"
+            alt=""
+            loading="eager"
+            className="absolute inset-0 h-full w-full object-cover object-[50%_35%] [filter:brightness(0.92)_saturate(0.94)]"
+          />
+          {/* The warm cast, then the foot scrim. */}
+          <div aria-hidden className="absolute inset-0 bg-ember-burnt/25 mix-blend-multiply" />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-ink/85 via-ink/35 to-transparent"
+          />
+          {/* THE PROMISE BENTO (2026-08-01 — the client's shape, retired
+              figures: "the stats look great, but can we just say that
+              randomly with nothing to tie it to? I don't think we can." She
+              is right, and the receipts audit already said so: no numbers we
+              can't defend. The illustrative results set (+212% · 3.4× · 2.1)
+              lasted one round; there are NO real client results in the repo
+              yet, so until she supplies real anonymised figures the tiles
+              carry the numbers that are TRUE TODAY — the studio's own
+              promises about what pressing send actually starts. Same tile
+              grammar (one wide + two square), no asterisks because nothing
+              needs disclaiming, and the trend chart went with the figures —
+              it drew a shape no dataset backs.
+              THE MATERIAL IS `.glass-float` (2026-08-02) — the house
+              dark-glass recipe, which these tiles turned out to be an ad-hoc
+              rehearsal of (ink/35 + bone/25 + blur-md, no shadow); they gain
+              the deeper blur and the float stack. ⚠ Two honest caveats that
+              do NOT apply to the hero graphic: the wide tile sits on the ink
+              foot scrim, so its drop shadow lands on near-ink and barely
+              reads; and this image column is `overflow-hidden` (it must be,
+              it clips a full-bleed photograph), so the handoff's "let panels
+              overhang the edges" cannot apply on this surface. The blur and
+              the lit top edge are what earn their keep here.
+              THE SWAP PATH: when real, client-approved, anonymised results
+              exist ("a London skin clinic", never named), each tile takes a
+              figure + label + one attribution line — the structure is
+              already right for it. Never draft that data here.
+              The reply promise's THIRD home (foot → subtitle → here) and its
+              last: it is the one real number this surface owns, so it gets
+              the numeral treatment instead of hiding in running copy. */}
+          <div
+            className={`absolute inset-x-5 bottom-5 z-10 hidden gap-3 md:grid md:grid-cols-2 lg:inset-x-6 lg:bottom-6 ${LAYER} ${
+              shown ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ transitionDelay: shown ? "480ms" : "0ms" }}
+          >
+            <div className="glass-float col-span-2 p-5 lg:p-6">
+              <p className="stat text-bone">2</p>
+              <p className="body-sm mt-2 text-bone-dim">
+                Working days to a personal reply
+              </p>
+              <p className="fineprint mt-1 text-bone-dim/80">
+                We read every enquiry ourselves.
+              </p>
+            </div>
+            <div className="glass-float p-5 lg:p-6">
+              <p className="stat text-bone">3</p>
+              <p className="body-sm mt-2 text-bone-dim">
+                Steps to send; about two minutes
+              </p>
+            </div>
+            <div className="glass-float p-5 lg:p-6">
+              {/* Zero is the honest headline for "no obligation". */}
+              <p className="stat text-bone">0</p>
+              <p className="body-sm mt-2 text-bone-dim">Obligation</p>
+              <p className="fineprint mt-1 text-bone-dim/80">
+                The first conversation commits you to nothing.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* CLOSE — the overlay's true top-right corner (2026-08-01, client: it
+          "should be top right"; in the bar it sat at the form column's inner
+          edge, the visual MIDDLE of a split screen). A round glass chip over
+          the image so it owns its contrast on any crop: ink wash + blur under
+          a bone glyph, champagne on hover per the gold rule. The opacity
+          entrance rides a wrapper span — LAYER's transition-opacity and the
+          chip's own transition-colors would fight over transition-property on
+          one element. */}
+      <span
+        className={`absolute right-5 top-5 z-30 md:right-7 md:top-6 ${LAYER} ${
+          shown ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ transitionDelay: shown ? "220ms" : "0ms" }}
+      >
+        <button
+          type="button"
+          onClick={() => closeOverlay()}
+          aria-label="Close"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-bone/30 bg-ink/40 text-bone backdrop-blur-md transition-colors hover:border-champagne hover:text-champagne"
+        >
+          <span aria-hidden>✕</span>
+        </button>
+      </span>
     </div>
   );
 }

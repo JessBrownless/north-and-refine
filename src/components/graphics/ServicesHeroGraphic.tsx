@@ -10,9 +10,10 @@ import { GraphicScaler, MONO, SANS } from "./shared";
  * THE COMPOSITION: the square ember crop (the ONE ember-ramp image on the
  * page, per the ramp contract — gradient runs ember-deep → ember-burnt →
  * champagne/bone blooms) carrying the depicted Lumen phone with the bound
- * portrait, and THREE FROSTED GLASS PANELS floating over its edges (the
- * handoff recipe: rgba(bone,.07) + blur(22) + 1px rgba(bone,.16) rim,
- * radius 16) — the h1 markup, the SEO meta preview, the clinic schema:
+ * portrait, and THREE FROSTED GLASS PANELS floating over its edges
+ * (`.glass-float` — the dark-polarity house glass; see globals.css for why
+ * the bone-wash recipe this file used to inline was retired) — the h1
+ * markup, the SEO meta preview, the clinic schema:
  * web → search → schema, the studio's disciplines signed in artefacts.
  * The depicted schema is UK-FIRST (2026-08-01, the design-system rule:
  * reader-facing vocabulary is never American even when it depicts code) —
@@ -29,15 +30,39 @@ import { GraphicScaler, MONO, SANS } from "./shared";
  * confirmation item as the PNG it replaces.
  */
 
-/* The frosted panel recipe — exact values from the handoff notes. */
+/* THE PANEL MATERIAL NOW LIVES IN THE DESIGN SYSTEM (2026-08-02): the
+   `.glass-float` recipe in globals.css, per the handoff's "frosted glass
+   panels must read as FLOATING, not stuck on". What changed from the values
+   this file used to inline, and why each move matters:
+     · fill  bone 7% → ink 38%  — a POLARITY FLIP. The bone wash lightened
+       the ember crop behind it, so bone type sat on a raised light ground
+       and the panel read as printed ON the image. An ink wash darkens what
+       is behind it, so the type gains contrast and the panel reads as a
+       thing in front.
+     · rim   bone 16% → bone 24%, and the flat 0 30px 60px shadow becomes
+       the three-part stack (broad lift + contact + inset top highlight).
+       The contact shadow and the lit top edge are what actually sell
+       "floating"; the old single soft shadow just tinted the ground.
+   Only POSITION stays here — placement is the composition's business, and
+   these panels deliberately overhang the phone (z-index 3, and nothing in
+   the scaler clips them).
+
+   THE PANELS ANIMATE IN (2026-08-02, client: "the glassy bits animate in"):
+   `.reveal` on each panel, staggered 140 / 300 / 460ms, so the crop lands
+   first and the glass arrives over it in reading order — markup, then the
+   search result, then the schema. Three reasons it is `.reveal` and not a
+   keyframe: it is the house scroll-entrance and this graphic sits at the
+   fold, where a load-in would fire off-screen on a short viewport; it is a
+   TRANSITION to a static end state, so it cannot strand invisible the way
+   an `opacity-0` + keyframe can (the overlay's own bug); and it touches
+   OPACITY ONLY, which is what lets it coexist with the float animations on
+   two of these panels — a keyframe entrance would fight the float for the
+   `animation` shorthand and one of them would lose.
+   The fade is doing more here than on type: the panel's backdrop blur fades
+   up with it, so the ground behind genuinely frosts over rather than
+   cutting in. Reduced motion snaps them visible and stills the float. */
 const GLASS: React.CSSProperties = {
   position: "absolute",
-  background: "rgba(244,237,223,.07)",
-  backdropFilter: "blur(22px)",
-  WebkitBackdropFilter: "blur(22px)",
-  border: "1px solid rgba(244,237,223,.16)",
-  borderRadius: 16,
-  boxShadow: "0 30px 60px -30px rgba(0,0,0,.6)",
   zIndex: 3,
 };
 
@@ -109,14 +134,14 @@ export default function ServicesHeroGraphic({ className }: { className?: string 
         </div>
 
         {/* frosted panel: live HTML */}
-        <div className="animate-float-slow" style={{ ...GLASS, left: 0, top: 96, width: 302, padding: "22px 24px", fontFamily: MONO, fontSize: 15, lineHeight: 1.75, color: "var(--bone-dim)" }}>
+        <div className="glass-float reveal animate-float-slow" style={{ ...GLASS, transitionDelay: "140ms", left: 0, top: 96, width: 302, padding: "22px 24px", fontFamily: MONO, fontSize: 15, lineHeight: 1.75, color: "var(--bone-dim)" }}>
           <div style={{ color: "var(--clay)" }}>&lt;main&gt;</div>
           <div style={{ paddingLeft: 16 }}>&lt;h1&gt;Facial Aesthetics&lt;/h1&gt;</div>
           <div style={{ color: "var(--clay)" }}>&lt;/main&gt;</div>
         </div>
 
         {/* frosted panel: SEO meta preview (static — the composition's anchor) */}
-        <div style={{ ...GLASS, right: 0, top: 300, width: 366, padding: "26px 28px" }}>
+        <div className="glass-float reveal" style={{ ...GLASS, transitionDelay: "300ms", right: 0, top: 300, width: 366, padding: "26px 28px" }}>
           <div style={{ fontSize: 22, fontWeight: 400, lineHeight: 1.28, color: "var(--bone)", letterSpacing: "-.01em" }}>
             Lumen Aesthetics | Rhinoplasty &amp; Facial Surgery, London
           </div>
@@ -127,7 +152,7 @@ export default function ServicesHeroGraphic({ className }: { className?: string 
         </div>
 
         {/* frosted panel: schema JSON */}
-        <div className="animate-float-slower" style={{ ...GLASS, left: 36, bottom: 20, width: 378, padding: "22px 26px", fontFamily: MONO, fontSize: 14.5, lineHeight: 1.8, color: "var(--bone-dim)", animationDelay: "1.2s" }}>
+        <div className="glass-float reveal animate-float-slower" style={{ ...GLASS, transitionDelay: "460ms", left: 36, bottom: 20, width: 378, padding: "22px 26px", fontFamily: MONO, fontSize: 14.5, lineHeight: 1.8, color: "var(--bone-dim)", animationDelay: "1.2s" }}>
           <div style={{ color: "var(--clay)" }}>{"{"}</div>
           <div style={{ paddingLeft: 16 }}>
             <span style={{ color: "var(--champagne)" }}>&quot;@type&quot;</span>: &quot;MedicalClinic&quot;,

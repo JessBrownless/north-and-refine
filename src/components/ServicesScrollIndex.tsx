@@ -33,6 +33,13 @@ type Service = {
       without an image. No grain over it: grain is a GROUND material,
       imagery ships as exported. */
   image?: { src: string; alt: string };
+  /** THE LIVE TILE (2026-08-02) — supersedes `image` for the three rows that
+      have one. The design gained motion (a staggered frost-in on the glass
+      panels, a sweeping ring, a drawn curve), and a raster can only be its
+      last frame. See ServicesTiles.tsx for the plate/panel split: the
+      photography stays a picture, the frosted panels are live DOM. `image`
+      remains for any row whose graphic ships before it is ported. */
+  tile?: React.ReactNode;
 };
 
 /* The tile grounds — the /about ream's retired TILE_GRADIENTS, back in
@@ -361,7 +368,13 @@ export default function ServicesScrollIndex({
                 />
               </div>
             )}
-            {s.image && (
+            {s.tile && (
+              /* No rounded-plate here — the tile draws its own 24px corner
+                 (it is the design's own plate frame) and clipping it again
+                 would also clip the panels that overhang the device. */
+              <div className="mt-10">{s.tile}</div>
+            )}
+            {!s.tile && s.image && (
               <div className="mt-10 overflow-hidden rounded-plate">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -372,7 +385,7 @@ export default function ServicesScrollIndex({
                 />
               </div>
             )}
-            {!s.image && s.art && (
+            {!s.tile && !s.image && s.art && (
               <div
                 className={`relative mt-10 flex items-end justify-center overflow-hidden rounded-plate${
                   LIGHT_TILES ? " grain-light" : ""

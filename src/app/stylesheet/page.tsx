@@ -68,6 +68,7 @@ const TYPE_STYLES: { cls: string; label: string; note: string; sample: React.Rea
   { cls: "index-num text-clay", label: ".index-num", note: "18→24px · Dia list numbering", sample: "01 /" },
   { cls: "stat text-bone", label: ".stat", note: "40→72px · SAOL DISPLAY stat numbers (Regular 400 — the big-number register went serif at the client's call, 2026-07-12)", sample: "156%" },
   { cls: "label text-clay", label: ".label", note: "13px · captions & meta", sample: "Brand · Web · SEO" },
+  { cls: "form-title text-bone", label: ".form-title", note: "15px, weight 600 · FORM SECTION TITLES (2026-08-01, client: 'smaller and bolder'). The UI register: it leads by WEIGHT, not size, so a form's furniture never outranks the page's headings. Sentence case, no rule under it. Forms only — page and section heads stay on the ladder", sample: "Your requirements" },
   { cls: "fineprint", label: ".fineprint", note: "12px · fine print", sample: "© 2026 North & Refine Studio." },
   { cls: "industry-band-title", label: ".industry-band-title", note: "28→68px, vw-SIZED (like .wordmark-giant — end-to-end bands fit the viewport, not the grid): the homepage industries band names (2026-07-11)", sample: "Cosmetic Surgery" },
   { cls: "belief-statement", label: ".belief-statement", note: "32→80px, weight 500 · the BELIEF register (2026-07-24 services-pacing handoff): a statement that steps DOWN from the H1 — the /services belief; the homepage manifesto keeps .display", sample: "The practice, made clear." },
@@ -353,6 +354,14 @@ export default function StylesheetPage() {
             <p className="label text-bone">The dose table</p>
             <ul className="fineprint mt-3 space-y-2">
               <li>HeroGlow — hero grounds only: homepage 1.0 · interior heroes 0.6 with topLeft 0.3 · the ContactCTA card 0.8.</li>
+              <li>
+                vignette (the falloff multiplier, 2026-08-01) — PARKED at 1.0,
+                no live consumers: it was built for the Start-a-project
+                overlay&rsquo;s dark room, which went light the same day. Worth
+                keeping in mind either way: turning the blobs down FLATTENS a
+                ground, while deepening the falloff is what DARKENS it. Never
+                above 1 where the corners carry content.
+              </li>
               <li>SectionGlow — the section adjoining a hero: blob 0.05 · tail 0.08.</li>
               <li>Canvas pool blobs (page-placed, shared-canvas middles): 0.04–0.06, blur 150, in-family colours only (#C2A878 / #8A5A2E).</li>
               <li>Never on light grounds (a bloom on bone reads as a stain — the grain carries light sections).</li>
@@ -583,6 +592,43 @@ export default function StylesheetPage() {
             </div>
             <div className="md:col-span-4 flex justify-center">
               <PhoneMockup size="sm" />
+            </div>
+          </div>
+        </div>
+
+        {/* THE GLASS PAIR (2026-08-02) — demoed over a real gradient, because
+            a glass swatch on a flat ground is a swatch of nothing: with
+            nothing behind it to blur, both recipes just look like tinted
+            boxes and the whole point is unreadable. */}
+        <Sub
+          title="Glass: a PAIR, picked by ground"
+          note="Two polarities, and the choice is not taste. .glass-float (dark: 38% ink + blur 22 + a three-part float) goes OVER IMAGERY, where there is something to blur and something to float above — the /services hero panels and the Start-a-project bento. .card-glass (light: 5% bone + blur 10, no shadow) goes over a FLAT ink section. Swap them and both fail: a 38% ink fill on flat ink is invisible, and a 44px drop shadow on a flat ground is a shadow cast by nothing."
+        />
+        <div className="relative mt-6 overflow-hidden rounded-ui-lg p-8 sm:p-12">
+          {/* The something-to-blur: the ember ramp, one contained crop. */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(120% 90% at 78% 88%,rgba(244,237,223,.55) 0%,rgba(216,198,164,.3) 30%,transparent 58%),linear-gradient(150deg,var(--ember-deep) 0%,var(--ember-burnt) 45%,#A8511E 100%)",
+            }}
+          />
+          <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="glass-float p-6">
+              <p className="overline">.glass-float</p>
+              <p className="body mt-3 text-bone">
+                Reads as floating: the fill darkens the image behind it, and
+                the contact shadow plus the lit top edge give it a near side.
+              </p>
+            </div>
+            <div className="card-glass p-6">
+              <p className="overline">.card-glass</p>
+              <p className="body mt-3 text-bone">
+                The light polarity, shown on the wrong ground on purpose: over
+                imagery it lifts the picture into the panel and the type has
+                to fight it.
+              </p>
             </div>
           </div>
         </div>
