@@ -85,10 +85,20 @@ export function Code({ children }: { children: React.ReactNode }) {
  */
 export function Stage({
   ground = "ink",
+  flush = false,
   className = "",
   children,
 }: {
   ground?: "ink" | "raised" | "bone" | "ivory" | "image";
+  /**
+   * Drop the stage's own padding so a full-width band sits edge to edge.
+   * It exists because passing `p-0` through className does NOT work: both
+   * are single-class utilities, so the winner is whichever Tailwind emits
+   * last in the stylesheet, and that is `p-6` regardless of prop order. A
+   * caller cannot fix that from outside, so the stage has to offer it.
+   * Section BANDS want this; token specimens do not.
+   */
+  flush?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -101,7 +111,9 @@ export function Stage({
   };
   return (
     <div
-      className={`relative mt-5 overflow-hidden rounded-ui p-6 sm:p-8 ${grounds[ground]} ${className}`}
+      className={`relative mt-5 overflow-hidden rounded-ui ${
+        flush ? "" : "p-6 sm:p-8"
+      } ${grounds[ground]} ${className}`}
     >
       {ground === "image" && (
         /* The something-to-blur: the ember ramp, one contained crop — the
