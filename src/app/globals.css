@@ -11,14 +11,20 @@
    Direction: dark / premium agency ("Obsidian"). Warm near-black base, bone
    off-white, one restrained champagne accent.
 
-   Type: a TWO-FONT HOUSE (decided 2026-07-09) — Saol Display (--font-display)
-   carries every heading tier and the wordmark; Dia (--font-sans, TRIAL —
-   see layout.tsx licence note) carries everything else: body, UI, and the
-   meta voice (overlines, index numbers, stats) that Geist Mono used to
-   carry. The mono is retired from the brand — it was the "engineered"
-   accent of the old tech direction. Saol ships as Regular 400 + Light
-   Italic 300 (the <em> accent-word device) — heading hierarchy from SIZE
-   alone.
+   Type: ONE TEXT FACE — Instrument Sans (2026-07-14, the client's call:
+   "make all headings and text Instrument Sans"). layout.tsx loads it as
+   --font-sans and ALIASES --font-display to it on <html>, so every rule
+   below that reads either var resolves to Instrument Sans and the ~27
+   heading/body rules needed no edit. Two faces survive in narrow roles:
+   SAOL DISPLAY (--font-saol) is the accent-word device ONLY — the <em>
+   inside a display-tier utility — and GEIST MONO (--font-geist-mono) is the
+   kicker voice, which .overline consumes. So the "mono is retired" note that
+   stood here was wrong in both directions: the mono is the kicker, and the
+   serif is one italic word at a time.
+   ⚠ HERITAGE, NOT LAW: the old note claimed Saol carried every heading and
+   that hierarchy came from SIZE alone because it shipped one weight. Neither
+   holds — the house face has real weights, which is what made .form-title's
+   weight-led register legal.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer base {
@@ -120,7 +126,7 @@
     /* Masthead metrics (2026-07-10, the dead-corner hero plate) —
        .display-mega's fluid size, and the height of ONE rendered line of it
        (× its 0.94 line-height — keep the multiplier in sync). The homepage
-       hero plate tops itself with --masthead-line so it always clears the
+       hero plate topped itself with a line-height token so it always cleared the
        H1's first line at every viewport; anything else that must align to
        the masthead's first line should use these, never a copied clamp(). */
     /* Cap tuned to the .shell grid the hero sits on (1400px, settled):
@@ -129,7 +135,6 @@
        and a 136px/1280 variant — both in git history; retune this if the
        grid ever genuinely changes. */
     --masthead-size: clamp(3.25rem, 1.5rem + 8.75vw, 9.5rem); /* 52 → 152px */
-    --masthead-line: calc(var(--masthead-size) * 0.94);
   }
 
   html {
@@ -189,8 +194,8 @@
   .display-mega {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400; /* Saol ships one upright weight here */
-    font-size: var(--masthead-size); /* 52 → 152px — token shared with --masthead-line */
-    line-height: 0.94; /* mirrored in --masthead-line's multiplier */
+    font-size: var(--masthead-size); /* 52 → 152px */
+    line-height: 0.94;
     letter-spacing: -0.015em;
   }
 
@@ -289,22 +294,6 @@
     letter-spacing: -0.01em;
   }
 
-  /* THE INDUSTRIES BAND title (2026-07-11) — the full-bleed sector names
-     under the homepage hero. vw-SIZED like .wordmark-giant, not ladder-sized:
-     an end-to-end band must fit its three names to the viewport, so the
-     type scales with the screen (ladder clamps are grid-tuned, not
-     viewport-tuned). Saol, one line, never wraps. */
-  .industry-band-title {
-    font-family: var(--font-display), Georgia, serif;
-    font-weight: 400;
-    /* v2 (2026-07-11): CAPS + slash separators at the client's call — Didone
-       caps, tracking opened (caps need air where lowercase wants -0.01em).
-       Size retuned for caps' wider set; edge-to-edge fit re-measured. */
-    font-size: clamp(1.75rem, 3.2vw, 5rem); /* 28 → 80px — caps measure 28.6em for the three names; 3.2vw keeps the row inside every desktop viewport (horizontal scroll is banned) */
-    line-height: 1.1;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
 
   /* Body copy */
   .body {
@@ -495,13 +484,6 @@
     margin-top: 0.35em;
   }
 
-  /* ── Emphasis helpers (opacity tracks inherited colour via color-mix) ────── */
-  .text-hi {
-    color: color-mix(in srgb, currentColor 100%, transparent);
-  }
-  .text-lo {
-    color: color-mix(in srgb, currentColor 58%, transparent);
-  }
 
   /* ── Layout helpers ──────────────────────────────────────────────────────── */
   /* Standard contained section width + responsive padding. The content grid:
@@ -624,26 +606,6 @@
     opacity: 1;
   }
 
-  /* ── Scroll-drawn progress line (2026-07-14, /work index rows) ───────────
-     A fill that DRAWS left→right when its `.reveal` row enters — the faint
-     track sits under it. Pairs with the global <Reveal /> observer (no scroll
-     library): the row carries `.reveal`, the fill child carries `.line-fill`.
-     Reduced motion snaps it filled. */
-  .line-fill {
-    width: 0;
-    transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: width;
-  }
-  /* !important: the base `.line-fill` outranks this across Tailwind's cascade
-     layers (layer order beats specificity), so the plain override was ignored. */
-  .reveal.is-in .line-fill {
-    width: 100% !important;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .line-fill {
-      width: 100% !important;
-    }
-  }
 
   /* ── StageGlyph draw-on (M·1 "drawn by the page", 2026-07-10) ────────────
      StageGlyph strokes carry pathLength=100 + .sg-stroke. Inside a `.reveal`
@@ -1078,7 +1040,7 @@
 
   /* The stroke DRAW-ON inside a tile panel (the ring gauge, the enquiries
      curve) — the design source ran these as keyframes; here they are a
-     transition gated on `.reveal.is-in`, same as `.line-fill`, so they
+     transition gated on `.reveal.is-in`, so they
      cannot start before the panel they live in has arrived. The consumer
      sets --draw-len to the path length. */
   .tile-draw {
