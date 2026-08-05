@@ -36,7 +36,7 @@ export default function PrinciplesTier() {
       <Section
         id="principles-truth-contract"
         title="How to read this page"
-        note="This page documents what SHIPS, not what was once intended. It is the studio's memory, so every claim here has to be checkable against the code that implements it."
+        note="This page is the SOURCE, not the mirror. It says how things should be, and where the live site disagrees with it, the SITE is wrong. That is an inversion of what this section said when it was written on 2026-08-02, and the reason for the change is worth keeping: a page that may only describe what already ships can never lead a change. You could not say “all hero buttons take this tier”, only report which ones happen to. ⚠ BUT PRESCRIPTION WITHOUT A CHECK IS HOW THIS PAGE STARTED LYING. Its claim that Saol carried every heading was true, then became an intention, then a falsehood, and nothing on the page could tell the difference — an audit found 32 statements the code contradicted. So the contract has two halves and needs both: the page prescribes, AND every prescription is mechanically checkable against the code. A statement the site does not yet satisfy is allowed here only while a ticket exists to make it true; without that ticket it is not a standard, it is a wish, and a wish on this page is indistinguishable from a lie."
       >
         <Points>
           <Point>
