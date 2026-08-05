@@ -338,7 +338,7 @@ export default function AtomsTier() {
           cls="display-mega"
           size="52 to 152px, line-height 0.94"
           sample="04"
-          register="THE ODOMETER. One live use: the rolling numeral in the /services scroll index."
+          register="THE MASTHEADS. ⚠ THE RULE, not a description: EVERY hero masthead H1 on the site takes this rung, so the heroes read as one site. PageHero applies it to every interior page; the homepage joined them on 2026-08-05, having been the one hero that hand-rolled its own clamp and so ran ~8% short at every width. THE ONE EXCEPTION IS DOCUMENTED AND DELIBERATE: detail pages (/work/[slug], /blog/[slug]) are ARTICLE HEADERS, not mastheads, and take .heading-xl through ArticleHeader — a piece of writing opens differently from a section of the site. A new hero that wants its own size is not a new size; it is a hero that has not read this."
           where="Its size comes from --masthead-size, the single metric token, so anything that must align to a masthead's first line reads that variable rather than copying the clamp. Its old homepage-masthead use was retired 2026-07-16."
         />
         <Rung

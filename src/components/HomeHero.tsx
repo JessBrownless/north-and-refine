@@ -84,11 +84,33 @@ export default function HomeHero() {
           <p className="overline" style={{ margin: 0, opacity: 0.85 }}>
             Web, search &amp; SEO for clinics
           </p>
-          <h1 style={{ margin: "clamp(22px,2.4vw,32px) 0 0", fontSize: "clamp(38px,7vw,92px)", fontWeight: 500, lineHeight: 1, letterSpacing: "-0.045em", color: "var(--bone)" }}>
+          {/* THE MASTHEAD RULE (2026-08-05, client: "we've got five or six
+              different hero sections and they're kind of the same, let's build
+              a rule in that they all use the same heading style. Right now the
+              homepage is smaller").
+
+              It was smaller because it was the ONE hero that never used the
+              utility. Every other masthead takes `.display` through PageHero;
+              this one hand-rolled clamp(38px,7vw,92px) against .display's
+              42→100px, so it ran ~8% short at every width and nobody could see
+              why without opening two files.
+
+              Four house rules were being broken in this one tag, and adopting
+              the class fixes all four at once rather than one at a time:
+              the size is now the ladder's, `fontWeight: 500` is gone (headings
+              never take a weight — the size IS the hierarchy), the tracking
+              and leading come from the rung, and the <em> drops its inline
+              Saol so the ACCENT-WORD DEVICE applies from globals instead of a
+              hand-typed copy of it that had drifted to a raw #F6E8CD.
+
+              ⚠ The margin stays inline on purpose. It is the from-overline
+              gap hand-rolled, and swapping it for `.from-overline` would be a
+              SPACING change — those are being swept last as one revertable
+              commit, so this is left as a candidate rather than fixed here. */}
+          <h1 className="display text-bone" style={{ margin: "clamp(22px,2.4vw,32px) 0 0" }}>
             Building websites
             <br />
-            that patients{" "}
-            <em style={{ fontFamily: "var(--font-saol), Georgia, serif", fontStyle: "italic", fontWeight: 300, letterSpacing: "-0.01em", color: "#F6E8CD" }}>trust.</em>
+            that patients <em>trust.</em>
           </h1>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)", flexWrap: "wrap" }}>
             <Link href="/start-a-project" style={{ background: "var(--bone)", color: "var(--ink)", borderRadius: "999px", padding: "16px 28px", whiteSpace: "nowrap", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase" }}>
