@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SERVICES, getServiceBySlug } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import FaqSection from "@/components/FaqSection";
-import SectionGlow from "@/components/SectionGlow";
-import StageGlyph from "@/components/StageGlyph";
+import OfferBand from "@/components/OfferBand";
+import RuledLinkRows from "@/components/RuledLinkRows";
+import ServiceProcessTimeline from "@/components/ServiceProcessTimeline";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 
@@ -55,15 +55,6 @@ export async function generateMetadata({
   };
 }
 
-/* Tailwind scans for literal class strings, so the timeline's column count is
-   a lookup rather than an interpolated class (a template literal would be
-   purged). Four and five are the counts the disciplines actually use. */
-const TIMELINE_COLS: Record<number, string> = {
-  3: "md:grid-cols-3",
-  4: "md:grid-cols-4",
-  5: "md:grid-cols-5",
-};
-
 export default async function ServicePage({
   params,
 }: {
@@ -106,138 +97,43 @@ export default async function ServicePage({
       />
 
       {/* WHAT IT IS — the intro in the left rail, the deliverables ruled
-          alongside. Carries the SectionGlow + matching grain: this is the
-          section adjoining the hero, so it owns the seam blend. */}
-      <section className="relative overflow-hidden grain bg-ink">
-        <SectionGlow blob="left" />
-        <div className="shell relative z-10 py-20 md:py-28">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-12">
-            <div className="md:col-span-5">
-              <p className="overline reveal">What it is</p>
-              <h2
-                className="heading-lg from-overline text-bone reveal"
-                style={{ transitionDelay: "80ms" }}
-              >
-                {service.name}
-              </h2>
-            </div>
-            <div className="md:col-span-6 md:col-start-7">
-              <p
-                className="body-lg text-bone-dim reveal"
-                style={{ transitionDelay: "160ms" }}
-              >
-                {service.intro}
-              </p>
-              <ul className="mt-10 grid grid-cols-1 gap-x-10 gap-y-3.5 border-t rule-dark pt-7 sm:grid-cols-2">
-                {service.deliverables.map((d, i) => (
-                  <li
-                    key={d}
-                    className="body-sm flex items-center gap-3 text-bone-dim reveal"
-                    style={{ transitionDelay: `${i * 60}ms` }}
-                  >
-                    <span aria-hidden className="h-px w-4 shrink-0 bg-clay" />
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+          alongside. Takes the glow: this is the section adjoining the hero,
+          so it owns the seam blend. */}
+      <OfferBand
+        glow
+        spacious
+        list="deliverables"
+        kicker="What it is"
+        heading={service.name}
+        prose={service.intro}
+        items={service.deliverables}
+      />
 
-      {/* THE PROCESS — the horizontal timeline (2026-07-14, client's call),
-          now per discipline. Steps run left→right as nodes on one rule; each
-          StageGlyph sits ON the line (an ink mask breaks the rule so it reads
-          as connecting the nodes) and draws itself in, staggered, as the row
-          enters. Stacks to a vertical list below md. The glyph opacity ramps
-          to full across however many steps this discipline has. */}
-      <section className="relative overflow-hidden grain bg-ink">
-        <div className="shell relative z-10 py-24 md:py-32">
-          <div>
-            <p className="overline reveal">How we work</p>
-            <h2
-              className="heading-lg from-overline reveal"
-              style={{ transitionDelay: "80ms" }}
-            >
-              {service.processHeading}
-            </h2>
-            <p
-              className="lede body-lg max-w-[52ch] text-bone-dim reveal"
-              style={{ transitionDelay: "160ms" }}
-            >
-              {service.processLede}
-            </p>
-          </div>
-          <div className="relative mt-16 md:mt-24">
-            <span
-              aria-hidden
-              className="absolute left-0 right-0 top-7 hidden border-t rule-dark md:block"
-            />
-            <ol
-              className={`grid grid-cols-1 gap-14 md:gap-8 ${
-                TIMELINE_COLS[steps.length] ?? "md:grid-cols-5"
-              }`}
-            >
-              {steps.map((p, i) => (
-                <li
-                  key={p.num}
-                  className="reveal"
-                  style={
-                    {
-                      transitionDelay: `${i * 110}ms`,
-                      "--sg-delay": `${i * 110}ms`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <span
-                    className="relative inline-flex bg-ink pr-5"
-                    style={{
-                      opacity:
-                        steps.length > 1 ? 0.4 + (i / (steps.length - 1)) * 0.6 : 1,
-                    }}
-                  >
-                    <StageGlyph
-                      stage={(i + 1) as 1 | 2 | 3 | 4 | 5}
-                      className="h-14 w-14 text-champagne"
-                    />
-                  </span>
-                  <p className="index-num mt-8 text-clay">{p.num}</p>
-                  <h3 className="heading-sm mt-2 text-bone">{p.title}</h3>
-                  <p className="body-sm mt-3 text-bone-dim">{p.body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
+      {/* THE PROCESS — the shared horizontal timeline, carrying THIS
+          discipline's own steps. The counts differ by design (web 5, SEO 4,
+          brand 4); the component takes whatever `lib/services.ts` gives it. */}
+      <ServiceProcessTimeline
+        heading={service.processHeading}
+        lede={service.processLede}
+        steps={steps}
+      />
 
       {/* THE OTHER TWO — internal linking between the sibling services, so a
           reader (and a crawler) can reach every discipline from any one of
           them without going back to the hub. Sits BEFORE the FAQ so the page
           still ends on the cream FAQ → cream close movement. */}
-      <section className="relative overflow-hidden grain bg-ink">
-        <div className="shell relative z-10 py-20 md:py-24">
-          <p className="overline reveal">The other disciplines</p>
-          <div className="mt-10 border-t rule-dark">
-            {others.map((o, i) => (
-              <Link
-                key={o.slug}
-                href={`/services/${o.slug}`}
-                className="group grid grid-cols-1 items-baseline gap-y-3 border-b rule-dark py-8 reveal md:grid-cols-12 md:gap-8 md:py-10"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <h2 className="heading-md text-bone transition-opacity group-hover:opacity-70 md:col-span-5">
-                  {o.name}
-                </h2>
-                <p className="body text-bone-dim md:col-span-5">{o.lead}</p>
-                <span className="btn-ghost text-bone md:col-span-2 md:justify-self-end">
-                  Read more <span aria-hidden>→</span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <RuledLinkRows
+        layout="onward"
+        spacious
+        stagger={80}
+        kicker="The other disciplines"
+        linkLabel="Read more"
+        rows={others.map((o) => ({
+          href: `/services/${o.slug}`,
+          title: o.name,
+          lead: o.lead,
+        }))}
+      />
 
       {/* FAQ — page-owned questions, feeding this page's FAQPage schema, on
           the shared <FaqSection> (the cream band, 2026-07-24). */}

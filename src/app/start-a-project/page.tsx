@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { breadcrumbSchema, contactPageSchema } from "@/lib/schema";
+import GlowBand from "@/components/GlowBand";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
-import SectionGlow from "@/components/SectionGlow";
 import StartProjectForm from "@/components/StartProjectForm";
 
 /**
@@ -67,21 +67,20 @@ export default function StartAProjectPage() {
       {/* The hero blend decays through the form section (the seam contract);
           the individual blob sits LEFT so the ruled rows' right columns stay
           quiet behind the fields. */}
-      <section className="relative grain overflow-hidden">
-        <SectionGlow blob="left" />
+      <GlowBand
+        blob="left"
+        padding="pt-10 pb-24 md:pt-12 md:pb-32"
+        grid="grid grid-cols-1 md:grid-cols-12"
+      >
         {/* The compact grid form (rebuilt 2026-08-01) seats in the left
             two-thirds here — on the fallback page the masthead above already
             carries the heading and lede, so the form needs no header of its
-            own. */}
-        <div className="shell relative z-10 pt-10 pb-24 md:pt-12 md:pb-32">
-          <div className="grid grid-cols-1 md:grid-cols-12">
-            {/* max-w caps the MEASURE: at full col-span-8 of the 1600 shell
-                the radio cards stretched to ~446px each and read sparse. The
-                overlay's column (~590px) is the reference width. */}
-            <StartProjectForm className="max-w-[680px] md:col-span-8" />
-          </div>
-        </div>
-      </section>
+            own.
+            max-w caps the MEASURE: at full col-span-8 of the 1600 shell the
+            radio cards stretched to ~446px each and read sparse. The
+            overlay's column (~590px) is the reference width. */}
+        <StartProjectForm className="max-w-[680px] md:col-span-8" />
+      </GlowBand>
     </main>
   );
 }

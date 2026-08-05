@@ -29,6 +29,8 @@
  * `spacious` is the statement-moment padding tier, for a light act that
  * wants room.
  */
+import ExitFadeOverlay from "@/components/ExitFadeOverlay";
+
 export default function Testimonial({
   rule = false,
   exitFade = false,
@@ -123,12 +125,11 @@ export default function Testimonial({
           </div>
         </div>
       </div>
-      {exitFade && (
-        <div
-          aria-hidden
-          className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink"
-        />
-      )}
+      {/* The fourth verbatim copy of this overlay, folded into the shared
+          component 2026-08-02 with the three on the homepage. It must stay a
+          DIRECT child of the section: ExitFades measures el.parentElement to
+          get its scope, so wrapping it changes the window it fades over. */}
+      {exitFade && <ExitFadeOverlay />}
     </section>
   );
 }

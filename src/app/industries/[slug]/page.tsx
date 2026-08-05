@@ -5,6 +5,7 @@ import { SITE } from "@/lib/site";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import FaqSection from "@/components/FaqSection";
+import OfferBand from "@/components/OfferBand";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 
@@ -85,40 +86,12 @@ export default async function IndustryPage({
 
       {/* What we do for this niche — opens with the rest of the intro (its
           hero overflow; see the split above) before the points. */}
-      <section className="relative overflow-hidden grain bg-ink">
-        <div className="shell relative z-10 py-16 md:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-            <div className="md:col-span-4">
-              <p className="overline reveal">How we help</p>
-              <h2 className="heading-lg text-bone from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                What we bring to {industry.name.toLowerCase()}
-              </h2>
-              {introRest && (
-                <p
-                  className="lede body text-bone-dim reveal"
-                  style={{ transitionDelay: "160ms" }}
-                >
-                  {introRest}
-                </p>
-              )}
-            </div>
-            <ul className="md:col-span-8 divide-y rule-dark border-y rule-dark">
-              {industry.points.map((point, i) => (
-                <li
-                  key={point}
-                  className="flex gap-5 py-5 reveal rule-dark"
-                  style={{ transitionDelay: `${i * 60}ms` }}
-                >
-                  <span className="index-num text-clay shrink-0">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p className="body-lg text-bone-dim">{point}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+      <OfferBand
+        kicker="How we help"
+        heading={`What we bring to ${industry.name.toLowerCase()}`}
+        prose={introRest}
+        items={industry.points}
+      />
 
       {/* FAQ — moved to the shared <FaqSection> 2026-07-24 with the cream
           change ("FAQs should be like a brand cream"): one FAQ band across

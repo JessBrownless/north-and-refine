@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { INDUSTRIES } from "@/lib/industries";
 import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
+import RuledLinkRows from "@/components/RuledLinkRows";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 
@@ -36,30 +36,18 @@ export default function IndustriesIndexPage() {
         cta={{ label: "Start a project", href: "/start-a-project" }}
       />
 
-      <section className="relative overflow-hidden grain bg-ink">
-        <div className="shell relative z-10 py-16 md:py-24">
-          <div className="divide-y rule-dark border-y rule-dark">
-            {INDUSTRIES.map((industry, i) => (
-              <Link
-                key={industry.slug}
-                href={`/industries/${industry.slug}`}
-                className="group flex flex-col md:flex-row md:items-baseline justify-between gap-4 py-8 reveal rule-dark"
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                <div className="max-w-2xl">
-                  <h2 className="heading-lg text-bone transition-opacity group-hover:opacity-70">
-                    {industry.heading}
-                  </h2>
-                  <p className="body mt-2 text-bone-dim">{industry.intro.split(". ")[0]}.</p>
-                </div>
-                <span className="btn-ghost text-bone shrink-0">
-                  Explore <span aria-hidden>→</span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* The niches as a ruled index. The lead is the intro's FIRST SENTENCE,
+          split at render (the page owns its own copy shaping; the component
+          never re-punctuates). */}
+      <RuledLinkRows
+        layout="index"
+        linkLabel="Explore"
+        rows={INDUSTRIES.map((industry) => ({
+          href: `/industries/${industry.slug}`,
+          title: industry.heading,
+          lead: `${industry.intro.split(". ")[0]}.`,
+        }))}
+      />
 
       <ContactCTA />
     </main>

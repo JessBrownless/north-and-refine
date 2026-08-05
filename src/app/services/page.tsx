@@ -4,8 +4,9 @@ import ContactCTA from "@/components/ContactCTA";
 import FaqSection from "@/components/FaqSection";
 import JsonLd from "@/components/JsonLd";
 import ServicesScrollIndex from "@/components/ServicesScrollIndex";
-import ManifestoStatement from "@/components/ManifestoStatement";
-import SectionGlow from "@/components/SectionGlow";
+import BeliefCanvas from "@/components/BeliefCanvas";
+import BeliefStatement from "@/components/BeliefStatement";
+import BalancedProsePair from "@/components/BalancedProsePair";
 import { SERVICES } from "@/lib/services";
 import Testimonial from "@/components/Testimonial";
 import { serviceSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
@@ -52,6 +53,17 @@ import {
    kicker stays "Our belief"; scroll-fill lands on "thing". */
 const BELIEF =
   "Your website should reflect the excellence of your practice, from the brand behind it, to the search that finds it – all saying one thing.";
+
+/* THE SUPPORTING PARAGRAPHS (2026-07-24, client: "a paragraph of text after
+   the we believe section… aligned off to the right") — the elaboration that
+   answers the belief, set through <BalancedProsePair>'s balanced columns.
+   ⚠ COPY IS DRAFTED (both paragraphs), not client-supplied — review before
+   launch. Order holds web → search → brand; the fragmentation line describes
+   the practice's situation, not a rival's failing. */
+const BELIEF_PROSE = [
+  "It rarely does by accident. Most practices inherit a website from one supplier, search from another and a brand from a third, and the seams show. We keep all three in one studio, designed together, so what a patient meets online is as considered as the care itself.",
+  "That is also why the work compounds. The website is built to rank from its first wireframe, the writing carries the brand’s voice into every procedure page, and each piece strengthens the others the way good clinical practice does: quietly, and over time. The result is a presence that keeps earning trust while you are in the consulting room.",
+];
 
 export const metadata: Metadata = {
   title: "Services — Web design, SEO & branding",
@@ -264,202 +276,33 @@ export default function ServicesPage() {
         }
       />
 
-      {/* THE BELIEF — the studio's conviction about what actually makes a
-          presence strong, setting up the three disciplines the page then
-          indexes.
-
-          THE SAME COMPARTMENT AS THE HOMEPAGE MANIFESTO (2026-07-24, client:
-          "the same, layout-wise… I don't want them to feel too different"):
-          the shared <ManifestoStatement> on the same 140vh sticky track, so
-          the statement pins and its words FILL IN word by word as you scroll
-          through the dwell. That means it follows the homepage's grammar
-          exactly — .display register, statement alone (no kicker), and NO
-          italic accent: on this device the scroll-fill IS the emphasis, which
-          is why the homepage manifesto carries no <em> either.
-
-          ⚠ position:sticky BREAKS under an overflow-hidden ancestor, and
-          SectionGlow needs its blobs clipped — so the glow gets its own
-          absolutely-positioned clipping layer, a SIBLING of the sticky child
-          rather than its parent. `grain` stays on the section itself (its
-          ::before is inset-0, so it can't overflow and needs no clip). This
-          section still owns the seam blend, being the one adjoining the hero;
-          the scroll index below sits on plain ink. */}
-      {/* Track tightened 140vh → 118vh (2026-07-24, client: the fade-in
-          section "looks a bit too padded") — the scrub adapts to the track
-          height, so the fill still completes inside the shorter dwell; the
-          section just releases ~1.5 screens sooner. The homepage manifesto
-          keeps its own 140vh track — its statement is the page's centrepiece;
-          here the belief is a beat between the hero and the index. */}
-      {/* BELIEF + INDEX SHARE ONE SURFACE (2026-07-24, client: the two read
-          as "two completely separate text sections"). One section owns the
-          ground (ink + grain + the clipped glow layer); the belief's sticky
-          track runs first and the index rows begin as the statement releases
-          — a short pt instead of the old full py-32, so the 01 rows arrive
-          while the belief is still in the eye and the statement reads as the
-          index's opening line, not its own island.
-          ⚠ TWO sticky devices live in here (the belief pin + the odometer
-          numeral), so NO overflow-hidden anywhere on their ancestors — an
-          overflow-hidden ancestor becomes the sticky element's scroll
-          container and silently kills the pin (this regressed twice on
-          2026-07-24 before the client caught it). `grain` alone is safe (its
-          ::before is inset-0, nothing to clip); SectionGlow's blobs sit in
-          an absolutely-positioned clipping layer that is a SIBLING of the
-          sticky content, never its ancestor. */}
-      <section className="relative grain bg-ink">
-        <div aria-hidden className="absolute inset-0 overflow-hidden">
-          {/* Standard dose since 2026-07-31 (was seamEmphasis, the handoff's
-              richer amber tail): with the hero's new foot hairline the
-              boundary is a stated divide, so the warmth resolves at the
-              line rather than carrying through it. */}
-          <SectionGlow blob="left" />
-          {/* The canvas blobs (2026-07-24, "blurred gradient blobs" down the
-              dark middle): two quiet pools past the seam glow's reach, so
-              the belief and the index rows sit in atmosphere rather than on
-              flat ink — the /about shared-canvas grammar, hub doses. */}
-          <div
-            style={{
-              position: "absolute",
-              right: "-12%",
-              top: "38%",
-              width: "44%",
-              height: "26%",
-              borderRadius: "50%",
-              background: "#C2A878",
-              opacity: 0.04,
-              filter: "blur(150px)",
-              transform: "translateZ(0)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              left: "-10%",
-              top: "68%",
-              width: "48%",
-              height: "26%",
-              borderRadius: "50%",
-              background: "#8A5A2E",
-              opacity: 0.06,
-              filter: "blur(150px)",
-              transform: "translateZ(0)",
-            }}
-          />
-        </div>
-
+      {/* THE DARK MIDDLE — belief, prose pair and index on ONE SURFACE
+          (2026-07-24, client: the belief and the index read as "two
+          completely separate text sections"). <BeliefCanvas> owns the ground
+          (ink + grain + the clipped glow layer) and the beats compose on it,
+          so the 01 rows arrive while the belief is still in the eye and the
+          statement reads as the index's opening line, not its own island.
+          ⚠ The index's odometer numeral is position:sticky, so nothing in
+          this tree may be overflow-hidden — see the canvas docstring for why
+          the glow's clipping layer has to stay a SIBLING. */}
+      <BeliefCanvas>
         {/* THE CREDIT STRIP left this page 2026-07-24 (client: "drop the
             industries strip now… we might bring it back") — PARKED as
             <CreditStrip> in the components drawer, alongside Deck and
             NewsletterSignup. The belief now opens the dark middle directly
             under the hero. */}
 
-        {/* THE BELIEF — the HANGING-KICKER INDENT (2026-07-24, client ref:
-            the "[Our Approach]" statement pattern — kicker sits inside the
-            first line's indent, the statement runs flush left underneath and
-            fills the rail). The wrapper carries .belief-statement too, so
-            the kicker's em-offsets track the statement's own clamp; the
-            indent is md+ only — on mobile the kicker stacks above and the
-            text runs unindented (22% of a phone is less than the label).
-            Kicker says "Our belief" and the statement drops its old "We
-            believe that" opener (client, same day) — the belief-verb lives
-            once, in the label, and the big words start at the substance.
-            Word-fill unchanged (data-manifesto-track = the scrub's measure).
-            AIR: 160px both sides at md+ (the handoff value), stepped down to
-            96px on mobile — 2026-07-24, client: "padding feels a bit off" on
-            the phone, where the desktop pads stacked into dead screens.
-            The whole block also rides .reveal now (client: the section
-            "needs to fade in a bit in some way") — the fill completes by
-            mid-viewport per the handoff, so a fast scroller met it already
-            lit and static; the 1.1s entrance fade gives it an arrival, and
-            the word opacities compose with it untouched. */}
-        {/* Desktop top air stepped up 160 → 208 (2026-07-31, client: "a bit
-            more padding on top of the We Believe section… on desktop at
-            least") — with the new hero-foot hairline the belief opens a
-            stated new chapter, and the deeper breath before the kicker sells
-            it. Mobile keeps 96 (the phone pads were tuned down 2026-07-24
-            and stay). Foot holds the handoff's 160. */}
-        <div data-manifesto-track className="relative z-10 py-24 md:pb-40 md:pt-52">
-          <div className="shell">
-            <div className="belief-statement reveal relative">
-              <p className="overline mb-6 text-clay reveal md:absolute md:left-0 md:top-[0.3em] md:mb-0">
-                Our belief
-              </p>
-              <ManifestoStatement
-                text={BELIEF}
-                className="belief-statement max-w-none text-bone md:indent-[22%]"
-              />
-            </div>
-          </div>
-        </div>
+        {/* ⚠ THE COMMENT HERE WAS CORRECTED, THE MARKUP WAS NOT TOUCHED. The
+            note that stood in this place claimed the belief ran on "the same
+            140vh sticky track" as the homepage manifesto, and carried a
+            "tightened 140vh → 118vh" line. Neither has been true since
+            2026-07-24: the pin was removed that day on purpose (the client
+            felt "friction" at this section), and what ships is a plain padded
+            block in normal flow. The homepage keeps its 140vh pin. Full
+            account in <BeliefStatement>'s docstring. */}
+        <BeliefStatement kicker="Our belief" text={BELIEF} />
 
-        {/* THE SUPPORTING PARAGRAPH (2026-07-24, client: "a paragraph of
-            text after the we believe section… aligned off to the right") —
-            the prose-beside-statement grammar: the belief speaks at display
-            scale flush left, the elaboration answers at body scale seated
-            in the right columns. A SIBLING of the manifesto track on
-            purpose: inside it, the extra height could tip the scrub into
-            its sticky-dwell branch and stall the fill.
-            ⚠ COPY IS DRAFTED (not client-supplied) — review before launch.
-            Order holds web → search → brand; the fragmentation line
-            describes the practice's situation, not a rival's failing. */}
-        {/* TWO-COLUMN EDITORIAL PAIR (2026-07-25, three seats in one
-            morning — full-rail edges, then right-half 3+3, then the final:
-            "it needs to span the width of the border above the image
-            below"). The pair now occupies EXACTLY the index rows' content
-            column — cols 6–8 and 10–12 — so the first column's left edge
-            and the second's right edge align with the row hairline's ends
-            below; col 9 is the centre gutter, and the numeral's left third
-            stays air. Stacks to one column below md. */}
-        {/* Desktop foot 144 → 192 (same 2026-07-31 ask: more air "under the
-            two paragraphs") — the editorial pair releases with a fuller
-            breath before the index rows arrive. */}
-        <div className="shell relative z-10 pb-24 md:pb-48">
-          {/* Outer grid gap-10 MATCHES the index's grid below (it runs
-              gap-10, not the usual md:gap-8) so the col-6 edge sits exactly
-              on the hairline's start. The pair itself is an INNER two-column
-              split of that span (fourth seat, client: the spare-column
-              gutter looked "huge") — equal halves, one standard gutter. */}
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
-            {/* CSS MULTI-COLUMNS, not a grid (fifth seat, client: "paragraphs
-                need to be even… any fancy css stuff?"): both paragraphs FLOW
-                through columns-2 and the browser BALANCES them (column-fill:
-                balance is the default), so the two columns bottom out even
-                at every viewport regardless of copy length — true newspaper
-                setting. The trade: a paragraph may break across the column
-                gutter mid-sentence, which is exactly how editorial columns
-                behave. Reveal rides the wrapper (per-paragraph reveals would
-                fade a split paragraph in two stages). */}
-            {/* [orphans:1]/[widows:1]: browsers default both to 2 in column
-                fragmentation, so the balancer can only move lines in PAIRS —
-                that quantisation was the stubborn two-line offset. Allowing
-                single-line breaks lets balance land within one line. */}
-            <div className="reveal md:col-span-7 md:col-start-6 md:columns-2 md:gap-10 [orphans:1] [widows:1]">
-              <p className="body-lg mb-6 text-bone-dim md:mb-0">
-                It rarely does by accident. Most practices inherit a website
-                from one supplier, search from another and a brand from a
-                third, and the seams show. We keep all three in one studio,
-                designed together, so what a patient meets online is as
-                considered as the care itself.
-              </p>
-              {/* ⚠ COPY IS DRAFTED (both paragraphs) — review before launch.
-                  No inter-paragraph margin OR indent at md (2026-07-31,
-                  client: the indent made the second paragraph "jut in" and
-                  unbalance the columns — "make it very flowing"): the two
-                  paragraphs read as one continuous stream through the
-                  balanced columns. The newspaper first-line indent lives in
-                  git history if paragraph marks are ever wanted back; a
-                  margin stays off the table (it defeats column-fill:
-                  balance). Mobile keeps the stacked mb-6 separation. */}
-              <p className="body-lg text-bone-dim">
-                That is also why the work compounds. The website is built to
-                rank from its first wireframe, the writing carries the
-                brand&rsquo;s voice into every procedure page, and each piece
-                strengthens the others the way good clinical practice does:
-                quietly, and over time. The result is a presence that keeps
-                earning trust while you are in the consulting room.
-              </p>
-            </div>
-          </div>
-        </div>
+        <BalancedProsePair paragraphs={BELIEF_PROSE} />
 
         {/* THE INDEX — straight into the odometer rows (the "What we do /
             Three disciplines, one studio" kicker pair was cut 2026-07-24,
@@ -467,11 +310,11 @@ export default function ServicesPage() {
             disciplines one beat above, the labels were narration; the rows'
             own hairlines are the structure now). ⚠ The odometer is
             position:sticky — the glow stays in the clipped SIBLING layer
-            above; nothing here may be overflow-hidden. */}
+            inside the canvas; nothing here may be overflow-hidden. */}
         <div className="shell relative z-10 pb-24 md:pb-44">
           <ServicesScrollIndex services={INDEX_ROWS} />
         </div>
-      </section>
+      </BeliefCanvas>
 
       {/* THE PROCESS TIMELINE LEFT THIS PAGE 2026-07-24 with the split. It was
           a WEBSITE process ("schema, analytics and redirects") under a heading

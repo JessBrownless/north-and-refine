@@ -1,13 +1,13 @@
-import Link from "next/link";
-import ManifestoStatement from "@/components/ManifestoStatement";
-import { getFeaturedProjects, type WorkEntry } from "@/lib/work";
+import { getFeaturedProjects } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
+import BlogRailBand from "@/components/BlogRailBand";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
-import ServicesShowcase from "@/components/ServicesShowcase";
-import Carousel from "@/components/Carousel";
 import ContactCTA from "@/components/ContactCTA";
 import HomeHero from "@/components/HomeHero";
+import ManifestoTrack from "@/components/ManifestoTrack";
+import SelectedWorkBand from "@/components/SelectedWorkBand";
 import Testimonial from "@/components/Testimonial";
+import WhatWeDoBand from "@/components/WhatWeDoBand";
 
 // Homepage — TYPE-LED, FLAT, EDITED (decided 2026-07-09, "rip up the rule
 // book"; tightened same day: "everything should earn its place"). The page
@@ -15,10 +15,14 @@ import Testimonial from "@/components/Testimonial";
 // warm ink, one italic accent word per statement, quiet kickers, hairlines,
 // air. Nothing performs (no deck, no blend tricks, no scroll pin, no
 // ambient pools, no grain, no exit fades, no marquee — all parked in the
-// system, none invited here). Imagery: the hero plate (Rowen 5 portrait in
-// the masthead's dead corner), the work captures (Selected work), and the
-// close plate (Rowen 8 landscape in ContactCTA) — the two Rowen frames
-// bookend the page: same room, same suite, the client's site on screen.
+// system, none invited here). ⚠ That last sentence has been false since
+// 2026-07-11, when the sticky manifesto track and the exit fades came back
+// at the client's request; it is kept because it records the intent the page
+// was cut down to, not because it describes the page. Imagery: the hero
+// plate (Rowen 5 portrait in the masthead's dead corner), the work captures
+// (Selected work), and the close plate (Rowen 8 landscape in ContactCTA) —
+// the two Rowen frames bookend the page: same room, same suite, the client's
+// site on screen.
 //
 // Cut in the earn-its-place pass (2026-07-09 evening): the hero disciplines
 // list, the proof four-up, the service-row leads, the "Who we work with"
@@ -30,70 +34,11 @@ import Testimonial from "@/components/Testimonial";
 // stand behind, the numbers were positioning claims or too weak to
 // publish. Real, client-approved metrics belong inside their case
 // studies (work frontmatter `metrics`) when they exist — not here.
-
-// One Selected-work plate — shared by the desktop pair grid and the mobile
-// contact-sheet rail (2026-07-11: four stacked captures made the phone page
-// a scroll marathon; the rail holds all four in one beat, reader-driven).
-function WorkPlate({
-  project,
-  className = "",
-  delay = 0,
-}: {
-  project: WorkEntry;
-  className?: string;
-  delay?: number;
-}) {
-  return (
-    <Link
-      href={`/work/${project.slug}`}
-      className={`group block ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
-    >
-      <div className="frame aspect-[16/10]">
-        {project.frontmatter.thumbImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.frontmatter.thumbImage}
-            alt={project.frontmatter.thumbImageAlt ?? `${project.frontmatter.client} — website design`}
-            loading="lazy"
-            className="plate-develop absolute inset-0 h-full w-full object-cover object-top"
-          />
-        ) : (
-          <span className="portrait-fill absolute inset-0 flex items-center justify-center">
-            <span className="index-num text-ink/25" aria-hidden>
-              ✦
-            </span>
-          </span>
-        )}
-      </div>
-      <div className="mt-5 flex items-baseline justify-between gap-4 border-t rule-dark pt-4">
-        {/* .card-title (2026-07-11): card titles are captions, not headings —
-            sans, shared with the blog teasers; no Saol em accent. */}
-        <h3 className="card-title text-bone transition-opacity group-hover:opacity-70">
-          {project.frontmatter.client}
-        </h3>
-        <span className="overline text-clay">
-          {project.frontmatter.services.slice(0, 2).join(" · ")}
-        </span>
-      </div>
-      {project.frontmatter.summary && (
-        <p className="body-sm mt-3 max-w-[52ch] text-bone-dim">
-          {project.frontmatter.summary}
-        </p>
-      )}
-    </Link>
-  );
-}
-
-// Editorial date for the blog teaser cards.
-function formatDate(iso: string): string {
-  return new Intl.DateTimeFormat("en-AU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(iso));
-}
+//
+// COMPOSITION ONLY (2026-08-05): every band below is a component, so this
+// file is the page's ORDER and its DATA and nothing else. The reasons a band
+// looks the way it does moved into the band; edit them there and every
+// consumer, /stylesheet included, moves together.
 
 // The homepage manifesto — This-January length: one thought, four lines.
 const MANIFESTO =
@@ -113,99 +58,20 @@ export default function HomePage() {
       {/* ══ HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19). ══ */}
       <HomeHero />
 
-      {/* ── Manifesto (live-era) — the 180vh sticky track: the statement
-          holds while the scroll-scrub lights its words, then releases.
-          "A studio that treats..." in its original This-January form. ── */}
-      {/* Track tightened 180vh -> 140vh (2026-07-11): the dwell was making
-          the approach to What-we-do feel endless — 40vh of scrub keeps the
-          word-lighting readable while roughly halving the toll. */}
-      <section className="relative z-10 h-[140vh] pt-[10vh] pb-[5vh]">
-        <div className="sticky top-0 flex h-screen items-center">
-          <div className="shell w-full">
-            <ManifestoStatement text={MANIFESTO} />
-            <div className="mt-12 reveal" style={{ transitionDelay: "160ms" }}>
-              <Link href="/about" className="btn btn-secondary-dark">
-                <span aria-hidden>↳</span>
-                Our story
-              </Link>
-            </div>
-          </div>
-        </div>
-        {/* Fade-to-ink on exit — the scene hands over to the offer */}
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
+      {/* ── Manifesto (live-era) — the sticky track: the statement holds while
+          the scroll-scrub lights its words, then releases. "A studio that
+          treats..." in its original This-January form. ── */}
+      <ManifestoTrack
+        text={MANIFESTO}
+        cta={{ href: "/about", label: "Our story" }}
+        exitFade
+      />
 
-      {/* ── What we do — three display-scale ruled rows. Sits BETWEEN the
-          studio intro and the work (2026-07-09): both neighbours are
-          asymmetric (offset statement grid; staggered work pairs), and the
-          full-width ruled rows are the page's most formal element — the
-          stabiliser between two deliberately jagged sections. ── */}
-      {/* ── Selected work — the page's only imagery: plain frames, real
-          captures, ruled captions (italic client name, services meta), and
-          the project's one-line outcome from its frontmatter. The work IS
-          the proof — the receipts strip that used to close this section
-          was cut 2026-07-10 (see the header note). ── */}
-      <section id="selected-work" className="relative scroll-mt-14 pb-24 md:pb-32">
-        <div className="shell">
-          <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
-            <div>
-              <p className="overline reveal">Selected work</p>
-              {/* heading-xl (promoted from heading-lg 2026-07-10 late): on
-                  the homepage the collection heads are MOMENTS — every
-                  neighbouring beat (statement, service rows, close) speaks
-                  at xl, and the work-card client names below are heading-lg,
-                  which tied the old signpost to its own items. */}
-              <h2 className="heading-part from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                Practices we&rsquo;ve <em>refined</em>
-              </h2>
-            </div>
-            <Link href="/work" className="btn-ghost text-bone reveal">
-              All work <span aria-hidden>→</span>
-            </Link>
-          </div>
+      {/* ── Selected work — the page's only imagery, and the proof. ── */}
+      <SelectedWorkBand projects={featured} />
 
-          {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
-              all four captures in one beat, reader-driven like the blog
-              rail below. */}
-          <div className="reveal md:hidden" style={{ transitionDelay: "120ms" }}>
-            <Carousel
-              ariaLabel="Selected work"
-              className="mt-14"
-              slideClassName="w-[76vw]"
-            >
-              {featured.map((project) => (
-                <WorkPlate key={project.slug} project={project} />
-              ))}
-            </Carousel>
-          </div>
-
-          {/* Desktop: the staggered pair rhythm — the right column starts a
-              beat lower. */}
-          <div className="mt-14 hidden grid-cols-1 gap-x-8 gap-y-16 md:mt-20 md:grid md:grid-cols-2">
-            {featured.map((project, i) => (
-              <WorkPlate
-                key={project.slug}
-                project={project}
-                className={`reveal ${i % 2 === 1 ? "md:mt-28" : ""}`}
-                delay={(i % 2) * 120}
-              />
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      <section className="relative py-24 md:py-32">
-        <div className="shell">
-          <p className="overline mb-8 reveal md:mb-10">What we do</p>
-          <div className="reveal" style={{ transitionDelay: "120ms" }}>
-            <ServicesShowcase />
-          </div>
-        </div>
-        {/* Fade-to-ink on exit (restored 2026-07-11 — the live-era section handover the client loved) */}
-        <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-      </section>
-
+      {/* ── What we do — the ruled rows, the page's formal stabiliser. ── */}
+      <WhatWeDoBand exitFade />
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
           human proof (work → words). COMPONENTISED 2026-07-24 when /services
@@ -228,65 +94,11 @@ export default function HomePage() {
           the five steps in full; the homepage doesn't tease them. The
           method-strip pattern survives in git history.) ── */}
 
-      {/* ── Blog teasers — a rail instead of a grid (2026-07-10): the
-          carousel earns its place by holding SIX posts where the grid held
-          three. ── */}
-      {posts.length > 0 && (
-        <section className="relative py-24 md:py-32">
-          <div className="shell">
-            <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
-              <div>
-                <p className="overline reveal">Blog</p>
-                {/* heading-xl — promoted with Selected work's head (the
-                    homepage collection heads are moments, see above). */}
-                <h2 className="heading-part from-overline reveal" style={{ transitionDelay: "80ms" }}>
-                  Notes from the studio
-                </h2>
-              </div>
-              <Link href="/blog" className="btn-ghost text-bone reveal">
-                All entries <span aria-hidden>→</span>
-              </Link>
-            </div>
-            <div className="reveal" style={{ transitionDelay: "120ms" }}>
-              <Carousel
-                ariaLabel="Latest blog posts"
-                className="mt-14 md:mt-20"
-                slideClassName="w-[76vw] sm:w-[48%] lg:w-[30%]"
-              >
-                {posts.map((post) => (
-                  <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-                    {/* 16:10 per the ratio canon — blog imagery is FIGURES
-                        (landscape), matching the /blog index slots. */}
-                    <div className="frame aspect-[16/10]">
-                      {post.frontmatter.featuredImage ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={post.frontmatter.featuredImage}
-                          alt={post.frontmatter.featuredImageAlt ?? ""}
-                          loading="lazy"
-                          className="plate-develop h-full w-full object-cover"
-                        />
-                      ) : (
-                        <span className="portrait-fill absolute inset-0 flex items-center justify-center">
-                          <span className="index-num text-ink/30" aria-hidden>✦</span>
-                        </span>
-                      )}
-                    </div>
-                    <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
-                    <h3 className="card-title mt-3 max-w-[28ch] text-bone transition-opacity group-hover:opacity-70">
-                      {post.frontmatter.title}
-                    </h3>
-                  </Link>
-                ))}
-              </Carousel>
-            </div>
-          </div>
-          {/* Fade-to-ink on exit (restored 2026-07-11 — the live-era section handover the client loved) */}
-          <div aria-hidden className="exit-fade exit-fade-long absolute inset-0 z-20 bg-ink" />
-        </section>
-      )}
+      {/* ── Blog teasers — a rail instead of a grid (2026-07-10). ── */}
+      <BlogRailBand posts={posts} exitFade />
 
-      {/* ── CTA — bone interruption, the close. ── */}
+      {/* ── CTA — the close. (It was "the bone interruption" until
+          2026-07-24, when the band became ink plus the gradient card.) ── */}
       <ContactCTA />
     </main>
   );

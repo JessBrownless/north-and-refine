@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import ContactCTA from "@/components/ContactCTA";
 import FaqSection from "@/components/FaqSection";
 import MethodSection from "@/components/MethodSection";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
-import HeroGlow from "@/components/HeroGlow";
+import AboutSharedCanvas from "@/components/AboutSharedCanvas";
+import MockupReamBand from "@/components/MockupReamBand";
+import StudioNarrativeBand from "@/components/StudioNarrativeBand";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 /**
@@ -152,130 +153,18 @@ const FAQS = [
   },
 ];
 
-/* ── The double ream (2026-07-23) ─────────────────────────────────────
-   Two staggered, edge-cropped rows of rounded tiles under the hero text,
-   each a semi-transparent black glass card with a blank device rising
-   from its foot (same-day revision: per-tile gradients CUT at the
-   client's call — the SECTION ground carries the gradient, like the
-   other pages' SectionGlow grounds, and the tiles let it read through).
-   Local to this page while the direction settles; promote to a component
-   if a second page wants it. */
+/* THE WHO-WE-ARE NARRATIVE — the brief's FINAL origin trio, P1 restored to
+   its original unsplit form. Copy is the page's; <StudioNarrativeBand> only
+   sets it (lede on bone, the rest stepped down to bone-dim). */
+const NARRATIVE_LEDE =
+  "North & Refine exists because of a simple conviction: everyone is a patient sooner or later, and patients deserve the best information. The practitioners doing the most careful work, the ones who explain, reassure and take their time, are too often represented online by websites that do none of those things.";
 
-function BlankPhone() {
-  return (
-    <div
-      style={{
-        position: "relative",
-        width: "34%",
-        aspectRatio: "320 / 680",
-        background: "#060607",
-        // White bezel edge (2026-07-23, with the pure-black tiles): the
-        // device contrasts against the black pane by its own rim.
-        border: "1px solid #FFFFFF",
-        borderRadius: "clamp(14px,1.4vw,24px)",
-        padding: "clamp(3px,0.3vw,5px)",
-        boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
-      }}
-    >
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "clamp(7px,0.7vw,12px)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "clamp(24px,2.4vw,40px)",
-          height: "clamp(7px,0.7vw,12px)",
-          background: "#000",
-          borderRadius: "999px",
-          zIndex: 2,
-        }}
-      />
-      <div style={{ width: "100%", height: "100%", borderRadius: "clamp(11px,1.15vw,20px)", background: "#121112" }} />
-    </div>
-  );
-}
-
-function BlankLaptop() {
-  return (
-    <div
-      style={{
-        width: "72%",
-        background: "#060607",
-        // White bezel edge — see BlankPhone.
-        border: "1px solid #FFFFFF",
-        borderRadius: "clamp(8px,0.8vw,14px)",
-        padding: "clamp(4px,0.4vw,7px)",
-        boxShadow: "0 30px 60px -18px rgba(0,0,0,0.55)",
-      }}
-    >
-      <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "clamp(5px,0.5vw,9px)", background: "#121112" }} />
-    </div>
-  );
-}
-
-function MockupReam({ row }: { row: 0 | 1 }) {
-  // Six larger tiles ≈ 170vw (2026-07-23 same-day: six SHOWING per row read
-  // as too many — bigger tiles, ~3–4 in view) — the row always overflows
-  // and crops at the screen edges. The second row shifts the device pattern
-  // and slides sideways, so the two reams read as a staggered contact
-  // sheet, not a grid.
-  const tiles = Array.from({ length: 6 }, (_, i) => i);
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        gap: "clamp(12px,1.4vw,24px)",
-        transform: row === 0 ? "translateX(-6vw)" : "translateX(6vw)",
-      }}
-    >
-      {tiles.map((i) => {
-        const phone = (i + row) % 2 === 0;
-        return (
-          <div
-            key={i}
-            style={{
-              position: "relative",
-              flexShrink: 0,
-              width: "max(280px, 27vw)",
-              aspectRatio: "4 / 3",
-              borderRadius: "clamp(18px,1.8vw,30px)",
-              overflow: "hidden",
-              // Tiles are LIGHT GLASS (2026-07-23, third revision of the
-              // day: dark glass → "make the background lighter") — the
-              // .card-glass idiom's bone-tinted lift, rounded per the
-              // current direction: the tiles now read as lifted panes ON
-              // the glowing canvas rather than holes in it. The ground
-              // still owns the colour; the glass only lightens it.
-              // SOLID PURE BLACK (client, same day, after white: "try pure
-              // black") — the devices contrast via their WHITE BEZEL BORDER
-              // instead of the card; the black panes read as windows cut
-              // into the warm canvas.
-              background: "#000000",
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
-            }}
-          >
-            {/* Device rises from the tile's foot and crops there — the tile
-                is the frame, the screen stays blank glass. */}
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                transform: phone ? "translateY(18%)" : "translateY(14%)",
-              }}
-            >
-              {phone ? <BlankPhone /> : <BlankLaptop />}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+const NARRATIVE = [
+  /* Guardrail: "digital health" is the only public description of the
+     founder's past employment — never name the employer. */
+  "The studio was founded after ten years in design, the later of them spent in digital health: close enough to medicine to understand how practitioners think, and how much of a patient’s trust is decided before they ever walk in. That experience became a specialism. Design for people whose work is looking after people.",
+  "So we work in one field, on purpose, and we enjoy it. Helping a good practice communicate as well as it treats is not a niche we settled for; it is the work we would choose again tomorrow. Everything is designed and built in-house, with search, accessibility and regulation treated as part of the craft.",
+];
 
 export default function AboutPage() {
   return (
@@ -300,150 +189,49 @@ export default function AboutPage() {
           them). No borderBottom: the full-bleed scene band directly below
           is the hero's own visual half — a rule between them would cut the
           pair apart. */}
-      {/* THE SHARED CANVAS (2026-07-23, third pass of the day): hero + ream
-          are ONE surface. The seam-contract approach (hero fades to an
-          anchor tone, section wash resumes from it) failed HERE because
-          /about's glow is still bright at the hero's foot — both sides
-          dipped dark at the boundary and the join read as a line with a
-          film over the ream. So: one wrapper owns the ground (warm base,
-          ONE HeroGlow spanning both, grain), the hero renders bare
-          (ground={false}) and the ream sits lower on the same canvas — no
-          seam exists to hide. The wrapper's foot fades to ink so the
-          who-we-are section joins invisibly (ink meets ink). */}
-      <div className="relative overflow-hidden grain bg-[#16110C]">
-        {/* 0.9 → 0.7 (2026-07-24, the sitewide "bit much" trim) — the canvas
-            keeps a touch more than the interior heroes since it feeds the
-            glass tiles too. */}
-        <HeroGlow intensity={0.7} />
-        {/* The canvas foot resolves to page ink over its last stretch — the
-            method band below is BONE, so the dark story ends on canonical
-            ink before the designed ink→bone cut. (The 2026-07-23 attempt to
-            END the canvas at the ream and hand off to a SectionGlow seam in
-            Who-we-are left a visible line — the seam-matching contract is
-            retired on this page; ONE CANVAS is the fix. See CLAUDE.md
-            "Blending dark sections".) */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            insetInline: 0,
-            bottom: 0,
-            height: "clamp(200px,26vh,340px)",
-            background:
-              "linear-gradient(180deg, rgba(17,14,10,0) 0%, var(--ink) 100%)",
-            pointerEvents: "none",
-          }}
+      {/* THE SHARED CANVAS (2026-07-23, third pass of the day): hero, ream
+          and who-we-are are ONE surface, so no seam exists to hide. The
+          seam-contract approach failed HERE twice; the reasoning lives in
+          <AboutSharedCanvas>'s docstring, which is also where CLAUDE.md's
+          "Blending dark sections" rule is recorded. The hero renders bare
+          (ground={false}) and the bands below sit lower on the same canvas;
+          the canvas foot fades to ink so the BONE method band below meets a
+          canonical ink→bone cut. */}
+      <AboutSharedCanvas>
+        <PageHero
+          align="split"
+          spacious
+          ground={false}
+          overline="The studio"
+          title={
+            <>
+              A small studio with a single, <em>deliberate</em> focus.
+            </>
+          }
+          lede="North & Refine designs websites for surgical and medical clinics and practitioners. One field, known deeply."
         />
 
-      <PageHero
-        align="split"
-        spacious
-        ground={false}
-        overline="The studio"
-        title={
-          <>
-            A small studio with a single, <em>deliberate</em> focus.
-          </>
-        }
-        lede="North & Refine designs websites for surgical and medical clinics and practitioners. One field, known deeply."
-      />
+        {/* The hero's visual half — the DOUBLE REAM of device mock-ups
+            (2026-07-23, client's call, replacing the 1a comp's full-bleed
+            Rowen scene band). Screens stay blank while imagery is being
+            rechosen, the same call as the homepage hero. (Rowen laptop 4 is
+            freed up — its retina re-export note moves out with it if this
+            stays.) */}
+        <MockupReamBand />
 
-      {/* The hero's visual half — a DOUBLE REAM of device mock-ups
-          (2026-07-23, client's call, replacing the 1a comp's full-bleed
-          Rowen scene band): two staggered rows of quiet glass tiles, each a
-          rounded card carrying a blank device (screens stay blank while
-          imagery is being rechosen — same call as the homepage hero). The
-          CANVAS ground glows through the glass; the tiles carry no colour
-          of their own. Both rows overflow the viewport and crop at the
-          screen edges like the homepage device row. Purely decorative →
-          aria-hidden. First-paint content, so it rides the LOAD-IN system
-          (animate-fade-in-slow continuing the hero's stagger), not
-          .reveal. (Rowen laptop 4 is freed up — its retina re-export note
-          moves out with it if this stays.) */}
-      <section aria-hidden className="relative">
-        <div
-          className="relative z-10 opacity-0 animate-fade-in-slow"
-          style={{
-            animationDelay: "0.45s",
-            display: "flex",
-            flexDirection: "column",
-            gap: "clamp(12px,1.4vw,24px)",
-            // Modest air between the hero text and the tiles — same canvas,
-            // so this is rhythm, not a seam.
-            paddingBlock: "clamp(32px,5vh,72px) clamp(40px,6vw,80px)",
-          }}
-        >
-          <MockupReam row={0} />
-          <MockupReam row={1} />
-        </div>
-      </section>
-
-      {/* TEXT · who we are — the 1a comp's grammar: kicker in the left
-          rail, the narrative alone in the right measure (no statement
-          heading — the comp carries the section on prose), the ruled stats
-          closing the band. Copy is the brief's FINAL origin trio, P1
-          restored to its original unsplit form. Kicker bone per canon.
-          (The ghost marquee that closed this section was cut at the
-          client's call, 2026-07-12 late — the parked device goes back in
-          the drawer.) */}
-      {/* INSIDE THE SHARED CANVAS (2026-07-24: the SectionGlow seam handoff
-          left a visible line here twice — the client called it: fix it the
-          way that WORKED, one wrapper). No ground of its own — the canvas
-          carries base, glow, grain and the foot fade; this band adds only
-          its own quiet blob (right, since the canvas glow leans left). */}
-      <section className="relative">
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            right: "-14%",
-            top: "20%",
-            width: "46%",
-            height: "60%",
-            borderRadius: "50%",
-            background: "#C2A878",
-            opacity: 0.05,
-            filter: "blur(150px)",
-            pointerEvents: "none",
-          }}
+        {/* TEXT · who we are — the 1a comp's grammar: kicker in the left
+            rail, the narrative alone in the right measure, no statement
+            heading. Kicker bone per canon. (The ghost marquee that closed
+            this section was cut at the client's call, 2026-07-12 late — the
+            parked device goes back in the drawer; the stats row went
+            2026-07-24, "remove the stats section, I don't like it".) */}
+        <StudioNarrativeBand
+          kicker="Who we are"
+          lede={NARRATIVE_LEDE}
+          paragraphs={NARRATIVE}
         />
-        <div className="shell relative z-10 pt-20 pb-16 md:pt-28 md:pb-24">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-            <p className="overline reveal md:col-span-4">Who we are</p>
-            <div className="max-w-2xl space-y-6 md:col-span-7 md:col-start-6">
-              <p className="body-lg text-bone reveal" style={{ transitionDelay: "80ms" }}>
-                North &amp; Refine exists because of a simple conviction: everyone is a
-                patient sooner or later, and patients deserve the best information. The
-                practitioners doing the most careful work, the ones who explain, reassure
-                and take their time, are too often represented online by websites that do
-                none of those things.
-              </p>
-              {/* Guardrail: "digital health" is the only public description
-                  of the founder's past employment — never name the employer. */}
-              <p className="body text-bone-dim reveal" style={{ transitionDelay: "160ms" }}>
-                The studio was founded after ten years in design, the later of them spent
-                in digital health: close enough to medicine to understand how
-                practitioners think, and how much of a patient&rsquo;s trust is decided
-                before they ever walk in. That experience became a specialism. Design for
-                people whose work is looking after people.
-              </p>
-              <p className="body text-bone-dim reveal" style={{ transitionDelay: "240ms" }}>
-                So we work in one field, on purpose, and we enjoy it. Helping a good
-                practice communicate as well as it treats is not a niche we settled for;
-                it is the work we would choose again tomorrow. Everything is designed and
-                built in-house, with search, accessibility and regulation treated as part
-                of the craft.
-              </p>
-            </div>
-          </div>
-          {/* The STATS ROW that closed this band was cut 2026-07-24 at the
-              client's call ("remove the stats section, I don't like it") —
-              it also took the flagged "3 projects at a time" placeholder off
-              the pre-launch list. The narrative now closes the band. */}
-        </div>
-      </section>
-      {/* ── shared canvas ends: hero → ream → who-we-are, one ground ── */}
-      </div>
+        {/* ── shared canvas ends: hero → ream → who-we-are, one ground ── */}
+      </AboutSharedCanvas>
 
       {/* TEXT · the method — the 1a comp's convictions layout on BONE
           (the light middle returns at the client's call): header stack

@@ -4,6 +4,7 @@ import PrinciplesTier from "./sections/Principles";
 import AtomsTier from "./sections/Atoms";
 import MoleculesTier from "./sections/Molecules";
 import ComponentsTier from "./sections/Components";
+import PageTemplatesTier from "./sections/PageTemplates";
 
 /**
  * /stylesheet — THE DESIGN SYSTEM. Internal, noindexed, and disallowed in
@@ -107,6 +108,15 @@ const TIERS: NavTier[] = [
       { id: "components-parked", title: "Parked" },
     ],
   },
+  {
+    id: "templates",
+    title: "05 · Page templates",
+    sections: [
+      { id: "templates-anatomy", title: "Page anatomy" },
+      { id: "templates-extracted", title: "The sections, rendered" },
+      { id: "templates-inline", title: "Still inline" },
+    ],
+  },
 ];
 
 export default function StylesheetPage() {
@@ -117,11 +127,12 @@ export default function StylesheetPage() {
           <p className="overline">Internal reference</p>
           <h1 className="heading-xl from-overline">Design system</h1>
           <p className="lede body-lg text-bone-dim">
-            The visual source of truth, in four tiers: the principles that
+            The visual source of truth, in five tiers: the principles that
             decide things before anything is drawn, the atoms they resolve
-            into, the molecules that repeat, and every component the site
-            actually ships. If you add a token to globals.css, add it here in
-            the same change.
+            into, the molecules that repeat, every component the site ships,
+            and the templates those components build each route from. If you
+            add a token to globals.css, add it here in the same change; if you
+            add a section to a page, it belongs here as a component.
           </p>
         </header>
 
@@ -138,6 +149,7 @@ export default function StylesheetPage() {
             <AtomsTier />
             <MoleculesTier />
             <ComponentsTier />
+            <PageTemplatesTier />
           </div>
         </div>
       </div>

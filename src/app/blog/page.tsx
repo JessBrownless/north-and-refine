@@ -5,6 +5,7 @@ import PageHero from "@/components/PageHero";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
 import BlogList, { type BlogCard, type BlogFilterOption } from "@/components/BlogList";
+import BlogEmptyState from "@/components/BlogEmptyState";
 
 export const metadata: Metadata = {
   title: "Blog — Design, branding & SEO for aesthetic practices",
@@ -84,13 +85,7 @@ export default function BlogIndexPage() {
       {cards.length > 0 ? (
         <BlogList cards={cards} filters={filters} />
       ) : (
-        <section className="scene-warm text-ink">
-          <div className="shell py-16 md:py-24">
-            <p className="body text-ink-dim">
-              The first entries are being written. Check back soon.
-            </p>
-          </div>
-        </section>
+        <BlogEmptyState />
       )}
 
       <ContactCTA />

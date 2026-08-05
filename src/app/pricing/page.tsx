@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import PricingPackageGrid, { type PricingPackage } from "@/components/PricingPackageGrid";
 import FaqSection from "@/components/FaqSection";
 import ContactCTA from "@/components/ContactCTA";
 import JsonLd from "@/components/JsonLd";
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 // ⚠️ Guide pricing — placeholder figures. Set real numbers before launch.
-const PACKAGES = [
+const PACKAGES: PricingPackage[] = [
   {
     name: "Website",
     price: "from $9,000",
@@ -118,55 +118,9 @@ export default function PricingPage() {
         cta={{ label: "Start a project", href: "/start-a-project" }}
       />
 
-      {/* Packages */}
-      <section className="relative overflow-hidden grain bg-ink">
-        <div className="shell relative z-10 py-16 md:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {PACKAGES.map((p, i) => (
-              <div
-                key={p.name}
-                /* rounded-ui: package cards are surfaces (2026-08-01, the
-                   rounded-brand pass) — the last hand-rolled square card. */
-                className={`reveal rounded-ui border p-8 flex flex-col ${
-                  p.featured ? "rule-dark bg-ink-raised" : "rule-dark"
-                }`}
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                {p.featured && <p className="overline">Most chosen</p>}
-                <h2 className="heading-md text-bone mt-1">{p.name}</h2>
-                <p className="stat text-bone mt-4">
-                  {p.price}
-                </p>
-                <p className="body mt-3 text-bone-dim">{p.summary}</p>
-                <p className="label mt-4 text-clay">{p.for}</p>
-
-                <ul className="mt-6 space-y-3 flex-1">
-                  {p.includes.map((item) => (
-                    <li key={item} className="body flex gap-3 text-bone-dim">
-                      <span className="text-champagne" aria-hidden>
-                        —
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href="/start-a-project"
-                  className={`btn mt-8 ${p.featured ? "btn-primary-dark" : "btn-secondary-dark"}`}
-                >
-                  Enquire
-                  <span aria-hidden>→</span>
-                </Link>
-              </div>
-            ))}
-          </div>
-          <p className="fineprint mt-8 max-w-2xl">
-            Guide pricing shown to help you plan. Final quotes depend on scope, page count and
-            content readiness, and are confirmed in writing after a discovery call.
-          </p>
-        </div>
-      </section>
+      {/* Packages — the figures above are PLACEHOLDERS (pre-launch
+          checklist); the grid only renders what it is handed. */}
+      <PricingPackageGrid packages={PACKAGES} />
 
       {/* FAQ — the shared <FaqSection> (2026-07-24: the last bespoke
           <details> block on the site folded into the one component, per the
