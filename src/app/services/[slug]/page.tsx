@@ -39,9 +39,13 @@ export async function generateMetadata({
   const service = getServiceBySlug(slug);
   if (!service) return {};
   const canonical = `/services/${service.slug}`;
-  // H1s are sentence case and end in a full stop (the brand's voice); a title
-  // tag shouldn't carry it in front of the " — North & Refine" template.
-  const title = service.heading.replace(/\.$/, "");
+  // Off `seoTitle` since 2026-08-05, not the H1: the two split when the
+  // masthead kicker moved inside the H1 and the heading stopped being allowed
+  // to restate the page's own name. The title tag still has to carry the
+  // target query, so it kept the old string. Sentence-case brand voice ends
+  // these in a full stop; a title tag shouldn't carry it in front of the
+  // " — North & Refine" template.
+  const title = service.seoTitle.replace(/\.$/, "");
   return {
     title,
     description: service.metaDescription,
@@ -87,10 +91,14 @@ export default async function ServicePage({
         ]}
       />
 
+      {/* THE KICKER NAMES THIS PAGE, not its section (2026-08-05). It said
+          "Services" on all three routes, which made the kicker a breadcrumb;
+          /industries/[slug] had always used the page's own name, so the two
+          detail families contradicted each other. The page names itself. */}
       <PageHero
         align="split"
         spacious
-        overline="Services"
+        overline={service.name}
         title={service.heading}
         lede={service.lead}
         cta={{ label: "Start a project", href: "/start-a-project" }}

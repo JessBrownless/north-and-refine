@@ -12,10 +12,25 @@ export interface IndustryFaq {
 
 export interface Industry {
   slug: string;
-  /** Short nav/card label. */
+  /** Short nav/card label — and THE MASTHEAD KICKER (2026-08-05): this is
+      what renders inside the H1 as the page's own name. */
   name: string;
-  /** Page H1 — written to read naturally while capturing the target query. */
+  /** The H1's SECOND half: a FEATURE-BENEFIT STATEMENT (2026-08-05). It must
+      not restate `name` — "Cosmetic Surgery / Web design for cosmetic
+      surgeons" said the sector twice once the kicker moved into the H1. Note
+      that the query still survives ACROSS the two halves: the H1 reads
+      "Cosmetic Surgery Web design that earns the consultation.", so the
+      sector and the discipline are both still in the heading, just once each.
+      Sentence case, ends in a full stop (the house voice; these three had
+      never taken one). */
   heading: string;
+  /** The <title>, the OG title, the Service schema name and the /industries
+      index row label. SPLIT OFF from `heading` 2026-08-05: it was doing all
+      five jobs at once, so rewriting the H1 would have silently rewritten the
+      SERP title AND the structured data on the site's highest-intent landing
+      pages. This string exists to carry the target query; `heading` exists to
+      speak to whoever the query brings. */
+  seoTitle: string;
   /** The search intent this page targets (used in copy + meta, not stuffed). */
   targetQuery: string;
   /** ~155-char meta description. */
@@ -31,7 +46,8 @@ export const INDUSTRIES: Industry[] = [
   {
     slug: "cosmetic-surgery-web-design",
     name: "Cosmetic Surgery",
-    heading: "Web design for cosmetic surgeons",
+    heading: "Web design that earns the consultation.",
+    seoTitle: "Web design for cosmetic surgeons",
     targetQuery: "cosmetic surgery web design",
     metaDescription:
       "Web design for cosmetic surgeons: considered, fast, SEO-led sites that build trust and turn searches into consultations. See how North & Refine works.",
@@ -64,7 +80,13 @@ export const INDUSTRIES: Industry[] = [
   {
     slug: "medical-aesthetic-clinic-branding",
     name: "Medical Aesthetics",
-    heading: "Branding & websites for medical aesthetic clinics",
+    /* Names ONE discipline, which also settles a standing conflict: the old
+       "Branding & websites for…" listed the disciplines brand-first, against
+       the sitewide web → search → brand rule. This page targets a branding
+       query, so branding alone is the honest answer and there is no list left
+       to order wrongly. */
+    heading: "Clinic branding as considered as the treatments.",
+    seoTitle: "Branding & websites for medical aesthetic clinics",
     targetQuery: "medical aesthetic clinic branding",
     metaDescription:
       "Brand identity and websites for medical aesthetic clinics: a considered look and a site that ranks, converts and reflects the standard of your care.",
@@ -92,7 +114,10 @@ export const INDUSTRIES: Industry[] = [
   {
     slug: "dermatology-website-design",
     name: "Dermatology",
-    heading: "Website design for dermatology practices",
+    /* The page's own insight (see the intro): the site has to serve a worried
+       medical visit and a curious cosmetic one at the same time. */
+    heading: "Website design for both halves of the practice.",
+    seoTitle: "Website design for dermatology practices",
     targetQuery: "dermatology website design",
     metaDescription:
       "Website design for dermatology practices that balances medical credibility with cosmetic appeal: fast, accessible, SEO-led and built to convert.",

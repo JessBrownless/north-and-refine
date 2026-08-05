@@ -464,9 +464,28 @@ export default function ComponentsMedia() {
           <Code>.heading-xl</Code>. It sits on <Code>.shell</Code>, the one rail
           shared with the nav and every section below.
         </What>
+        <What>
+          THE MASTHEAD IS ONE SENTENCE IN TWO REGISTERS. The kicker is not a
+          label sitting above a heading; it is the first half OF the heading,
+          and since 2026-08-05 it renders inside the <Code>&lt;h1&gt;</Code>
+          via <Code>.with-overline</Code>. The contract is fixed: the kicker
+          is THE PAGE NAME and the display line is a FEATURE-BENEFIT
+          STATEMENT. So every masthead on the site now reads, to a crawler and
+          a screen reader alike, as{" "}
+          <Code>&quot;Services Websites that just work.&quot;</Code> — the
+          page&rsquo;s own name finally inside its own strongest signal. Two
+          things follow. A detail page names ITSELF rather than its section.
+          And a page&rsquo;s <Code>&lt;title&gt;</Code> is a SEPARATE string
+          from its H1 wherever the two want different words: the services and
+          industries data carry both <Code>heading</Code> (the H1) and{" "}
+          <Code>seoTitle</Code> (the title tag, the OG title and the Service
+          schema name), because a masthead change must never cost a title tag.
+          The homepage is the one exception to the content half, having no
+          page name to mimic; its kicker states the offer instead.
+        </What>
         <Props>
-          <Entry name="title" what="ReactNode. The H1. An <em> inside it renders the Saol italic accent word: one word or short phrase, never a clause." />
-          <Entry name="overline" what="The kicker. Rendered as a direct sibling so .from-overline carries the gap." />
+          <Entry name="title" what="ReactNode. The H1's SECOND half: a feature-benefit statement, what the page does for the reader. It must not restate the overline, which has just named the page. An <em> inside it renders the Saol italic accent word: one word or short phrase, never a clause." />
+          <Entry name="overline" what="THE PAGE NAME, and it renders INSIDE the <h1> as its first half — not a sibling. Pass 'Work', 'About', 'Web design & build'; never a flavour line. A detail page names ITSELF, not its section, which is why /services/web-design says 'Web design & build' and not 'Services'." />
           <Entry name="lede" what="The subtitle. In split mode it takes the right columns; in wide and media modes it sits under the heading on the .lede system." />
           <Entry name="cta" what="{ label, href }. COMMERCIAL PAGES ONLY: /services, /pricing and the industries pages carry one; /work, /blog and /about stay button-free." />
           <Entry name="ctaVariant" what="'primary' (default) | 'glass' (.btn-glass, dark heroes only). One live consumer: /services." />

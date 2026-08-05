@@ -41,7 +41,7 @@ export default function MoleculesTier() {
       <Section
         id="molecules-heading-group"
         title="The heading group"
-        note="COMPOSES: an .overline kicker · a heading off the display ladder, optionally carrying the accent word · a .lede subtitle, with .from-overline holding the two gaps. The most-repeated molecule on the site, and the one with the strictest rule: the gaps are never set by hand. The kicker and the ladder rungs are atoms and are described in Atoms; what belongs here is the arrangement and the spacing that only exists to serve it."
+        note="COMPOSES: an .overline kicker · a heading off the display ladder, optionally carrying the accent word · a .lede subtitle, with .from-overline holding the two gaps. The most-repeated molecule on the site, and the one with the strictest rule: the gaps are never set by hand. The kicker and the ladder rungs are atoms and are described in Atoms; what belongs here is the arrangement and the spacing that only exists to serve it. IT COMES IN TWO FORMS, and which one you want depends on whether the kicker is part of the heading's sentence or a label above it: a MASTHEAD puts the kicker INSIDE the h1 (.with-overline), everything else keeps it a sibling (.from-overline). Both gaps are the same number; only the ownership differs."
       >
         <Stage ground="ink">
           <p className="overline">Selected work</p>
@@ -58,6 +58,27 @@ export default function MoleculesTier() {
           title="The rule"
           note="Overline and heading are DIRECT SIBLINGS, and the heading carries .from-overline. The gap is 0.7em of the heading's own font-size, so it scales with the heading rather than being re-guessed at every tier. Display-tier headings get 0.35em instead: 0.7em of a 100px masthead is a chasm. The subtitle takes .lede, which sets its top margin on a clamp and caps the measure at 46ch."
         />
+
+        <Sub
+          title="THE MASTHEAD FORM: the kicker goes inside the h1"
+          note="On a page masthead the kicker is not a label above the heading, it is the first half OF it — the page names itself, then says what it does for the reader. So it renders INSIDE the h1 and the heading takes .with-overline instead of .from-overline (2026-08-05). The content contract is fixed: kicker = THE PAGE NAME, display line = a FEATURE-BENEFIT STATEMENT that must not restate it. What this buys is that the H1 of every masthead now carries the page's own name to a crawler and a screen reader both, on a site whose whole architecture is SEO-led, and that the grammar can no longer be broken by forgetting a p tag."
+        />
+        <Stage ground="ink">
+          <h4 className="display with-overline text-bone">
+            <span className="overline">Services</span>{" "}
+            <span>
+              Websites that <em>just</em> work.
+            </span>
+          </h4>
+        </Stage>
+        <Sub
+          title="Why flex and not a margin"
+          note="The gap is a flex `gap`, because gap resolves its em against the ELEMENT'S OWN font-size — so 0.35em is 0.35 of the display rung, exactly the number .from-overline's margin-top used when the kicker was a sibling. Same value, same rendered pixel, new owner: every masthead measured identically before and after the change. A margin-bottom on the kicker span would resolve em against the kicker's own 11px and collapse the gap to nothing. One more thing the markup needs: a literal space between the two spans, or the H1 extracts as 'PrivacyWhat we collect' for everything that reads text rather than boxes. A white-space-only text node is not rendered as a flex item, so it costs nothing."
+        />
+        <Sub
+          title="Where it does NOT apply"
+          note="ARTICLE HEADERS. /work/[slug] and /blog/[slug] open with ArticleHeader, whose kicker is metadata about the piece ('Aesthetics · 2026', a category) rather than a page name; folding that into an H1 would make a nonsense heading. They keep the sibling kicker and .from-overline, which is the difference between a masthead and an article header finally stated in markup rather than in a note. The /coming-soon masthead keeps the sibling form too."
+        />
         <Sub
           title="Never set these gaps ad-hoc"
           note="An mt-* or mb-* between a kicker and its heading is drift pattern 3 in slow motion: it looks right at one viewport and wrong at every other, and the next author copies the wrong number. If a group needs a different gap, the fix is a rung on .from-overline, not a utility on the instance."
@@ -66,8 +87,13 @@ export default function MoleculesTier() {
         <div className="mt-8">
           <Entry
             name=".from-overline"
-            what="The kicker-to-heading gap, as a proportion of the heading. 0.7em by default; 0.35em on .display and .display-mega."
+            what="The SIBLING form's kicker-to-heading gap, as a proportion of the heading. 0.7em by default; 0.35em on .display and .display-mega."
             where="Homepage collection heads, blog/[slug] and work/[slug] article headers, industries/[slug] section heads, the /coming-soon masthead, this page's own header."
+          />
+          <Entry
+            name=".with-overline"
+            what="The MASTHEAD form. Makes the heading a flex column so its kicker can live inside it and the gap can still be expressed in the heading's own em: 0.7em, and 0.35em on .display and .display-mega — the same two numbers as .from-overline, deliberately, so nothing moved when the kicker came inside."
+            where="Every masthead on the site: PageHero on eleven routes, plus the bespoke HomeHero."
           />
           <Entry
             name=".lede"

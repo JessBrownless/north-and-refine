@@ -44,7 +44,7 @@ export default function IndustriesIndexPage() {
         linkLabel="Explore"
         rows={INDUSTRIES.map((industry) => ({
           href: `/industries/${industry.slug}`,
-          title: industry.heading,
+          title: industry.seoTitle,
           lead: `${industry.intro.split(". ")[0]}.`,
         }))}
       />

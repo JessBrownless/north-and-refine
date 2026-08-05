@@ -25,11 +25,11 @@ export async function generateMetadata({
   if (!industry) return {};
   const canonical = `/industries/${industry.slug}`;
   return {
-    title: industry.heading,
+    title: industry.seoTitle,
     description: industry.metaDescription,
     alternates: { canonical },
     openGraph: {
-      title: industry.heading,
+      title: industry.seoTitle,
       description: industry.metaDescription,
       url: canonical,
       images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: SITE.name }],
@@ -58,7 +58,7 @@ export default async function IndustryPage({
       <JsonLd
         data={[
           serviceSchema({
-            name: industry.heading,
+            name: industry.seoTitle,
             description: industry.metaDescription,
             path: `/industries/${industry.slug}`,
           }),

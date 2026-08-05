@@ -202,7 +202,10 @@ export default function AboutPage() {
           align="split"
           spacious
           ground={false}
-          overline="The studio"
+          /* "About", not "The studio" (2026-08-05): the masthead kicker is
+             the PAGE NAME now, and it is inside the H1. The flavour it used
+             to carry is the display line's job. */
+          overline="About"
           title={
             <>
               A small studio with a single, <em>deliberate</em> focus.

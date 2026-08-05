@@ -111,9 +111,21 @@ export default function PrivacyPage() {
           { name: "Privacy policy", path: "/privacy" },
         ])}
       />
+      {/* CONFORMED 2026-08-05 (the masthead-grammar pass). This hero was
+          INVERTED: the kicker carried flavour ("The fine print") and the H1
+          carried the page name ("Privacy policy"), which is the house rule
+          backwards. Now the kicker names the page and the H1 states what the
+          page actually promises — the same promise the lede was already
+          making. The <title> still reads "Privacy policy", so nothing is lost
+          to search by the H1 speaking plainly.
+
+          No accent <em>: this is the one masthead at .heading-xl rather than
+          .display (it keeps the LEGACY left alignment, a separate matter),
+          and the accent-word device belongs to the display tier. Fine print
+          should not perform. */}
       <PageHero
-        overline="The fine print"
-        title="Privacy policy"
+        overline="Privacy"
+        title="What we collect, and what we don't."
         lede="Plain English, no surprises: what we collect, why, and the control you keep."
       />
 

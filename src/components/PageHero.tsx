@@ -2,7 +2,17 @@ import Link from "next/link";
 import HeroGlow from "@/components/HeroGlow";
 
 interface PageHeroProps {
+  /** THE PAGE NAME, and it renders INSIDE the <h1> (2026-08-05). Pass what
+      this page is called — "Work", "About", "Web design & build" — not a
+      flavour line: the masthead's job is to name the page and then state its
+      promise, and those are the two halves of one heading. A detail page
+      names ITSELF rather than its section, which is why /services/web-design
+      says "Web design & build" and not "Services". See `.with-overline` in
+      globals.css for the markup rule and the reasoning. */
   overline?: string;
+  /** The FEATURE-BENEFIT half of the H1 — what the page does for the reader,
+      not what it is called (the overline already said that). Carries the
+      accent-word <em> at the display register. */
   title: React.ReactNode;
   lede?: string;
   /** Optional primary CTA. HERO-CTA POLICY (settled 2026-07-16): commercial
@@ -179,19 +189,49 @@ export default function PageHero({
   // from the nav's foot. The split/media branches handle this themselves.
   const padY = spacious ? "py-24 md:py-36" : "py-16 md:py-24";
 
-  const overlineEl = overline ? (
-    <p className={`overline ${light ? "text-clay " : ""}opacity-0 animate-fade-in`}>{overline}</p>
-  ) : null;
-
   // Split heroes take the DISPLAY register (the luxury moment); every other
   // hero stays heading-xl (THE LADDER: interior H1s are moments, display is
   // the grand editorial tier).
   const h1Size = split ? "display" : "heading-xl";
-  const h1El = (
+  const h1Base = `${h1Size} ${h1Color}${centered ? " mx-auto max-w-[24ch]" : ""}${
+    centered || split ? " text-balance" : ""
+  }`;
+
+  // THE KICKER IS PART OF THE H1 (2026-08-05, client: "the overline on each
+  // hero is actually part of the H1, but styled as an overline, and it mimics
+  // the page name"). A masthead is one sentence in two registers — the page
+  // naming itself, then what it does for the reader — so the H1 now says
+  // both. The kicker was only ever a separate element because it needed
+  // different type, and a <p> outside the heading meant the site's strongest
+  // SEO signal never carried the page's own name. Full reasoning, and why the
+  // gap is a flex `gap` rather than a margin, lives on `.with-overline` in
+  // globals.css.
+  //
+  // The two children keep their SEPARATE entrances (kicker 0s, title 0.1s):
+  // the h1 must not animate its own opacity, or it would multiply against the
+  // children's and collapse the stagger the load-in system is built on.
+  const h1El = overline ? (
+    <h1 className={`${h1Base} with-overline`}>
+      <span className={`overline${light ? " text-clay" : ""} opacity-0 animate-fade-in`}>
+        {overline}
+      </span>
+      {/* ⚠ LOAD-BEARING SPACE. Without it the H1 extracts as "PrivacyWhat we
+          collect" — the two spans sit adjacent in the HTML, so every consumer
+          that reads text rather than boxes (crawlers, some screen readers)
+          welds the last word of the kicker to the first word of the title,
+          which would defeat the entire reason for moving the kicker in here.
+          It costs nothing visually: a white-space-only text node in a flex
+          container is explicitly NOT rendered as an anonymous flex item. */}{" "}
+      <span
+        className="opacity-0 animate-fade-in"
+        style={{ animationDelay: "0.1s" }}
+      >
+        {title}
+      </span>
+    </h1>
+  ) : (
     <h1
-      className={`${h1Size} ${h1Color}${overline ? " from-overline" : ""}${
-        centered ? " mx-auto max-w-[24ch]" : ""
-      }${centered || split ? " text-balance" : ""} opacity-0 animate-fade-in`}
+      className={`${h1Base} opacity-0 animate-fade-in`}
       style={{ animationDelay: "0.1s" }}
     >
       {title}
@@ -272,7 +312,6 @@ export default function PageHero({
             <div className={`flex items-center ${splitBox}${shellBorder}`}>
               <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8">
                 <div className="md:col-span-6">
-                  {overlineEl}
                   {h1El}
                   {lede && (
                     <p
@@ -322,7 +361,6 @@ export default function PageHero({
                   day: the bottom-right lede read as scattered). The
                   last-baseline lock only applies to the two-column split. */}
               <div className={wide ? "md:col-span-12" : "md:col-span-7"}>
-                {overlineEl}
                 {h1El}
                 {wide && lede && (
                   <p
@@ -351,7 +389,6 @@ export default function PageHero({
 
   const content = (
     <div className={centered ? "mx-auto max-w-4xl text-center" : "max-w-4xl"}>
-      {overlineEl}
       {h1El}
       {lede && (
         <p

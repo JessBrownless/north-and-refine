@@ -36,10 +36,22 @@ export interface Service {
   slug: string;
   /** Display order on the hub index (also the odometer numeral). */
   num: string;
-  /** Short nav/index label. */
+  /** Short nav/index label — and THE MASTHEAD KICKER (2026-08-05): this is
+      what renders inside the H1 as the page's own name. */
   name: string;
-  /** Page H1 — sentence case, reads naturally while carrying the query. */
+  /** The H1's SECOND half: a FEATURE-BENEFIT STATEMENT (2026-08-05). It must
+      not restate `name`, because the kicker directly above it in the same H1
+      already says that — "Web design & build / Web design and build for
+      medical practices." was the exact repetition that made the masthead rule
+      visible. Sentence case, ends in a full stop. */
   heading: string;
+  /** The <title> and OG title. SPLIT OFF from `heading` 2026-08-05, and the
+      split is the point: this string's job is to carry the TARGET QUERY into
+      the SERP; the H1's job is to speak to whoever arrives. They were one
+      field, so conforming the masthead would have quietly pulled "medical
+      practices" out of the title tag on three of the most commercial routes
+      on the site. A masthead change must never cost a title tag. */
+  seoTitle: string;
   /** The search intent this page targets (used in copy + meta, not stuffed). */
   targetQuery: string;
   /** ~155-char meta description. */
@@ -65,7 +77,8 @@ export const SERVICES: Service[] = [
     slug: "web-design",
     num: "01",
     name: "Web design & build",
-    heading: "Web design and build for medical practices.",
+    heading: "Considered down to the last detail.",
+    seoTitle: "Web design and build for medical practices.",
     targetQuery: "medical website design",
     metaDescription:
       "Web design and build for surgical and medical practices: fast, accessible, SEO-led websites that turn a patient's first search into a booked consultation.",
@@ -131,7 +144,8 @@ export const SERVICES: Service[] = [
     slug: "seo",
     num: "02",
     name: "SEO & content",
-    heading: "SEO and content for medical practices.",
+    heading: "In the foundations, never bolted on.",
+    seoTitle: "SEO and content for medical practices.",
     targetQuery: "medical SEO",
     metaDescription:
       "SEO and content for surgical and medical practices: technical foundations, structured data and a content plan built around how patients actually search.",
@@ -192,7 +206,8 @@ export const SERVICES: Service[] = [
     slug: "brand-identity",
     num: "03",
     name: "Brand identity",
-    heading: "Brand identity for medical practices.",
+    heading: "Calm, credible, unmistakably yours.",
+    seoTitle: "Brand identity for medical practices.",
     targetQuery: "medical practice branding",
     metaDescription:
       "Brand identity for surgical and medical practices: name, logotype, palette, typography, art direction and voice, built to read as calm and credible.",

@@ -81,9 +81,6 @@ export default function HomeHero() {
 
         {/* CENTRED TITLE BLOCK */}
         <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(200px,24vh,290px) 24px 0" }}>
-          <p className="overline" style={{ margin: 0, opacity: 0.85 }}>
-            Web, search &amp; SEO for clinics
-          </p>
           {/* THE MASTHEAD RULE (2026-08-05, client: "we've got five or six
               different hero sections and they're kind of the same, let's build
               a rule in that they all use the same heading style. Right now the
@@ -103,14 +100,41 @@ export default function HomeHero() {
               Saol so the ACCENT-WORD DEVICE applies from globals instead of a
               hand-typed copy of it that had drifted to a raw #F6E8CD.
 
-              ⚠ The margin stays inline on purpose. It is the from-overline
-              gap hand-rolled, and swapping it for `.from-overline` would be a
-              SPACING change — those are being swept last as one revertable
-              commit, so this is left as a candidate rather than fixed here. */}
-          <h1 className="display text-bone" style={{ margin: "clamp(22px,2.4vw,32px) 0 0" }}>
-            Building websites
-            <br />
-            that patients <em>trust.</em>
+              THE KICKER CAME INSIDE (2026-08-05, the masthead-grammar pass:
+              "the overline on each hero is actually part of the H1, but
+              styled as an overline, and it mimics the page name"). Every
+              other masthead's kicker names its page; THE HOMEPAGE IS THE
+              EXCEPTION the client named, because a home page has no page name
+              to mimic — so its kicker states the offer instead, which is the
+              nearest true thing to a page name a landing page has.
+
+              ⚠ This is the one place the change MOVES A PIXEL, and it does so
+              on purpose. The hand-rolled clamp(22px,2.4vw,32px) below was the
+              from-overline gap typed out by hand — flagged a commit ago as a
+              spacing-sweep candidate precisely because it was not the system
+              value. Moving the kicker inside the H1 leaves that margin with
+              nothing to space, so it goes now and `.with-overline` carries
+              the gap: 32px → 35px at desktop, 22px → 15px at 375. The sweep
+              inherits one fewer hand-rolled number, not one more. */}
+          <h1 className="display text-bone with-overline" style={{ margin: 0 }}>
+            <span className="overline" style={{ opacity: 0.85 }}>
+              Web, search &amp; SEO for clinics
+            </span>
+            {/* ⚠ Load-bearing space — see the note in PageHero: without it the
+                H1 reads "…for clinicsBuilding websites" to anything parsing
+                text rather than layout. Not rendered as a flex item. */}{" "}
+            <span>
+              {/* The trailing space is the same load-bearing kind, and this
+                  one is an OLD bug the move surfaced: JSX drops whitespace
+                  around a newline, so this H1 has always extracted as
+                  "Building websitesthat patients trust." — the site's most
+                  important heading, welded at the line break for every
+                  crawler that reads text instead of boxes. The <br/> is a
+                  typographic instruction, not a word separator. */}
+              Building websites{" "}
+              <br />
+              that patients <em>trust.</em>
+            </span>
           </h1>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)", flexWrap: "wrap" }}>
             {/* THE FLAGSHIP AND ITS GHOST (2026-08-05). Both were hand-rolled

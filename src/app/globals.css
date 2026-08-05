@@ -548,6 +548,55 @@
     margin-top: 0.35em;
   }
 
+  /* THE MASTHEAD KICKER IS PART OF THE H1 (2026-08-05, client: "the overline
+     on each hero is actually part of the H1, but styled as an overline, and
+     it mimics the page name").
+
+     A masthead is ONE sentence in two registers. "Services / Websites that
+     just work." is not a label followed by a heading; it is the page naming
+     itself and then saying what it does for the reader, and the only reason
+     it was ever two elements is that the kicker needed different type. So
+     the kicker now lives INSIDE the <h1> and this class carries the gap:
+
+       <h1 class="display with-overline">
+         <span class="overline">Services</span>
+         <span>Websites that <em>just</em> work.</span>
+       </h1>
+
+     WHAT THIS BUYS, and why it is worth changing markup for: the H1 of every
+     masthead now READS as the page name plus its promise, to a crawler and
+     to a screen reader both. On a site whose whole architecture is SEO-led
+     that is the page's strongest signal finally carrying the page's own
+     name, and it stops being a convention an author can quietly break by
+     forgetting a <p>. THE CONTENT CONTRACT that goes with it: the kicker is
+     the PAGE NAME (Work, About, Services) and the display line is a
+     FEATURE-BENEFIT STATEMENT. The homepage is the one exception, because it
+     has no page name to mimic; its kicker states the offer instead.
+
+     FLEX, not a margin, for one reason: `gap` resolves its em against THIS
+     element's font-size, so 0.35em is 0.35 of the display rung exactly as
+     `.from-overline`'s margin-top was when the kicker was a sibling. Same
+     number, same rendered pixel, new owner — the rungs below inherit the
+     0.7em default for the same reason. Do not swap it for a margin on the
+     span: em there would resolve against the kicker's 11px and collapse the
+     gap to nothing.
+
+     SCOPE: MASTHEADS — PageHero and HomeHero. The detail routes open with
+     ArticleHeader, whose kicker is article metadata ("Aesthetics · 2026", a
+     category) rather than a page name; folding that into an H1 would make a
+     nonsense heading, so those keep the sibling kicker and .from-overline.
+     That is the difference between a masthead and an article header stated
+     in markup, which is where it has always belonged. */
+  .with-overline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+  }
+  .display.with-overline,
+  .display-mega.with-overline {
+    gap: 0.35em;
+  }
+
 
   /* ── Layout helpers ──────────────────────────────────────────────────────── */
   /* Standard contained section width + responsive padding. The content grid:

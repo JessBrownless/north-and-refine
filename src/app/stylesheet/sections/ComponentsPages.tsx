@@ -530,9 +530,9 @@ export default function ComponentsPages() {
 
         <Route
           path="/privacy"
-          note="The fine print. The shortest route on the site and the only one whose masthead is off the canon."
+          note="The fine print. The shortest route on the site, and the only masthead still off the canon — though only on ALIGNMENT now: its grammar was inverted until 2026-08-05, carrying flavour in the kicker ('The fine print') and the page name in the H1 ('Privacy policy'), which was the house rule backwards."
         >
-          <Beat n={1} name="PageHero" what="Takes the LEGACY left alignment, by passing no align at all. Every other interior page passes align='split'." />
+          <Beat n={1} name="PageHero" what="Takes the LEGACY left alignment, by passing no align at all. Every other interior page passes align='split'. Its H1 conforms to the masthead grammar: kicker 'Privacy', display line 'What we collect, and what we don't.' — and no accent word, because this is the one masthead at .heading-xl rather than .display, and fine print should not perform." />
           <Beat n={2} kind="inline" name="Policy stack" what="Six ruled sections from a local SECTIONS array at a 3xl measure, each a heading-sm over body-reading, with a last-updated line." />
         </Route>
 
@@ -547,7 +547,7 @@ export default function ComponentsPages() {
 
         <Sub
           title="What the stacks make visible"
-          note="ContactCTA closes eleven of the fifteen routes. The four exceptions are deliberate and worth knowing: /contact and /start-a-project are conversion pages whose form IS the close, /privacy is fine print that should not sell, and /coming-soon replaces the whole site. Two other patterns: every interior masthead is the same PageHero split except /privacy's legacy left, and both detail routes open with ArticleHeader instead, because a case study and a journal entry are articles rather than mastheads. And one number: after the sweep, thirteen of the fifteen routes are composed entirely of imported components, with no markup of their own beyond a main element."
+          note="ContactCTA closes eleven of the fifteen routes. The four exceptions are deliberate and worth knowing: /contact and /start-a-project are conversion pages whose form IS the close, /privacy is fine print that should not sell, and /coming-soon replaces the whole site. Two other patterns: every interior masthead is the same PageHero split except /privacy's legacy left, and both detail routes open with ArticleHeader instead, because a case study and a journal entry are articles rather than mastheads. And every masthead H1 now reads the same way — the page's own name, then what the page does for the reader — which is checkable in one line: curl a route, strip the tags inside its h1, and you should get 'Work The work, and the difference it made.' The homepage is the only one that names an offer instead of a page, having no page name to give. And one number: after the sweep, thirteen of the fifteen routes are composed entirely of imported components, with no markup of their own beyond a main element."
         />
       </Section>
 
@@ -790,6 +790,18 @@ export default function ComponentsPages() {
           top-level interior page uses, and the hero-cohesion pass kept the
           detail pages out of it on purpose. Folding them in would collapse the
           distinction between a page title and an article header.
+        </What>
+        <What>
+          That distinction is now IN THE MARKUP, not just in this note. A
+          masthead&rsquo;s kicker is the page&rsquo;s own name and lives
+          INSIDE its <Code>&lt;h1&gt;</Code> (2026-08-05). An article
+          header&rsquo;s kicker is metadata ABOUT the piece — a sector and a
+          year, a category — so it stays a sibling on{" "}
+          <Code>.from-overline</Code>: &ldquo;Aesthetics · 2026&rdquo; welded
+          into an H1 would be a nonsense heading, not a stronger one. If you
+          are unsure which form a new opener wants, the test is whether the
+          kicker would still make sense read aloud as the first words of the
+          heading.
         </What>
         <What>
           THE ENTRANCE IS THE SITEWIDE LOAD-IN, never <Code>.reveal</Code>: a

@@ -495,7 +495,7 @@ export default function AtomsTier() {
           <Entry
             name=".overline"
             what="11px uppercase at 0.24em in Geist Mono, bone by default. Bone, not champagne: the type system is tonal, and gold at 11px tracked caps reads brassy. On light sections override with text-ink-mute, or text-clay where the warm brand tint is wanted on the kicker specifically."
-            where="Every section kicker sitewide, and the field-label treatment in both forms. It collides with Tailwind's `overline` text-decoration utility, so an UNLAYERED rule at the end of globals.css kills the decoration. Do not move that rule into a layer."
+            where="Every section kicker sitewide, the field-label treatment in both forms, and — on a page MASTHEAD only — the first half of the h1 itself, where it names the page (see the heading group in Molecules). It collides with Tailwind's `overline` text-decoration utility, so an UNLAYERED rule at the end of globals.css kills the decoration. Do not move that rule into a layer."
           />
           <Entry
             name=".label"

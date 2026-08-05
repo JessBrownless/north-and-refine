@@ -46,7 +46,10 @@ export default function WorkIndexPage() {
         align="split"
         wide
         spacious
-        overline="Selected work"
+        /* "Work", not "Selected work" (2026-08-05): the kicker names the
+           page; "selected" was an editorial adjective, and the H1's own line
+           already says which work this is. */
+        overline="Work"
         title={
           <>
             The work,{" "}

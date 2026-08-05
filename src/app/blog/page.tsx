@@ -70,7 +70,9 @@ export default function BlogIndexPage() {
         align="split"
         spacious
         borderBottom
-        overline="The Blog"
+        /* "Blog", not "The Blog" (2026-08-05): the kicker is the page name
+           exactly as the nav says it, article included. */
+        overline="Blog"
         title={
           <>
             Notes on web, brand and <em>trust.</em>
