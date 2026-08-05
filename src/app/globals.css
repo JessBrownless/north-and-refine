@@ -27,6 +27,42 @@
    weight-led register legal.
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE ADJUDICATION RULE — when is a raw value allowed? (2026-08-05)
+
+   Every raw value in the markup is one of two things, and the test is what the
+   value is DOING, not where it sits:
+
+     SANCTIONED — the value DEPICTS something. Device chrome (a browser
+     window's corner, a phone bezel, an address bar), artwork drawn inside a
+     graphic component, gradient stops inside the glow components, and ornament
+     glyphs scaled to the type they sit beside. None of these are the studio's
+     UI; they are pictures of somebody else's, and a picture of an iPhone does
+     not get to take our card radius.
+
+     DRIFT — the value IS the site's own UI. A control, a panel, a ground, a
+     line of type the reader actually reads. These conform, always.
+
+   TWO COROLLARIES, both learned the hard way:
+
+   1. A LITERAL THAT EQUALS AN EXISTING TOKEN IS DRIFT WHEREVER IT SITS, even
+      inside artwork. #C2A878 typed into a glow blob is a silent copy of
+      --champagne that can never follow it, so the accent could be re-toned and
+      half the glows would stay behind. Depiction earns you a value the system
+      has no opinion about (#8A5A2E, the amber tail, has no token and stays
+      raw); it does not earn you a duplicate of one it does.
+
+   2. AN UNEXPRESSIBLE VALUE IS SANCTIONED, and says why in place. The title
+      chip's `rounded-[0.12em]` is em-relative so the corner scales with the
+      letterform it is set into — no fixed-px token can say that, and the
+      nearest one would break at the next viewport.
+
+   ⚠ GREP FOR CLASSES, NOT WORDS. The audit that produced this rule reported
+   eight bare-`rounded` drift sites; all but one were the English word
+   "rounded" inside these decision comments. A file that documents its taste
+   will always trip a naive search.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @layer base {
   :root {
     /* Base — a WARM near-black: a deep shadow of the parchment, not a
@@ -50,6 +86,24 @@
        above: that was a lightness/character change (#1c1710, l≈9%), this
        holds the settled near-black depth and rotates hue only. */
     --ink: #110e0a;
+    /* THE SHARED CANVAS (2026-08-05) — the warm ground the HERO GLOW is
+       painted onto, and the only ink a <HeroGlow> should ever sit on. It was
+       hard-coded as #16110C in four places (HomeHero, PageHero's dark ground,
+       AboutSharedCanvas, the ContactCTA close card), which is precisely the
+       shared-canvas recipe in CLAUDE.md, so the one value every consumer of
+       that recipe copied is now a token they can conform to.
+       WHY IT IS NOT --ink-raised: raised is a SURFACE (a card lifted off the
+       page); this is a GROUND (a whole canvas, one rung warmer and lighter
+       than --ink, chosen so the glow's champagne pool has something to bloom
+       out of instead of dying into flat black). Different jobs, and a card on
+       this canvas still steps up to raised.
+       ONE TOKEN, not a set: the canvas's other fixed tone, the #14100B seam
+       anchor shared by PageHero's foot strip and SectionGlow's wash, is a
+       CONTRACT BETWEEN TWO COMPONENTS rather than a ground anyone paints
+       with, and tokenising it would invite exactly the seam-tuning the
+       shared-canvas rule replaced. Left raw and cross-referenced on purpose.
+       Mirrored in tailwind.config.ts as `ink-canvas` (bg-ink-canvas). */
+    --ink-canvas: #16110c;
     --ink-raised: #1a1610;
     --ink-line: #2f2820;
     /* Light surfaces & text */

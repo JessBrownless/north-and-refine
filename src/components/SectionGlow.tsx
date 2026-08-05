@@ -61,7 +61,7 @@ export default function SectionGlow({
           width: "46%",
           height: "40%",
           borderRadius: "50%",
-          background: "#C2A878",
+          background: "var(--champagne)",
           // Doses trimmed ~30% 2026-07-24 (client: "a bit much" on some
           // pages) — blob 0.10 → 0.07, tail 0.16 → 0.11.
           opacity: blobOpacity,

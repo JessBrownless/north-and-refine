@@ -38,6 +38,9 @@ const config: Config = {
         // ramp — lightness held per token; see the decision record in
         // globals.css. Mirrors must match globals.css exactly.
         ink: "#110E0A",
+        // The shared hero canvas (2026-08-05) — a GROUND, not a surface; see
+        // the decision record in globals.css. Mirrors must match.
+        "ink-canvas": "#16110C",
         "ink-raised": "#1A1610",
         "ink-line": "#2F2820",
         // ── Light surfaces & text ────────────────────────────────────────

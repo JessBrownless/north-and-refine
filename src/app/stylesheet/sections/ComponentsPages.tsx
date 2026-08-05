@@ -1,4 +1,4 @@
-import { Tier, Section, Sub, Code, Stage, Entry } from "../_ui";
+import { Section, Sub, Code, Stage, Entry } from "../_ui";
 
 import AboutSharedCanvas from "@/components/AboutSharedCanvas";
 import ArticleFeaturedFigure from "@/components/ArticleFeaturedFigure";
@@ -40,40 +40,37 @@ import type { JournalEntry } from "@/lib/journal";
 import type { WorkEntry, WorkMetric } from "@/lib/work";
 
 /**
- * TIER 05 — PAGE TEMPLATES (2026-08-05).
+ * TIER 04 — THE PAGE BANDS, THE ROUTE STACKS, AND WHAT IS STILL INLINE.
  *
- * WHY THIS TIER EXISTS. Tiers 01–04 document what the site is made of;
- * nothing documented what the site is ARRANGED into. An audit the same week
- * counted 42 sections built inline inside page files rather than as
- * components, which means 42 bands the design system could not see: not in
- * the component tier (they are not components), not in molecules (they are
- * whole sections), not anywhere. A reader could learn every token on this
- * page and still have no idea what a page of this site looks like from top
- * to bottom.
+ * ⚠ THIS WAS A TIER OF ITS OWN (05 · Page templates) FOR ABOUT A DAY, AND IT
+ * SHOULD NOT HAVE BEEN. A tier boundary has to be a level of COMPOSITION;
+ * this one was "which components were extracted when", and it showed: the
+ * file rendered thirty-three components with the same imports, the same
+ * specimen props and the same prop tables as the three files beside it. So it
+ * was folded into 04 on 2026-08-05, the day it was written, and what survives
+ * is what was genuinely different about it: an INDEX BY ROUTE rather than by
+ * kind, plus the two written sections that are not component records at all.
  *
- * ⚠ THE PAGE THIS TIER DESCRIBED IS GONE, AND THAT IS THE POINT. The first
- * version of this file, written earlier the same day, rendered FOUR
- * components and then listed twenty-nine bands it could only describe. The
- * extraction sweep that followed lifted every one of them out of its page
- * file. Thirty-nine components now compose the fifteen routes, four fragments
- * of markup remain inline, and this file was rewritten to say so. The version
- * that stood here for one afternoon is exactly the drift it warned about:
- * a design-system page describing an arrangement the code had left behind.
+ * WHY THE ROUTE INDEX SURVIVES A MERGE THAT DELETED THE TIER. Every band
+ * below belongs to one route or one route family, so the route is how a
+ * reader actually looks for it; the sections above index the pieces that
+ * recur across many routes, which is how a reader looks for THOSE. Two
+ * indexes of one tier, and neither is a level of composition.
  *
- * THE ONE FINDING THAT SURVIVED THE SWEEP, because it was a comment rather
- * than markup: /services carried a note claiming its belief statement ran on
- * "the same 140vh sticky track" as the homepage manifesto. It never did.
- * That claim is now answered in <BeliefStatement>'s own docstring, where a
- * reader of the component will meet it, and the two shapes are separate
- * components (<ManifestoTrack> pins, <BeliefStatement> does not) so the same
- * confusion cannot recur silently.
+ * WHAT NOTHING HERE MAY DO. It may not hand-copy markup into a stage. Every
+ * specimen imports the real component, so this page is a live consumer of the
+ * same copy the routes render and the two cannot say different things. Where
+ * a component cannot be rendered honestly — a scroll pin with nothing to
+ * hold, an overlay that would cover the page — it gets a written entry
+ * instead, never an imitation.
  *
- * WHAT THIS FILE MAY NOT DO. It may not hand-copy markup into a stage. Every
- * specimen below imports the real component, so this page is a live consumer
- * of the same copy the routes render and the two cannot say different things.
- * Where a component cannot be rendered honestly here — a scroll pin with
- * nothing to hold, an overlay that would cover the page — it gets a written
- * entry instead, never an imitation.
+ * THE ONE FINDING THAT SURVIVED THE 2026-08-05 EXTRACTION SWEEP, because it
+ * was a comment rather than markup: /services carried a note claiming its
+ * belief statement ran on "the same 140vh sticky track" as the homepage
+ * manifesto. It never did. That claim is now answered in <BeliefStatement>'s
+ * own docstring, where a reader of the component will meet it, and the two
+ * shapes are separate components (<ManifestoTrack> pins, <BeliefStatement>
+ * does not) so the same confusion cannot recur silently.
  */
 
 /* ── Documentation furniture, local to this file (the same shapes tier 04
@@ -212,7 +209,7 @@ const SPECIMEN_ROWS = [
     lead: "A specimen lead, one line, shaped by the page rather than by the component.",
   },
   {
-    href: "/stylesheet#templates-extracted",
+    href: "/stylesheet#components-page-bands",
     title: "A second specimen row title, long enough to wrap",
     lead: "A second specimen lead, so the stagger between rows is visible on entry.",
   },
@@ -366,21 +363,14 @@ const SPECIMEN_PROSE_PAIR = [
   "A third specimen paragraph, so the balancer has enough copy to bottom the two columns out level at every viewport.",
 ];
 
-export default function PageTemplatesTier() {
+export default function ComponentsPages() {
   return (
     <>
-      <Tier
-        id="templates"
-        num="05"
-        title="Page templates"
-        note="What the tiers above are arranged into. Every live route as its section stack in order, every page-level band rendered as a live specimen, and an honest list of the four fragments still built inside a page file. A component tier tells you what exists; this tier tells you what a page IS."
-      />
-
       {/* ═══ ANATOMY ═════════════════════════════════════════════════════ */}
       <Section
-        id="templates-anatomy"
+        id="components-anatomy"
         title="Page anatomy"
-        note="Each live route, top to bottom, in render order. Read a stack before building a new route: the arc is the decision the page makes first, and every one of these was argued out with the client at some point. Mockup routes are excluded (noindexed, robots-disallowed, archive only)."
+        note="Each live route, top to bottom, in render order. The sections above tell you what exists; these tell you what a page IS, and they are also the index the page bands below are grouped by. Read a stack before building a new route: the arc is the decision the page makes first, and every one of these was argued out with the client at some point. Mockup routes are excluded (noindexed, robots-disallowed, archive only)."
       >
         <p className="fineprint mt-5 max-w-[72ch]">
           Every name in code voice is a real component you can import, and after
@@ -561,11 +551,11 @@ export default function PageTemplatesTier() {
         />
       </Section>
 
-      {/* ═══ THE SECTIONS, RENDERED ═══════════════════════════════════════ */}
+      {/* ═══ THE PAGE BANDS, BY ROUTE ═════════════════════════════════════ */}
       <Section
-        id="templates-extracted"
-        title="The sections, rendered"
-        note="Every page-level band the site is built from, grouped by the routes that render it, with the real component imported and given specimen props. This is the point of the tier: a component can have a specimen because there is only one copy of it, and this page is a live consumer of that copy. Thirty-three are rendered; six are described instead, each for a stated reason."
+        id="components-page-bands"
+        title="Page bands, by route"
+        note="Every page-level band the site is built from, with the real component imported and given specimen props. They are grouped by ROUTE rather than by kind because each belongs to one route or one route family, so the route is how a reader looks for one; the sections above index the pieces that recur across many routes instead. Thirty-three are rendered; six are described instead, each for a stated reason."
       >
         <p className="fineprint mt-5 max-w-[72ch]">
           Full-width bands sit in a FLUSH stage, so the ring around them is the
@@ -883,7 +873,8 @@ export default function PageTemplatesTier() {
         </Props>
         <p className="fineprint mt-4 max-w-[72ch]">
           This specimen passes real captures rather than the placeholder
-          mockups tier 04 uses, for one reason: the phone half only mounts when{" "}
+          mockups the media section uses, for one reason: the phone half only
+          mounts when{" "}
           <Code>mobileImage</Code> is truthy, so the overlap that IS the pattern
           cannot be shown in placeholder mode. The address pill carries a
           specimen domain.
@@ -955,7 +946,8 @@ export default function PageTemplatesTier() {
           The specimen passes plain children rather than compiled MDX, so the
           columns and the figure breakout are live but the h2 kicker is not: that
           rule is applied by the exported map at compile time, and writing the
-          kicker markup by hand here would be the copy this tier exists to stop.
+          kicker markup by hand here would be the second copy these specimens
+          exist to stop.
         </p>
         <Stage flush>
           <CaseStudyProseGrid>
@@ -1708,13 +1700,13 @@ export default function PageTemplatesTier() {
         />
         <Sub
           title="HoldingEnquiryCard — described, not rendered"
-          note="The right half of the holding split: the kicker ABOVE the glass, ContactForm inside it, and the email escape hatch BELOW, close in, so the panel wraps exactly what the reader acts on. That is the same rule the Start-a-project overlay's panel follows. .card-glass is right here rather than .glass-float because the ground is FLAT ink: pick the material by the ground, never by taste, since a 38% ink fill on flat ink is invisible. This is the most-seen glass on the site while the holding page is on. Its 1.1s entrance is the last beat of the shell's cross-column sequence. WHY THERE IS NO SPECIMEN: it renders ContactForm, whose field ids are the fixed strings name, email and message, and tier 04 already renders one live ContactForm above. A second copy on this page would duplicate all three ids, and every label in BOTH forms would resolve to whichever input the browser met first, so the specimen would document a broken version of a component that is not broken. The form itself is staged, correctly and once, under Components → Forms."
+          note="The right half of the holding split: the kicker ABOVE the glass, ContactForm inside it, and the email escape hatch BELOW, close in, so the panel wraps exactly what the reader acts on. That is the same rule the Start-a-project overlay's panel follows. .card-glass is right here rather than .glass-float because the ground is FLAT ink: that is the pick-by-ground rule in tier 01, not a preference. This is the most-seen glass on the site while the holding page is on. Its 1.1s entrance is the last beat of the shell's cross-column sequence. WHY THERE IS NO SPECIMEN: it renders ContactForm, whose field ids are the fixed strings name, email and message, and tier 04 already renders one live ContactForm above. A second copy on this page would duplicate all three ids, and every label in BOTH forms would resolve to whichever input the browser met first, so the specimen would document a broken version of a component that is not broken. The form itself is staged, correctly and once, under Components → Forms."
         />
       </Section>
 
       {/* ═══ STILL INLINE ════════════════════════════════════════════════ */}
       <Section
-        id="templates-inline"
+        id="components-inline"
         title="Still inline"
         note="Everything left in a page file after the 2026-08-05 sweep: what it does, the route that owns it, and whether it is a one-off or a candidate for extraction. Four remain, down from twenty-nine, and none of them carries a design decision that another route could want."
       >

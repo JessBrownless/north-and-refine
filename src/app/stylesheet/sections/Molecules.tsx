@@ -15,6 +15,14 @@ import { Tier, Section, Sub, Code, Stage, Entry } from "../_ui";
  * hand-roll the shape, and that list IS the argument for extracting it later —
  * when a shape has three consumers and a rule, it has earned a component.
  *
+ * TWO MOLECULES ARRIVED FROM ATOMS on 2026-08-05, in the pass that gave every
+ * concept one home: the ACCENT WORD (now a Sub inside the heading group, where
+ * the specimen was already rendering an unexplained em) and the FROSTED PANEL.
+ * Both were filed as tokens because each is spelled with one class, which is
+ * the trap this tier exists to name: .glass-frost is an atom, but a panel that
+ * frosts into being is .reveal AND .glass-frost AND a glass surface picked by
+ * ground AND a stagger, and no one of those is the thing.
+ *
  * ⚠ Specimens on this page are INERT. Buttons render as spans and links have
  * no href: hover states are CSS and work on any element, and a documentation
  * page should not be full of dead navigation.
@@ -33,7 +41,7 @@ export default function MoleculesTier() {
       <Section
         id="molecules-heading-group"
         title="The heading group"
-        note="Kicker, heading, lede. The most-repeated molecule on the site, and the one with the strictest rule: the gaps are never set by hand."
+        note="COMPOSES: an .overline kicker · a heading off the display ladder, optionally carrying the accent word · a .lede subtitle, with .from-overline holding the two gaps. The most-repeated molecule on the site, and the one with the strictest rule: the gaps are never set by hand. The kicker and the ladder rungs are atoms and are described in Atoms; what belongs here is the arrangement and the spacing that only exists to serve it."
       >
         <Stage ground="ink">
           <p className="overline">Selected work</p>
@@ -63,15 +71,20 @@ export default function MoleculesTier() {
           />
           <Entry
             name=".lede"
-            what="The subtitle beneath a heading: a fluid top margin and a 46ch measure. Pair with a body-tier size class; it sets spacing and measure only, never type."
+            what="The subtitle beneath a heading: a fluid top margin, clamp(1.5rem, 1rem + 1.5vw, 2.25rem), and a 46ch measure, so a subtitle never has to be told twice how wide it is. Pair with a body-tier size class; it sets spacing and measure only, never type."
             where="PageHero's lede column, the /stylesheet header, interior page intros."
           />
-          <Entry
-            name=".overline"
-            what="The kicker itself. Bone by default on ink. On light grounds it takes text-ink-mute, or text-clay where the warm tint is wanted: the tracked-caps kicker is the one sanctioned clay-on-light, since it reads as ornament rather than as meta a reader must parse."
-            where="Every section kicker sitewide; also the field-label treatment in both forms."
-          />
         </div>
+
+        <Sub
+          title="The accent word"
+          note="COMPOSES: one em inside any display-tier utility, which renders Saol Display Light Italic 300, the studio's social voice made typographic. THE RULE: one word or short phrase per statement, sparingly, and never where the emphasis is already doing something else, which is why the scroll-filled manifesto statement carries none. It is declared at weight 300 with font-synthesis: none, so no engine can faux-bold the italic up to the surrounding 400. The rule covers .display-mega, .display, .heading-xl, .heading-part, .statement, .heading-lg, .heading-md, .heading-sm and the deprecated .blockquote; it deliberately does not cover .card-title, because card captions left the display ladder for the sans."
+        />
+        <Stage>
+          <p className="heading-part text-bone">
+            The studio is <em>open</em>.
+          </p>
+        </Stage>
 
         <Sub
           title="When it is NOT a heading group"
@@ -163,7 +176,7 @@ export default function MoleculesTier() {
           />
           <Entry
             name=".btn-glass"
-            what="The card-glass surface in pill form, over dark imagery or a gradient. Hover follows the gold rule, a champagne rim plus a faint wash."
+            what="The card-glass surface in pill form: a 9% bone fill behind a 10px backdrop blur with a 25% bone rim, over dark imagery or a gradient. DARK grounds only, since a blur needs something behind it. Hover follows the gold rule like every tier, a champagne rim plus an 8% wash, never a solid fill."
             where="The /services hero, via PageHero's ctaVariant=“glass”."
           />
         </div>
@@ -517,11 +530,64 @@ export default function MoleculesTier() {
         </Stage>
       </Section>
 
+      {/* ═══ THE FROSTED PANEL ═══════════════════════════════════════════ */}
+      <Section
+        id="molecules-frosted-panel"
+        title="The frosted panel"
+        note="The glass surfaces are atoms; arriving is a composition, and this is it. One molecule, and the panel a brand graphic is mostly made of."
+      >
+        <Sub
+          title="FrostedPanel"
+          note="COMPOSES: a glass surface picked by ground (.glass-float over imagery, .card-glass over flat ink) · .reveal for the opacity · .glass-frost for a 6px blur burning off over 0.85s · an inline transitionDelay for the stagger. THE RULE: .reveal and .glass-frost go on the SAME element and neither is optional. .reveal owns the fade, so a panel can never strand invisible if the observer does not fire; .glass-frost owns only the blur, and outside a .reveal that blur never burns off. Adapted from the design source on purpose: its version also rides a translate and a scale, and the 16px rise is retired from this brand, so the blur burn-off IS the develop. HAND-ROLLED IN: ServicesTiles.tsx and ServicesHeroGraphic.tsx, both of which stagger their panels by inline delay."
+        />
+        <Stage ground="image">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div className="reveal glass-frost glass-float p-5">
+              <p className="label text-bone">.reveal .glass-frost</p>
+              <p className="fineprint mt-2 text-bone-dim">
+                This panel frosted in when it entered the viewport. Outside a
+                .reveal the blur never burns off, so the pairing is not
+                optional.
+              </p>
+            </div>
+            <div
+              className="reveal glass-float flex items-center gap-5 p-5"
+              style={{ transitionDelay: "160ms" }}
+            >
+              <svg viewBox="0 0 120 120" className="h-20 w-20 shrink-0" fill="none" aria-hidden>
+                <circle cx="60" cy="60" r="46" stroke="var(--ink-line)" strokeWidth="6" />
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="46"
+                  className="tile-draw"
+                  stroke="var(--champagne)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  transform="rotate(-90 60 60)"
+                  style={{ "--draw-len": "289" } as React.CSSProperties}
+                />
+              </svg>
+              <div>
+                <p className="label text-bone">.tile-draw</p>
+                <p className="fineprint mt-2 text-bone-dim">
+                  The stroke draw-on a panel may carry: a gauge ring or a trend
+                  curve. The consumer sets --draw-len to the path length; the
+                  transition is gated on .reveal.is-in, so it cannot start
+                  before the panel it lives in has arrived. Live in
+                  ServicesTiles.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Stage>
+      </Section>
+
       {/* ═══ THE FORM SYSTEM ═════════════════════════════════════════════ */}
       <Section
         id="molecules-forms"
         title="The form system"
-        note="Two forms, one set of parts. The class strings live in src/lib/forms.ts, not in the components: FIELD_BASE, FIELD_BASE_LIGHT, fieldBase(tone), fieldBorder(error, tone) and errorTone(tone). Keeping them there is what stops the two forms drifting apart."
+        note="Two forms, one set of parts. The class strings live in src/lib/forms.ts, not in the components: FIELD_BASE, FIELD_BASE_LIGHT, fieldBase(tone), fieldBorder(error, tone) and errorTone(tone). Keeping them there is what stops the two forms drifting apart. Section titles inside a form take .form-title, the UI register in Atoms; the labels take .overline."
       >
         <Sub
           title="Champagne cannot carry state on bone"
@@ -719,11 +785,6 @@ export default function MoleculesTier() {
             where="ContactForm.tsx uses the dark defaults; StartProjectForm.tsx passes its tone prop through all three."
           />
           <Entry
-            name=".form-title"
-            what="The UI register: 15px at weight 600, sentence case, and NO rule under it. Form section titles are furniture a reader scans, not editorial moments, so they sit off the ladder and lead by emphasis. Forms only."
-            where="StartProjectForm's step titles. ContactForm has no sections to title; if it ever grows any, they take this."
-          />
-          <Entry
             name="EMAIL_RE"
             what="Stricter than type=email alone, which accepts an address with no TLD: it requires a dot-separated domain."
             where="Both forms, via validate/validateText."
@@ -740,14 +801,13 @@ export default function MoleculesTier() {
       <Section
         id="molecules-prose"
         title="Editorial prose furniture"
-        note="Long-form bodies render through proseMdxComponents in mdx-components.tsx, passed to compileMDX in the two [slug] routes. Every element maps to an existing utility; nothing in MDX invents type."
+        note="Long-form bodies render through proseMdxComponents in mdx-components.tsx, passed to compileMDX in the two [slug] routes. Every element maps to an existing utility; nothing in MDX invents type, so what this section documents is the MAP, never the rungs it maps onto. Those are in Atoms."
       >
         <Stage ground="ink">
           <h4 className="heading-lg text-bone">A heading, from an h2</h4>
           <p className="body-reading mt-6 text-bone/90">
-            Body copy renders at <Code>.body-reading</Code>, 17px on a 1.75
-            line-height, at bone/90 rather than full bone: a long column at full
-            contrast is tiring, and{" "}
+            Body copy renders at <Code>.body-reading</Code>, at bone/90 rather
+            than full bone: a long column at full contrast is tiring, and{" "}
             <span className="text-champagne underline underline-offset-4 decoration-from-font">
               links stay champagne
             </span>{" "}
@@ -774,12 +834,12 @@ export default function MoleculesTier() {
         <div className="mt-8">
           <Entry
             name="h2 → .heading-lg, h3 → .heading-md"
-            what="Prose headings are SIGNPOSTS, one register below the article's own H1 at .heading-xl. The top-margin rhythm is set on the prose wrapper with child selectors in the [slug] pages, because the base h1–h6 rule zeroes heading margins and an mt-* inside the override could not win."
+            what="Prose headings map onto the signpost and item rungs, one register below the article's own H1 at .heading-xl, so a head inside a body can never outrank the title above it. The top-margin rhythm is set on the prose wrapper with child selectors in the [slug] pages, because the base h1–h6 rule zeroes heading margins and an mt-* inside the override could not win."
             where="mdx-components.tsx; the wrappers in blog/[slug] and work/[slug]."
           />
           <Entry
             name="p → .body-reading"
-            what="17px, line-height 1.75, at text-bone/90. A paragraph whose only child is an image is UNWRAPPED instead, because the img override renders a <figure> and a figure inside a <p> is a hydration error."
+            what="The reading register, tinted text-bone/90 by the map. A paragraph whose only child is an image is UNWRAPPED instead, because the img override renders a <figure> and a figure inside a <p> is a hydration error."
             where="mdx-components.tsx, via isImageOnlyParagraph."
           />
           <Entry
@@ -793,10 +853,9 @@ export default function MoleculesTier() {
             where="Unlayered at the end of globals.css, consumed by work/[slug]'s prose-work wrapper. Keep the two margins in sync."
           />
           <Entry
-            name=".blockquote"
-            status="deprecated"
-            what="A sans-era relic. Quotes take .statement, which is what the MDX blockquote override actually renders."
-            where="Survives in globals.css only because the /mockups archive still references it. Do not use in new work."
+            name="blockquote → .statement"
+            what="A pull quote in a body takes the house quote register, the same one the Testimonial band uses. It does NOT take the deprecated .blockquote, which is the relic this map replaced; that entry is in Atoms."
+            where="mdx-components.tsx."
           />
         </div>
       </Section>
@@ -809,7 +868,7 @@ export default function MoleculesTier() {
       >
         <Sub
           title="The empty plate"
-          note="COMPOSES: a .frame at the ratio the real image will take · .portrait-fill inside it · one aria-hidden glyph, the ✦ or the row's own index numeral, at a decorative tint. THE RULE: a placeholder reads as quiet paper, never as content. .portrait-fill was a radial gradient until it was flattened, because the glow read techy and competed with the real captures beside it. The ratio is the real ratio, so nothing reflows when the image lands."
+          note="COMPOSES: a .frame at the ratio the real image will take · the .portrait-fill stock inside it · one aria-hidden glyph, the ✦ or the row's own index numeral, at a decorative tint. THE RULE: a placeholder reads as quiet paper, never as content, which is also why the stock itself is flat. The ratio is the real ratio, so nothing reflows when the image lands."
         />
         <Stage ground="ink">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -850,11 +909,6 @@ export default function MoleculesTier() {
         </Stage>
 
         <div className="mt-8">
-          <Entry
-            name=".portrait-fill"
-            what="Flat parchment: champagne-soft mixed 30% into bone. The stand-in for any image that has not arrived."
-            where="WorkCard, BlogList, the homepage work cards, Footer, PhoneMockup and BrowserMockup's CSS screens, the parked Deck."
-          />
           <Entry
             name="The blanked title chip"
             what="On the /work hero, small plates set INTO the H1 between words are currently blank ink-raised spans rather than captures, matching the sitewide blanked-mockup call. Decorative, so a plain span with aria-hidden and nothing for a screen reader beyond the clean sentence."

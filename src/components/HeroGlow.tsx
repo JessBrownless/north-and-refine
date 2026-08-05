@@ -4,8 +4,9 @@
  * they're from the same website"). One source for the homepage 1D hero and the
  * interior PageHeroes so they read as one site. Renders the warm glow blobs +
  * vignette as absolute, pointer-events-none layers; the parent must be
- * position:relative + overflow:hidden and set the warm base (#16110C), with
- * content above on its own z-index.
+ * position:relative + overflow:hidden and set the warm base (--ink-canvas /
+ * bg-ink-canvas — the token exists for exactly these parents), with content
+ * above on its own z-index.
  *
  * `intensity` scales blob opacity: 1 = the full homepage ground; ~0.7 = the
  * quieter interior heroes ("a bit of blend", not the full wash).
@@ -41,7 +42,10 @@ export default function HeroGlow({
 }) {
   return (
     <>
-      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "62%", height: "68%", borderRadius: "50%", background: "#C2A878", opacity: 0.5 * intensity * topLeft, filter: "blur(130px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+      {/* The champagne pool takes the TOKEN (2026-08-05): a glow may keep a
+          raw value the system has no word for (#8A5A2E below), but never a
+          duplicate of one it does — see the adjudication rule in globals.css. */}
+      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "62%", height: "68%", borderRadius: "50%", background: "var(--champagne)", opacity: 0.5 * intensity * topLeft, filter: "blur(130px)", pointerEvents: "none", transform: "translateZ(0)" }} />
       <div aria-hidden style={{ position: "absolute", right: "-15%", top: "-13%", width: "57%", height: "66%", borderRadius: "50%", background: "#8A5A2E", opacity: 0.55 * intensity, filter: "blur(140px)", pointerEvents: "none", transform: "translateZ(0)" }} />
       <div aria-hidden style={{ position: "absolute", left: "30%", bottom: "-28%", width: "62%", height: "56%", borderRadius: "50%", background: "#3E2E1C", opacity: 0.85 * intensity, filter: "blur(120px)", pointerEvents: "none", transform: "translateZ(0)" }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none",

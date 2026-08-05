@@ -4,7 +4,6 @@ import PrinciplesTier from "./sections/Principles";
 import AtomsTier from "./sections/Atoms";
 import MoleculesTier from "./sections/Molecules";
 import ComponentsTier from "./sections/Components";
-import PageTemplatesTier from "./sections/PageTemplates";
 
 /**
  * /stylesheet — THE DESIGN SYSTEM. Internal, noindexed, and disallowed in
@@ -24,12 +23,19 @@ import PageTemplatesTier from "./sections/PageTemplates";
  *     all, so the most-reused things on the site — the heroes, the bands, the
  *     form path — had no entry anywhere.
  *
- * THE SHAPE IS NOW FOUR TIERS, coarse to fine in what they govern:
+ * THE SHAPE IS FOUR TIERS, coarse to fine in what they govern:
  *   01 Principles  the canon that decides things before anything is drawn
  *   02 Atoms       indivisible tokens: colour, type, space, radius, material
  *   03 Molecules   the compositions that repeat, several named here for the
  *                  first time because components were hand-rolling them
- *   04 Components  every real component, Storybook-style
+ *   04 Components  every real component, Storybook-style, plus the page
+ *                  anatomy the routes are arranged into
+ *
+ * FOUR, AND A FIFTH THAT DID NOT SURVIVE ITS FIRST DAY. Page templates
+ * shipped as tier 05 on 2026-08-05 and was folded back into 04 the same day:
+ * a tier boundary has to be a level of COMPOSITION, and that one was "which
+ * components were extracted when". The test a new tier has to pass is that
+ * one, and nothing else.
  *
  * Each tier is its own file under ./sections. That is not tidiness: the page
  * is long enough that authoring it as one file is how the last one drifted,
@@ -88,6 +94,7 @@ const TIERS: NavTier[] = [
       { id: "molecules-baseline-locks", title: "Baseline locks" },
       { id: "molecules-rows", title: "Ruled rows" },
       { id: "molecules-meta", title: "Meta rows" },
+      { id: "molecules-frosted-panel", title: "The frosted panel" },
       { id: "molecules-forms", title: "The form system" },
       { id: "molecules-prose", title: "Prose furniture" },
       { id: "molecules-placeholders", title: "Placeholders" },
@@ -106,15 +113,9 @@ const TIERS: NavTier[] = [
       { id: "components-graphics", title: "Brand graphics" },
       { id: "components-chrome", title: "Chrome" },
       { id: "components-parked", title: "Parked" },
-    ],
-  },
-  {
-    id: "templates",
-    title: "05 · Page templates",
-    sections: [
-      { id: "templates-anatomy", title: "Page anatomy" },
-      { id: "templates-extracted", title: "The sections, rendered" },
-      { id: "templates-inline", title: "Still inline" },
+      { id: "components-anatomy", title: "Page anatomy" },
+      { id: "components-page-bands", title: "Page bands, by route" },
+      { id: "components-inline", title: "Still inline" },
     ],
   },
 ];
@@ -127,12 +128,15 @@ export default function StylesheetPage() {
           <p className="overline">Internal reference</p>
           <h1 className="heading-xl from-overline">Design system</h1>
           <p className="lede body-lg text-bone-dim">
-            The visual source of truth, in five tiers: the principles that
+            The visual source of truth, in four tiers: the principles that
             decide things before anything is drawn, the atoms they resolve
-            into, the molecules that repeat, every component the site ships,
-            and the templates those components build each route from. If you
-            add a token to globals.css, add it here in the same change; if you
-            add a section to a page, it belongs here as a component.
+            into, the molecules that repeat, and every component the site
+            ships, indexed first by kind and then by the route it belongs to.
+            If you add a token to globals.css, add it here in the same change;
+            if you add a section to a page, it belongs here as a component.
+            Each thing is described
+            in ONE place, at the lowest tier that fully defines it: the tiers
+            above name it and point here.
           </p>
         </header>
 
@@ -149,7 +153,6 @@ export default function StylesheetPage() {
             <AtomsTier />
             <MoleculesTier />
             <ComponentsTier />
-            <PageTemplatesTier />
           </div>
         </div>
       </div>

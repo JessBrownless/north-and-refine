@@ -606,7 +606,14 @@ export default function StartProjectForm({
                     className="peer sr-only"
                   />
                   {/* 20px on a 6px radius with a 1.75 stroke — sized to the
-                      type beside it rather than to a checklist widget. */}
+                      type beside it rather than to a checklist widget.
+                      ⚠ THE RAW 6px HOLDS, ADJUDICATED 2026-08-05. The surface
+                      scale starts at --radius-ui-sm (10px), which is HALF this
+                      box: 10px on a 20px square is a circle, and a circular
+                      multi-select control reads as a radio button. So this is
+                      not radius freelancing, it is a control smaller than the
+                      scale's smallest stop can serve — a real gap, and minting
+                      a stop below ui-sm is the client's call, not a sweep's. */}
                   <span
                     aria-hidden
                     className={`mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-[6px] border transition-colors ${

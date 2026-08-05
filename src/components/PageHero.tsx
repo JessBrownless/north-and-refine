@@ -143,7 +143,7 @@ export default function PageHero({
   const sectionCls = light
     ? "relative scene-warm overflow-hidden"
     : ground
-      ? `relative overflow-hidden bg-[#16110C]${grain ? " grain" : ""}`
+      ? `relative overflow-hidden bg-ink-canvas${grain ? " grain" : ""}`
       : "relative"; // shared canvas: the page's wrapper owns ground + clip
   const heroGlow = light || !ground ? null : (
     <>

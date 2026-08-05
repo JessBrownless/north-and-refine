@@ -50,7 +50,7 @@ export default function StudioNarrativeBand({
           width: "46%",
           height: "60%",
           borderRadius: "50%",
-          background: "#C2A878",
+          background: "var(--champagne)",
           opacity: 0.05,
           filter: "blur(150px)",
           pointerEvents: "none",

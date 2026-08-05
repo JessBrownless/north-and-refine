@@ -120,8 +120,13 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
           const cardClass =
             "group absolute left-1/2 top-1/2 aspect-[3/2] h-full cursor-pointer transition-[transform,opacity] duration-[1800ms] ease-[cubic-bezier(0.65,0,0.35,1)] focus:outline-none";
 
+          // Radius comes from .frame's plate stop (2026-08-05, the conformance
+          // sweep): a deck card holds a capture, and imagery rounds on the
+          // plate scale. The rounded-2xl it carried was a fixed 16px — the
+          // plate's floor — so nothing moves below ~1000px and the corner
+          // eases out to 26px on a wide screen with every other plate.
           const face = (
-            <div className="frame h-full w-full rounded-2xl shadow-2xl">
+            <div className="frame h-full w-full shadow-2xl">
               {/* Just the capture — cropped to fill, no browser chrome */}
               {slide.screenshot ? (
                 /* Real desktop capture — fills the card, crops top-aligned */
@@ -146,7 +151,7 @@ export default function Deck({ slides = DEFAULT_SLIDES }: { slides?: DeckSlide[]
                   than turning see-through, so no card shows through another. */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-2xl bg-ink transition-opacity duration-[1800ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
+                className="pointer-events-none absolute inset-0 rounded-plate bg-ink transition-opacity duration-[1800ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
                 style={{ opacity: abs * 0.2 }}
               />
               {/* Click-through affordance — front card only, revealed on hover */}

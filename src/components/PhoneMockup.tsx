@@ -9,6 +9,11 @@
  * screen crops top-aligned. Put files under public/assets/phones/.
  * Screens (placeholder mode): "editorial" (parchment) or "ink" (dark).
  * Sizes: "lg" (hero statement device), "md" (default), "sm" (bento cards).
+ *
+ * ⚠ ITS RADII ARE HARDWARE, NOT OURS (adjudicated 2026-08-05): the bezel's
+ * 2.75rem, the screen's 2.35rem and the placeholder's rounded-xl DEPICT an
+ * iPhone, so they sit outside the plate and surface scales. See the
+ * adjudication rule in globals.css.
  */
 interface PhoneMockupProps {
   name?: string;

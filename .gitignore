@@ -38,6 +38,13 @@ next-env.d.ts
 # local scratch — staging area for files pending deletion (e.g. a repo tarball)
 /_to_delete
 
+# wayfinder maps and their tickets — the local-markdown issue tracker.
+# PRIVATE BY REQUEST (2026-08-05): the repo is public, and the client chose a
+# local tracker over GitHub Issues precisely so planning is not visible. If
+# this line is ever removed, every map and ticket becomes public on the next
+# push, which is the one failure mode this tracker exists to avoid.
+/.scratch
+
 # scratch/working assets — not used by the app (Next serves only /public)
 /assets
 
@@ -62,3 +69,12 @@ deno.lock
 
 # local working copy / backup dirs
 /_local-backup
+
+# Design-handoff drops and loose exports that land in src/components/ but are
+# never imported (2026-08-05: 4.7MB of them reached a commit before this rule
+# existed). App code lives in .tsx; imagery the site actually uses lives in
+# /public. Anything else here is working material, not source.
+/src/components/*.avif
+/src/components/*.svg
+/src/components/handoff/
+/src/components/design_handoff_ember_palette/

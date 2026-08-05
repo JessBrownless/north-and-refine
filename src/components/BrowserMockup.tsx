@@ -6,6 +6,12 @@
  * homepage hero's responsive device cluster.
  *
  * Screenshots: wide desktop captures (~16:10). Put files in public/assets/phones/.
+ *
+ * ⚠ ITS RADII ARE HARDWARE, NOT OURS (adjudicated 2026-08-05): the window's
+ * rounded-xl, the address pill's rounded-md and the placeholder's rounded-lg
+ * all DEPICT macOS chrome, so they sit outside the plate and surface scales —
+ * a picture of somebody else's window doesn't take our card radius. See the
+ * adjudication rule in globals.css.
  */
 interface BrowserMockupProps {
   name?: string;

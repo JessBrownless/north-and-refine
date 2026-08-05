@@ -167,7 +167,12 @@ function TileDevice({ art }: { art: NonNullable<Service["art"]> }) {
    ornament-glyph colour). They ride the canon float utilities
    (animate-float-slow/-slower, staggered inline delays; the global
    reduced-motion guard stills them). Glass = .card-glass, straight corners
-   per the print rule. Decorative → aria-hidden. */
+   per the print rule. Decorative → aria-hidden.
+   TYPE SIZE COMES FROM .label (2026-08-05, the conformance sweep): the FACE
+   is a depiction and stays mono, but the chip is a real DOM caption the
+   reader's eye lands on, so its size sits on the meta register like every
+   other caption. Both web chips were raw (11px and 13px) and are now one
+   register — the 2px difference was never a decision. */
 function TileFragments({ art }: { art: NonNullable<Service["art"]> }) {
   if (art === "phone") {
     return (
@@ -223,13 +228,13 @@ function TileFragments({ art }: { art: NonNullable<Service["art"]> }) {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
       <div
-        className={`${CHIP} animate-float-slow absolute px-3.5 py-2.5 font-mono text-[11px] ${CHIP_META}`}
+        className={`${CHIP} animate-float-slow absolute px-3.5 py-2.5 font-mono label ${CHIP_META}`}
         style={{ left: "15%", top: "24%", rotate: "-5deg" }}
       >
         {"<h1>"}
       </div>
       <div
-        className={`${CHIP} animate-float-slower absolute px-3.5 py-2.5 font-mono text-[13px] text-champagne`}
+        className={`${CHIP} animate-float-slower absolute px-3.5 py-2.5 font-mono label text-champagne`}
         style={{ right: "15%", top: "42%", rotate: "4deg", animationDelay: "1.4s" }}
       >
         {"</>"}

@@ -324,7 +324,7 @@ export default function AtomsTier() {
       <Section
         id="atoms-type-scale"
         title="The display ladder"
-        note="Pick a rung by REGISTER, not by taste. Each rung means a kind of thing, and the rule that follows from that is simple: a list item must never outrank or tie its section's head, and a signpost must never shout like a moment. Sizes are one clamp per class, fluid between roughly 640px and 1280px."
+        note="Pick a rung by REGISTER, not by taste. Each rung means a kind of thing, and the rule that follows from that is simple: a list item must never outrank or tie its section's head, and a signpost must never shout like a moment. Sizes are one clamp per class, fluid between roughly 640px and 1280px. The italic word in two of the specimens below is the accent-word device, which composes a face, a rung and an editorial rule, so it is documented in Molecules."
       >
         <Rung
           cls="display-mega"
@@ -386,20 +386,6 @@ export default function AtomsTier() {
           register="ITEMS, the smaller of the two. The ladder's floor."
           where="FaqSection questions, the service detail sub-heads, /contact and /privacy. Rejected once as a form section title, where it read as an editorial heading dropped inside a form, which is why .form-title exists."
         />
-
-        <Sub
-          title="The accent-word device"
-          note="An em inside any display-tier utility renders Saol Display Light Italic 300, the studio's social voice made typographic. One word or short phrase per statement, sparingly. The rule covers .display-mega, .display, .heading-xl, .heading-part, .statement, .heading-lg, .heading-md, .heading-sm and the deprecated .blockquote; it deliberately does not cover .card-title, because card captions left the display ladder for the sans."
-        />
-        <Stage>
-          <p className="heading-part text-bone">
-            The studio is <em>open</em>.
-          </p>
-          <p className="fineprint mt-4">
-            Declared at weight 300 with font-synthesis: none, so no engine can
-            faux-bold the italic up to the surrounding 400.
-          </p>
-        </Stage>
 
         <Sub
           title="Off the ladder"
@@ -501,7 +487,7 @@ export default function AtomsTier() {
           <Entry
             name=".overline"
             what="11px uppercase at 0.24em in Geist Mono, bone by default. Bone, not champagne: the type system is tonal, and gold at 11px tracked caps reads brassy. On light sections override with text-ink-mute, or text-clay where the warm brand tint is wanted on the kicker specifically."
-            where="Every section kicker. It collides with Tailwind's `overline` text-decoration utility, so an UNLAYERED rule at the end of globals.css kills the decoration. Do not move that rule into a layer."
+            where="Every section kicker sitewide, and the field-label treatment in both forms. It collides with Tailwind's `overline` text-decoration utility, so an UNLAYERED rule at the end of globals.css kills the decoration. Do not move that rule into a layer."
           />
           <Entry
             name=".label"
@@ -516,7 +502,7 @@ export default function AtomsTier() {
           <Entry
             name=".form-title"
             what="15px at weight 600, sentence case, with NO rule underneath it. The one register that leads by emphasis instead of size, because a form's section titles are furniture the reader scans."
-            where="StartProjectForm. Forms only: a page or section head never takes it."
+            where="StartProjectForm's step titles. Forms only: a page or section head never takes it, and ContactForm has no sections to title, so it would take this if it ever grew any."
           />
           <Entry
             name=".index-num"
@@ -556,7 +542,7 @@ export default function AtomsTier() {
       <Section
         id="atoms-space-grid"
         title="Space, grid and layering"
-        note="Two containers, one grid, two heading-group helpers, and a z-index ladder that is small on purpose."
+        note="Two containers, one grid, and a z-index ladder that is small on purpose. The heading-group gaps (.from-overline, .lede) are documented in Molecules, with the composition they exist to serve: they measure themselves against a heading, so they mean nothing on their own."
       >
         <Sub title="Containers" note="Everything sits on one of these two. Nothing sets its own max-width." />
         <div className="mt-5">
@@ -591,25 +577,6 @@ export default function AtomsTier() {
             The canonical hero split is heading on columns 1 to 7 and lede on 9
             to 12; the media variant moves the text to 1 to 6 and puts the
             graphic on 8 to 12.
-          </p>
-        </Stage>
-
-        <Sub
-          title="Heading-group spacing"
-          note="Two utilities exist so these gaps are never set ad-hoc with margin classes. The margin scales with the heading, which a fixed mt cannot do."
-        />
-        <Stage>
-          <p className="overline">The studio</p>
-          <h4 className="heading-part from-overline text-bone">A quieter kind of practice</h4>
-          <p className="lede body-lg text-bone-dim">
-            .lede sets a top margin of clamp(1.5rem, 1rem + 1.5vw, 2.25rem) and
-            a 46ch measure, so a subtitle never has to be told twice how wide it
-            is.
-          </p>
-          <p className="fineprint mt-8">
-            .from-overline is 0.7em of the heading's own size, dropping to
-            0.35em under .display and .display-mega, where 0.7em would be a
-            chasm in absolute terms.
           </p>
         </Stage>
 
@@ -814,13 +781,21 @@ export default function AtomsTier() {
             than as one list.
           </p>
         </Stage>
+
+        <div className="mt-5">
+          <Entry
+            name=".portrait-fill"
+            what="The fifth stock, and the only one that is never a section ground: flat parchment, champagne-soft mixed 30% into bone. It stands in for any image that has not arrived. It was a radial gradient until it was flattened, because the glow read techy beside the real captures; a placeholder is quiet paper."
+            where="WorkCard, BlogList, the homepage work cards, Footer, PhoneMockup and BrowserMockup's CSS screens, the parked Deck. The empty-plate composition it sits inside is in Molecules."
+          />
+        </div>
       </Section>
 
       {/* ═══ GLASS ═══════════════════════════════════════════════════════ */}
       <Section
         id="atoms-glass"
         title="Glass: a pair picked by ground"
-        note="Two glass surfaces of opposite polarity. .card-glass is a bone wash that LIFTS a flat ground; .glass-float is an ink wash that DARKENS busy imagery so bone type can sit on it. Pick by what is behind the panel, never by taste. Swapped, both fail: a 38% ink fill on flat ink is invisible, and a 44px drop shadow on a flat ground is a shadow cast by nothing."
+        note="Two glass surfaces of opposite polarity. .card-glass is a bone wash that LIFTS a flat ground; .glass-float is an ink wash that DARKENS busy imagery so bone type can sit on it. WHICH ONE is the pick-by-ground rule in Principles, and the two stages below are that rule's evidence. The surfaces are here; the pill made of one (.btn-glass) belongs to the button hierarchy in Molecules, and so does the entrance they arrive on."
       >
         <Sub title="Over imagery: .glass-float is right, .card-glass is thin" />
         <Stage ground="image">
@@ -842,18 +817,12 @@ export default function AtomsTier() {
               </p>
             </div>
           </div>
-          <div className="mt-6">
-            <button type="button" className="btn btn-sm btn-glass">
-              .btn-glass
-            </button>
-            <p className="fineprint mt-3 text-bone-dim">
-              The glass pill: the card-glass surface in button form, 9% bone
-              fill with blur(10) and a 25% bone rim. DARK grounds only, since
-              blur needs something behind it. Its hover follows the gold rule
-              like every tier: champagne rim and an 8% wash, never a solid
-              fill. Live via PageHero's glass CTA variant.
-            </p>
-          </div>
+          <p className="fineprint mt-6 text-bone-dim">
+            The same surface exists as a pill, <Code>.btn-glass</Code>, and it
+            is documented with the other button tiers in Molecules rather than
+            here: a pill is not a surface, it is .btn plus a variant, and only
+            the button section defines the whole of it.
+          </p>
         </Stage>
 
         <Sub title="Over flat ink: .card-glass is right, .glass-float disappears" />
@@ -885,50 +854,6 @@ export default function AtomsTier() {
           </p>
         </Stage>
 
-        <Sub
-          title="The glass entrance"
-          note="The panel FROSTS INTO BEING. Pair .glass-frost with .reveal on the same element: .reveal owns the opacity, so a panel can never strand invisible if the observer does not fire, and .glass-frost owns a 6px blur burning off over 0.85s. Stagger with an inline transitionDelay. Adapted from the design source on purpose: its version also rides a translate and a scale, and the 16px rise is retired from this brand, so the blur burn-off IS the develop."
-        />
-        <Stage ground="image">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <div className="reveal glass-frost glass-float p-5">
-              <p className="label text-bone">.reveal .glass-frost</p>
-              <p className="fineprint mt-2 text-bone-dim">
-                This panel frosted in when it entered the viewport. Outside a
-                .reveal the blur never burns off, so the pairing is not
-                optional.
-              </p>
-            </div>
-            <div
-              className="reveal glass-float flex items-center gap-5 p-5"
-              style={{ transitionDelay: "160ms" }}
-            >
-              <svg viewBox="0 0 120 120" className="h-20 w-20 shrink-0" fill="none" aria-hidden>
-                <circle cx="60" cy="60" r="46" stroke="var(--ink-line)" strokeWidth="6" />
-                <circle
-                  cx="60"
-                  cy="60"
-                  r="46"
-                  className="tile-draw"
-                  stroke="var(--champagne)"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  transform="rotate(-90 60 60)"
-                  style={{ "--draw-len": "289" } as React.CSSProperties}
-                />
-              </svg>
-              <div>
-                <p className="label text-bone">.tile-draw</p>
-                <p className="fineprint mt-2 text-bone-dim">
-                  The stroke draw-on for a gauge ring or a trend curve. The
-                  consumer sets --draw-len to the path length; the transition
-                  is gated on .reveal.is-in, so it cannot start before the
-                  panel it lives in has arrived. Live in ServicesTiles.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Stage>
       </Section>
 
       {/* ═══ MOTION ══════════════════════════════════════════════════════ */}

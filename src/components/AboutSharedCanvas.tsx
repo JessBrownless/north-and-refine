@@ -47,7 +47,7 @@ export default function AboutSharedCanvas({
   intensity?: number;
 }) {
   return (
-    <div className="relative overflow-hidden grain bg-[#16110C]">
+    <div className="relative overflow-hidden grain bg-ink-canvas">
       <HeroGlow intensity={intensity} />
       {/* The canvas foot resolves to page ink over its last stretch — what
           follows on /about is BONE, so the dark story ends on canonical ink

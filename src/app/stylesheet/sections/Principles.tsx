@@ -199,11 +199,10 @@ export default function PrinciplesTier() {
             a reveal an image is simply visible, so the utility is safe anywhere.
           </Point>
           <Point>
-            Glass has its own entrance. <Code>.glass-frost</Code> burns a 6px blur
-            off while <Code>.reveal</Code> owns the opacity, so a panel can never
-            strand invisible if the observer never fires. The design source's
-            version also rode a translate and a scale; the transform was dropped
-            on import to keep this rule, and the blur burn-off IS the develop.
+            Glass has its own entrance, and it obeys this rule rather than
+            escaping it: the design source&rsquo;s version rode a translate and a
+            scale, the transform was dropped on import, and the blur burn-off IS
+            the develop. The composition is the frosted panel in Molecules.
           </Point>
           <Point>
             Nothing auto-moves, and nothing swells on hover.{" "}

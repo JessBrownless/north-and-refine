@@ -208,10 +208,10 @@ export default function ComponentsGraphics() {
           tile is <Code>role=&quot;img&quot;</Code> with one written label.
         </What>
         <What>
-          Panel material is <Code>.glass-float .glass-frost .reveal</Code>: the
-          reveal owns the fade, so a panel can never strand invisible; the frost
-          owns a 6px blur burning off; the stagger comes straight from the
-          source&rsquo;s own animation delays. Ring gauges and the enquiries
+          Panel material is the frosted-panel molecule,{" "}
+          <Code>.glass-float .glass-frost .reveal</Code>, with the stagger taken
+          straight from the source&rsquo;s own animation delays. Ring gauges and
+          the enquiries
           curve use <Code>.tile-draw</Code> with a <Code>--draw-len</Code> path
           length. RE-CAPTURING A PLATE needs no code change: hide the panels with{" "}
           <Code>[style*=&quot;glassIn&quot;]&#123;display:none&#125;</Code>,

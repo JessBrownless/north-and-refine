@@ -17,7 +17,9 @@
  * (extracted 2026-08-05) and is the one sanctioned radius freelance in the
  * type. The plate tokens are fixed px or viewport clamps; this corner has to
  * scale with the letterform it sits inside, which nothing on either scale
- * does. Moving it onto a token would break the em lockup.
+ * does. Moving it onto a token would break the em lockup. (Corollary 2 of the
+ * adjudication rule in globals.css: an unexpressible value is sanctioned, and
+ * says why in place. This is the note that discharges it.)
  *
  * ⚠ WRAP THE CHIP AND ITS NEIGHBOURING WORDS in `whitespace-nowrap` at the
  * call site: a chip orphaned onto its own line reads as a broken image.

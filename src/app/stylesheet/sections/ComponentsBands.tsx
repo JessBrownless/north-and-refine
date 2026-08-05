@@ -582,8 +582,8 @@ export default function ComponentsBands() {
           the banked-answer treatment) and is a button, so a reader can go back;
           CURRENT is the one solid ink or bone chip; UPCOMING is a hairline
           ring. Connectors are compact at <Code>w-12</Code>. Step titles take{" "}
-          <Code>.form-title</Code>, the UI register: 15px at weight 600,
-          sentence case, and NO rule under them.
+          <Code>.form-title</Code>, the UI register in Atoms, and take no rule
+          under them.
         </What>
         <What>
           ⚠ THE NO-JUMP CONTRACT. A centred column re-centres on any change of

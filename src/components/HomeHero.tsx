@@ -73,7 +73,7 @@ function Phone() {
 export default function HomeHero() {
   return (
     <section
-      style={{ position: "relative", overflow: "hidden", background: "#16110C", minHeight: "100vh", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
+      style={{ position: "relative", overflow: "hidden", background: "var(--ink-canvas)", minHeight: "100vh", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
     >
         {/* Warm gradient ground — shared with the interior heroes via HeroGlow
             (full-bleed; the ground runs up behind the transparent nav) */}

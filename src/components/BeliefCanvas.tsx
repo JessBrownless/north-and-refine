@@ -54,7 +54,7 @@ export default function BeliefCanvas({ children }: { children: ReactNode }) {
             width: "44%",
             height: "26%",
             borderRadius: "50%",
-            background: "#C2A878",
+            background: "var(--champagne)",
             opacity: 0.04,
             filter: "blur(150px)",
             transform: "translateZ(0)",
