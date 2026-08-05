@@ -382,7 +382,7 @@ export default function MoleculesTier() {
       >
         <Sub
           title="LedgerRow"
-          note="COMPOSES: a hairline (border-t or border-b, rule-dark on ink, rule-light on bone) · a title left at a ladder register · a value or meta right · a baseline lock. THE RULE: the rule is the row, so the row carries no background, no radius and no padding beyond its vertical rhythm; the two sides lock on a baseline, and the register of the left side decides which lock. HAND-ROLLED IN: contact/page.tsx (the facts rail, first baseline, .overline label against a .body value), MethodSection.tsx (index numeral, title and body on a three-column grid over rule-light), work/[slug]'s deliverables and the ServicesScrollIndex dash-ruled lists."
+          note="COMPOSES: a hairline (border-t or border-b, rule-dark on ink, rule-light on bone) · a title left at a ladder register · a value or meta right · a baseline lock. THE RULE: the rule is the row, so the row carries no background, no radius and no padding beyond its vertical rhythm; the two sides lock on a baseline, and the register of the left side decides which lock. BUILT AS: LedgerRow.tsx (2026-08-05). Was hand-rolled in contact/page.tsx (the facts rail, first baseline, .overline label against a .body value), MethodSection.tsx (index numeral, title and body on a three-column grid over rule-light), work/[slug]'s deliverables and the ServicesScrollIndex dash-ruled lists."
         />
         <Stage ground="ink">
           <div className="border-t rule-dark">
@@ -403,7 +403,7 @@ export default function MoleculesTier() {
 
         <Sub
           title="RuledLinkRow"
-          note="COMPOSES: a LedgerRow whose WHOLE ROW is the link · group on the row · a title that dims to opacity-70 on group-hover · a .btn-ghost on the right whose arrow turns champagne through the same group. THE RULE: one link, not two. The ghost on the right is an AFFORDANCE, not a second target, so it is a span inside the row's own anchor; and because the row is navigation rather than a call to action, the right-hand mark is always the tertiary ghost, never a pill. Stack to a column below sm, with the ghost falling under the title. HAND-ROLLED IN: ServicesShowcase.tsx (.display titles, last baseline), industries/page.tsx (.heading-lg plus a one-line lead, first baseline), services/[slug]/page.tsx (.heading-md on a 5/5/2 grid, first baseline)."
+          note="COMPOSES: a LedgerRow whose WHOLE ROW is the link · group on the row · a title that dims to opacity-70 on group-hover · a .btn-ghost on the right whose arrow turns champagne through the same group. THE RULE: one link, not two. The ghost on the right is an AFFORDANCE, not a second target, so it is a span inside the row's own anchor; and because the row is navigation rather than a call to action, the right-hand mark is always the tertiary ghost, never a pill. Stack to a column below sm, with the ghost falling under the title. BUILT AS: RuledLinkRows.tsx. Was hand-rolled in ServicesShowcase.tsx (.display titles, last baseline), industries/page.tsx (.heading-lg plus a one-line lead, first baseline), services/[slug]/page.tsx (.heading-md on a 5/5/2 grid, first baseline)."
         />
         <Stage ground="ink">
           <div className="border-t rule-dark">
@@ -451,7 +451,7 @@ export default function MoleculesTier() {
       >
         <Sub
           title="MetaRow"
-          note="COMPOSES: two or three meta items on one baseline, separated by a decorative middot. THE RULE: items-baseline plus gap-x, never a bullet character typed into the string; the separator is its own aria-hidden span so a screen reader reads Category, Date and not Category dot Date. Tints come from the ground's own ladder: text-clay or text-bone-dim on ink, text-ink-mute on bone, with the middot at text-ink-faint, the decorative-only tint. HAND-ROLLED IN: BlogList.tsx (twice per card: category and date above the title, reading time and the Read arrow below it), WorkCard.tsx and the homepage work cards (card-title left, services overline right, over a hairline)."
+          note="COMPOSES: two or three meta items on one baseline, separated by a decorative middot. THE RULE: items-baseline plus gap-x, never a bullet character typed into the string; the separator is its own aria-hidden span so a screen reader reads Category, Date and not Category dot Date. Tints come from the ground's own ladder: text-clay or text-bone-dim on ink, text-ink-mute on bone, with the middot at text-ink-faint, the decorative-only tint. BUILT AS: MetaRow.tsx (2026-08-05). Was hand-rolled in BlogList.tsx (twice per card: category and date above the title, reading time and the Read arrow below it), WorkCard.tsx and the homepage work cards (card-title left, services overline right, over a hairline)."
         />
         <Stage ground="bone">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -477,7 +477,7 @@ export default function MoleculesTier() {
 
         <Sub
           title="StatPair"
-          note="COMPOSES: a .stat numeral with a .label or .body-sm caption beneath it, optionally a .fineprint qualifier under that. THE RULE: the numeral is the whole register and the caption never competes with it; three per band at most, divided by a left hairline from the second onward rather than by boxes; and every figure must be one the studio could defend in front of the client it came from. HAND-ROLLED IN: work/[slug]'s results band (three metrics, sm:border-l dividers, staggered reveals), pricing/page.tsx (the package price inside a card), StartProjectOverlay.tsx (the promise bento's 2 / 3 / 0)."
+          note="COMPOSES: a .stat numeral with a .label or .body-sm caption beneath it, optionally a .fineprint qualifier under that. THE RULE: the numeral is the whole register and the caption never competes with it; three per band at most, divided by a left hairline from the second onward rather than by boxes; and every figure must be one the studio could defend in front of the client it came from. BUILT AS: StatPair.tsx (2026-08-05). Was hand-rolled in work/[slug]'s results band (three metrics, sm:border-l dividers, staggered reveals), pricing/page.tsx (the package price inside a card), StartProjectOverlay.tsx (the promise bento's 2 / 3 / 0)."
         />
         <Stage ground="ink">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
@@ -509,7 +509,7 @@ export default function MoleculesTier() {
 
         <Sub
           title="AttributionRow"
-          note="COMPOSES: a circular avatar, a name, a hairline divider and a role, under a quote and over a top rule. THE RULE: items-center, NOT a baseline lock, because the row mixes an image with type and an avatar has no baseline; the avatar is a circle, the third standing exception to the corners rule, since faces in circles read as people; the divider is a 1px h-3 span that disappears below sm, where the row wraps. The avatar is aria-hidden with an empty alt, because the name beside it is already the accessible text. HAND-ROLLED IN: Testimonial.tsx, whose tone prop already swaps every tint in the row."
+          note="COMPOSES: a circular avatar, a name, a hairline divider and a role, under a quote and over a top rule. THE RULE: items-center, NOT a baseline lock, because the row mixes an image with type and an avatar has no baseline; the avatar is a circle, the third standing exception to the corners rule, since faces in circles read as people; the divider is a 1px h-3 span that disappears below sm, where the row wraps. The avatar is aria-hidden with an empty alt, because the name beside it is already the accessible text. BUILT AS: AttributionRow.tsx (2026-08-05). Was hand-rolled in Testimonial.tsx, whose tone prop already swaps every tint in the row."
         />
         <Stage ground="ink">
           <blockquote className="statement max-w-[24ch] text-balance text-bone">
@@ -538,7 +538,7 @@ export default function MoleculesTier() {
       >
         <Sub
           title="FrostedPanel"
-          note="COMPOSES: a glass surface picked by ground (.glass-float over imagery, .card-glass over flat ink) · .reveal for the opacity · .glass-frost for a 6px blur burning off over 0.85s · an inline transitionDelay for the stagger. THE RULE: .reveal and .glass-frost go on the SAME element and neither is optional. .reveal owns the fade, so a panel can never strand invisible if the observer does not fire; .glass-frost owns only the blur, and outside a .reveal that blur never burns off. Adapted from the design source on purpose: its version also rides a translate and a scale, and the 16px rise is retired from this brand, so the blur burn-off IS the develop. HAND-ROLLED IN: ServicesTiles.tsx and ServicesHeroGraphic.tsx, both of which stagger their panels by inline delay."
+          note="COMPOSES: a glass surface picked by ground (.glass-float over imagery, .card-glass over flat ink) · .reveal for the opacity · .glass-frost for a 6px blur burning off over 0.85s · an inline transitionDelay for the stagger. THE RULE: .reveal and .glass-frost go on the SAME element and neither is optional. .reveal owns the fade, so a panel can never strand invisible if the observer does not fire; .glass-frost owns only the blur, and outside a .reveal that blur never burns off. Adapted from the design source on purpose: its version also rides a translate and a scale, and the 16px rise is retired from this brand, so the blur burn-off IS the develop. BUILT AS: graphics/GraphicPanelLabel.tsx (2026-08-05) — it lives in graphics/ because every consumer does, and a root-level file would read as sitewide furniture. Was hand-rolled in ServicesTiles.tsx and ServicesHeroGraphic.tsx, both of which stagger their panels by inline delay."
         />
         <Stage ground="image">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -596,7 +596,7 @@ export default function MoleculesTier() {
 
         <Sub
           title="FieldGroup"
-          note="COMPOSES: an .overline label · an underline-only input (fieldBase) · a resting border from fieldBorder · an inline .fineprint error from errorTone. THE RULE: no boxes, only the rule beneath, which is why inputs are one of the few things left that do not round. Validation is DESIGNED, never native: both forms set noValidate, fields validate on blur once touched, clear as they are corrected, and a failed submit focuses the first invalid field. The resting rule on light is ink/35, not rule-light, because a section hairline is tuned to whisper and an affordance has to read. HAND-ROLLED IN: ContactForm.tsx spells the label, input and error out per field; StartProjectForm.tsx hoists FieldLabel and FieldError as local components, out of the render, so React does not rebuild them on every keystroke."
+          note="COMPOSES: an .overline label · an underline-only input (fieldBase) · a resting border from fieldBorder · an inline .fineprint error from errorTone. THE RULE: no boxes, only the rule beneath, which is why inputs are one of the few things left that do not round. Validation is DESIGNED, never native: both forms set noValidate, fields validate on blur once touched, clear as they are corrected, and a failed submit focuses the first invalid field. The resting rule on light is ink/35, not rule-light, because a section hairline is tuned to whisper and an affordance has to read. BUILT AS: FieldGroup.tsx (2026-08-05). Was hand-rolled in ContactForm.tsx, which spelled the label, input and error out per field; StartProjectForm.tsx hoists FieldLabel and FieldError as local components, out of the render, so React does not rebuild them on every keystroke."
         />
 
         <Stage ground="ink">
@@ -681,7 +681,7 @@ export default function MoleculesTier() {
 
         <Sub
           title="TickBox"
-          note="COMPOSES: an sr-only peer checkbox · a 20px square with a 1.75-weight tick · a rounded-ui-sm choice card carrying the label and a fineprint hint · a focus ring drawn on the CARD from the input's focus-visible. THE RULE: the box is champagne-filled with an ink tick on both grounds, and the card's selected rim follows the ground instead: champagne on ink, ink with a champagne/10 wash on bone, which is the cream family. Cards are multi-select, and a 'Not sure yet' option is mutually exclusive with the rest. HAND-ROLLED IN: StartProjectForm.tsx, the only consumer; the tick path is duplicated in its progress marks."
+          note="COMPOSES: an sr-only peer checkbox · a 20px square with a 1.75-weight tick · a rounded-ui-sm choice card carrying the label and a fineprint hint · a focus ring drawn on the CARD from the input's focus-visible. THE RULE: the box is champagne-filled with an ink tick on both grounds, and the card's selected rim follows the ground instead: champagne on ink, ink with a champagne/10 wash on bone, which is the cream family. Cards are multi-select, and a 'Not sure yet' option is mutually exclusive with the rest. BUILT AS: TickBox.tsx (2026-08-05), which exports TickPath — so the claim that done marks speak the checkbox language is now literal shared geometry rather than a resemblance. ContactForm's consent box stays hand-rolled on purpose: the input IS the square there (appearance-none, uncontrolled, 16px, no card), so one component for both would be a fork wearing a component's name. It shares TickPath, which was the real duplication."
         />
         <Stage ground="bone">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -735,7 +735,7 @@ export default function MoleculesTier() {
 
         <Sub
           title="ProgressMarks"
-          note="COMPOSES: an ol labelled Progress · h-8 w-8 circular .label chips · fixed w-12 hairline connectors · three states. THE RULE: each state has its own voice, all three borrowed from elsewhere in the system. DONE is the checkbox language, a champagne fill with an ink tick, which is the same banked-answer treatment the cards use; CURRENT is the single solid ink-or-bone chip, the row's one anchor; UPCOMING is a hairline ring. Two identical solid chips is what made an earlier version read as generic wizard chrome. Connectors are a fixed width, never flex-1, or the row stretches across the measure. Done marks are BUTTONS that jump back to that step; upcoming marks are spans. HAND-ROLLED IN: StartProjectForm.tsx, the only consumer."
+          note="COMPOSES: an ol labelled Progress · h-8 w-8 circular .label chips · fixed w-12 hairline connectors · three states. THE RULE: each state has its own voice, all three borrowed from elsewhere in the system. DONE is the checkbox language, a champagne fill with an ink tick, which is the same banked-answer treatment the cards use; CURRENT is the single solid ink-or-bone chip, the row's one anchor; UPCOMING is a hairline ring. Two identical solid chips is what made an earlier version read as generic wizard chrome. Connectors are a fixed width, never flex-1, or the row stretches across the measure. Done marks are BUTTONS that jump back to that step; upcoming marks are spans. BUILT AS: ProgressMarks.tsx (2026-08-05). StartProjectForm remains the only consumer."
         />
         <Stage ground="ink">
           <ol aria-label="Progress specimen" className="flex items-center">

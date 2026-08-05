@@ -29,6 +29,7 @@
  * `spacious` is the statement-moment padding tier, for a light act that
  * wants room.
  */
+import AttributionRow from "@/components/AttributionRow";
 import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 
 export default function Testimonial({
@@ -59,9 +60,6 @@ export default function Testimonial({
   // Kicker: bone on ink; clay on bone — the tracked-caps ornament exception
   // (the one sanctioned clay-on-light, as MethodSection uses).
   const kickerColor = dark ? "" : " text-clay";
-  const nameColor = dark ? "text-bone" : "text-ink";
-  const metaColor = dark ? "text-bone-dim" : "text-ink-dim";
-  const middot = dark ? "bg-bone/15" : "bg-ink/15";
   // Ivory carries the handoff's exact pads (112 top / 128 bottom).
   const pad = ivory
     ? "pt-28 pb-32"
@@ -102,26 +100,19 @@ export default function Testimonial({
               &ldquo;Placeholder — the client&rsquo;s real words will sit
               here. We don&rsquo;t write these <em>ourselves</em>.&rdquo;
             </blockquote>
-            {/* Attribution — items-center, not baseline: the row mixes image
-                and type. */}
-            <div
-              className={`mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t ${ruleCls} pt-5 reveal`}
-              style={{ transitionDelay: "160ms" }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/testimonials/client-avatar.jpg"
-                alt=""
-                aria-hidden
-                loading="lazy"
-                className="plate-develop h-10 w-10 rounded-full object-cover"
-              />
-              <p className={`body-sm ${nameColor}`}>Dr Yalda Jamali</p>
-              <span aria-hidden className={`hidden h-3 w-px ${middot} sm:block`} />
-              <p className={`body-sm ${metaColor}`}>
-                Cosmetic doctor — real words to come
-              </p>
-            </div>
+            {/* Attribution. The row's own rules (items-center because it
+                mixes image and type, the circular avatar, the drawn hairline
+                divider) live in the molecule; ivory is a ground step rather
+                than a polarity, so it attributes on the light ladder. */}
+            <AttributionRow
+              tone={dark ? "dark" : "light"}
+              avatarSrc="/assets/testimonials/client-avatar.jpg"
+              name="Dr Yalda Jamali"
+              role="Cosmetic doctor — real words to come"
+              className="mt-10"
+              reveal
+              delay={160}
+            />
           </div>
         </div>
       </div>

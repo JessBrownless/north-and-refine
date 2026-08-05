@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MetaRow from "@/components/MetaRow";
 import type { WorkEntry } from "@/lib/work";
 
 /**
@@ -52,16 +53,33 @@ export default function WorkPlate({
           </span>
         )}
       </div>
-      <div className="mt-5 flex items-baseline justify-between gap-4 border-t rule-dark pt-4">
-        {/* .card-title (2026-07-11): card titles are captions, not headings —
-            sans, shared with the blog teasers; no Saol em accent. */}
-        <h3 className="card-title text-bone transition-opacity group-hover:opacity-70">
-          {project.frontmatter.client}
-        </h3>
-        <span className="overline text-clay">
-          {project.frontmatter.services.slice(0, 2).join(" · ")}
-        </span>
-      </div>
+      {/* The caption is a MetaRow in its SPREAD shape: the two items are
+          pushed to the ends of the hairline, so the space between them is the
+          separator and the glyph is turned off.
+          ⚠ The services string still joins its own middot, which is the one
+          thing MetaRow's rule forbids. The row cannot fix it, because the
+          molecule owns the gap BETWEEN items and never reaches inside one:
+          splitting that string into two items is a change to what renders,
+          not an extraction. See the note in MetaRow.tsx. */}
+      <MetaRow
+        tone="dark"
+        spread
+        rule
+        separator={null}
+        wrap={false}
+        gap="gap-4"
+        className="mt-5"
+        items={[
+          // .card-title (2026-07-11): card titles are captions, not headings —
+          // sans, shared with the blog teasers; no Saol em accent.
+          <h3 key="client" className="card-title text-bone transition-opacity group-hover:opacity-70">
+            {project.frontmatter.client}
+          </h3>,
+          <span key="services" className="overline text-clay">
+            {project.frontmatter.services.slice(0, 2).join(" · ")}
+          </span>,
+        ]}
+      />
       {project.frontmatter.summary && (
         <p className="body-sm mt-3 max-w-[52ch] text-bone-dim">
           {project.frontmatter.summary}

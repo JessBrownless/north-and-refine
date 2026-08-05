@@ -1,3 +1,4 @@
+import GraphicPanelLabel from "./GraphicPanelLabel";
 import { GraphicScaler, MONO, SANS } from "./shared";
 
 /**
@@ -73,22 +74,11 @@ function Panel({
   );
 }
 
-/** The source's mono meta label: 9–10px, tracked caps, champagne-soft. */
-function PanelLabel({ children, size = 9 }: { children: React.ReactNode; size?: number }) {
-  return (
-    <div
-      style={{
-        fontFamily: MONO,
-        fontSize: size,
-        letterSpacing: ".2em",
-        textTransform: "uppercase",
-        color: "var(--champagne-soft)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+/* The source's mono meta label — 9–10px tracked caps in champagne-soft — is
+   now `GraphicPanelLabel`, the graphics set's one home for the kicker at
+   graphic scale. It lived here as a local component until 2026-08-05; the
+   file it moved to records why the .overline utility cannot do this job
+   inside a scaled canvas. */
 
 function Plate({ src }: { src: string }) {
   return (
@@ -186,7 +176,7 @@ export function ServicesTileSeo({ className }: { className?: string }) {
             </span>
           </div>
           <div>
-            <PanelLabel>Site health</PanelLabel>
+            <GraphicPanelLabel>Site health</GraphicPanelLabel>
             <div style={{ fontSize: 9.5, color: "var(--bone-dim)", marginTop: 5 }}>
               Technical SEO audit
             </div>
@@ -228,7 +218,7 @@ export function ServicesTileSeo({ className }: { className?: string }) {
             illustration must not fake a dataset. */}
         <Panel at={{ right: 64, bottom: 100, width: 280, padding: "16px 18px 12px" }} delay={740}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <PanelLabel size={10}>Enquiries</PanelLabel>
+            <GraphicPanelLabel size={10}>Enquiries</GraphicPanelLabel>
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1.5 11.5l4-4.4 2.6 2.2 4.4-5.4" stroke="var(--champagne-soft)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M9 3.9h3.5v3.5" stroke="var(--champagne-soft)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -317,7 +307,7 @@ export function ServicesTileWeb({ className }: { className?: string }) {
 
         {/* booking CTA — z-index 4 in the source: it crosses the phone */}
         <Panel at={{ right: 44, top: 56, padding: "16px 20px", zIndex: 4 }} delay={610}>
-          <PanelLabel>Next available</PanelLabel>
+          <GraphicPanelLabel>Next available</GraphicPanelLabel>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 10 }}>
             <span style={{ fontSize: 13, color: "var(--bone)", whiteSpace: "nowrap" }}>
               Thu 18 Sep · 10:30
@@ -366,7 +356,7 @@ export function ServicesTileBrand({ className }: { className?: string }) {
 
         {/* typeface */}
         <Panel at={{ right: 44, top: 122, width: 168, padding: "16px 20px", zIndex: 4 }} delay={740}>
-          <PanelLabel>Typeface</PanelLabel>
+          <GraphicPanelLabel>Typeface</GraphicPanelLabel>
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginTop: 8 }}>
             <span style={{ fontFamily: HELV, fontSize: 30, fontWeight: 700, lineHeight: 1, color: "var(--bone)" }}>
               Aa
@@ -380,7 +370,7 @@ export function ServicesTileBrand({ className }: { className?: string }) {
 
         {/* layers */}
         <Panel at={{ left: 44, bottom: 64, width: 150, padding: "16px 20px" }} delay={480}>
-          <PanelLabel>Layers</PanelLabel>
+          <GraphicPanelLabel>Layers</GraphicPanelLabel>
           <div
             style={{
               display: "flex",

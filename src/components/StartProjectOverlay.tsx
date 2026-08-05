@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import NRMonogram from "@/components/NRMonogram";
 import StartProjectForm from "@/components/StartProjectForm";
+import StatPair from "@/components/StatPair";
 import { SITE } from "@/lib/site";
 
 /**
@@ -396,36 +397,39 @@ export default function StartProjectOverlayHost() {
               already right for it. Never draft that data here.
               The reply promise's THIRD home (foot → subtitle → here) and its
               last: it is the one real number this surface owns, so it gets
-              the numeral treatment instead of hiding in running copy. */}
+              the numeral treatment instead of hiding in running copy.
+              Each tile's figure is a `<StatPair>` (2026-08-05), the molecule
+              this bento shares with a case study's results band; the tile
+              surface and the bento grid stay here, since they are what makes
+              these promises a bento rather than a band. ⚠ The captions are
+              the promises themselves: do not reword them here. */}
           <div
             className={`absolute inset-x-5 bottom-5 z-10 hidden gap-3 md:grid md:grid-cols-2 lg:inset-x-6 lg:bottom-6 ${LAYER} ${
               shown ? "opacity-100" : "opacity-0"
             }`}
             style={{ transitionDelay: shown ? "480ms" : "0ms" }}
           >
-            <div className="glass-float col-span-2 p-5 lg:p-6">
-              <p className="stat text-bone">2</p>
-              <p className="body-sm mt-2 text-bone-dim">
-                Working days to a personal reply
-              </p>
-              <p className="fineprint mt-1 text-bone-dim/80">
-                We read every enquiry ourselves.
-              </p>
-            </div>
-            <div className="glass-float p-5 lg:p-6">
-              <p className="stat text-bone">3</p>
-              <p className="body-sm mt-2 text-bone-dim">
-                Steps to send; about two minutes
-              </p>
-            </div>
-            <div className="glass-float p-5 lg:p-6">
-              {/* Zero is the honest headline for "no obligation". */}
-              <p className="stat text-bone">0</p>
-              <p className="body-sm mt-2 text-bone-dim">Obligation</p>
-              <p className="fineprint mt-1 text-bone-dim/80">
-                The first conversation commits you to nothing.
-              </p>
-            </div>
+            <StatPair
+              className="glass-float col-span-2 p-5 lg:p-6"
+              value="2"
+              caption="Working days to a personal reply"
+              captionAs="body-sm"
+              note="We read every enquiry ourselves."
+            />
+            <StatPair
+              className="glass-float p-5 lg:p-6"
+              value="3"
+              caption="Steps to send; about two minutes"
+              captionAs="body-sm"
+            />
+            {/* Zero is the honest headline for "no obligation". */}
+            <StatPair
+              className="glass-float p-5 lg:p-6"
+              value="0"
+              caption="Obligation"
+              captionAs="body-sm"
+              note="The first conversation commits you to nothing."
+            />
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import LedgerRow from "@/components/LedgerRow";
+
 type MethodItem = { title: string; body: string };
 
 /**
@@ -66,22 +68,29 @@ export default function MethodSection({ method }: { method: MethodItem[] }) {
           </div>
         </div>
 
-        {/* BAND 2 — the beats as full-rail ledger rows. Mobile keeps the
-            index-beside-text shape; md splits into index · title · body so
-            both columns hold a comfortable measure. */}
+        {/* BAND 2 — the beats as full-rail ledger rows: `<LedgerRow
+            layout="indexed">` since 2026-08-05, the molecule this band shares
+            with /contact's facts rail. Mobile keeps the index-beside-text
+            shape; md splits into index · title · body so both columns hold a
+            comfortable measure. tone="light" selects the hairline only —
+            rule-light on bone — and rule="top" opens each row, so the stack's
+            foot runs into the section's own padding rather than closing on a
+            line. The cells' tints stay here, where the copy is. */}
         <div className="mt-16 md:mt-24">
           {method.map((m, i) => (
-            <div
+            <LedgerRow
               key={m.title}
-              className="grid grid-cols-[3rem_1fr] items-baseline gap-x-5 gap-y-3 border-t rule-light py-8 reveal md:grid-cols-[3.5rem_1fr_1fr] md:gap-x-8 md:gap-y-0 md:py-10"
-              style={{ transitionDelay: `${i * 60}ms` }}
+              layout="indexed"
+              tone="light"
+              rule="top"
+              delay={i * 60}
             >
               {/* text-ink-mute, not clay: the on-LIGHT ladder — clay is
                   sub-AA on bone and only the kicker keeps it there. */}
               <p className="index-num text-ink-mute">0{i + 1}</p>
               <h3 className="heading-md">{m.title}</h3>
               <p className="body text-ink-dim col-start-2 md:col-start-3">{m.body}</p>
-            </div>
+            </LedgerRow>
           ))}
         </div>
       </div>

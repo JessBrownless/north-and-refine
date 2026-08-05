@@ -1,3 +1,4 @@
+import StatPair from "@/components/StatPair";
 import type { WorkMetric } from "@/lib/work";
 
 /**
@@ -22,6 +23,12 @@ import type { WorkMetric } from "@/lib/work";
  * The hairline dividers hang off the LEFT of each column and are suppressed
  * on the first, so the rules sit BETWEEN the figures and never fence the band.
  * Entrance steps at 80ms across the row, left to right, the reading order.
+ *
+ * The figures themselves are `<StatPair>` (2026-08-05): the numeral-and-caption
+ * molecule this band shares with the Start-a-project promise bento. The
+ * divider, the reveal and the stagger stay HERE, because they are properties
+ * of the band rather than of a pair — a pair carrying its own hairline could
+ * not be set into a glass tile.
  */
 export default function ResultsBand({
   metrics,
@@ -39,14 +46,13 @@ export default function ResultsBand({
         <p className="overline reveal">{kicker}</p>
         <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3">
           {metrics.slice(0, 3).map((m, i) => (
-            <div
+            <StatPair
               key={i}
               className="reveal sm:border-l sm:border-ink-line sm:pl-8 sm:first:border-l-0 sm:first:pl-0"
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <p className="stat text-bone">{m.value}</p>
-              <p className="label text-bone-dim mt-3">{m.label}</p>
-            </div>
+              delay={i * 80}
+              value={m.value}
+              caption={m.label}
+            />
           ))}
         </div>
       </div>

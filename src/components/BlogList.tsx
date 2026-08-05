@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import MetaRow from "@/components/MetaRow";
 
 /** Serialisable card data — the server pre-formats everything (date, category
     label) so this client component imports nothing from @/lib/journal (that
@@ -126,32 +127,52 @@ export default function BlogList({
                       )}
                     </div>
                     <div>
-                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                        <p className="overline text-clay">{post.categoryLabel}</p>
-                        <span aria-hidden className="text-ink-faint">
-                          ·
-                        </span>
-                        {/* text-ink-mute ≈ 5.0:1 on bone (AA) — quiet but legible. */}
-                        <p className="label text-ink-mute">{post.dateLabel}</p>
-                      </div>
+                      {/* The category kicker takes clay, the one sanctioned
+                          clay-on-light (tracked-caps ornament); the date takes
+                          text-ink-mute ≈ 5.0:1 on bone (AA), quiet but
+                          legible. The middot between them belongs to the row,
+                          not to either string. */}
+                      <MetaRow
+                        items={[
+                          <p key="category" className="overline text-clay">
+                            {post.categoryLabel}
+                          </p>,
+                          <p key="date" className="label text-ink-mute">
+                            {post.dateLabel}
+                          </p>,
+                        ]}
+                      />
                       <h2 className="card-title mt-4 text-ink line-clamp-2 transition-opacity group-hover:opacity-60">
                         {post.title}
                       </h2>
                       <p className="body mt-3 line-clamp-2 max-w-[54ch] text-ink-dim">
                         {post.description}
                       </p>
-                      <div className="mt-6 flex items-center gap-4">
-                        <span className="label text-ink-mute">{post.readingMinutes} min read</span>
-                        <span aria-hidden className="text-ink-faint">
-                          ·
-                        </span>
-                        <span className="cta-label inline-flex items-center gap-1.5 text-ink transition-all group-hover:gap-2.5">
-                          Read
-                          <span aria-hidden className="transition-colors group-hover:text-champagne">
-                            →
-                          </span>
-                        </span>
-                      </div>
+                      {/* The same row again, with the onward affordance as its
+                          last item. ⚠ align="center" is what this row shipped;
+                          MetaRow's rule is baseline, and the two disagree.
+                          Preserved rather than corrected: moving it is a
+                          visual change, not an extraction. */}
+                      <MetaRow
+                        align="center"
+                        wrap={false}
+                        gap="gap-4"
+                        className="mt-6"
+                        items={[
+                          <span key="reading" className="label text-ink-mute">
+                            {post.readingMinutes} min read
+                          </span>,
+                          <span
+                            key="read"
+                            className="cta-label inline-flex items-center gap-1.5 text-ink transition-all group-hover:gap-2.5"
+                          >
+                            Read
+                            <span aria-hidden className="transition-colors group-hover:text-champagne">
+                              →
+                            </span>
+                          </span>,
+                        ]}
+                      />
                     </div>
                   </div>
                 </Link>

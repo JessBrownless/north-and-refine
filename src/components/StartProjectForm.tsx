@@ -3,14 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
-import {
-  EMAIL_RE,
-  errorTone,
-  fieldBase,
-  fieldBorder,
-  postNetlifyForm,
-  type FormTone,
-} from "@/lib/forms";
+import { EMAIL_RE, errorTone, postNetlifyForm, type FormTone } from "@/lib/forms";
+import FieldGroup, { FieldError } from "@/components/FieldGroup";
+import TickBox from "@/components/TickBox";
+import ProgressMarks from "@/components/ProgressMarks";
 
 /**
  * The Start-a-project form (2026-07-31; rebuilt 2026-08-01, STEPPED the same
@@ -45,6 +41,15 @@ import {
  * as corrected, a failed Next or submit focuses the first invalid field.
  * NOTHING here starts at opacity 0 — the form is conversion-critical and must
  * never wait on an animation to become visible.
+ *
+ * THREE MOLECULES LEFT THIS FILE ON 2026-08-05, all of them named at
+ * /stylesheet long before they were built: `FieldGroup` (which absorbed the
+ * local FieldLabel and FieldError, and keeps them at module scope for the
+ * same reason they were hoisted here), `TickBox` (the choice cards, and the
+ * tick geometry this file used to write twice) and `ProgressMarks` (the
+ * stepped indicator). Thirteen tone-table entries went with them: each
+ * molecule resolves its own ground from the `tone` prop, so what remains in
+ * `T` below is only what this file still draws itself.
  */
 
 /* Order is web → search → brand, per the sitewide rule (brand is never
@@ -97,43 +102,12 @@ const FIELD_STEP: Record<Field, number> = {
   message: 2,
 };
 
-/* One label above a control. `.overline` is the site's field-label treatment
-   (see ContactForm); the tint comes from the caller's tone table, since clay
-   is sub-AA on a light ground. Hoisted OUT of the form component on purpose:
-   a component defined inside a render is a new type every keystroke, and
-   React unmounts and rebuilds whatever it wraps. */
-function FieldLabel({
-  htmlFor,
-  tint,
-  children,
-}: {
-  htmlFor: string;
-  tint: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label htmlFor={htmlFor} className={`overline block ${tint}`}>
-      {children}
-    </label>
-  );
-}
-
-function FieldError({
-  id,
-  tint,
-  message,
-}: {
-  id: string;
-  tint: string;
-  message?: string;
-}) {
-  if (!message) return null;
-  return (
-    <p id={id} role="alert" className={`fineprint mt-1.5 ${tint}`}>
-      {message}
-    </p>
-  );
-}
+/* FieldLabel and FieldError used to live here, hoisted out of the render on
+   purpose: a component defined inside a render is a new type every keystroke,
+   so React unmounts and rebuilds whatever it wraps, and a rebuilt input loses
+   its caret. Both are inside `FieldGroup` now, at that module's top level, so
+   the property survives the move. FieldError is still imported by name for the
+   one error with no field of its own: the choice cards' `needs`. */
 
 function validateText(field: Exclude<Field, "needs">, raw: string): string | undefined {
   const value = raw.trim();
@@ -177,7 +151,7 @@ export default function StartProjectForm({
      where stealing focus would yank them past the heading they're reading. */
   const movedRef = useRef(false);
 
-  /* THE TONE TABLE. Every colour the form uses, resolved once. On light,
+  /* THE TONE TABLE, now only what this file still draws itself. On light,
      champagne is demoted from STATE to ORNAMENT — a 1px champagne line or
      champagne text on bone is 1.8:1, invisible — so ink carries focus,
      errors and the selected card's RIM. But a champagne FILL under an ink
@@ -186,28 +160,22 @@ export default function StartProjectForm({
      "filled states on checkboxes — anything we can take from DS?" — this is
      what the DS had to give), and the selected card's wash on light is
      champagne/10, the cream family (champagne mixed into bone, the same move
-     as .scene-cream). See lib/forms.ts for the measurements. */
+     as .scene-cream). See lib/forms.ts for the measurements.
+
+     THIRTEEN ENTRIES LEFT ON 2026-08-05, each to the molecule that was the
+     only thing reading it: the eight card tints to `TickBox`, the five mark
+     and connector tints to `ProgressMarks`, and the field label tint to
+     `FieldGroup`. `T.label` stays because the success state still uses it for
+     its kicker. A fourteenth, `fine`, was deleted rather than moved: nothing
+     had read it since the consent line was removed on 2026-08-01. The rule
+     for the ones that moved is unchanged, it just lives beside the markup it
+     colours: tone is a PROP through one table, never a fork. */
   const T = light
     ? {
         title: "text-ink",
         hint: "text-ink-dim",
         label: "text-ink-mute",
-        fine: "text-ink-mute",
         body: "text-ink-dim",
-        cardRest: "border-ink/25 hover:border-ink/50",
-        cardOn: "border-ink bg-champagne/10",
-        boxRest: "border-ink/35",
-        boxOn: "border-champagne bg-champagne",
-        tick: "text-ink",
-        cardLabel: "text-ink",
-        cardHint: "text-ink-mute",
-        ring: "ring-ink",
-        markNow: "border-ink bg-ink text-bone",
-        markDone:
-          "border-champagne bg-champagne text-ink hover:border-champagne-soft hover:bg-champagne-soft",
-        markNext: "border-ink/25 text-ink-mute",
-        line: "bg-ink/15",
-        lineDone: "bg-ink",
         primary: "btn-primary-light",
         ghost: "text-ink",
       }
@@ -215,22 +183,7 @@ export default function StartProjectForm({
         title: "text-bone",
         hint: "text-bone-dim",
         label: "text-clay",
-        fine: "text-bone-dim",
         body: "text-bone-dim",
-        cardRest: "rule-dark hover:border-champagne/50",
-        cardOn: "border-champagne bg-champagne/[0.07]",
-        boxRest: "border-bone/45",
-        boxOn: "border-champagne bg-champagne",
-        tick: "text-ink",
-        cardLabel: "text-bone",
-        cardHint: "text-bone-dim",
-        ring: "ring-champagne",
-        markNow: "border-bone bg-bone text-ink",
-        markDone:
-          "border-champagne bg-champagne text-ink hover:border-champagne-soft hover:bg-champagne-soft",
-        markNext: "border-bone/25 text-clay",
-        line: "bg-bone/15",
-        lineDone: "bg-bone",
         primary: "btn-primary-dark",
         ghost: "text-bone",
       };
@@ -422,71 +375,9 @@ export default function StartProjectForm({
         </label>
       </p>
 
-      {/* THE PROGRESS MARKS — numerals in circles on a hairline track.
-          Three calls from 2026-08-01 shaped them, in order:
-           · COMPACT ("the 1-2-3 progress bar feels weirdly stretched out") —
-             fixed w-12 connectors, never flex-1 across the measure.
-           · PROGRESS STAYS FILLED ("the step numbers don't stay filled in…
-             we need to signify progress") — done marks hold a solid fill and
-             swap the numeral for a tick.
-           · AND THEN OFF THE TEMPLATE ("feels a bit not on brand… maybe it's
-             too dark or something, just looks templately") — the templately
-             thing was TWO IDENTICAL INK CHIPS: current and done in the same
-             solid made the row read as generic wizard chrome. Now each state
-             has its own voice, all three borrowed from elsewhere in the DS:
-             DONE is the CHECKBOX language (champagne fill + ink tick — the
-             exact banked-answer treatment the choice cards use, and the same
-             sanctioned champagne-at-rest: form feedback); CURRENT is the one
-             solid ink/bone chip, the single anchor; UPCOMING is a hairline
-             ring. One dark chip per row, and the trail behind the reader is
-             literally the colour of its ticked boxes. Done marks are buttons
-             (go back, change an answer); hover steps champagne → soft, the
-             house hover-fill move. */}
-      <ol aria-label="Progress" className="flex items-center">
-        {STEPS.map((s, i) => {
-          const state = i < step ? "done" : i === step ? "now" : "next";
-          const mark = `label flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${
-            state === "now" ? T.markNow : state === "done" ? T.markDone : T.markNext
-          }`;
-          return (
-            <li key={s.id} className="flex items-center">
-              {state === "done" ? (
-                <button type="button" onClick={() => goTo(i)} className={mark}>
-                  <span className="sr-only">
-                    Step {i + 1} complete. Back to step {i + 1}
-                  </span>
-                  <svg viewBox="0 0 12 12" className="h-3 w-3" aria-hidden>
-                    <path
-                      d="M2 6.5 L5 9 L10 3.5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.75"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              ) : (
-                <span
-                  className={mark}
-                  aria-current={state === "now" ? "step" : undefined}
-                >
-                  <span className="sr-only">
-                    {state === "now" ? "Current step: " : "Step "}
-                  </span>
-                  {i + 1}
-                </span>
-              )}
-              {i < LAST && (
-                <span
-                  aria-hidden
-                  className={`mx-2.5 h-px w-12 ${i < step ? T.lineDone : T.line}`}
-                />
-              )}
-            </li>
-          );
-        })}
-      </ol>
+      {/* THE PROGRESS MARKS. The three calls that shaped them, and the reason
+          each state has its own voice, are recorded in the component. */}
+      <ProgressMarks steps={STEPS} current={step} onGoTo={goTo} tone={tone} />
 
       {/* The one announcement a screen reader needs when the panel swaps. */}
       <p className="sr-only" aria-live="polite">
@@ -523,52 +414,48 @@ export default function StartProjectForm({
         {/* Name + email share the rail; the practice takes its own. */}
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
-            <FieldLabel htmlFor="sp-name" tint={T.label}>Your name</FieldLabel>
-            <input
+            <FieldGroup
               id="sp-name"
               name="name"
-              type="text"
+              label="Your name"
+              tone={tone}
               maxLength={100}
               autoComplete="name"
-              aria-invalid={errors.name ? true : undefined}
-              aria-describedby={errors.name ? "sp-name-error" : undefined}
+              error={errors.name}
               onBlur={handleBlur("name")}
               onChange={handleChange("name")}
-              className={`${fieldBase(tone)} ${fieldBorder(errors.name, tone)}`}
               placeholder="Full name"
             />
-            <FieldError id="sp-name-error" tint={errorTone(tone)} message={errors.name} />
           </div>
           <div>
-            <FieldLabel htmlFor="sp-email" tint={T.label}>Your email</FieldLabel>
-            <input
+            <FieldGroup
               id="sp-email"
               name="email"
+              label="Your email"
+              tone={tone}
               type="email"
               maxLength={254}
               autoComplete="email"
               inputMode="email"
               spellCheck={false}
-              aria-invalid={errors.email ? true : undefined}
-              aria-describedby={errors.email ? "sp-email-error" : undefined}
+              error={errors.email}
               onBlur={handleBlur("email")}
               onChange={handleChange("email")}
-              className={`${fieldBase(tone)} ${fieldBorder(errors.email, tone)}`}
               placeholder="name@practice.com"
             />
-            <FieldError id="sp-email-error" tint={errorTone(tone)} message={errors.email} />
           </div>
         </div>
 
         <div className="mt-6">
-          <FieldLabel htmlFor="sp-practice" tint={T.label}>The practice</FieldLabel>
-          <input
+          {/* The one optional field, so it carries no error and never states:
+              `error` left undefined is what resolves the resting rule. */}
+          <FieldGroup
             id="sp-practice"
             name="practice"
-            type="text"
+            label="The practice"
+            tone={tone}
             maxLength={160}
             autoComplete="organization"
-            className={`${fieldBase(tone)} ${fieldBorder(undefined, tone)}`}
             placeholder="Practice name, or a web address (optional)"
           />
         </div>
@@ -585,96 +472,46 @@ export default function StartProjectForm({
             className="grid grid-cols-1 gap-3 sm:grid-cols-2"
             aria-describedby={errors.needs ? "sp-needs-error" : undefined}
           >
-            {SERVICES.map((s) => {
-              const on = needs.includes(s.value);
-              return (
-                <label
-                  key={s.value}
-                  /* p-4/p-5 with a 16px gap (2026-08-01, client: "a bit more
-                     padded, they seem a bit techy"). rounded-ui-sm: choice
-                     cards are contained surfaces, and surfaces curve. */
-                  className={`group relative flex cursor-pointer items-start gap-4 rounded-ui-sm border p-4 transition-colors sm:p-5 ${
-                    on ? T.cardOn : T.cardRest
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    name="needs"
-                    value={s.value}
-                    checked={on}
-                    onChange={() => toggleNeed(s.value)}
-                    className="peer sr-only"
-                  />
-                  {/* 20px on a 6px radius with a 1.75 stroke — sized to the
-                      type beside it rather than to a checklist widget.
-                      ⚠ THE RAW 6px HOLDS, ADJUDICATED 2026-08-05. The surface
-                      scale starts at --radius-ui-sm (10px), which is HALF this
-                      box: 10px on a 20px square is a circle, and a circular
-                      multi-select control reads as a radio button. So this is
-                      not radius freelancing, it is a control smaller than the
-                      scale's smallest stop can serve — a real gap, and minting
-                      a stop below ui-sm is the client's call, not a sweep's. */}
-                  <span
-                    aria-hidden
-                    className={`mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-[6px] border transition-colors ${
-                      on ? T.boxOn : T.boxRest
-                    }`}
-                  >
-                    <svg
-                      viewBox="0 0 12 12"
-                      className={`h-2.5 w-2.5 ${T.tick} transition-opacity ${
-                        on ? "opacity-100" : "opacity-0"
-                      }`}
-                    >
-                      <path
-                        d="M2 6.5 L5 9 L10 3.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.75"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="min-w-0">
-                    <span className={`label block ${T.cardLabel}`}>{s.label}</span>
-                    <span className={`fineprint mt-0.5 block ${T.cardHint}`}>
-                      {s.hint}
-                    </span>
-                  </span>
-                  {/* Keyboard focus ring on the CARD, driven by the sr-only
-                      input's focus-visible state. */}
-                  <span
-                    aria-hidden
-                    className={`pointer-events-none absolute inset-0 rounded-ui-sm ring-1 ${T.ring} opacity-0 peer-focus-visible:opacity-100`}
-                  />
-                </label>
-              );
-            })}
+            {/* All four post under one `needs` name and the form joins them
+                with commas, so the Netlify field stays a single string. */}
+            {SERVICES.map((s) => (
+              <TickBox
+                key={s.value}
+                name="needs"
+                value={s.value}
+                label={s.label}
+                hint={s.hint}
+                checked={needs.includes(s.value)}
+                onChange={() => toggleNeed(s.value)}
+                tone={tone}
+              />
+            ))}
           </div>
-          <FieldError id="sp-needs-error" tint={errorTone(tone)} message={errors.needs} />
+          {/* The only error with no field of its own: it belongs to the group,
+              so it sits under the grid rather than under any one card. */}
+          <FieldError id="sp-needs-error" message={errors.needs} tone={tone} />
         </fieldset>
       </div>
 
       {/* ── STEP 3 — The project ───────────────────────────────────────── */}
       <div data-step="2" hidden={step !== 2} className="mt-7">
-        <FieldLabel htmlFor="sp-message" tint={T.label}>Where things stand</FieldLabel>
-        {/* rows 3, not 4 — at 4 the last step ran 925px in a 900px viewport
-            (measured 2026-08-01); the everything-visible rule outranks the
-            extra line. */}
-        <textarea
+        {/* No wrapper div: FieldGroup renders none, so the panel itself is the
+            field's box. rows 3, not 4 — at 4 the last step ran 925px in a
+            900px viewport (measured 2026-08-01); the everything-visible rule
+            outranks the extra line. */}
+        <FieldGroup
           id="sp-message"
           name="message"
+          label="Where things stand"
+          tone={tone}
+          control="textarea"
           rows={3}
           maxLength={2000}
-          aria-invalid={errors.message ? true : undefined}
-          aria-describedby={errors.message ? "sp-message-error" : undefined}
+          error={errors.message}
           onBlur={handleBlur("message")}
           onChange={handleChange("message")}
-          className={`${fieldBase(tone)} ${fieldBorder(errors.message, tone)} resize-none`}
           placeholder="Where the practice is now, and what you'd like to change."
         />
-        <FieldError id="sp-message-error" tint={errorTone(tone)} message={errors.message} />
       </div>
 
       {/* Closes THE STEP WELL. */}

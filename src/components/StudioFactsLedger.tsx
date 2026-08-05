@@ -1,3 +1,4 @@
+import LedgerRow from "@/components/LedgerRow";
 import { SITE } from "@/lib/site";
 
 export interface StudioFact {
@@ -30,12 +31,19 @@ const STUDIO_FACTS: readonly StudioFact[] = [
  * Molecules tier documented the pattern by HAND-COPYING this markup into a
  * Stage, which is the drift the component tier exists to end: the specimen
  * can now import the rail itself, so the canon and the live page cannot say
- * different things. The rule IS the row, so it carries no background, no
- * radius and no padding beyond its vertical rhythm.
+ * different things.
  *
- * The row's two sides lock on a FIRST baseline (BASELINES LOCK): the label
- * leads its block, so the value sits on the label's own line, never on a box
- * edge and never nudged with pt-*.
+ * The rows themselves are `<LedgerRow layout="split">` (2026-08-05), shared
+ * with /about's method beats. The rule IS the row, so it carries no
+ * background, no radius and no padding beyond its vertical rhythm; the two
+ * sides lock on a FIRST baseline (BASELINES LOCK), because the label leads
+ * its block, so the value sits on the label's own line, never on a box edge
+ * and never nudged with pt-*. Both of those now live in the molecule and
+ * cannot be turned off here.
+ *
+ * THE CONTAINER'S border-t STAYS HERE, and has to: each row closes itself
+ * with a border-b, so the rail needs one hairline of its own to open with.
+ * The container is the LEDGER; the molecule is the row.
  */
 export default function StudioFactsLedger({
   facts = STUDIO_FACTS,
@@ -51,10 +59,10 @@ export default function StudioFactsLedger({
   return (
     <div className="border-t rule-dark">
       {facts.map((fact, i) => (
-        <div
+        <LedgerRow
           key={fact.label}
-          className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b rule-dark py-5 reveal"
-          style={i ? { transitionDelay: `${i * stagger}ms` } : undefined}
+          layout="split"
+          delay={i ? i * stagger : undefined}
         >
           <p className="overline text-clay">{fact.label}</p>
           {fact.href ? (
@@ -72,7 +80,7 @@ export default function StudioFactsLedger({
           ) : (
             <p className="body text-bone-dim">{fact.value}</p>
           )}
-        </div>
+        </LedgerRow>
       ))}
     </div>
   );
