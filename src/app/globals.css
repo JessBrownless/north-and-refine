@@ -322,7 +322,17 @@
   .heading-md {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400; /* Saol ships one upright weight here */
-    font-size: clamp(1.5rem, 1.13rem + 1.6vw, 2.5rem); /* 24 → 40px (second Saol lift 2026-07-05) */
+    /* 24 → 36px. DROPPED FROM 40px 2026-08-05 (client: "heading medium and
+       heading large are way too similar"). The ladder was lopsided, and the
+       measurements said so: at desktop lg/md was 1.20, barely a step, while
+       md/sm was 1.43, a chasm. Lowering the max fixes BOTH ends at once —
+       lg/md becomes 1.33 and md/sm 1.29, so the rungs are finally evenly
+       spaced. The MIN is untouched at 24px: mobile was already right (the
+       geometric mean of lg and sm there is 24.8), so this is a desktop
+       correction only, and the vw coefficient eases 1.6 → 1.35 to track it.
+       .heading-sm is deliberately NOT moved: the gap above it widens in
+       proportion rather than closing. */
+    font-size: clamp(1.5rem, 1.17rem + 1.35vw, 2.25rem);
     line-height: 1.25;
     letter-spacing: -0.005em;
   }

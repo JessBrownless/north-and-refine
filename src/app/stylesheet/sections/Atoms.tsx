@@ -1,4 +1,5 @@
 import { Tier, Section, Sub, Code, Stage, Entry } from "../_ui";
+import TypeScaleExplorer from "../TypeScaleExplorer";
 
 /**
  * TIER 02 — ATOMS (2026-08-05 rebuild).
@@ -326,6 +327,13 @@ export default function AtomsTier() {
         title="The display ladder"
         note="Pick a rung by REGISTER, not by taste. Each rung means a kind of thing, and the rule that follows from that is simple: a list item must never outrank or tie its section's head, and a signpost must never shout like a moment. Sizes are one clamp per class, fluid between roughly 640px and 1280px. The italic word in two of the specimens below is the accent-word device, which composes a face, a rung and an editorial rule, so it is documented in Molecules."
       >
+        {/* THE KNOB (2026-08-05). It reads the clamps out of the live CSSOM
+            rather than repeating them here, so it cannot drift from
+            globals.css: change a rung and this follows on reload. The two
+            moments worth dragging to are where a rung leaves its floor and
+            where it hits its ceiling, because no breakpoint lands on
+            either. */}
+        <TypeScaleExplorer />
         <Rung
           cls="display-mega"
           size="52 to 152px, line-height 0.94"
@@ -374,9 +382,9 @@ export default function AtomsTier() {
         />
         <Rung
           cls="heading-md"
-          size="24 to 40px, line-height 1.25"
+          size="24 to 36px, line-height 1.25"
           sample="Discovery and diagnosis"
-          register="ITEMS. Cards, process steps, the second level inside a section."
+          register="ITEMS. Cards, process steps, the second level inside a section. Its max dropped 40 to 36px on 2026-08-05: against the signpost above it the step was 1.20, barely a step at all, while the gap down to .heading-sm was 1.43. Lowering this one rung evened both."
           where="MethodSection process plates, WorkCard, ContactForm, the pricing tiers, the service and blog detail pages."
         />
         <Rung
