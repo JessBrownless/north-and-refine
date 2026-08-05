@@ -113,12 +113,25 @@ export default function HomeHero() {
             that patients <em>trust.</em>
           </h1>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)", flexWrap: "wrap" }}>
-            <Link href="/start-a-project" style={{ background: "var(--bone)", color: "var(--ink)", borderRadius: "999px", padding: "16px 28px", whiteSpace: "nowrap", fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase" }}>
-              Start a project
-            </Link>
-            <Link href="/work" style={{ fontSize: "11px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--bone)" }}>
-              View the work →
-            </Link>
+            {/* THE FLAGSHIP AND ITS GHOST (2026-08-05). Both were hand-rolled
+                pills — drift pattern #5, "hand-rolled buttons instead of .btn
+                plus a variant" — which is why the homepage's primary CTA had
+                no arrow chip while every other primary on the site does.
+
+                The canon already said this hero owns the FLAGSHIP: one per
+                view, label left, circular ↗ chip. It now does, which also
+                restores the gold hover contract (pill → champagne-soft, chip →
+                champagne, arrow leaning north-east) that the hand-rolled pill
+                had no way to express. The secondary is the house ghost, so its
+                arrow turns champagne on hover instead of the whole link
+                dimming, which reads as disabled. */}
+              <Link href="/start-a-project" className="btn btn-primary-dark btn-arrow">
+                Start a project
+                <span className="btn-arrow-chip" aria-hidden>↗</span>
+              </Link>
+              <Link href="/work" className="btn-ghost text-bone">
+                View the work <span aria-hidden>→</span>
+              </Link>
           </div>
         </div>
 
