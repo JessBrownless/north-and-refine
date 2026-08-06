@@ -30,10 +30,23 @@ function Phone() {
     <div
       style={{
         position: "relative",
-        // 23vw with a floor, NO ceiling — the row must always overflow the
-        // viewport so the outer phones crop at the screen edges (the 1D
-        // comp's edge-to-edge device row, restored 2026-07-23).
-        width: "max(150px, 23vw)",
+        // CAPPED 2026-08-07 (client: on desktop the side mock-ups render
+        // "far too large… as a second and third desktop", not phones). The
+        // old width — max(150px, 23vw), a floor with NO ceiling — dated from
+        // the bottom-bleed era, when the hero's clip swallowed all but the
+        // top ~180px of each phone and the crop did the proportion work; the
+        // same day's un-crop revealed the full 700px+ towers that width
+        // actually draws, TALLER than the desktop mockup beside them. The
+        // clamp keeps phones at phone scale against the desktop's 51.5vw
+        // (~14vw ≈ a real phone:laptop width ratio; ceiling 210px so big
+        // monitors don't regrow the towers; floor 150px unchanged, so small
+        // viewports render exactly as before). Consequence, deliberate: the
+        // row now FITS the viewport (~88.5vw), ending the 1D comp's side
+        // shear — the natural conclusion of the client's "clipped mock-ups
+        // read as a mistake" direction. This also RESTORES THE MANIFESTO'S
+        // AIR: the uncapped phones dangled ~390px into the band's top air,
+        // which read as the statement having no top padding at all.
+        width: "clamp(150px, 14vw, 210px)",
         aspectRatio: "320 / 680",
         background: "#060607",
         borderRadius: "clamp(26px,3vw,50px)",
@@ -197,15 +210,14 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* DEVICE ROW — phone · desktop · phone, bled off the SIDES only
-            (2026-07-23, per the 1D comp: the row is wider than the viewport —
-            ~106vw all told — so the outer phones crop at the screen edges;
-            the CANVAS's overflow-hidden does that cropping now). The BOTTOM
-            bleed ended 2026-08-07 (client: the cut-off devices "read as a
-            mistake, not a design choice"): with the clip moved to the canvas,
-            the row renders in full, trailing past the hero's 100vh line onto
-            the shared ground — the manifesto's top air is ~46vh deep, which
-            is what the overhang lands in. */}
+        {/* DEVICE ROW — phone · desktop · phone, FULLY VISIBLE since
+            2026-08-07 (two client calls, same direction: the cut-off devices
+            "read as a mistake, not a design choice", then the uncapped side
+            phones rendered "far too large" on desktop). With the phone cap
+            the row is ~88.5vw and FITS the viewport, so the 1D comp's
+            edge-to-edge shear is retired along with the bottom bleed; the
+            desktop's foot still trails a little past the hero's 100vh line
+            onto the shared ground, which the canvas leaves unclipped. */}
         <div style={{ position: "absolute", left: 0, right: 0, top: "60%", zIndex: 10, display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "clamp(16px,4.5vw,80px)" }}>
           <Phone />
           <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "max(300px, 51.5vw)" }}>
