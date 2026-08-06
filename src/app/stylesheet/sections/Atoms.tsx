@@ -715,7 +715,7 @@ export default function AtomsTier() {
           <Entry
             name="the sticky footgun"
             what="An overflow-hidden ancestor becomes the scroll container for any descendant position: sticky, so the pin silently stops working and the element just scrolls away. On any section containing sticky content, put the glow in an absolutely-positioned overflow-hidden layer that is a SIBLING of the sticky content, never its ancestor, and leave the section itself unclipped."
-            where="The /services rolling numeral and the manifesto tracks. It regressed twice on 2026-07-24 before the client caught it."
+            where="The /services rolling numeral — since 2026-08-07 the site's ONLY sticky element, the homepage manifesto having unpinned that day (which is exactly what let its section take the standard clipped glow recipe). It regressed twice on 2026-07-24 before the client caught it."
           />
         </div>
 

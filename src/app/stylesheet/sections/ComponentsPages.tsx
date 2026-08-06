@@ -69,8 +69,11 @@ import type { WorkEntry, WorkMetric } from "@/lib/work";
  * belief statement ran on "the same 140vh sticky track" as the homepage
  * manifesto. It never did. That claim is now answered in <BeliefStatement>'s
  * own docstring, where a reader of the component will meet it, and the two
- * shapes are separate components (<ManifestoTrack> pins, <BeliefStatement>
- * does not) so the same confusion cannot recur silently.
+ * shapes are separate components, so the same confusion cannot recur
+ * silently. (Since 2026-08-07 NEITHER pins: the homepage manifesto unpinned
+ * at the client's call, the same friction verdict that unpinned /services on
+ * 2026-07-24. The two shapes now differ in dress, not mechanics: an air band
+ * on the glow versus the hanging-kicker indent inside the scroll index.)
  */
 
 /* ── Documentation furniture, local to this file (the same shapes tier 04
@@ -386,7 +389,7 @@ export default function ComponentsPages() {
           note="The type-led homepage. Three composed sections, then a scroll-pinned statement, then work, offer, proof and the close, with fade-to-ink handovers between the dark bands."
         >
           <Beat n={1} name="HomeHero" what="The bespoke three-section hero: print masthead left, work capture, craft card and proof stat right." />
-          <Beat n={2} name="ManifestoTrack" what="The 140vh track with its sticky, screen-height child: the statement pins while its words fill on scroll, then releases past a secondary Our story link. Takes exitFade." />
+          <Beat n={2} name="ManifestoTrack" what="The statement in a min-h air band on the hero-family glow (SectionGlow left, grain), filling word by word as it scrolls through in NORMAL FLOW — unpinned 2026-08-07, the site's last scroll pin. A secondary Our story link below; takes exitFade." />
           <Beat n={3} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
           <Beat n={4} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
           <Beat n={5} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
@@ -719,7 +722,7 @@ export default function ComponentsPages() {
 
         <Sub
           title="ManifestoTrack — described, not rendered"
-          note="The statement compartment WITH the scroll track it needs: an h-[140vh] section around a sticky top-0 h-screen child, so the statement holds on screen while the scrub lights its words and then releases. It cannot have a specimen here. The pin needs a page-length track to hold against, and in a documentation column it would either scroll away as an ordinary block or hijack a screen and a half of this page to show one sentence filling. Props: text (a PLAIN STRING, because the compartment splits it per word and the fill is the emphasis, which is why the statement carries no italic accent), cta ({ href, label }, the secondary link under it) and exitFade. ⚠ Never give this section or any ancestor overflow-hidden: an overflow-hidden ancestor becomes the sticky element's scroll container and the pin silently stops working. That regressed the /services odometer twice in one day. The track was tightened 180vh → 140vh on 2026-07-11."
+          note="The statement compartment on its ground: a min-h air band (100vh at md, 70vh on phones) with the statement centred, on the canonical adjoining-section glow recipe — SectionGlow blob left, grain, overflow-hidden — and the fill happening in NORMAL FLOW as it scrolls through. UNPINNED 2026-08-07 (client: it 'blocks the screen into place… much bigger padding or something so it feels more fluid'), the same friction verdict that unpinned /services on 2026-07-24; the pin's 140vh/sticky geometry left with the mechanism, and losing the sticky child is precisely what made the clipped glow recipe legal here (overflow-hidden kills sticky — the ground stayed bare all the weeks the pin lived). Still described rather than staged: the fill scrubs against page scroll, so a specimen would sit at whatever opacity the scroll left it. Props: text (a PLAIN STRING, because the compartment splits it per word and the fill is the emphasis, which is why the statement carries no italic accent), cta ({ href, label }, the secondary link under it) and exitFade. ⚠ data-manifesto-track rides the INNER shell block, not the section: the scrub's completion tuning assumes track ≈ statement block, and measuring the tall air band instead would complete the fill while the words are still at the fold."
         />
         <Sub
           title="ExitFadeOverlay — described, not rendered"
@@ -1511,7 +1514,7 @@ export default function ComponentsPages() {
         />
         <Sub
           title="BeliefStatement — described, not rendered"
-          note="The studio's conviction in the homepage manifesto's compartment, so the shared statement fills its words in as you scroll: display register, statement alone, and NO italic accent, because the fill IS the emphasis. THE HANGING-KICKER INDENT puts the kicker inside the first line's indent with the statement running flush left underneath; the wrapper carries .belief-statement so the kicker's em-offsets track the statement's own clamp, and the indent is md+ only because 22% of a phone is narrower than the label. The kicker holds the belief-verb so the big words can start at the substance. It scrubs against page scroll, so it is described rather than staged: in a documentation column the words would sit at whatever opacity the scroll happened to leave them, which misrepresents both the fill and the statement. ⚠ THE data-manifesto-track WRAPPER IS LOAD-BEARING: the statement scrubs against the nearest track element, falling back to the nearest section, and here it SHARES its section with the prose pair and the whole scroll index, so without the attribute the fill would complete deep inside the index rows. ⚠ AND THE COMMENT THAT USED TO SIT ON THIS BLOCK WAS WRONG: it claimed a 140vh sticky track shared with the homepage. The pin was removed on purpose on 2026-07-24 (the client felt friction here) and what ships is a plain padded div in normal flow. The homepage manifesto keeps its pin, because its statement is that page's centrepiece."
+          note="The studio's conviction in the homepage manifesto's compartment, so the shared statement fills its words in as you scroll: display register, statement alone, and NO italic accent, because the fill IS the emphasis. THE HANGING-KICKER INDENT puts the kicker inside the first line's indent with the statement running flush left underneath; the wrapper carries .belief-statement so the kicker's em-offsets track the statement's own clamp, and the indent is md+ only because 22% of a phone is narrower than the label. The kicker holds the belief-verb so the big words can start at the substance. It scrubs against page scroll, so it is described rather than staged: in a documentation column the words would sit at whatever opacity the scroll happened to leave them, which misrepresents both the fill and the statement. ⚠ THE data-manifesto-track WRAPPER IS LOAD-BEARING: the statement scrubs against the nearest track element, falling back to the nearest section, and here it SHARES its section with the prose pair and the whole scroll index, so without the attribute the fill would complete deep inside the index rows. ⚠ AND THE COMMENT THAT USED TO SIT ON THIS BLOCK WAS WRONG: it claimed a 140vh sticky track shared with the homepage. The pin was removed on purpose on 2026-07-24 (the client felt friction here) and what ships is a plain padded div in normal flow. The homepage manifesto held its pin another fortnight on centrepiece grounds, then got the same verdict from the same reader on 2026-08-07 — no pin anywhere now; the compartment fills in normal flow on both pages."
         />
 
         {/* ── CONTACT AND HOLDING ──────────────────────────────────────── */}

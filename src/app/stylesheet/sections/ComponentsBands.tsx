@@ -27,8 +27,9 @@ import StartProjectForm from "@/components/StartProjectForm";
  *  · ServicesScrollIndex measures page scroll against a sticky pin. In a
  *    documentation column the pin has no track to hold, so a specimen would
  *    show a still numeral and misreport the one behaviour that component IS.
- *  · ManifestoStatement scrubs its fill against a 140vh track the CONSUMER
- *    owns. Off that track the scrub has nothing to measure.
+ *  · ManifestoStatement scrubs its fill against the data-manifesto-track
+ *    block the CONSUMER owns, timed against page scroll. In a documentation
+ *    column the words would sit at whatever opacity the scroll left them.
  *  · StartProjectOverlay is a fixed inset-0 dialog whose host also installs a
  *    sitewide capture-phase click interceptor. A second host on this page
  *    installs a second interceptor and fights the real one.
@@ -382,22 +383,27 @@ export default function ComponentsBands() {
           where="The homepage manifesto and the /services belief."
         />
         <What>
-          The statement compartment: every word starts dim and brightens to full
-          as you scroll through a sticky track, tied to scroll position rather
-          than to time, so it moves at the reader&rsquo;s pace and rewinds when
-          they scroll back. One rAF-throttled listener measuring the nearest{" "}
-          <Code>&lt;section&gt;</Code>. Reduced motion shows it fully lit.
+          The statement compartment: every word starts dim and brightens to
+          full as the statement travels up the viewport, tied to scroll
+          position rather than to time, so it moves at the reader&rsquo;s pace
+          and rewinds when they scroll back — in NORMAL FLOW everywhere since
+          2026-08-07, when the homepage&rsquo;s pin (the last on the site)
+          went. One rAF-throttled listener measuring the nearest track.
+          Reduced motion shows it fully lit.
         </What>
         <What>
-          THE CONSUMER OWNS THE TRACK, and it must be the same track or the
-          scrub timing differs: a <Code>h-[140vh] pt-[10vh] pb-[5vh]</Code>{" "}
-          section wrapping a <Code>sticky top-0 flex h-screen items-center</Code>{" "}
-          child. ⚠ <Code>position: sticky</Code> dies under an overflow-hidden
-          ancestor, so where the section also carries a SectionGlow the glow
-          needs its own absolutely positioned clipping layer as a SIBLING of the
-          sticky child. The text is a plain string because it is split per word,
-          which means a statement in this compartment carries no italic accent:
-          the fill IS the emphasis.
+          THE CONSUMER OWNS THE TRACK, and the track is the STATEMENT BLOCK:
+          mark the block wrapping the statement with{" "}
+          <Code>data-manifesto-track</Code> (both live consumers do — /services
+          because the belief shares its section with the whole scroll index,
+          the homepage because its section is a tall min-h air band). The
+          completion tuning assumes track ≈ statement, filling from entry and
+          completing by mid-viewport; hand it a tall box and the words are lit
+          before they are read. The sticky-track recipe that stood here
+          (h-[140vh], sticky h-screen child) left with the homepage pin. The
+          text is a plain string because it is split per word, which means a
+          statement in this compartment carries no italic accent: the fill IS
+          the emphasis.
         </What>
         <Props>
           <Entry name="text" what="Plain string, split per word." />
@@ -407,10 +413,11 @@ export default function ComponentsBands() {
           />
         </Props>
         <What>
-          NOT RENDERED, and this is the one band where that is not a scruple but
-          a fact: the scrub reads the section&rsquo;s own scroll progress. A
-          documentation stage is not a 140vh track, so a specimen here would sit
-          at one fixed fill and quietly claim the component does nothing.
+          NOT RENDERED, and this is the one band where that is not a scruple
+          but a fact: the scrub reads its track&rsquo;s position in the
+          viewport against page scroll. In a documentation column the words
+          would sit at whatever fill the scroll happened to leave them,
+          quietly claiming the component does nothing.
         </What>
       </Section>
 

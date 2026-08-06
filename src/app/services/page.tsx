@@ -300,8 +300,9 @@ export default function ServicesPage() {
             "tightened 140vh → 118vh" line. Neither has been true since
             2026-07-24: the pin was removed that day on purpose (the client
             felt "friction" at this section), and what ships is a plain padded
-            block in normal flow. The homepage keeps its 140vh pin. Full
-            account in <BeliefStatement>'s docstring. */}
+            block in normal flow. The homepage pin followed on 2026-08-07,
+            same verdict — no pin anywhere now. Full account in
+            <BeliefStatement>'s docstring. */}
         <BeliefStatement kicker="Our belief" text={BELIEF} />
 
         <BalancedProsePair paragraphs={BELIEF_PROSE} />

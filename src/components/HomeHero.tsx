@@ -79,6 +79,31 @@ export default function HomeHero() {
             (full-bleed; the ground runs up behind the transparent nav) */}
         <HeroGlow intensity={1} />
 
+        {/* THE SEAM ANCHOR (2026-08-07) — the hero's half of the seam
+            contract, added the day the manifesto below joined the glow
+            language. SectionGlow's wash starts from exactly #14100B at the
+            next section's top edge; this strip resolves the hero's ground to
+            that same tone at its foot, so the boundary is the same colour on
+            both sides and no line reads. Verbatim from PageHero — change one,
+            change both (and /stylesheet's Atmosphere entry). This hero never
+            carried the strip before because nothing glowed below it; using
+            SectionGlow without the anchor half is how the /about seam failed
+            twice in 2026-07. Sits UNDER the devices (zIndex 10) and the title
+            (20) — it anchors the GROUND, and the ground is what shows between
+            and beside the bezels at the boundary. */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            insetInline: 0,
+            bottom: 0,
+            height: "clamp(120px,18vh,220px)",
+            background:
+              "linear-gradient(180deg, rgba(20,16,11,0) 0%, #14100B 100%)",
+            pointerEvents: "none",
+          }}
+        />
+
         {/* CENTRED TITLE BLOCK */}
         <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(200px,24vh,290px) 24px 0" }}>
           {/* THE MASTHEAD RULE (2026-08-05, client: "we've got five or six

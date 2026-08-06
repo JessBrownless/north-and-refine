@@ -15,10 +15,12 @@ import WhatWeDoBand from "@/components/WhatWeDoBand";
 // warm ink, one italic accent word per statement, quiet kickers, hairlines,
 // air. Nothing performs (no deck, no blend tricks, no scroll pin, no
 // ambient pools, no grain, no exit fades, no marquee — all parked in the
-// system, none invited here). ⚠ That last sentence has been false since
-// 2026-07-11, when the sticky manifesto track and the exit fades came back
-// at the client's request; it is kept because it records the intent the page
-// was cut down to, not because it describes the page. Imagery: the hero
+// system, none invited here). ⚠ That last sentence has been PARTLY false
+// since 2026-07-11, when the sticky manifesto track and the exit fades came
+// back at the client's request; it is kept because it records the intent the
+// page was cut down to, not because it describes the page. The pin half was
+// RECONCILED 2026-08-07 — the manifesto unpinned and joined the glow
+// language, so the EXIT FADES are now the page's last live-era holdover. Imagery: the hero
 // plate (Rowen 5 portrait in the masthead's dead corner), the work captures
 // (Selected work), and the close plate (Rowen 8 landscape in ContactCTA) —
 // the two Rowen frames bookend the page: same room, same suite, the client's
@@ -58,9 +60,10 @@ export default function HomePage() {
       {/* ══ HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19). ══ */}
       <HomeHero />
 
-      {/* ── Manifesto (live-era) — the sticky track: the statement holds while
-          the scroll-scrub lights its words, then releases. "A studio that
-          treats..." in its original This-January form. ── */}
+      {/* ── Manifesto — the statement fills word by word as it scrolls
+          through, in normal flow on the hero-family glow (unpinned
+          2026-08-07; the site's last scroll pin went with it). "A studio
+          that treats..." in its original This-January form. ── */}
       <ManifestoTrack
         text={MANIFESTO}
         cta={{ href: "/about", label: "Our story" }}

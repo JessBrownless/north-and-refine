@@ -12,15 +12,21 @@ import { useEffect, useRef } from "react";
  *
  * SHARED, NOT HOMEPAGE-ONLY (2026-07-24, client: "the same, layout-wise…
  * I don't want them to feel too different"): the homepage manifesto and the
- * /services belief both render through here. Consumers own the track, and it
- * must be the SAME one or the scrub timing differs — a `h-[140vh] pt-[10vh]
- * pb-[5vh]` section wrapping a `sticky top-0 flex h-screen items-center`
- * child. `text` is a PLAIN STRING (it is split per word), so a statement in
- * this compartment carries no italic accent: the fill is the emphasis.
+ * /services belief both render through here — and since 2026-08-07 both run
+ * in NORMAL FLOW. The homepage's 140vh sticky track was the last pin on the
+ * site; the client removed it with the same words that removed the /services
+ * pin a fortnight earlier (it "blocks the screen into place"). The fill now
+ * always happens WHILE the text moves, at the reader's own pace.
  *
- * ⚠ position:sticky breaks under an overflow-hidden ancestor — if the section
- * also carries a SectionGlow, the glow needs its own absolutely-positioned
- * clipping layer as a SIBLING of the sticky child (see /services).
+ * THE TRACK IS THE STATEMENT BLOCK. Consumers mark the block wrapping this
+ * statement with `data-manifesto-track` (nearest <section> is the fallback
+ * for a section that IS just the statement). The completion tuning assumes
+ * track ≈ statement: it fills from entry and completes by mid-viewport. Do
+ * NOT hand it a tall air-padded section as the track — the fill would
+ * complete while the words are still at the fold, lit before they are read.
+ *
+ * `text` is a PLAIN STRING (it is split per word), so a statement in this
+ * compartment carries no italic accent: the fill is the emphasis.
  */
 export default function ManifestoStatement({
   text,
@@ -45,13 +51,13 @@ export default function ManifestoStatement({
       return;
     }
 
-    // Measure the TRACK, not blindly the section: when the statement shares
-    // a section with other content (/services — the belief + index share one
-    // surface since 2026-07-24), closest("section") would measure the whole
-    // combined block and the fill would complete deep in the neighbouring
-    // content instead of during the dwell. A consumer whose track is an
-    // inner div marks it with data-manifesto-track; a section that IS the
-    // track (the homepage) needs no attribute.
+    // Measure the TRACK, not blindly the section. Both live consumers mark
+    // an inner block with data-manifesto-track: /services because the belief
+    // shares its section with the whole scroll index, the homepage because
+    // its section is a min-h air band much taller than the statement — in
+    // either case closest("section") would measure the wrong box and the
+    // fill would complete at the wrong scroll moment. The section fallback
+    // survives for a consumer whose section IS just the statement.
     const section = el.closest<HTMLElement>("[data-manifesto-track]") ?? el.closest("section");
     if (!section) return;
 
@@ -60,20 +66,16 @@ export default function ManifestoStatement({
       raf = 0;
       const vh = window.innerHeight;
       const rect = section.getBoundingClientRect();
-      // Progress 0→1: starts as the statement enters (section top at 88%
-      // of the viewport). In a sticky track (section taller than the
-      // viewport) it completes 75% of the way through the dwell — the
-      // words keep filling WHILE the screen holds; in normal flow it
-      // completes with the section high on screen.
-      // Weighted so ~half the fill happens DURING the pin: it begins once
-      // the statement is well into view and completes only near the end of
-      // the dwell — the hold always has something happening in it.
-      // Window retuned 2026-07-24 (services-pacing handoff): start 0.8vh,
-      // normal-flow end 0.45vh — the fill COMPLETES BY MID-VIEWPORT, so a
-      // fast scroller never passes an unlit statement. The sticky-track end
-      // (the homepage dwell) is unchanged.
+      // Progress 0→1 against the track's top edge: the fill starts as the
+      // statement enters (track top at 80% of the viewport) and COMPLETES BY
+      // MID-VIEWPORT (top at 45%), so a fast scroller never passes an unlit
+      // statement. Window retuned 2026-07-24 (services-pacing handoff).
+      // The sticky-track branch that used to live here (end = deep in the
+      // dwell when the track was taller than the viewport) was DELETED
+      // 2026-08-07 with the homepage pin — its last consumer. If a pin ever
+      // returns, the branch is in this file's history; don't re-derive it.
       const start = vh * 0.8;
-      const end = rect.height > vh * 1.1 ? -(rect.height - vh) * 0.9 : vh * 0.45;
+      const end = vh * 0.45;
       const p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
       const n = words.length;
       for (let i = 0; i < n; i++) {

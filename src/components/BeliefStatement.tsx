@@ -50,12 +50,14 @@ import ManifestoStatement from "@/components/ManifestoStatement";
  * felt "friction" at this section and the sticky pin was the culprit; the
  * 118vh track had cut the dwell to ~18vh, long enough to snag the scroll and
  * too short to read as a deliberate hold, so rather than lengthen the hold
- * the pin went). <ManifestoStatement> handles unstuck consumers, filling the
- * words as the block travels up the viewport. The homepage manifesto KEEPS
- * its 140vh pin: its statement is that page's centrepiece and the long dwell
- * reads as intent, where this one just opens the index. The stale claim came
- * back in with a later comment rewrite (9713f54) that lost the removal note;
- * the rendered output has been left exactly as it was.
+ * the pin went). <ManifestoStatement> fills the words as the block travels
+ * up the viewport. The homepage manifesto held its pin another fortnight on
+ * centrepiece grounds ("the long dwell reads as intent"), then got the same
+ * verdict from the same reader on 2026-08-07 — it "blocks the screen into
+ * place" — and unpinned into a min-h air band. NO PIN ANYWHERE now; the
+ * compartment runs in normal flow on both pages. (The stale sticky claim
+ * once came back in with a comment rewrite (9713f54) that lost the removal
+ * note — which is why this history stays written down.)
  */
 export default function BeliefStatement({
   kicker,
