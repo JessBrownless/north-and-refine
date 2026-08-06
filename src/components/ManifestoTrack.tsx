@@ -16,9 +16,20 @@ import SectionGlow from "@/components/SectionGlow";
  * reader. The statement still fills word by word at your scroll pace
  * (ManifestoStatement is unchanged in kind; /services has run it unstuck for
  * a fortnight); the screen just never stops underneath you. The moment now
- * comes from AIR, not arrest: a min-h band with the statement centred, full
- * viewport height at md (70vh on phones, the PageHero mobile precedent —
- * a phone statement floating in 100vh of dead space reads abandoned).
+ * comes from AIR, not arrest: a min-h band with the statement centred.
+ *
+ * THE AIR WAS RAISED A LOT the same day (2026-08-07, client on the first
+ * unpinned cut: "increase the padding on top and bottom a lot, so you feel
+ * like you're scrolling quite a bit"): 100vh → 160vh at md, so the statement
+ * sits in ~55vh of pure ground on EACH side — the hero ends, you travel,
+ * the belief arrives, you travel, the work begins. Phones take 90vh (the
+ * PageHero mobile precedent scaled to the same intent: proportionally
+ * generous, never a statement abandoned in a dead screen). ⚠ The air lives
+ * on MIN-H + CENTRING, deliberately not py-*: padding utilities are frozen
+ * until the spacing sweep lands, and a min-h band says what it means — the
+ * band has a minimum size, the statement floats at its centre. The scrub is
+ * immune to this number: the track is the inner statement block, not the
+ * band (see below), so air changes the journey, never the fill timing.
  *
  * THE GROUND JOINED THE GLOW LANGUAGE IN THE SAME CHANGE (client: the
  * statement "fades in with just a plain black background… add some of the
@@ -61,7 +72,7 @@ export default function ManifestoTrack({
   return (
     <section className="relative z-10 overflow-hidden grain bg-ink">
       <SectionGlow blob="left" />
-      <div className="relative z-10 flex min-h-[70vh] items-center md:min-h-[100vh]">
+      <div className="relative z-10 flex min-h-[90vh] items-center md:min-h-[160vh]">
         <div data-manifesto-track className="shell w-full">
           <ManifestoStatement text={text} />
           {cta && (
