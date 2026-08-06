@@ -264,7 +264,9 @@ export default function ServicesPage() {
         }
         lede="The design and build, the search that brings patients to it, and the brand behind both. One studio, for private medical and surgical practices."
         cta={{ label: "Start a project", href: "/start-a-project" }}
-        ctaVariant="glass"
+        /* The second action is PROOF: someone weighing up the disciplines
+           wants to see them landed before they enquire. */
+        ctaSecondary={{ label: "See the work", href: "/work" }}
         media={
           /* GRAPHIC 09 LIVE (2026-07-31): the design project's services-hero
              composition as DOM (<ServicesHeroGraphic>), replacing the 1.7MB

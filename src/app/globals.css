@@ -857,7 +857,16 @@
   /* Flagship CTA — a pill with the label LEFT and a filled circular ↗ chip
      RIGHT. Compose .btn + a primary variant + .btn-arrow, with the chip as
      child markup: <span class="btn-arrow-chip" aria-hidden>↗</span>.
-     ONE per page — it outranks the plain primary as the lead action. */
+     ONE per page — it outranks the plain primary as the lead action.
+
+     ⚠ DOWN TO ONE CONSUMER (2026-08-06): the ContactCTA close band. It lost
+     the homepage hero when every hero primary became the glass pill, so the
+     tier that means "the loudest button on this page" now only ever appears
+     at the FOOT of a page, never at the top. That is a legible rule — the
+     hero invites, the close asks — but it is also a single-consumer token,
+     and this system's standing test is that such a token either earns its
+     place or folds into its neighbour. Flagged, not folded: the close band is
+     a separate question from the hero and has not been nominated. */
   .btn-arrow {
     /* Chip defines the height: slim vertical padding, chip inset 6px */
     padding: 0.375rem 0.375rem 0.375rem 1.75rem;
@@ -931,11 +940,29 @@
     background: var(--champagne-soft);
     border-color: var(--champagne-soft);
   }
-  /* THE GLASS PILL (2026-07-24, client trial on the /services hero: "a
-     glassy button") — the .card-glass surface in button form: low bone fill
-     + backdrop blur, so the warm hero ground reads through the pill. Dark
-     grounds only (blur needs something behind it). Hover follows the gold
-     rule like every tier: champagne rim + faint wash, never a solid fill. */
+  /* THE GLASS PILL — and since 2026-08-06 it IS THE HERO PRIMARY, on every
+     hero on the site (client: hero CTAs "should be glass as primary and text
+     as secondary"). It began as a /services trial on 2026-07-24 ("a glassy
+     button") and spent a fortnight as a one-page exception.
+
+     The .card-glass surface in button form: low bone fill + backdrop blur, so
+     the warm hero ground reads through the pill. Dark grounds only, and the
+     reason that constraint is not fussiness is the reason this pill belongs
+     to heroes specifically: a HERO is the one slot on the site with a LIT
+     ground behind the button — the warm HeroGlow — so the blur has something
+     to do. The same pill on a flat ink section is a sheet of glass over
+     nothing, which is why it is not the sitewide primary; .btn-primary-dark
+     still is, everywhere below the fold. On a LIGHT hero it cannot be used at
+     all (9% bone over bone is a smudge), so PageHero falls back to the solid
+     ink pill there.
+
+     ⚠ KNOWN EXCEPTION, accepted with eyes open: the HOMEPAGE hero's CTA row
+     overlaps its device mock-ups, so that one pill blurs black hardware
+     rather than the glow and reads quieter than the nav pill above it. Raised
+     and signed off 2026-08-06; the note in HomeHero.tsx carries the numbers.
+
+     Hover follows the gold rule like every tier: champagne rim + faint wash,
+     never a solid fill. */
   .btn-glass {
     background: color-mix(in srgb, var(--bone) 9%, transparent);
     color: var(--bone);

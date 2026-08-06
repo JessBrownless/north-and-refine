@@ -102,6 +102,9 @@ export default async function ServicePage({
         title={service.heading}
         lede={service.lead}
         cta={{ label: "Start a project", href: "/start-a-project" }}
+        /* LATERAL, not proof: a reader on the wrong discipline page needs a
+           way back to the other two more than they need the case studies. */
+        ctaSecondary={{ label: "All services", href: "/services" }}
       />
 
       {/* WHAT IT IS — the intro in the left rail, the deliverables ruled

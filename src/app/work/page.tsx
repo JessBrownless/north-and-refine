@@ -63,6 +63,13 @@ export default function WorkIndexPage() {
           </>
         }
         lede="A look at the brands and websites we've built, and what changed for the practices behind them."
+        /* CTA ADDED 2026-08-06, widening the commercial-pages-only policy of
+           2026-07-16: a reader on the work index is evaluating the studio, so
+           this is not a page that should make them go and find the button.
+           The second action is HOW WE WORK, not "see the work" — they are
+           already looking at it. */
+        cta={{ label: "Start a project", href: "/start-a-project" }}
+        ctaSecondary={{ label: "How we work", href: "/services" }}
       />
 
       {/* The hero blend decays THROUGH this band: its SectionGlow carries the

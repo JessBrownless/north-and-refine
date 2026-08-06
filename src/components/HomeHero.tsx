@@ -137,21 +137,42 @@ export default function HomeHero() {
             </span>
           </h1>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)", flexWrap: "wrap" }}>
-            {/* THE FLAGSHIP AND ITS GHOST (2026-08-05). Both were hand-rolled
-                pills — drift pattern #5, "hand-rolled buttons instead of .btn
-                plus a variant" — which is why the homepage's primary CTA had
-                no arrow chip while every other primary on the site does.
+            {/* THE GLASS PRIMARY AND ITS GHOST.
 
-                The canon already said this hero owns the FLAGSHIP: one per
-                view, label left, circular ↗ chip. It now does, which also
-                restores the gold hover contract (pill → champagne-soft, chip →
-                champagne, arrow leaning north-east) that the hand-rolled pill
-                had no way to express. The secondary is the house ghost, so its
-                arrow turns champagne on hover instead of the whole link
-                dimming, which reads as disabled. */}
-              <Link href="/start-a-project" className="btn btn-primary-dark btn-arrow">
+                2026-08-05 put both on the button system: they were hand-rolled
+                pills (drift pattern #5), which is why this primary had no
+                arrow chip while every other primary on the site did. It took
+                the FLAGSHIP — solid bone, circular ↗ chip — because the canon
+                said this hero owned it.
+
+                2026-08-06 REPLACED THAT WITH GLASS (client: hero CTAs "should
+                be glass as primary and text as secondary"), and the client
+                took the homepage with the rest rather than exempting it. ONE
+                HERO PRIMARY SITEWIDE now — no page gets a louder button than
+                any other by virtue of being the front door.
+
+                ⚠ THIS IS THE ONE HERO WHERE GLASS HAS NOTHING BEHIND IT, and
+                that was raised, seen and accepted (client: "looks fine to
+                me"), so don't re-litigate it — but know the measurement before
+                you touch this row. The DEVICE ROW below starts at 60% of the
+                hero and the CTA row sits about 140px INSIDE it, so this pill
+                blurs #060607 phone hardware, not the warm HeroGlow. Every
+                other hero's pill sits on a lit ground, which is the whole
+                argument for glass; this one reads quieter than the nav's solid
+                bone pill directly above it. If it is ever reconsidered, the
+                fix is the CAUSE — drop the device row so the pill lands on the
+                glow — not a special-case pill for one page.
+
+                ⚠ CONSEQUENCE: the flagship tier (.btn-arrow + chip) now has
+                exactly ONE consumer left, the ContactCTA close band. It is a
+                backlog candidate on the same terms as .btn-secondary-light and
+                .heading-part — a token with a single consumer either earns its
+                place or folds into its neighbour. It is not folded here
+                because the close band is a different question from the hero
+                and the client has not nominated it. */}
+              <Link href="/start-a-project" className="btn btn-glass">
                 Start a project
-                <span className="btn-arrow-chip" aria-hidden>↗</span>
+                <span aria-hidden>→</span>
               </Link>
               <Link href="/work" className="btn-ghost text-bone">
                 View the work <span aria-hidden>→</span>

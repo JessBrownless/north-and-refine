@@ -82,6 +82,7 @@ export default async function IndustryPage({
         title={industry.heading}
         lede={ledeSentence}
         cta={{ label: "Start a project", href: "/start-a-project" }}
+        ctaSecondary={{ label: "See the work", href: "/work" }}
       />
 
       {/* What we do for this niche — opens with the rest of the intro (its

@@ -116,6 +116,9 @@ export default function PricingPage() {
         }
         lede="Three ways to work with the studio, with guide pricing to help you plan. We quote precisely after a short discovery call."
         cta={{ label: "Start a project", href: "/start-a-project" }}
+        /* Proof before price: the honest second step for a reader who has
+           just been shown figures. */
+        ctaSecondary={{ label: "See the work", href: "/work" }}
       />
 
       {/* Packages — the figures above are PLACEHOLDERS (pre-launch

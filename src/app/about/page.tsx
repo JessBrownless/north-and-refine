@@ -212,6 +212,11 @@ export default function AboutPage() {
             </>
           }
           lede="North & Refine designs websites for surgical and medical clinics and practitioners. One field, known deeply."
+          /* CTA ADDED 2026-08-06 (see /work for the policy change). Arguably
+             the most earned of the two: someone who has read this far into
+             the studio page is deciding whether to talk to us. */
+          cta={{ label: "Start a project", href: "/start-a-project" }}
+          ctaSecondary={{ label: "See the work", href: "/work" }}
         />
 
         {/* The hero's visual half — the DOUBLE REAM of device mock-ups

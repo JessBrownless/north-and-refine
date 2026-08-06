@@ -128,6 +128,10 @@ export default function MoleculesTier() {
           title="Gold is the hover"
           note="Every tier's champagne moment is its hover state; no tier rests gold. That is the colour rule made mechanical: champagne is for details and interactions. The secondary outline in particular must NEVER fill solid on hover, which made it impersonate the primary and flattened the hierarchy until it was fixed."
         />
+        <Sub
+          title="THE HERO PAIR: glass primary, ghost secondary"
+          note="A hero's buttons are not chosen from the four tiers by taste — the pair is fixed (2026-08-06). The primary is .btn-glass and the second action is .btn-ghost, on one baseline. The reason glass belongs HERE and only here is material rather than decorative: it is 9% bone behind a blur, so it needs a lit ground, and a hero is the one slot on the site that has one, the warm HeroGlow. Below the fold the ground is flat and the same pill would be glass over nothing, which is why .btn-primary-dark is still the sitewide primary everywhere else. The secondary is added only where the page has a REAL onward step, never as a filler twin."
+        />
 
         <Stage ground="ink" className="flex flex-wrap items-center gap-4">
           <span className="btn btn-primary-dark btn-arrow">
@@ -183,7 +187,7 @@ export default function MoleculesTier() {
           <Entry
             name=".btn-arrow + .btn-arrow-chip"
             what="Tier 1, the flagship: label left, circular arrow chip right, as child markup. The chip inverts its button's colours at rest, then goes champagne and leans north-east on hover."
-            where="The homepage hero and the ContactCTA close. One per view."
+            where="THE CONTACTCTA CLOSE, and nothing else since 2026-08-06 — it lost the homepage hero when every hero primary became the glass pill. The loudest tier now only ever appears at the FOOT of a page: the hero invites, the close asks. A single-consumer token, and flagged as such."
           />
           <Entry
             name=".btn-primary-dark / .btn-primary-light"
@@ -203,7 +207,7 @@ export default function MoleculesTier() {
           <Entry
             name=".btn-glass"
             what="The card-glass surface in pill form: a 9% bone fill behind a 10px backdrop blur with a 25% bone rim, over dark imagery or a gradient. DARK grounds only, since a blur needs something behind it. Hover follows the gold rule like every tier, a champagne rim plus an 8% wash, never a solid fill."
-            where="The /services hero, via PageHero's ctaVariant=“glass”."
+            where="EVERY hero primary on the site — the eleven PageHero routes that carry a CTA, plus HomeHero's own markup. It stopped being a /services trial on 2026-08-06 and became THE hero CTA: a hero is the one slot with a lit ground behind the button, which is the only place a blur has anything to do."
           />
         </div>
       </Section>

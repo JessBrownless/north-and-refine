@@ -15,16 +15,26 @@ interface PageHeroProps {
       accent-word <em> at the display register. */
   title: React.ReactNode;
   lede?: string;
-  /** Optional primary CTA. HERO-CTA POLICY (settled 2026-07-16): commercial
-      pages only — /services, /pricing and the industries pages carry one;
-      /work, /blog and /about stay button-free (the nav and the ContactCTA
-      close carry theirs). */
+  /** THE HERO PRIMARY, and it is ALWAYS THE GLASS PILL (2026-08-06, client:
+      "add CTAs to all heroes where it makes sense and they should be glass as
+      primary and text as secondary"). No variant prop: a hero CTA is glass,
+      full stop. Glass is the right pill for this slot specifically because a
+      hero is the one place on the site with a LIT GROUND behind the button —
+      the warm HeroGlow — so the blur has something to do; the same pill on a
+      flat section would be a sheet of glass over nothing.
+
+      HERO-CTA POLICY (widened 2026-08-06, superseding the commercial-pages-
+      only rule of 2026-07-16): /work and /about gained one, because someone
+      reading either is evaluating the studio. Still button-free: /contact and
+      /start-a-project, whose FORM is the close; /blog, where a pill competes
+      with the reason the reader came; /privacy, which should not sell. */
   cta?: { label: string; href: string };
-  /** Pill style for the hero CTA (2026-07-24, client trial on /services):
-      "glass" renders `.btn-glass` — the card-glass surface as a pill, so
-      the warm ground reads through it. Dark heroes only (the blur needs a
-      lit ground behind it); default stays the solid primary. */
-  ctaVariant?: "primary" | "glass";
+  /** THE SECOND ACTION — the ghost text link beside the primary (2026-08-06).
+      Only where the page has a REAL onward step, never as a filler twin: a
+      secondary saying "see the work" on /work is noise, so /work's says "How
+      we work" instead. Renders `.btn-ghost`, the house tertiary, so its arrow
+      turns champagne on hover rather than the whole link dimming. */
+  ctaSecondary?: { label: string; href: string };
   /** Small meta line under the lede (e.g. breadcrumb-style context). */
   meta?: string;
   /** THE GRAPHIC SLOT (2026-07-16, client's call: "write space for nice
@@ -116,7 +126,7 @@ export default function PageHero({
   title,
   lede,
   cta,
-  ctaVariant = "primary",
+  ctaSecondary,
   meta,
   media,
   align = "left",
@@ -238,8 +248,18 @@ export default function PageHero({
     </h1>
   );
 
+  // THE HERO ACTION ROW (2026-08-06): glass primary, ghost secondary, both on
+  // one baseline. The row already locks baselines rather than boxes, which is
+  // what lets a 53px pill and an 11px tracked link sit together without a
+  // nudge — the pill's label and the ghost's label share a line.
+  //
+  // The LIGHT fallback is not a style preference, it is a constraint: glass is
+  // 9% bone over a backdrop-blur, which needs a lit dark ground to read as
+  // anything. On bone it would be a faint smudge, so a light hero takes the
+  // solid ink pill instead. (No live light heroes, but the branch has to be
+  // right the day one appears.)
   const actionsEl =
-    cta || meta ? (
+    cta || ctaSecondary || meta ? (
       <div
         className={`mt-10 flex flex-wrap items-baseline gap-6 opacity-0 animate-fade-in${
           centered ? " justify-center" : ""
@@ -249,16 +269,18 @@ export default function PageHero({
         {cta && (
           <Link
             href={cta.href}
-            className={`btn ${
-              ctaVariant === "glass" && !light
-                ? "btn-glass"
-                : light
-                  ? "btn-primary-light"
-                  : "btn-primary-dark"
-            }`}
+            className={`btn ${light ? "btn-primary-light" : "btn-glass"}`}
           >
             {cta.label}
             <span aria-hidden>→</span>
+          </Link>
+        )}
+        {ctaSecondary && (
+          <Link
+            href={ctaSecondary.href}
+            className={`btn-ghost ${light ? "text-ink" : "text-bone"}`}
+          >
+            {ctaSecondary.label} <span aria-hidden>→</span>
           </Link>
         )}
         {meta && <p className={`label ${metaColor}`}>{meta}</p>}

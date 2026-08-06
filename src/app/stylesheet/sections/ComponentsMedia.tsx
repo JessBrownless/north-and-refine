@@ -483,12 +483,31 @@ export default function ComponentsMedia() {
           The homepage is the one exception to the content half, having no
           page name to mimic; its kicker states the offer instead.
         </What>
+        <What>
+          THE HERO CTA IS THE GLASS PILL, and the pair is fixed: primary{" "}
+          <Code>.btn-glass</Code>, second action <Code>.btn-ghost</Code>, both
+          on one baseline (2026-08-06). There is no variant prop to choose
+          from, because the choice is not a taste one — glass is 9% bone
+          behind a blur, so it needs a lit ground, and a hero is the only slot
+          on the site that has one. The policy WIDENED in the same change,
+          superseding the commercial-pages-only rule of 2026-07-16: /work and
+          /about gained a CTA, because a reader on either is evaluating the
+          studio and should not have to go looking for the button. Still
+          button-free, each for its own reason: /contact and /start-a-project,
+          whose form IS the close; /blog, where a pill competes with the
+          reason the reader came; /privacy, which should not sell. And note
+          what a CTA does to the layout — the split hero locks its lede to the
+          left column&rsquo;s LAST baseline, so on a hero with buttons that is
+          the BUTTON ROW&rsquo;s baseline, not the heading&rsquo;s, and the
+          lede sits lower. That is why adding one is a composition decision
+          rather than a switch.
+        </What>
         <Props>
           <Entry name="title" what="ReactNode. The H1's SECOND half: a feature-benefit statement, what the page does for the reader. It must not restate the overline, which has just named the page. An <em> inside it renders the Saol italic accent word: one word or short phrase, never a clause." />
           <Entry name="overline" what="THE PAGE NAME, and it renders INSIDE the <h1> as its first half — not a sibling. Pass 'Work', 'About', 'Web design & build'; never a flavour line. A detail page names ITSELF, not its section, which is why /services/web-design says 'Web design & build' and not 'Services'." />
           <Entry name="lede" what="The subtitle. In split mode it takes the right columns; in wide and media modes it sits under the heading on the .lede system." />
-          <Entry name="cta" what="{ label, href }. COMMERCIAL PAGES ONLY: /services, /pricing and the industries pages carry one; /work, /blog and /about stay button-free." />
-          <Entry name="ctaVariant" what="'primary' (default) | 'glass' (.btn-glass, dark heroes only). One live consumer: /services." />
+          <Entry name="cta" what="{ label, href }. THE GLASS PILL, always — there is no variant prop, because a hero CTA is glass. Carried by every hero except /contact and /start-a-project (the form is the close), /blog (a pill competes with the reason the reader came) and /privacy (fine print should not sell)." />
+          <Entry name="ctaSecondary" what="{ label, href }. The ghost text link beside the primary, on the same baseline. Only where the page has a REAL onward step: /work says 'How we work', not 'see the work', because the reader is already looking at it. /industries carries none, its index rows being the onward step." />
           <Entry name="meta" what="A small label line beside the CTA, baseline-locked to it." />
           <Entry name="media" what="The graphic slot. Split only: the text stack moves to columns 1 to 6 and the node takes 7 to 12, vertically centred. Brand graphics run at their NATIVE ratio, so the 16:10 and 4:5 canon does not govern them. One live consumer: /services." />
           <Entry name="align" what="'left' (the DEFAULT) | 'center' | 'split'. Every page passes split except /privacy, which takes the default and is therefore the one live consumer of the legacy left layout." />
@@ -566,7 +585,7 @@ export default function ComponentsMedia() {
               }
               lede="With a media node the lede leaves the right columns and sits under the heading, because the right columns are now the graphic's."
               cta={{ label: "Specimen action", href: "/stylesheet" }}
-              ctaVariant="glass"
+              ctaSecondary={{ label: "Second action", href: "/stylesheet" }}
               meta="Specimen meta line"
               media={<SpecimenGraphic />}
             />
