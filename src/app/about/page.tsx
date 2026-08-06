@@ -4,7 +4,7 @@ import FaqSection from "@/components/FaqSection";
 import MethodSection from "@/components/MethodSection";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
-import AboutSharedCanvas from "@/components/AboutSharedCanvas";
+import SharedCanvas from "@/components/SharedCanvas";
 import MockupReamBand from "@/components/MockupReamBand";
 import StudioNarrativeBand from "@/components/StudioNarrativeBand";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
@@ -192,12 +192,12 @@ export default function AboutPage() {
       {/* THE SHARED CANVAS (2026-07-23, third pass of the day): hero, ream
           and who-we-are are ONE surface, so no seam exists to hide. The
           seam-contract approach failed HERE twice; the reasoning lives in
-          <AboutSharedCanvas>'s docstring, which is also where CLAUDE.md's
+          <SharedCanvas>'s docstring, which is also where CLAUDE.md's
           "Blending dark sections" rule is recorded. The hero renders bare
           (ground={false}) and the bands below sit lower on the same canvas;
           the canvas foot fades to ink so the BONE method band below meets a
           canonical ink→bone cut. */}
-      <AboutSharedCanvas>
+      <SharedCanvas>
         <PageHero
           align="split"
           spacious
@@ -239,7 +239,7 @@ export default function AboutPage() {
           paragraphs={NARRATIVE}
         />
         {/* ── shared canvas ends: hero → ream → who-we-are, one ground ── */}
-      </AboutSharedCanvas>
+      </SharedCanvas>
 
       {/* TEXT · the method — the 1a comp's convictions layout on BONE
           (the light middle returns at the client's call): header stack

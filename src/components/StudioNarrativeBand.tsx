@@ -14,7 +14,7 @@ import type { ReactNode } from "react";
  * reading order rather than all at once.
  *
  * ⚠ IT CARRIES NO GROUND OF ITS OWN, ON PURPOSE (2026-07-24). Render it
- * inside <AboutSharedCanvas>: the canvas owns base, glow, grain and the foot
+ * inside <SharedCanvas>: the canvas owns base, glow, grain and the foot
  * fade, and this band adds only its own quiet blob, placed RIGHT because the
  * canvas glow leans left. Giving it a ground of its own is exactly what
  * failed here twice — the SectionGlow seam handoff left a visible line at the

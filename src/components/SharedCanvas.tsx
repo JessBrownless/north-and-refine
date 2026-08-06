@@ -3,8 +3,11 @@ import HeroGlow from "@/components/HeroGlow";
 
 /**
  * THE SHARED CANVAS — one ground carrying several dark sections so they read
- * as a single surface (2026-07-23, third pass of the day; live on /about,
- * where it holds the hero, the mock-up ream and the who-we-are band).
+ * as a single surface (2026-07-23, third pass of the day). Live on /about
+ * (hero, mock-up ream, who-we-are) and, since 2026-08-07, the HOMEPAGE
+ * (hero + manifesto — a seam was reported at exactly that join, and this
+ * component is the prescribed fix). Named AboutSharedCanvas until the second
+ * consumer arrived; nothing about it was ever /about-specific.
  *
  * THIS IS THE ONE SANCTIONED WAY TO BLEND DARK SECTIONS (see CLAUDE.md,
  * "Blending dark sections"). When the client asks for the hero gradient to
@@ -36,7 +39,7 @@ import HeroGlow from "@/components/HeroGlow";
  * stops working. A canvas that needs to hold sticky content wants the
  * sibling-clipping-layer arrangement instead (see <BeliefCanvas>).
  */
-export default function AboutSharedCanvas({
+export default function SharedCanvas({
   children,
   intensity = 0.7,
 }: {

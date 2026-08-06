@@ -6,6 +6,7 @@ import ContactCTA from "@/components/ContactCTA";
 import HomeHero from "@/components/HomeHero";
 import ManifestoTrack from "@/components/ManifestoTrack";
 import SelectedWorkBand from "@/components/SelectedWorkBand";
+import SharedCanvas from "@/components/SharedCanvas";
 import Testimonial from "@/components/Testimonial";
 import WhatWeDoBand from "@/components/WhatWeDoBand";
 
@@ -57,18 +58,33 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ══ HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19). ══ */}
-      <HomeHero />
+      {/* ══ THE SHARED CANVAS — hero + manifesto on ONE ground (2026-08-07,
+          client: a visible line at the join, "they need to blend seamlessly,
+          like one shared background… don't fight the seam with
+          colour-matching, remove the seam"). Which is verbatim the
+          shared-canvas rule: the first glowed cut tried the seam contract
+          (anchor strip + SectionGlow resuming the tone) and a line read
+          anyway, exactly as it did twice on /about before that page
+          converted. One wrapper owns base, glow (full hero dose), grain and
+          the foot fade to ink; hero and manifesto render groundless on it.
+          The canvas clip is also what UN-CROPS the hero's device row: sides
+          still shear at the viewport edge (the 1D comp's edge-to-edge crop),
+          but the bottom clip now sits ~160vh further down, so the devices
+          render in full and trail into the manifesto's air. ══ */}
+      <SharedCanvas intensity={1}>
+        {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19). */}
+        <HomeHero />
 
-      {/* ── Manifesto — the statement fills word by word as it scrolls
-          through, in normal flow on the hero-family glow (unpinned
-          2026-08-07; the site's last scroll pin went with it). "A studio
-          that treats..." in its original This-January form. ── */}
-      <ManifestoTrack
-        text={MANIFESTO}
-        cta={{ href: "/about", label: "Our story" }}
-        exitFade
-      />
+        {/* Manifesto — the statement fills word by word as it scrolls
+            through, in normal flow on the canvas's own light (unpinned
+            2026-08-07; the site's last scroll pin went with it). "A studio
+            that treats..." in its original This-January form. */}
+        <ManifestoTrack
+          text={MANIFESTO}
+          cta={{ href: "/about", label: "Our story" }}
+          exitFade
+        />
+      </SharedCanvas>
 
       {/* ── Selected work — the page's only imagery, and the proof. ── */}
       <SelectedWorkBand projects={featured} />

@@ -1,12 +1,12 @@
 import Link from "next/link";
-import HeroGlow from "@/components/HeroGlow";
 
 /**
  * HOMEPAGE HERO — "1D: edge-to-edge devices, one big title" (2026-07-19,
  * client's Claude Design comp; source at design-refs/hero-edge). The warm
  * glow ground sits inside a rounded "big border" panel; a Geist-Mono kicker (the
  * shared .overline voice), a big Instrument headline with a Saol-italic "trust."
- * accent, and phone·desktop·phone bled off the bottom.
+ * accent, and phone·desktop·phone. (The comp's bottom-bleed device crop ended
+ * 2026-08-07 — devices render in full now; see the groundless-section note.)
  *
  * NAV: none here (2026-07-20, client: "the nav needs to be the same across
  * home & other pages"). The real site <Navbar> renders above this on the
@@ -72,37 +72,29 @@ function Phone() {
 
 export default function HomeHero() {
   return (
-    <section
-      style={{ position: "relative", overflow: "hidden", background: "var(--ink-canvas)", minHeight: "100vh", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
-    >
-        {/* Warm gradient ground — shared with the interior heroes via HeroGlow
-            (full-bleed; the ground runs up behind the transparent nav) */}
-        <HeroGlow intensity={1} />
+    /* GROUNDLESS SINCE 2026-08-07 (client: a visible seam at the hero →
+       manifesto join, and the device mock-ups "visibly cut off… reads as a
+       mistake"). The section paints NO ground of its own — no background, no
+       HeroGlow, no overflow clip, no seam strip. The page wraps this hero and
+       the manifesto in ONE <SharedCanvas> that owns base, glow, grain and the
+       foot fade, which is the sanctioned fix for a reported seam (CLAUDE.md:
+       don't colour-match a boundary, remove it — the anchor-strip contract
+       this hero carried for one day went with it).
 
-        {/* THE SEAM ANCHOR (2026-08-07) — the hero's half of the seam
-            contract, added the day the manifesto below joined the glow
-            language. SectionGlow's wash starts from exactly #14100B at the
-            next section's top edge; this strip resolves the hero's ground to
-            that same tone at its foot, so the boundary is the same colour on
-            both sides and no line reads. Verbatim from PageHero — change one,
-            change both (and /stylesheet's Atmosphere entry). This hero never
-            carried the strip before because nothing glowed below it; using
-            SectionGlow without the anchor half is how the /about seam failed
-            twice in 2026-07. Sits UNDER the devices (zIndex 10) and the title
-            (20) — it anchors the GROUND, and the ground is what shows between
-            and beside the bezels at the boundary. */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            insetInline: 0,
-            bottom: 0,
-            height: "clamp(120px,18vh,220px)",
-            background:
-              "linear-gradient(180deg, rgba(20,16,11,0) 0%, #14100B 100%)",
-            pointerEvents: "none",
-          }}
-        />
+       LOSING THE CLIP IS ALSO WHAT FREED THE DEVICES: this section's
+       overflow-hidden was doing two jobs — the 1D comp's INTENTIONAL
+       edge-to-edge side crop (the ~106vw device row bleeding off both sides)
+       and an unintentional BOTTOM crop that amputated the phones mid-bezel.
+       The clip now lives on the canvas, whose sides are the viewport's (so
+       the side bleed crops exactly as before) but whose bottom is the
+       manifesto's foot, ~160vh further down — so the devices render IN FULL,
+       trailing onto the shared ground in the manifesto's air.
+
+       zIndex 10 lifts the whole hero above the canvas's grain film (z-1);
+       inside, the title block's 20 still rides above the device row's 10. */
+    <section
+      style={{ position: "relative", zIndex: 10, minHeight: "100vh", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
+    >
 
         {/* CENTRED TITLE BLOCK */}
         <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(200px,24vh,290px) 24px 0" }}>
@@ -205,11 +197,15 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* DEVICE ROW — phone · desktop · phone, bled off the bottom edge AND
-            the sides (2026-07-23, per the 1D comp: the row is wider than the
-            viewport — ~106vw all told — so the outer phones crop at the
-            screen edges; no padding, no ceilings, the section's
-            overflow-hidden does the cropping). */}
+        {/* DEVICE ROW — phone · desktop · phone, bled off the SIDES only
+            (2026-07-23, per the 1D comp: the row is wider than the viewport —
+            ~106vw all told — so the outer phones crop at the screen edges;
+            the CANVAS's overflow-hidden does that cropping now). The BOTTOM
+            bleed ended 2026-08-07 (client: the cut-off devices "read as a
+            mistake, not a design choice"): with the clip moved to the canvas,
+            the row renders in full, trailing past the hero's 100vh line onto
+            the shared ground — the manifesto's top air is ~46vh deep, which
+            is what the overhang lands in. */}
         <div style={{ position: "absolute", left: 0, right: 0, top: "60%", zIndex: 10, display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "clamp(16px,4.5vw,80px)" }}>
           <Phone />
           <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "max(300px, 51.5vw)" }}>

@@ -89,7 +89,7 @@
     /* THE SHARED CANVAS (2026-08-05) — the warm ground the HERO GLOW is
        painted onto, and the only ink a <HeroGlow> should ever sit on. It was
        hard-coded as #16110C in four places (HomeHero, PageHero's dark ground,
-       AboutSharedCanvas, the ContactCTA close card), which is precisely the
+       SharedCanvas, the ContactCTA close card), which is precisely the
        shared-canvas recipe in CLAUDE.md, so the one value every consumer of
        that recipe copied is now a token they can conform to.
        WHY IT IS NOT --ink-raised: raised is a SURFACE (a card lifted off the

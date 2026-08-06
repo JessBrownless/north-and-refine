@@ -1,6 +1,6 @@
 import { Section, Sub, Code, Stage, Entry } from "../_ui";
 
-import AboutSharedCanvas from "@/components/AboutSharedCanvas";
+import SharedCanvas from "@/components/SharedCanvas";
 import ArticleFeaturedFigure from "@/components/ArticleFeaturedFigure";
 import ArticleFootBackLink from "@/components/ArticleFootBackLink";
 import ArticleHeader from "@/components/ArticleHeader";
@@ -388,21 +388,22 @@ export default function ComponentsPages() {
           path="/"
           note="The type-led homepage. Three composed sections, then a scroll-pinned statement, then work, offer, proof and the close, with fade-to-ink handovers between the dark bands."
         >
-          <Beat n={1} name="HomeHero" what="The bespoke three-section hero: print masthead left, work capture, craft card and proof stat right." />
-          <Beat n={2} name="ManifestoTrack" what="The statement in a min-h air band on the hero-family glow (SectionGlow left, grain), filling word by word as it scrolls through in NORMAL FLOW — unpinned 2026-08-07, the site's last scroll pin. A secondary Our story link below; takes exitFade." />
+          <Beat n={1} name="SharedCanvas" what="One ground under beats 2 and 3 (2026-08-07, after the hero's one-day seam-contract attempt read as a line): base, the full-dose HeroGlow, grain and the foot fade. Its clip is also what un-crops the hero's devices — sides shear at the viewport edge, bottoms render in full." />
+          <Beat n={2} name="HomeHero" what="The bespoke centred masthead over the device row, GROUNDLESS on the canvas: no background, no clip, no glow of its own. The devices trail past its 100vh line into the manifesto's air." />
+          <Beat n={3} name="ManifestoTrack" what="The statement in a min-h air band, GROUNDLESS on the same canvas, filling word by word as it scrolls through in NORMAL FLOW — unpinned 2026-08-07, the site's last scroll pin. A secondary Our story link below; takes exitFade." />
           <Beat n={3} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
           <Beat n={4} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
           <Beat n={5} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
           <Beat n={6} name="LogoStrip" what="The trust bar: words first, then the roster corroborates." />
           <Beat n={7} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
-          <Beat n={8} name="ContactCTA" what="The close." />
+          <Beat n={9} name="ContactCTA" what="The close." />
         </Route>
 
         <Route
           path="/about"
           note="One shared dark canvas for the first three beats, then the page's single light act, then the close. The canvas is the sanctioned way to blend dark sections; the seam-matching alternative failed twice here."
         >
-          <Beat n={1} name="AboutSharedCanvas" what="The wrapper that owns the ground for beats 2 to 4: warm base, one HeroGlow, grain, and a foot strip fading to ink so the next section joins invisibly." />
+          <Beat n={1} name="SharedCanvas" what="The wrapper that owns the ground for beats 2 to 4: warm base, one HeroGlow, grain, and a foot strip fading to ink so the next section joins invisibly." />
           <Beat n={2} name="PageHero" what="The canonical split masthead, rendered groundless (ground={false}) so the canvas shows through. No hero CTA: /about is not a commercial page." />
           <Beat n={3} name="MockupReamBand" what="Two staggered, edge-cropped rows of black glass tiles carrying blank devices. Decorative, aria-hidden, on the load-in entrance." />
           <Beat n={4} name="StudioNarrativeBand" what="Kicker in the left rail, the origin narrative in the right measure, plus one quiet blob of its own since the canvas glow leans left." />
@@ -1404,7 +1405,7 @@ export default function ComponentsPages() {
           <PricingPackageGrid packages={SPECIMEN_PACKAGES} />
         </Stage>
 
-        <Comp name="AboutSharedCanvas" where="/about, holding the hero, the ream and the narrative." />
+        <Comp name="SharedCanvas" where="/about, holding the hero, the ream and the narrative." />
         <What>
           THE ONE SANCTIONED WAY TO BLEND DARK SECTIONS. When the client asks for
           the hero gradient to fade through into what follows, ONE wrapper owns
@@ -1436,7 +1437,7 @@ export default function ComponentsPages() {
           <Entry name="intensity" what="Glow dose. Defaults to 0.7, a touch more than the interior heroes because the canvas feeds the glass tiles of the ream too." />
         </Props>
         <Stage flush>
-          <AboutSharedCanvas>
+          <SharedCanvas>
             <div className="shell relative z-10 py-24">
               <p className="overline text-clay">Specimen child</p>
               <p className="body-sm mt-3 max-w-[52ch] text-bone-dim">
@@ -1445,10 +1446,10 @@ export default function ComponentsPages() {
                 join without a line.
               </p>
             </div>
-          </AboutSharedCanvas>
+          </SharedCanvas>
         </Stage>
 
-        <Comp name="MockupReamBand" where="/about, inside AboutSharedCanvas." />
+        <Comp name="MockupReamBand" where="/about, inside SharedCanvas." />
         <What>
           Two staggered, edge-cropped rows of rounded tiles serving as a
           hero&rsquo;s visual half. Each tile is a pane with a blank device
@@ -1471,12 +1472,12 @@ export default function ComponentsPages() {
           <Entry name="animationDelay" what="Where this lands in the host page's load-in stagger. Composition, not decoration: the /about value continues the hero's sequence." />
         </Props>
         <Stage flush>
-          <AboutSharedCanvas>
+          <SharedCanvas>
             <MockupReamBand />
-          </AboutSharedCanvas>
+          </SharedCanvas>
         </Stage>
 
-        <Comp name="StudioNarrativeBand" where="/about, inside AboutSharedCanvas." />
+        <Comp name="StudioNarrativeBand" where="/about, inside SharedCanvas." />
         <What>
           The who-we-are section: the kicker alone in the left rail, the
           narrative alone in the right measure, and NO H2. The comp carries the
@@ -1499,13 +1500,13 @@ export default function ComponentsPages() {
           <Entry name="paragraphs" what="ReactNode[]. The rest of the narrative, stepped down to .body on bone-dim." />
         </Props>
         <Stage flush>
-          <AboutSharedCanvas>
+          <SharedCanvas>
             <StudioNarrativeBand
               kicker="Specimen kicker"
               lede="A specimen opening paragraph, carrying the band at the larger body register on full bone."
               paragraphs={SPECIMEN_NARRATIVE}
             />
-          </AboutSharedCanvas>
+          </SharedCanvas>
         </Stage>
 
         <Sub

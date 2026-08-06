@@ -640,7 +640,7 @@ export default function ComponentsMedia() {
 
         <Comp
           name="HeroGlow"
-          where="HomeHero (intensity 1), every dark PageHero (0.6, topLeft 0.3), the ContactCTA card (0.8), and the /about shared canvas."
+          where="Every dark PageHero (0.6, topLeft 0.3), the ContactCTA card (0.8), and both SharedCanvas consumers — the homepage at intensity 1 (HomeHero stopped rendering its own glow when it went groundless on the canvas, 2026-08-07) and /about at 0.7."
         />
         <What>
           The warm gradient ground, in one place so every hero reads as the same

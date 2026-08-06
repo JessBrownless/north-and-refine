@@ -1,7 +1,6 @@
 import Link from "next/link";
 import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 import ManifestoStatement from "@/components/ManifestoStatement";
-import SectionGlow from "@/components/SectionGlow";
 
 /**
  * THE MANIFESTO BAND — the statement compartment in NORMAL FLOW, on the
@@ -31,17 +30,19 @@ import SectionGlow from "@/components/SectionGlow";
  * immune to this number: the track is the inner statement block, not the
  * band (see below), so air changes the journey, never the fill timing.
  *
- * THE GROUND JOINED THE GLOW LANGUAGE IN THE SAME CHANGE (client: the
- * statement "fades in with just a plain black background… add some of the
- * blurred gradient fades so it relates to the hero"). This section was the
- * one big band still on unglowed flat ink — not by taste but by mechanism:
- * the glow recipe needs overflow-hidden, and OVERFLOW-HIDDEN KILLS STICKY,
- * so as long as the pin lived here the ground had to stay bare. Removing the
- * pin unlocked the canonical adjoining-section recipe, verbatim from
- * WorkIndexBand: relative + overflow-hidden + grain + bg-ink, SectionGlow
- * under z-10 content. The seam wash resumes from the hero's warmth on one
- * side of the boundary; the band's own blob sits LEFT, under the statement's
- * opening words.
+ * GROUNDLESS SINCE LATER THE SAME DAY (2026-08-07). The first glowed cut
+ * gave this section its OWN ground — the WorkIndexBand recipe plus a
+ * SectionGlow resuming from a seam strip added to the hero — and the client
+ * reported a visible line at the join, which is the documented failure mode
+ * of colour-matched boundaries (it sank /about twice in July). Per the
+ * shared-canvas rule, the fix removes the seam rather than tuning it: the
+ * page wraps the hero and this band in ONE <SharedCanvas> owning base, glow,
+ * grain and the foot fade, and this section paints NOTHING behind its
+ * content. Two consequences worth knowing: the statement now sits on the
+ * hero's own light (one glow spanning both, which is what "relates to the
+ * hero" turned out to mean), and the hero's freed device mock-ups trail into
+ * this band's top air — the section must never regain a background or an
+ * overflow clip, or it would paint over / amputate them again.
  *
  * ⚠ data-manifesto-track ON THE INNER BLOCK IS LOAD-BEARING. The scrub
  * measures the nearest track element (falling back to the nearest section),
@@ -70,8 +71,7 @@ export default function ManifestoTrack({
   exitFade?: boolean;
 }) {
   return (
-    <section className="relative z-10 overflow-hidden grain bg-ink">
-      <SectionGlow blob="left" />
+    <section className="relative z-10">
       <div className="relative z-10 flex min-h-[90vh] items-center md:min-h-[160vh]">
         <div data-manifesto-track className="shell w-full">
           <ManifestoStatement text={text} />

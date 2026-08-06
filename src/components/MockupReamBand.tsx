@@ -9,7 +9,7 @@
  * ⚠ IT CARRIES NO GROUND OF ITS OWN, ON PURPOSE. Per-tile gradients were CUT
  * the same day at the client's call: the SECTION ground carries the gradient,
  * like the other pages' SectionGlow grounds, and the tiles let it read
- * through. Render it inside <AboutSharedCanvas> (or any wrapper that owns
+ * through. Render it inside <SharedCanvas> (or any wrapper that owns
  * base + glow + grain); on a flat ground the panes read as holes rather than
  * windows cut into a warm canvas.
  *
