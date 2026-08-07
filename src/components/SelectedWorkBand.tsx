@@ -21,6 +21,18 @@ import type { WorkEntry } from "@/lib/work";
  * same-page jump), so it stays with the section, as does the `scroll-mt-14`
  * that keeps the head clear of the landing.
  *
+ * TOP PADDING RESTORED (2026-08-08, client: "give Selected work section some
+ * top padding") — this was the ONE homepage band still on bottom-only
+ * padding; its two siblings on the same page, WhatWeDoBand and
+ * BlogRailBand, both already carry the sitewide section rhythm `py-24
+ * md:py-32` on both edges. It went asymmetric back when the manifesto above
+ * it was still the dark, self-padded min-h band and needed none of its own;
+ * once the manifesto became the bone act's hard designed CUT (a colour
+ * boundary with zero trailing air of its own — measured live: the section
+ * used to start exactly 0px below the cut), this was the one band left
+ * flush against it. `pb-24 md:pb-32` → `py-24 md:py-32` completes a pattern
+ * already standard on this page rather than introducing a new value.
+ *
  * The band's own copy is the section's identity rather than page content, so
  * it defaults here (the ContactCTA precedent) and the page passes only the
  * projects. Override the strings for a different collection; the data is
@@ -47,7 +59,7 @@ export default function SelectedWorkBand({
   railLabel?: string;
 }) {
   return (
-    <section id="selected-work" className="relative scroll-mt-14 pb-24 md:pb-32">
+    <section id="selected-work" className="relative scroll-mt-14 py-24 md:py-32">
       <div className="shell">
         <CollectionHeader
           kicker={kicker}
