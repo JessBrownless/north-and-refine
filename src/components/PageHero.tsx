@@ -317,21 +317,30 @@ export default function PageHero({
     // down" call this reverses was about the OLD cramped composition; the
     // client has now asked for the opposite by name.)
     //
-    // HEROES WITH BUTTONS RIDE A TOUCH TALLER (2026-08-08, client: "all h1
-    // heros with buttons need a touch more top and bottom padding"). The
-    // geometry behind the call: a CTA row makes the content stack taller,
-    // so at the SAME band height a with-buttons hero has less air around it
-    // than a button-free one — the +6vh (+4 on the media style) restores
-    // the parity, and with items-center it lands as top AND bottom air
-    // equally.
+    // HEROES WITH BUTTONS RIDE TALLER AND MORE PADDED (2026-08-08, client:
+    // "all h1 heros with buttons need a touch more top and bottom padding",
+    // then "whatever u did made no difference"). The first cut raised only
+    // min-h, which is AIR ONLY WHILE IT EXCEEDS THE CONTENT — and on
+    // /services the graphic column makes the band content-bound (935px
+    // actual against a 514px min-h at the client's viewport), so the vh
+    // bump was a measured no-op exactly where she was looking. Padding is
+    // the only lever that lands on a content-bound band.
+    //
+    // ⚠ THIS IS THE SPACING FREEZE'S ONE SANCTIONED BREACH, made
+    // deliberately: the client demanded visible hero padding three times
+    // running, and the with-actions bands take py-24 md:py-36 — the SAME
+    // value pair padY's spacious mode already uses, so the sweep's census
+    // gains two USES of existing values and zero new values. One file,
+    // revertible alone; the button-free bands keep py-20 md:py-28
+    // untouched.
     const hasActions = Boolean(cta || ctaSecondary);
     const splitBox = spacious
       ? media
         ? hasActions
-          ? "min-h-[52vh] py-20 md:min-h-[62vh] md:py-28"
+          ? "min-h-[52vh] py-24 md:min-h-[62vh] md:py-36"
           : "min-h-[48vh] py-20 md:min-h-[56vh] md:py-28"
         : hasActions
-          ? "min-h-[60vh] py-20 md:min-h-[78vh] md:py-28"
+          ? "min-h-[60vh] py-24 md:min-h-[78vh] md:py-36"
           : "min-h-[56vh] py-20 md:min-h-[72vh] md:py-28"
       : hasActions
         ? "min-h-[48vh] py-16 md:min-h-[56vh] md:py-20"
