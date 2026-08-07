@@ -41,6 +41,27 @@ interface ContactCTAProps {
  * on "your" now, NOT the rotating word — the typewriter word stays roman so
  * the two devices never stack on one word.
  *
+ * THE NO-JUMP CONTRACT (2026-08-08, client: as the words change "it cannot
+ * grow in size… it feels jarring — is there any way we can make sure that
+ * doesn't happen?"): the heading is a SIZER STACK. An invisible copy of the
+ * full sentence set with the LONGEST word ("come back to", caret included)
+ * sits in normal flow and owns the box; the visible animated copy renders
+ * absolutely over it. A longer tail can only ever wrap further than a
+ * shorter one, so the box is permanently sized for the maximum state and
+ * the card cannot change height at ANY viewport — desktop and mobile both,
+ * structurally, with no measuring JS. If the word list changes, THE SIZER
+ * MUST CARRY WHICHEVER ENTRY IS LONGEST. text-balance left the heading in
+ * the same change: balanced wrapping redistributes every line as the tail
+ * types, which shuffled mid-sentence words between lines — the exact
+ * jarring the sizer exists to kill.
+ *
+ * MORE ROOM ON DESKTOP (same day, client: "more room… the overline, the H1
+ * and the subtitle"): the stack's md gaps stepped mt-12 → mt-16 (an
+ * existing census value, per the freeze-breach rule) for the lede and the
+ * button row. The kicker→H1 gap stays .from-overline on purpose — it is
+ * the sitewide heading-group voice, and the close desyncing from every
+ * masthead would read as a mistake.
+ *
  * Type is the ON-INK ladder (bone/bone-dim); the flagship is the dark-ground
  * pair (btn-primary-dark). The exit-fade left with the cream: this band
  * already ends every page on ink, so there is nothing to fade into.
@@ -67,21 +88,34 @@ export default function ContactCTA({
             <div className="max-w-[62ch]">
               <p className="overline reveal">Start a project</p>
               <h2
-                className="heading-xl from-overline max-w-[24ch] text-balance text-bone reveal"
+                className="heading-xl from-overline relative max-w-[24ch] text-bone reveal"
                 style={{ transitionDelay: "80ms" }}
               >
                 {heading ?? (
                   <>
-                    Let&rsquo;s build something <em>your</em> patients{" "}
-                    <TypewriterWord
-                      words={["trust", "book from", "come back to", "recommend"]}
-                    />
-                    .
+                    {/* THE SIZER — invisible, owns the box, set with the
+                        longest word so the heading can never grow. Keep its
+                        text in lockstep with the visible copy below. */}
+                    <span className="invisible" aria-hidden>
+                      Let&rsquo;s build something <em>your</em> patients{" "}
+                      <span className="whitespace-nowrap">
+                        come back to
+                        <span className="type-caret" />
+                      </span>
+                      .
+                    </span>
+                    <span className="absolute inset-0">
+                      Let&rsquo;s build something <em>your</em> patients{" "}
+                      <TypewriterWord
+                        words={["trust", "book from", "come back to", "recommend"]}
+                      />
+                      .
+                    </span>
                   </>
                 )}
               </h2>
               <p
-                className="body-xl mt-10 max-w-[44ch] text-bone-dim reveal md:mt-12"
+                className="body-xl mt-10 max-w-[44ch] text-bone-dim reveal md:mt-16"
                 style={{ transitionDelay: "160ms" }}
               >
                 {body}
@@ -89,7 +123,7 @@ export default function ContactCTA({
               {/* The foot view's flagship + the tertiary ghost — the hero
                   pair, on the card's dark ground. */}
               <div
-                className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 reveal md:mt-12"
+                className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 reveal md:mt-16"
                 style={{ transitionDelay: "240ms" }}
               >
                 <Link href="/start-a-project" className="btn btn-primary-dark btn-arrow">

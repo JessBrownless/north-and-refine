@@ -191,7 +191,12 @@ export default function ComponentsBands() {
           lede, flagship + ghost, one column. The heading&rsquo;s last word is
           the TYPEWRITER (<Code>TypewriterWord</Code>: trust → book from → come
           back to → recommend, the second sanctioned auto-motion), and the
-          italic accent sits on <em>your</em>, never on the rotating word.
+          italic accent sits on <em>your</em>, never on the rotating word. THE
+          NO-JUMP CONTRACT: an invisible sizer copy set with the longest word
+          owns the heading&rsquo;s box, so the card cannot change height as
+          the words cycle — verified one constant height through a full cycle
+          at 1470 and 390. If the word list changes, the sizer must carry
+          whichever entry is longest.
         </What>
         <What>
           Inside, the close mirrors the hero: kicker, <Code>.heading-xl</Code>{" "}
