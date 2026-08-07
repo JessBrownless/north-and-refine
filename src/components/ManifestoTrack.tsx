@@ -61,7 +61,18 @@ export default function ManifestoTrack({
   cta?: { href: string; label: string };
 }) {
   return (
-    <section className="relative z-10 overflow-hidden grain-light bg-bone text-ink">
+    /* THE SHEET EDGE (2026-08-08, client — straight after reverting the
+       card-homepage trial: "can we try 'A studio that treats' with rounded
+       corners just at the top? I've seen websites do that before and it
+       looks nice"). The bone act's TOP corners take the big-card radius, so
+       the band reads as a light sheet rising over the dark hero — the ink
+       shows through the two corner notches, which is what sells it. The
+       radius is the PLATE-LG token, not a raw value (drift pattern 10), and
+       ONLY the top curves: the bottom cut into Selected work stays a hard
+       straight edge on purpose — one curved lift, one clean cut, so the
+       device reads as an entrance, not a pill. The card trial died the same
+       hour this was born; this is the one survivor of it the client kept. */
+    <section className="relative z-10 overflow-hidden rounded-t-plate-lg grain-light bg-bone text-ink">
       <div className="relative z-10 flex min-h-[70vh] items-center md:min-h-[120vh]">
         <div data-manifesto-track className="shell w-full">
           <ManifestoStatement text={text} />
