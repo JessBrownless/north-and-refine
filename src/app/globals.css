@@ -1460,13 +1460,53 @@ textarea.field-on-dark:-webkit-autofill {
 /* FAULT 2 — THE HERO'S GROUND IS NOT A COLOUR, IT IS LIGHT. SharedCanvas
    does carry bg-ink-canvas and did invert, but <HeroGlow>'s four absolutely
    positioned layers (three blurred blobs and the vignette) paint warm dark
-   gradients straight over it from INLINE styles, and the canvas foot fade
-   does the same — so the band stayed dark no matter what the ground colour
-   underneath became. A light sketch of a glow hero is a FLAT one: hide the
-   light layers and let the inverted canvas read. They are all aria-hidden
-   direct children of the canvas, which is what makes this targetable without
-   touching HeroGlow itself. */
-[data-flip-sketch] .bg-ink-canvas > div[aria-hidden] {
+   gradients straight over it from INLINE styles — so the band stayed dark
+   no matter what the ground colour underneath became. First fix (2026-08-08
+   afternoon) hid all four outright. THAT WENT TOO FAR (client, that night:
+   "the blurred gradients are none existing on the light flipped versions…
+   do they exist and need opacity bump or do they not even exist? They need
+   to") — the blobs were never faint, they were `display:none`, and a flat
+   hero was never the ask. They're all aria-hidden direct children of the
+   canvas IN A FIXED ORDER (HeroGlow.tsx: pool, amber, foot, vignette),
+   which is what makes them targetable by position without touching
+   HeroGlow itself.
+
+   THE THREE BLOBS COME BACK, RECOLOURED — not merely un-hidden at their
+   dark values, which would have been worse: #8A5A2E and #3E2E1C blurred
+   over BONE read as a dirty smudge, nothing like a glow. Repainted in the
+   accent's own light family (--champagne / --champagne-soft, the only
+   token pair the system already ties to "warmth on a light ground" — the
+   ivory step-up, the FAQ cream), same positions and blur radii as the dark
+   set so the SHAPE of the light stays legible, opacity graduated per layer
+   (0.35 / 0.28 / 0.2) to keep the pool/mid/foot depth the dark version has
+   through three flat hexes. `!important` is required and scoped ONLY to
+   this dev-only sketch selector — nothing else on the site may reach for
+   it — because HeroGlow's colours are set as inline styles, which beat any
+   external rule without one.
+
+   THE VIGNETTE (4th child) AND SHAREDCANVAS'S FOOT FADE (5th, hero only)
+   STAY HIDDEN ON PURPOSE: a vignette that darkens toward black is a device
+   for a DARK ground, and punches dark corners into a light one — it isn't
+   blurred (no `filter`) and isn't what "blurred gradients" meant. Neither
+   is the ink-coloured foot fade. If a light vignette is ever wanted, it
+   is a NEW device (a warm-to-transparent radial), not a recoloured copy of
+   this one — don't reach for champagne + reduced opacity here as a
+   shortcut; a corner-darkener and a corner-lightener solve different
+   problems. */
+[data-flip-sketch] .bg-ink-canvas > div[aria-hidden]:nth-child(1) {
+  background: var(--champagne) !important;
+  opacity: 0.35 !important;
+}
+[data-flip-sketch] .bg-ink-canvas > div[aria-hidden]:nth-child(2) {
+  background: var(--champagne-soft) !important;
+  opacity: 0.28 !important;
+}
+[data-flip-sketch] .bg-ink-canvas > div[aria-hidden]:nth-child(3) {
+  background: var(--champagne-soft) !important;
+  opacity: 0.2 !important;
+}
+[data-flip-sketch] .bg-ink-canvas > div[aria-hidden]:nth-child(4),
+[data-flip-sketch] .bg-ink-canvas > div[aria-hidden]:nth-child(5) {
   display: none;
 }
 
