@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HeroGlow from "@/components/HeroGlow";
+import HeroGlow, { GROUND_GLOW_INTENSITY } from "@/components/HeroGlow";
 
 interface PageHeroProps {
   /** THE PAGE NAME, and it renders INSIDE the <h1> (2026-08-05). Pass what
@@ -167,18 +167,13 @@ export default function PageHero({
       : "relative"; // shared canvas: the page's wrapper owns ground + clip
   const heroGlow = light || !ground ? null : (
     <>
-      {/* THE HERO GROUND DOSE — 0.4 since 2026-08-08 (client: "the blurred
-          gradient is wayyyyyy too powerful — knock it back"), the third trim
-          in the dose's history: 0.85 → 0.6 (2026-07-24, "a bit much") →
-          0.4. It is now also THE ONE GROUND DOSE: the homepage and /about
-          canvases run the same 0.4 (the client's "make the homepage blurred
-          gradient graphics the same"), so no page's ground outglows
-          another's. topLeft 0.3 holds from 2026-07-24 ("REALLY decrease the
-          opacity of the top left gradient"): the champagne pool behind the
-          H1 sits at ~0.06 effective while the right and foot blobs carry
-          what blend remains. The vignette is untouched — depth stays, light
-          drops. */}
-      <HeroGlow intensity={0.4} topLeft={0.3} />
+      {/* THE ONE GROUND DOSE, read from HeroGlow's exported constant since
+          the fourth trim (2026-08-08, "knock the glow back across the whole
+          site — it's still too much!!") — the dose history and the reason it
+          is one number now live on the constant itself. topLeft 0.3 holds
+          from 2026-07-24 ("REALLY decrease the opacity of the top left
+          gradient"). The vignette is untouched — depth stays, light drops. */}
+      <HeroGlow intensity={GROUND_GLOW_INTENSITY} topLeft={0.3} />
       {/* THE SEAM ANCHOR (2026-07-23, client: hero and next section "need to
           almost be one"): the ground resolves to ONE FIXED TONE (#14100B) at
           the hero's foot, and SectionGlow's wash starts from exactly that

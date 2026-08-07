@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
-import HeroGlow from "@/components/HeroGlow";
+import HeroGlow, { GROUND_GLOW_INTENSITY } from "@/components/HeroGlow";
 
 /**
  * THE SHARED CANVAS — one ground carrying several dark sections so they read
  * as a single surface (2026-07-23, third pass of the day). Live on /about
- * (hero, mock-up ream, who-we-are) and the HOMEPAGE (the hero alone, at
- * intensity 0.7 since the client's knock-the-glows-back call — the manifesto
- * passed through this canvas for half a day before becoming the page's BONE
- * ACT, whose designed colour cuts need no shared ground). Named
+ * (hero, mock-up ream, who-we-are) and the HOMEPAGE (the hero alone, on the
+ * ONE GROUND DOSE both consumers now inherit from HeroGlow's constant — the
+ * manifesto passed through this canvas for half a day before becoming the
+ * page's BONE ACT, whose designed colour cuts need no shared ground). Named
  * AboutSharedCanvas until the second consumer arrived; nothing about it was
  * ever /about-specific. A one-child canvas is not a degenerate case: it is
  * still the one wrapper that owns glow + grain + the resolving foot, so the
@@ -45,23 +45,21 @@ import HeroGlow from "@/components/HeroGlow";
  */
 export default function SharedCanvas({
   children,
-  intensity = 0.4,
+  intensity = GROUND_GLOW_INTENSITY,
   topLeft = 1,
 }: {
   children: ReactNode;
-  /** Glow dose. Trim history: 0.9 → 0.7 (2026-07-24, "a bit much") → 0.4
-      (2026-08-08, client: "the blurred gradient is wayyyyyy too powerful —
-      knock it back"). The old note that the canvas "keeps a touch more than
-      the interior heroes" is RETIRED with that call: 0.4 is now THE ONE
-      GROUND DOSE, shared with PageHero, so no page's ground outglows
-      another's. The /about ream still reads — its glass tiles need a lit
-      backdrop, not a bright one. */
+  /** Glow dose. Defaults to THE ONE GROUND DOSE exported by HeroGlow (0.25
+      since the fourth trim, 2026-08-08 — history and reasoning live on the
+      constant). Canvas-specific history for the record: 0.9 → 0.7 → 0.4 →
+      the shared constant. The /about ream still reads — its glass tiles
+      need a lit backdrop, not a bright one. */
   intensity?: number;
   /** Multiplier on the top-left champagne pool alone (HeroGlow's own knob,
       surfaced 2026-08-08 so the homepage canvas can run the SAME recipe as
-      the interior heroes — intensity 0.4, topLeft 0.3 — per the client's
-      "make the homepage blurred gradient graphics the same"). /about keeps
-      the default full pool behind its masthead. */
+      the interior heroes — the shared dose constant plus topLeft 0.3 — per
+      the client's "make the homepage blurred gradient graphics the same").
+      /about keeps the default full pool behind its masthead. */
   topLeft?: number;
 }) {
   return (

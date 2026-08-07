@@ -48,7 +48,11 @@ export default function ContactCTA({
             grain per the .grain contract; content rides z-10 above the glow.
             Radius in the /about tiles' clamp family. */}
         <div className="reveal relative overflow-hidden grain rounded-plate-lg bg-ink-canvas">
-          <HeroGlow intensity={0.8} />
+          {/* The card's own contained dose — 0.8 → 0.5 in the 2026-08-08
+              sitewide knock-back ("across the whole site"). Deliberately NOT
+              the ground constant: a card's gradient is its content, and at
+              ground dose the close would be a flat dark plate. */}
+          <HeroGlow intensity={0.5} />
           <div className="relative z-10 p-10 sm:p-14 md:p-20">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
               <div className="md:col-span-7">

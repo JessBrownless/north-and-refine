@@ -648,7 +648,7 @@ export default function ComponentsMedia() {
 
         <Comp
           name="HeroGlow"
-          where="THE ONE GROUND DOSE (2026-08-08, client: 'wayyyyyy too powerful — knock it back… make the homepage the same'): every dark PageHero AND both SharedCanvas consumers at intensity 0.4 (the homepage also takes the interior's topLeft 0.3; dose history 0.85 → 0.6 → 0.4 on heroes, 1 → 0.7 → 0.4 on the homepage canvas). The ContactCTA card keeps its own contained 0.8 — a card graphic, not a page ground."
+          where="THE ONE GROUND DOSE, now literally one number: every dark PageHero and both SharedCanvas consumers read GROUND_GLOW_INTENSITY, exported by HeroGlow.tsx — 0.25 after FOUR client trims (0.85 → 0.6 'a bit much' → 0.4 'wayyyyyy too powerful' → 0.25 'knock the glow back across the whole site — it's still too much!!', the last two on 2026-08-08). The first three trims were chased per-consumer; the constant exists so the next one is a one-line edit. The homepage also takes the interior's topLeft 0.3. The ContactCTA card keeps its own contained dose, halved 0.8 → 0.5 in the sitewide pass — a card's gradient is its content, at ground dose it would be a flat plate."
         />
         <What>
           The warm gradient ground, in one place so every hero reads as the same

@@ -16,6 +16,20 @@
  * darker vignette gives white elements (the logo, nav) the contrast they need.
  * These are the original values; don't lighten without checking logo contrast.
  */
+/**
+ * THE ONE GROUND DOSE — every page ground that renders a HeroGlow reads this
+ * number (PageHero, SharedCanvas, and through it the homepage and /about).
+ * Dose history, every step a client call: heroes 0.85 → 0.6 ("a bit much",
+ * 2026-07-24) → 0.4 ("wayyyyyy too powerful", 2026-08-08) → 0.25 ("knock the
+ * glow back across the whole site — it's still too much!!", same day). It is
+ * exported as ONE constant because the first three trims were chased
+ * per-consumer; the next one is a one-number edit. The ContactCTA close card
+ * deliberately does NOT read it — a card's gradient is its content, and at
+ * ground dose it would be a flat dark plate; it keeps its own contained dose
+ * (0.5 since the sitewide knock-back).
+ */
+export const GROUND_GLOW_INTENSITY = 0.25;
+
 export default function HeroGlow({
   intensity = 1,
   topLeft = 1,
