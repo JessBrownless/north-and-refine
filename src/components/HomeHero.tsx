@@ -81,7 +81,7 @@ export default function HomeHero() {
 
        zIndex 10 lifts the whole hero above the canvas's grain film (z-1). */
     <section
-      style={{ position: "relative", zIndex: 10, minHeight: "100vh", display: "flex", flexDirection: "column", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
+      style={{ position: "relative", zIndex: 10, minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
     >
 
         {/* CENTRED TITLE BLOCK — nav clearance + air on top (the nav is
@@ -219,14 +219,27 @@ export default function HomeHero() {
             was the difference between a visible sliver and none. The gap
             UNDER the CTAs went 7vh → 9vh in the breathing-room pass — the
             text block's air below, matching the raised air above. */}
-        {/* ⚠ THE TRIM IS OFF while the trust bar sits under the hero
-            (2026-08-08 evening). The negative bottom margin below pushed the
-            shelf past the canvas edge so the ink→bone cut cropped it; with
-            LogoStrip now occupying that space the devices would collide with
-            the strip instead, and a crop against a same-colour band reads as
-            the "clipped mock-ups look like a mistake" bug, not a decision.
-            RESTORE `marginBottom: "clamp(-56px, -4vh, -20px)"` on the shelf
-            row the day the strip leaves. Original note follows.
+        {/* THE STRIP IS THE BLADE (2026-08-08 late, client: "can the logo
+            strip look like it's clipping the bottom of the device mockups
+            off — however, you just clip them within their own section").
+
+            Two parts, and the second is the instruction that makes it sound:
+            the shelf hangs BELOW the hero's box on a negative bottom margin,
+            and the HERO ITSELF carries overflow:hidden, so the cut happens at
+            this section's own edge. Nothing outside is asked to do the
+            cutting — not the canvas, not the strip. The strip merely begins
+            flush at that edge with its own top hairline, so the eye reads the
+            strip as the blade while the geometry stays entirely local. That
+            is what makes it safe: the crop cannot drift if a neighbour moves,
+            and the earlier fear (devices colliding with the strip) is
+            impossible, because the overhang is clipped before it can reach.
+
+            ⚠ THE CLIP IS BACK ON THIS SECTION ON PURPOSE — it is the same
+            overflow:hidden removed on 2026-08-07 for amputating the phones
+            mid-bezel. The difference is intent and control: then it cropped
+            whatever happened to overflow, now it crops exactly the overhang
+            this file sets. Nothing here pins or sticks, so the clip carries
+            no sticky hazard. Depth is one number, the margin below.
 
             THE TRIM (2026-08-08, client: "the case studies need to be a bit
             trimmed horizontally on the bottom — why was that dropped").
@@ -238,7 +251,7 @@ export default function HomeHero() {
             rather than under them: a crop against a DIFFERENT ground reads
             as a decision (the bone-act lesson). ~8% of the device height at
             desktop, a touch less on phones. */}
-        <div style={{ marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
+        <div style={{ marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", marginBottom: "clamp(-64px, -5vh, -24px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
             <PhoneMockup size="fluid" screen="editorial" />
           </div>
