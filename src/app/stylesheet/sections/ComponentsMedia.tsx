@@ -286,7 +286,7 @@ export default function ComponentsMedia() {
           />
           <Entry
             name="size"
-            what="'sm' (w-40) | 'md' (default, w-52 / sm:w-56) | 'lg' (w-64 / sm:w-80, the hero statement device) | 'fluid' (fills the consumer's width box, and the hardware chrome switches to container-query units so an iPhone's corner stays a RATIO of its body at any width — born 2026-08-07 for the homepage shelf, where fixed 34px corners on a 98px phone had read 35%-round)."
+            what="'sm' (w-40) | 'md' (default, w-52 / sm:w-56) | 'lg' (w-64 / sm:w-80, the hero statement device) | 'fluid' (fills the consumer's width box, and the hardware chrome switches to container-query units so an iPhone's corner stays a RATIO of its body at any width — born 2026-08-07 for the homepage shelf, where fixed 34px corners on a 98px phone had read 35%-round; the ratio itself retuned 21% → 15% the next day, a real iPhone's proportion, when the md-derived 21% still read too round at phone sizes)."
           />
           <Entry name="name / specialty" what="Text inside the placeholder mini-site." />
           <Entry name="className" what="Positioning in a cluster." />
@@ -454,6 +454,14 @@ export default function ComponentsMedia() {
           name="PageHero"
           where="/about, /blog, /contact, /industries, /industries/[slug], /pricing, /privacy, /services, /services/[slug], /start-a-project, /work."
         />
+        <What>
+          THE TWO HERO STYLES (2026-08-08): TEXT-ONLY, where the masthead is
+          the whole event and the band is a tall vh stage (72vh at md, the
+          type centred in it — the air is the composition); and TEXT+IMAGE
+          (the `media` slot, /services), which keeps the 56vh measure because
+          the graphic already fills the stage. The style switch is the
+          presence of `media` — no prop.
+        </What>
         <What>
           The canonical interior masthead. Extend it through props; never spawn a
           HeroX variant. The standard recipe is{" "}
@@ -640,7 +648,7 @@ export default function ComponentsMedia() {
 
         <Comp
           name="HeroGlow"
-          where="Every dark PageHero (0.6, topLeft 0.3), the ContactCTA card (0.8), and both SharedCanvas consumers at 0.7 — /about, and the homepage since the client's knock-the-glows-back call (it ran at 1 for the canvas's first day; HomeHero stopped rendering its own glow when it went groundless, 2026-08-07)."
+          where="THE ONE GROUND DOSE (2026-08-08, client: 'wayyyyyy too powerful — knock it back… make the homepage the same'): every dark PageHero AND both SharedCanvas consumers at intensity 0.4 (the homepage also takes the interior's topLeft 0.3; dose history 0.85 → 0.6 → 0.4 on heroes, 1 → 0.7 → 0.4 on the homepage canvas). The ContactCTA card keeps its own contained 0.8 — a card graphic, not a page ground."
         />
         <What>
           The warm gradient ground, in one place so every hero reads as the same

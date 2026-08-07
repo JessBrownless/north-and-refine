@@ -85,8 +85,12 @@ export default function HomeHero() {
     >
 
         {/* CENTRED TITLE BLOCK — nav clearance + air on top (the nav is
-            absolute over the canvas; measure from its foot), then the stack. */}
-        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(180px,22vh,260px) 24px 0" }}>
+            absolute over the canvas; measure from its foot), then the stack.
+            Top air 22vh → 25vh in the 2026-08-08 breathing-room pass ("the
+            text needs more breathing room on all of them" — the homepage is
+            the text+image style, so its room comes from these two inline
+            knobs, not the text-only heroes' vh pump). */}
+        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(200px,25vh,300px) 24px 0" }}>
           {/* THE MASTHEAD RULE (2026-08-05, client: "we've got five or six
               different hero sections and they're kind of the same, let's build
               a rule in that they all use the same heading style. Right now the
@@ -197,8 +201,10 @@ export default function HomeHero() {
             nothing shears at the edges. */}
         {/* Gap floor 20 → 12 with the parity pass: on a phone the shelf's
             margins are all the phones get to show through, and 8px of gap
-            was the difference between a visible sliver and none. */}
-        <div style={{ marginTop: "auto", paddingTop: "clamp(48px,7vh,96px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
+            was the difference between a visible sliver and none. The gap
+            UNDER the CTAs went 7vh → 9vh in the breathing-room pass — the
+            text block's air below, matching the raised air above. */}
+        <div style={{ marginTop: "auto", paddingTop: "clamp(64px,9vh,128px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
             <PhoneMockup size="fluid" screen="editorial" />
           </div>

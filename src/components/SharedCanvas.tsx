@@ -45,17 +45,28 @@ import HeroGlow from "@/components/HeroGlow";
  */
 export default function SharedCanvas({
   children,
-  intensity = 0.7,
+  intensity = 0.4,
+  topLeft = 1,
 }: {
   children: ReactNode;
-  /** Glow dose. 0.9 → 0.7 in the 2026-07-24 sitewide "bit much" trim; the
-      canvas keeps a touch more than the interior heroes since it feeds the
-      glass tiles of the ream too. */
+  /** Glow dose. Trim history: 0.9 → 0.7 (2026-07-24, "a bit much") → 0.4
+      (2026-08-08, client: "the blurred gradient is wayyyyyy too powerful —
+      knock it back"). The old note that the canvas "keeps a touch more than
+      the interior heroes" is RETIRED with that call: 0.4 is now THE ONE
+      GROUND DOSE, shared with PageHero, so no page's ground outglows
+      another's. The /about ream still reads — its glass tiles need a lit
+      backdrop, not a bright one. */
   intensity?: number;
+  /** Multiplier on the top-left champagne pool alone (HeroGlow's own knob,
+      surfaced 2026-08-08 so the homepage canvas can run the SAME recipe as
+      the interior heroes — intensity 0.4, topLeft 0.3 — per the client's
+      "make the homepage blurred gradient graphics the same"). /about keeps
+      the default full pool behind its masthead. */
+  topLeft?: number;
 }) {
   return (
     <div className="relative overflow-hidden grain bg-ink-canvas">
-      <HeroGlow intensity={intensity} />
+      <HeroGlow intensity={intensity} topLeft={topLeft} />
       {/* The canvas foot resolves to page ink over its last stretch — what
           follows on /about is BONE, so the dark story ends on canonical ink
           before the designed ink→bone cut. */}

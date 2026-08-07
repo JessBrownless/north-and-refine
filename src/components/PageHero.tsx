@@ -167,12 +167,18 @@ export default function PageHero({
       : "relative"; // shared canvas: the page's wrapper owns ground + clip
   const heroGlow = light || !ground ? null : (
     <>
-      {/* 0.85 → 0.6 (2026-07-24, client: the blurs read "a bit much" on
-          some pages) — the interior dose steps further below the homepage's
-          full ground. topLeft 0.3 the same day ("REALLY decrease the opacity
-          of the top left gradient"): the champagne pool behind the H1 drops
-          to ~0.09 effective while the right and foot blobs hold the blend. */}
-      <HeroGlow intensity={0.6} topLeft={0.3} />
+      {/* THE HERO GROUND DOSE — 0.4 since 2026-08-08 (client: "the blurred
+          gradient is wayyyyyy too powerful — knock it back"), the third trim
+          in the dose's history: 0.85 → 0.6 (2026-07-24, "a bit much") →
+          0.4. It is now also THE ONE GROUND DOSE: the homepage and /about
+          canvases run the same 0.4 (the client's "make the homepage blurred
+          gradient graphics the same"), so no page's ground outglows
+          another's. topLeft 0.3 holds from 2026-07-24 ("REALLY decrease the
+          opacity of the top left gradient"): the champagne pool behind the
+          H1 sits at ~0.06 effective while the right and foot blobs carry
+          what blend remains. The vignette is untouched — depth stays, light
+          drops. */}
+      <HeroGlow intensity={0.4} topLeft={0.3} />
       {/* THE SEAM ANCHOR (2026-07-23, client: hero and next section "need to
           almost be one"): the ground resolves to ONE FIXED TONE (#14100B) at
           the hero's foot, and SectionGlow's wash starts from exactly that
@@ -296,13 +302,30 @@ export default function PageHero({
   // read dead); the split + baseline lock engage at md. Mobile min-h is
   // shorter so the stack doesn't float in dead space on a phone.
   if (split) {
-    // Optical balance is FREE: the nav is in flow (no overlap), so SYMMETRIC
-    // padding + items-center centres the type in the band with equal air
-    // above and below. Both the min-vh band height and the py were dialled
-    // DOWN 2026-07-13 at the client's call.
+    // THE TWO HERO STYLES (2026-08-08, client: "broadly speaking I think we
+    // have 2 styles — text only and text + image. The text needs more
+    // breathing room on all of them, and we need to be going for nice
+    // spacious VH's for the text ones"). The presence of `media` IS the
+    // style switch — no new prop:
+    //
+    //  · TEXT-ONLY (no media): the masthead is the whole event, so the band
+    //    is a TALL VH STAGE — md:min-h-[72vh], up from 56 — with the type
+    //    centred in it. The air is the composition.
+    //  · TEXT + IMAGE (media set, /services; the homepage's bespoke hero is
+    //    this style too): the graphic fills the band, so it keeps the
+    //    56vh measure — pumping its VH would just stretch ground around an
+    //    already-full stage.
+    //
+    // The breathing room rides MIN-H, not padding: the py values are frozen
+    // until the spacing sweep lands, and items-center means taller bands
+    // convert directly into air around the type. (The 2026-07-13 "dialled
+    // down" call this reverses was about the OLD cramped composition; the
+    // client has now asked for the opposite by name.)
     const splitBox = spacious
-      ? "min-h-[48vh] py-20 md:min-h-[56vh] md:py-28"
-      : "min-h-[40vh] py-16 md:min-h-[46vh] md:py-20";
+      ? media
+        ? "min-h-[48vh] py-20 md:min-h-[56vh] md:py-28"
+        : "min-h-[56vh] py-20 md:min-h-[72vh] md:py-28"
+      : "min-h-[44vh] py-16 md:min-h-[52vh] md:py-20";
 
     // SPLIT + MEDIA: the graphic variant. REBALANCED 2026-07-24 (client: the
     // hero "feels unbalanced" — measured on /services, three faults):
@@ -429,7 +452,17 @@ export default function PageHero({
   return (
     <section className={sectionCls}>
         {heroGlow}
-      <div className={`shell ${padY} relative z-10${shellBorder}`}>{content}</div>
+      {/* The legacy left/center layouts joined the 2026-08-08 breathing-room
+          pass through a MIN-H WELL rather than their frozen padY: these are
+          text-only heroes too ("the text needs more breathing room on ALL of
+          them"), so the type centres in a modest vh band. flex-COL, not flex:
+          a row would shrink-wrap the max-w-4xl block to its content and
+          re-wrap the lede. /privacy is the one live consumer. */}
+      <div className={`shell ${padY} relative z-10${shellBorder}`}>
+        <div className="flex min-h-[36vh] flex-col justify-center md:min-h-[46vh]">
+          {content}
+        </div>
+      </div>
     </section>
   );
 }

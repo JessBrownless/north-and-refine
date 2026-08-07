@@ -56,14 +56,19 @@ export default function PhoneMockup({
   const width =
     size === "sm" ? "w-40" : size === "lg" ? "w-64 sm:w-80" : size === "fluid" ? "w-full" : "w-52 sm:w-56";
 
-  // Fluid chrome = the md tuning's proportions (208px reference) in cqw, so
-  // the hardware holds its ratio at any width the consumer sets. Fixed sizes
-  // keep the tuned rem/px values.
+  // Fluid chrome in cqw, so the hardware holds its ratio at any width the
+  // consumer sets. RATIO RETUNED 21cqw → 15cqw (2026-08-08, client: mobile
+  // still "looks too rounded"): 21% was the md size's tuned proportion, but
+  // a real iPhone's body corner is ~15% of its width, and small objects
+  // want optically TIGHTER corners, not equal ones — the plate radius
+  // scale encodes the same taste (less curve on small plates). The screen
+  // follows at 12cqw (outer minus the 3.4cqw bezel). Fixed sizes keep
+  // their tuned rem/px values.
   // The fluid bezel padding rides an inline style, not a p-[3.4cqw] class:
   // spacing utilities are frozen until the sweep lands, and hardware
   // depiction has no business joining that census anyway.
-  const frameChrome = fluid ? "rounded-[21cqw]" : "rounded-[2.75rem] p-[7px]";
-  const screenChrome = fluid ? "rounded-[18cqw]" : "rounded-[2.35rem]";
+  const frameChrome = fluid ? "rounded-[15cqw]" : "rounded-[2.75rem] p-[7px]";
+  const screenChrome = fluid ? "rounded-[12cqw]" : "rounded-[2.35rem]";
   const islandChrome = fluid
     ? "top-[4.8cqw] h-[7.7cqw] w-[27cqw]"
     : "top-2.5 h-4 w-14";

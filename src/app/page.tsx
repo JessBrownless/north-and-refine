@@ -67,11 +67,12 @@ export default function HomePage() {
           brought in for — no seam WITHIN the dark act, the clip that lets
           the devices render in full — and its built-in foot fade resolves
           the ground to ink so the ink→bone cut below lands as a DESIGNED
-          edge, /about's exact architecture. Intensity 1 → 0.7: the client's
-          "knock opacity back of all blurred gradients so the page feels
-          darker", which also restores the fill-contrast the statement lost
-          when its ground lit up. ══ */}
-      <SharedCanvas intensity={0.7}>
+          edge, /about's exact architecture. THE GLOW IS THE INTERIOR RECIPE
+          EXACTLY — intensity 0.4, topLeft 0.3, the same numbers PageHero
+          passes — since 2026-08-08 (client: "the blurred gradient is
+          wayyyyyy too powerful — knock it back and also make the homepage
+          blurred gradient graphics the same"; dose history 1 → 0.7 → 0.4). ══ */}
+      <SharedCanvas intensity={0.4} topLeft={0.3}>
         {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
             re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
             foot, one column, no absolute layers to collide. */}
