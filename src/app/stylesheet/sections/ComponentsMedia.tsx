@@ -413,7 +413,7 @@ export default function ComponentsMedia() {
 
         <Comp
           name="LogoStrip"
-          where="PARKED 2026-08-08 — the client moved the trust bar off the homepage ('move Trusted by off homepage'). No live consumer; it renders only at /mockups/old-hero, the frozen live-era archive. Kept whole, like CreditStrip and Deck: parking is not deletion, and the roster returns the day there are real marks to show."
+          where="Homepage, UNDER THE HERO and inside the SharedCanvas (2026-08-08: parked off the page that morning, back the same evening at its original 2026-07-10 placement). Also /mockups/old-hero. The parking lasted hours, which is the argument for keeping a component whole rather than deleting it."
         />
         <What>
           The trust bar: a quiet ruled strip of client marks, each linking to its

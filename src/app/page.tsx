@@ -4,6 +4,7 @@ import BlogRailBand from "@/components/BlogRailBand";
 import ContactCTA from "@/components/ContactCTA";
 import DesignFlip from "@/components/dev/DesignFlip";
 import HomeHero from "@/components/HomeHero";
+import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ManifestoTrack from "@/components/ManifestoTrack";
 import SelectedWorkBand from "@/components/SelectedWorkBand";
 import SharedCanvas from "@/components/SharedCanvas";
@@ -51,6 +52,11 @@ export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 6);
 
+  const logoStripItems: LogoStripItem[] = featured.map((project) => ({
+    name: project.frontmatter.client,
+    href: `/work/${project.slug}`,
+  }));
+
   return (
     <main className="bg-ink text-bone">
       {/* ══ THE HERO CANVAS (2026-08-07 layout pass). The canvas holds the
@@ -76,6 +82,29 @@ export default function HomePage() {
               re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
               foot, one column, no absolute layers to collide. */}
           <HomeHero />
+          {/* THE TRUST BAR, BACK UNDER THE HERO (2026-08-08, client: "can we
+              try the logo strip under the hero section" — its original
+              2026-07-10 placement, before it moved under Kind words the next
+              day and off the page entirely earlier today).
+
+              INSIDE the canvas, not a band below it, and that is the whole
+              point: the strip owns no ground, so on the canvas it rides the
+              hero's warm glow and reads as the hero's own proof line rather
+              than a separate dark band. It also leaves the ink→bone cut
+              intact — the canvas still meets the bone act directly, so the
+              sheet edge keeps rising over one continuous dark act.
+
+              ⚠ IT COST THE DEVICE TRIM, and that is a real trade rather than
+              an oversight: the shelf's negative bottom margin existed so the
+              COLOUR CUT would crop the devices ("a bit trimmed horizontally
+              on the bottom"), and a crop only reads as a decision against a
+              different ground. With the strip in that space the devices
+              would simply collide with it, so the overhang is zeroed in
+              HomeHero. Trim and under-hero strip are mutually exclusive
+              here; if the strip goes again, restore the margin with it. */}
+          <DesignFlip label="Trust bar">
+            <LogoStrip items={logoStripItems} />
+          </DesignFlip>
         </SharedCanvas>
       </DesignFlip>
 

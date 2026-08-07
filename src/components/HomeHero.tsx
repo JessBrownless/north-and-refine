@@ -219,7 +219,16 @@ export default function HomeHero() {
             was the difference between a visible sliver and none. The gap
             UNDER the CTAs went 7vh → 9vh in the breathing-room pass — the
             text block's air below, matching the raised air above. */}
-        {/* THE TRIM (2026-08-08, client: "the case studies need to be a bit
+        {/* ⚠ THE TRIM IS OFF while the trust bar sits under the hero
+            (2026-08-08 evening). The negative bottom margin below pushed the
+            shelf past the canvas edge so the ink→bone cut cropped it; with
+            LogoStrip now occupying that space the devices would collide with
+            the strip instead, and a crop against a same-colour band reads as
+            the "clipped mock-ups look like a mistake" bug, not a decision.
+            RESTORE `marginBottom: "clamp(-56px, -4vh, -20px)"` on the shelf
+            row the day the strip leaves. Original note follows.
+
+            THE TRIM (2026-08-08, client: "the case studies need to be a bit
             trimmed horizontally on the bottom — why was that dropped").
             Honest answer on record: the bottom bleed went out WHOLESALE with
             her own "clipped mock-ups read as a mistake" call; this is its
@@ -229,7 +238,7 @@ export default function HomeHero() {
             rather than under them: a crop against a DIFFERENT ground reads
             as a decision (the bone-act lesson). ~8% of the device height at
             desktop, a touch less on phones. */}
-        <div style={{ marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", marginBottom: "clamp(-56px, -4vh, -20px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
+        <div style={{ marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
             <PhoneMockup size="fluid" screen="editorial" />
           </div>
