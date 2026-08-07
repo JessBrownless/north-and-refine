@@ -62,6 +62,15 @@ interface ContactCTAProps {
  * the sitewide heading-group voice, and the close desyncing from every
  * masthead would read as a mistake.
  *
+ * THE SPLIT RETURNED (same day again, client on the one-column cut: "looks
+ * a bit left heavy — let's try subtitle and button right"): type-alone
+ * lasted one round before the card's asymmetric grammar reasserted itself.
+ * Kicker + heading hold the LEFT columns (1–7); the subtitle and button
+ * row hold the RIGHT (9–12), feet locked to the heading's foot
+ * (items-end) — the hero-split balance, in type only. The SIZER makes the
+ * lock stable: the heading's box never changes while the word cycles, so
+ * the right stack cannot bounce. Below md the card stacks in DOM order.
+ *
  * Type is the ON-INK ladder (bone/bone-dim); the flagship is the dark-ground
  * pair (btn-primary-dark). The exit-fade left with the cream: this band
  * already ends every page on ink, so there is nothing to fade into.
@@ -85,7 +94,8 @@ export default function ContactCTA({
               the close would be a flat dark plate. */}
           <HeroGlow intensity={0.35} />
           <div className="relative z-10 p-10 sm:p-14 md:p-20">
-            <div className="max-w-[62ch]">
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
+              <div className="md:col-span-7">
               <p className="overline reveal">Start a project</p>
               <h2
                 className="heading-xl from-overline relative max-w-[24ch] text-bone reveal"
@@ -114,8 +124,10 @@ export default function ContactCTA({
                   </>
                 )}
               </h2>
+              </div>
+              <div className="md:col-span-4 md:col-start-9">
               <p
-                className="body-xl mt-10 max-w-[44ch] text-bone-dim reveal md:mt-16"
+                className="body-xl mt-10 max-w-[44ch] text-bone-dim reveal md:mt-0"
                 style={{ transitionDelay: "160ms" }}
               >
                 {body}
@@ -133,6 +145,7 @@ export default function ContactCTA({
                 <Link href="/work" className="btn-ghost text-bone">
                   See the work <span aria-hidden>→</span>
                 </Link>
+              </div>
               </div>
             </div>
           </div>
