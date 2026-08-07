@@ -1508,3 +1508,94 @@ textarea.field-on-dark:-webkit-autofill {
 [data-flip-sketch] [data-device].border-ink-line {
   border-color: var(--ink-line);
 }
+
+/* ── THE FLIPPER'S SECOND PASS (2026-08-08, client: "various pieces of text
+   and elements on the page are not quite working in the Flipper yet").
+   Debugged by contrast audit rather than by eye: flip every band, walk each
+   text node, compute its ratio against its effective ground. Fourteen groups
+   failed; SIX were a false positive worth recording, because the same trap
+   will catch the next audit — the ghost links' arrow spans carry
+   `transition: color`, and getComputedStyle returns a STALE value on a
+   transitioned node in a backgrounded pane. Cloning the node showed them
+   inheriting correctly all along. Measure a clone before believing a colour.
+
+   The three real causes, all the same shape: A COLOUR THE CLASS INVERSION
+   CANNOT SEE.
+
+   1. INHERITANCE FROM OUTSIDE THE WRAPPER. <main> carries text-bone, so any
+      element with no colour class of its own — the testimonial's .statement
+      and its accent em, for instance — inherits bone from an ancestor that
+      is not inside the flipped scope and never inverts. The wrapper has to
+      set the inherited colour itself. A light band flipping DARK still wins,
+      because its own section carries text-ink and sits closer. */
+[data-flip-sketch] {
+  color: var(--ink);
+}
+
+/* 2. COMPONENT COLOURS DECLARED IN THIS FILE, not as utilities. .overline
+      sets color: var(--bone) and every button tier sets its own fill and
+      text, so none of them appear in the utility map above. They are
+      inverted here by hand — one mapping per class, which is sound because a
+      band only ever contains one polarity: the dark bands hold the glass,
+      primary-dark and secondary-dark tiers, and the one light band holds
+      secondary-light. ⚠ A light band containing an .overline would want the
+      opposite of this rule; none exists today, and if one appears the fix is
+      a direction-aware wrapper attribute, not a special case here. */
+[data-flip-sketch] .overline {
+  color: var(--ink);
+}
+[data-flip-sketch] .fineprint {
+  color: var(--ink-mute);
+}
+[data-flip-sketch] .btn-glass {
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 25%, transparent);
+}
+[data-flip-sketch] .btn-primary-dark {
+  background: var(--ink);
+  color: var(--bone);
+  border-color: var(--ink);
+}
+[data-flip-sketch] .btn-primary-light {
+  background: var(--bone);
+  color: var(--ink);
+  border-color: var(--bone);
+}
+[data-flip-sketch] .btn-secondary-dark {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+[data-flip-sketch] .btn-secondary-light {
+  color: var(--bone);
+  border-color: color-mix(in srgb, var(--bone) 40%, transparent);
+}
+
+/* 3. THE DEVICE EXEMPTION WAS TOO NARROW. Depicted hardware keeps its own
+      colours, but the first pass re-asserted only .text-bone — so the
+      browser's address bar (.text-bone-dim) inverted to ink-dim and sat at
+      2.4:1 on its own dark chrome. The exemption now covers the whole tint
+      ladder plus the inherited default, since rule 1 above would otherwise
+      push ink into every device screen. */
+[data-flip-sketch] [data-device] {
+  color: var(--bone);
+}
+[data-flip-sketch] [data-device] .text-bone-dim,
+[data-flip-sketch] [data-device].text-bone-dim {
+  color: var(--bone-dim);
+}
+[data-flip-sketch] [data-device] .text-clay {
+  color: var(--clay);
+}
+[data-flip-sketch] [data-device] .text-ink-dim {
+  color: var(--ink-dim);
+}
+[data-flip-sketch] [data-device] .text-ink-mute {
+  color: var(--ink-mute);
+}
+[data-flip-sketch] [data-device] .overline {
+  color: var(--bone);
+}
+[data-flip-sketch] [data-device] .fineprint {
+  color: var(--clay);
+}
