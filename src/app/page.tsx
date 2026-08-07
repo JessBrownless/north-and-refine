@@ -1,7 +1,6 @@
 import { getFeaturedProjects } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import BlogRailBand from "@/components/BlogRailBand";
-import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ContactCTA from "@/components/ContactCTA";
 import DesignFlip from "@/components/dev/DesignFlip";
 import HomeHero from "@/components/HomeHero";
@@ -51,11 +50,6 @@ const MANIFESTO =
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
   const posts = getAllPosts().slice(0, 6);
-
-  const logoStripItems: LogoStripItem[] = featured.map((project) => ({
-    name: project.frontmatter.client,
-    href: `/work/${project.slug}`,
-  }));
 
   return (
     <main className="bg-ink text-bone">
@@ -118,13 +112,6 @@ export default function HomePage() {
         <Testimonial exitFade />
       </DesignFlip>
 
-      {/* ── Trust bar — under the testimonial (2026-07-11, second move of
-          the day: first-screen → after The Studio → here): one client
-          speaks in Kind words, then the roster corroborates — words, then
-          receipts. Below the fold it reveals like its neighbours. ── */}
-      <DesignFlip label="Trust bar">
-        <LogoStrip items={logoStripItems} />
-      </DesignFlip>
 
       {/* ── (The process left the homepage entirely 2026-07-10 late — it
           burned through carousel, spine timeline and a slim method strip

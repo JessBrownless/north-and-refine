@@ -394,9 +394,8 @@ export default function ComponentsPages() {
           <Beat n={4} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
           <Beat n={5} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
           <Beat n={6} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
-          <Beat n={7} name="LogoStrip" what="The trust bar: words first, then the roster corroborates." />
-          <Beat n={8} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
-          <Beat n={9} name="ContactCTA" what="The close." />
+          <Beat n={7} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
+          <Beat n={8} name="ContactCTA" what="The close." />
         </Route>
 
         <Route

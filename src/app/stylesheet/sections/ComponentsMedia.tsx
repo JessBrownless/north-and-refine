@@ -413,13 +413,12 @@ export default function ComponentsMedia() {
 
         <Comp
           name="LogoStrip"
-          where="Homepage, directly under the Kind words testimonial. Also /mockups/old-hero."
+          where="PARKED 2026-08-08 — the client moved the trust bar off the homepage ('move Trusted by off homepage'). No live consumer; it renders only at /mockups/old-hero, the frozen live-era archive. Kept whole, like CreditStrip and Deck: parking is not deletion, and the roster returns the day there are real marks to show."
         />
         <What>
           The trust bar: a quiet ruled strip of client marks, each linking to its
-          case study, fed from the work collection on the homepage so it cannot
-          drift. It carries no background of its own and sits on whatever dark
-          section holds it. Marks are ALWAYS monochrome bone, with per-mark
+          case study, fed from the work collection so it cannot drift. It carries
+          no background of its own and sits on whatever dark section holds it. Marks are ALWAYS monochrome bone, with per-mark
           heights tuned to equal optical width, because the wordmarks differ
           roughly 6:1 against 13:1 in aspect and equal heights would render
           wildly unequal widths. The row never wraps and never auto-moves: a
@@ -427,7 +426,7 @@ export default function ComponentsMedia() {
           on mobile, spreads on md and up.
         </What>
         <Props>
-          <Entry name="items" what="{ name, href }[]. The name is matched against the mark pool by regex and is also the link's accessible label; the href is the case study." />
+          <Entry name="items" what="{ name, href }[]. The name is matched against the mark pool by regex and is also the link's accessible label; the href is the case study. The homepage fed it getFeaturedProjects; whatever revives it should feed it the same way rather than hand-listing marks." />
           <Entry name="label" what="The kicker. Defaults to 'Trusted by'." />
         </Props>
         <Stage component>
