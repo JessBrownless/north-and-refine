@@ -25,8 +25,20 @@ import ManifestoStatement from "@/components/ManifestoStatement";
  * which reads as letterpress coming up rather than the old bone-on-dark
  * lighting. Statement stays FLUSH LEFT on the rail (client's call — the
  * /services belief precedent; the hero above remains the page's one centred
- * moment) and stays at .display (client: "it's okay" to the two-display
- * critique point).
+ * moment).
+ *
+ * TYPE STEPPED DOWN .display → .heading-xl (2026-08-08, the image split):
+ * once the statement narrowed to six columns for the plate (below), .display
+ * wrapped it into a 7-line staircase — "A studio that / treats the /
+ * clinic's digital / presence…" — a size tuned for the full 1600px rail, not
+ * a 675px column. THE LADDER HAD ALREADY DECIDED THE RIGHT RUNG: CLAUDE.md's
+ * heading-xl entry names its consumers as "DETAIL-page H1s… on the homepage:
+ * THE STUDIO STATEMENT, the ContactCTA close" — the .display era was the
+ * actual drift from a size the canon already specified. heading-xl breaks
+ * the sentence into 5 clean lines at this column with no orphans. The
+ * client's earlier "it's okay" was to two .display USES on one page, a
+ * different question (register clash) from this one (does the rung fit its
+ * column); resolving the wrap does not reopen that call.
  *
  * THE AIR: min-h 80vh at md (56vh on phones), statement centred in the band.
  * The number has fallen twice as the band's ARCHITECTURE changed, which is
@@ -63,7 +75,8 @@ export default function ManifestoTrack({
   text,
   cta,
 }: {
-  /** The statement itself. One thought: the homepage runs four lines. */
+  /** The statement itself. One thought; at heading-xl in the six-column
+      split the homepage runs five lines. */
   text: string;
   /** The onward link under the statement, if the band carries one. */
   cta?: { href: string; label: string };
@@ -82,9 +95,22 @@ export default function ManifestoTrack({
        hour this was born; this is the one survivor of it the client kept. */
     <section className="relative z-10 overflow-hidden rounded-t-plate-lg grain-light bg-bone text-ink">
       <div className="relative z-10 flex min-h-[56vh] items-center md:min-h-[80vh]">
-        <div data-manifesto-track className="shell w-full">
-          <ManifestoStatement text={text} />
-          {cta && (
+        <div className="shell grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8">
+          {/* THE STATEMENT NARROWS TO THE LEFT COLUMNS (2026-08-08, client:
+              "this section needs an image, I need to let go of it just being
+              text as it isn't working"). The band's empty right half was a
+              large part of why it wasn't working: at 80vh a three-line
+              statement flush left leaves most of the rail doing nothing, and
+              air only reads as generous when something bounds it.
+
+              ⚠ data-manifesto-track MOVED WITH THE STATEMENT, not the grid.
+              The scrub measures the nearest track element and its completion
+              tuning assumes track ≈ statement block; leaving the attribute on
+              the grid would hand it a box that now includes a 4:5 plate, and
+              the fill would finish while the words were still arriving. */}
+          <div data-manifesto-track className="md:col-span-6">
+            <ManifestoStatement text={text} className="heading-xl max-w-none" />
+            {cta && (
             <div className="mt-12 reveal" style={{ transitionDelay: "160ms" }}>
               {/* The on-LIGHT secondary — .btn-secondary-light's SECOND live
                   consumer (it had one, FaqSection's cream band, and was a
@@ -96,7 +122,40 @@ export default function ManifestoTrack({
                 {cta.label}
               </Link>
             </div>
-          )}
+            )}
+          </div>
+
+          {/* THE PLATE — Rowen 5, the client's own mockup suite carrying a
+              REAL client site, so the studio's shop window shows work rather
+              than a placeholder. It is FREED STOCK, not a new asset: this
+              plate was the homepage hero's dead-corner portrait until the
+              hero went to device mock-ups on 2026-08-07, so it returns to
+              the page it was graded for. Native 4:5 at its native
+              orientation, per the plates brief — never recut a frame to fit
+              a slot. `.frame` carries the plate radius automatically.
+
+              CAPPED at 400px rather than filling its five columns: 4:5 of a
+              full 648px column is 810px tall, which would burst an 80vh band
+              and re-open the height the client just cut. The cap keeps the
+              plate ~500px and the band's min-h in charge. */}
+          <div
+            /* ⚠ NO ml-auto ON THE GRID ITEM: margin-left:auto makes a grid
+               item size to its CONTENT, and the frame inside has no intrinsic
+               width (aspect-ratio + max-w only), so the whole plate collapsed
+               to 0px. The item stretches; the FRAME does the right-aligning. */
+            className="reveal md:col-span-5 md:col-start-8"
+            style={{ transitionDelay: "240ms" }}
+          >
+            <div className="frame aspect-[4/5] max-w-[400px] md:ml-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/plates/hero-rowen-05.jpg"
+                alt="A laptop on a black side table displaying the Dr Yalda Jamali website — brand and web design by North & Refine"
+                loading="lazy"
+                className="plate-develop absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
