@@ -40,9 +40,9 @@ import ManifestoStatement from "@/components/ManifestoStatement";
  * different question (register clash) from this one (does the rung fit its
  * column); resolving the wrap does not reopen that call.
  *
- * THE AIR: min-h 80vh at md (56vh on phones), statement centred in the band.
- * The number has fallen twice as the band's ARCHITECTURE changed, which is
- * the useful record here: 160vh when it was an edgeless DARK field and only
+ * THE AIR: min-h 80vh at md, statement centred in the band. The number has
+ * fallen twice at md as the band's ARCHITECTURE changed, which is the
+ * useful record here: 160vh when it was an edgeless DARK field and only
  * sheer distance could suggest an edge; 120vh once the bone act gave it two
  * designed colour cuts and the air no longer had to do that work; 80vh when
  * the client read the result as simply "too tall" (2026-08-08). At 120 the
@@ -54,6 +54,19 @@ import ManifestoStatement from "@/components/ManifestoStatement";
  * Still MIN-H + CENTRING, deliberately not py-*: padding utilities are
  * frozen until the spacing sweep lands. The scrub is immune to the number:
  * the track is the inner statement block, not the band.
+ *
+ * PHONES STEPPED UP 56vh → 100vh SEPARATELY (2026-08-08, client: "on mobile
+ * I think we will need some top padding on the… section"). The image split
+ * had made the mechanism silently stop working, which is worth recording
+ * because it will happen again the next time this band's content changes:
+ * min-h + centring only produces air while min-h EXCEEDS the content, and
+ * once the statement gained a stacked 4:5 plate beneath it on mobile, the
+ * content stack (measured 749px) grew past 56vh (455px at a 812px phone) —
+ * centring had nothing left to distribute, so the rounded top corner met
+ * the first line of text at 0px. 100vh guarantees min-h clears typical
+ * content again; it is not a value pulled to "look right," it is the
+ * smallest round number that restores the mechanism the band already
+ * relies on. Re-measure if the statement or CTA grows materially.
  *
  * NO EXIT FADE, and the old `exitFade` prop is DELETED rather than parked:
  * the fade-to-ink handover belongs to dark sections dissolving into each
@@ -94,7 +107,7 @@ export default function ManifestoTrack({
        device reads as an entrance, not a pill. The card trial died the same
        hour this was born; this is the one survivor of it the client kept. */
     <section className="relative z-10 overflow-hidden rounded-t-plate-lg grain-light bg-bone text-ink">
-      <div className="relative z-10 flex min-h-[56vh] items-center md:min-h-[80vh]">
+      <div className="relative z-10 flex min-h-[100vh] items-center md:min-h-[80vh]">
         <div className="shell grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8">
           {/* THE STATEMENT NARROWS TO THE LEFT COLUMNS (2026-08-08, client:
               "this section needs an image, I need to let go of it just being
