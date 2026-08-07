@@ -28,12 +28,20 @@ import ManifestoStatement from "@/components/ManifestoStatement";
  * moment) and stays at .display (client: "it's okay" to the two-display
  * critique point).
  *
- * THE AIR: min-h 120vh at md (70vh on phones), statement centred in the
- * band. Down from the dark era's 160vh — a bounded bone slab reads generous
- * at 120 where the edgeless field needed 160 to feel like anything. Still
- * MIN-H + CENTRING, deliberately not py-*: padding utilities are frozen
- * until the spacing sweep lands. The scrub is immune to the number: the
- * track is the inner statement block, not the band.
+ * THE AIR: min-h 80vh at md (56vh on phones), statement centred in the band.
+ * The number has fallen twice as the band's ARCHITECTURE changed, which is
+ * the useful record here: 160vh when it was an edgeless DARK field and only
+ * sheer distance could suggest an edge; 120vh once the bone act gave it two
+ * designed colour cuts and the air no longer had to do that work; 80vh when
+ * the client read the result as simply "too tall" (2026-08-08). At 120 the
+ * statement held 40% of its own band and sat in ~300px of air per side; at
+ * 80 it holds ~60%, which is a slab with margin rather than a statement
+ * adrift in one. THE LESSON, since this is the third setting: air is
+ * relative to what BOUNDS it, so re-judge this number whenever the band's
+ * edges change, and never carry a value across an architecture change.
+ * Still MIN-H + CENTRING, deliberately not py-*: padding utilities are
+ * frozen until the spacing sweep lands. The scrub is immune to the number:
+ * the track is the inner statement block, not the band.
  *
  * NO EXIT FADE, and the old `exitFade` prop is DELETED rather than parked:
  * the fade-to-ink handover belongs to dark sections dissolving into each
@@ -73,7 +81,7 @@ export default function ManifestoTrack({
        device reads as an entrance, not a pill. The card trial died the same
        hour this was born; this is the one survivor of it the client kept. */
     <section className="relative z-10 overflow-hidden rounded-t-plate-lg grain-light bg-bone text-ink">
-      <div className="relative z-10 flex min-h-[70vh] items-center md:min-h-[120vh]">
+      <div className="relative z-10 flex min-h-[56vh] items-center md:min-h-[80vh]">
         <div data-manifesto-track className="shell w-full">
           <ManifestoStatement text={text} />
           {cta && (
