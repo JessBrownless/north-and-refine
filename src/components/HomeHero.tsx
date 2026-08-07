@@ -150,18 +150,17 @@ export default function HomeHero() {
               that patients <em>trust.</em>
             </span>
           </h1>
-          {/* STACKED AT EVERY WIDTH (2026-08-08, client with the inspector
-              open: the hero text "ends up looking not centered… it needs to
-              look centered"). Measured at her width: every box was
-              GEOMETRICALLY centred (offsets 0.0), but side by side the pair
-              read left-shifted — the solid pill's centre sat at −83px and
-              the naked ghost's at +129px, so all the visual mass hung left
-              of the axis. Two objects of unequal weight cannot share a
-              centred row; each centres on its OWN line instead, which is
-              also exactly the stacked look the pair already had below the
-              wrap point. Optical centre = geometric centre, by
-              construction. */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)" }}>
+          {/* SIDE BY SIDE AGAIN (2026-08-08 late, client: "make the hero
+              buttons sit side by side" — reversing the STACKED-AT-EVERY-
+              WIDTH call from earlier the same day). That call was measured
+              and correct on its own terms (the pill's optical centre sat at
+              −83px, the ghost's at +129px, so a centred ROW read left-heavy)
+              — but the client has now seen both and prefers the row despite
+              the asymmetry. Not re-litigated: items-baseline + justify-center
+              is the same row treatment PageHero and ContactCTA already use
+              for a glass-or-primary + ghost pair, so the hero rejoins that
+              one recipe instead of carrying its own bespoke column. */}
+          <div className="flex flex-wrap items-baseline justify-center gap-x-8 gap-y-5" style={{ marginTop: "clamp(34px,3.6vw,48px)" }}>
             {/* THE GLASS PRIMARY AND ITS GHOST.
 
                 2026-08-05 put both on the button system: they were hand-rolled
