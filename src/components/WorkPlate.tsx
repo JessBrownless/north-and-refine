@@ -54,17 +54,22 @@ export default function WorkPlate({
         )}
       </div>
       {/* The caption is a MetaRow in its SPREAD shape: the two items are
-          pushed to the ends of the hairline, so the space between them is the
+          pushed to the ends of the row, so the space between them is the
           separator and the glyph is turned off.
           ⚠ The services string still joins its own middot, which is the one
           thing MetaRow's rule forbids. The row cannot fix it, because the
           molecule owns the gap BETWEEN items and never reaches inside one:
           splitting that string into two items is a change to what renders,
-          not an extraction. See the note in MetaRow.tsx. */}
+          not an extraction. See the note in MetaRow.tsx.
+          NO HAIRLINE (2026-08-08, client: "remove the dividing lines under
+          the images on the selected work section") — `rule` dropped, so the
+          caption sits on the plate's own air rather than under a ruled line.
+          Scoped to this component only: /work's own index uses WorkCard, a
+          different horizontal editorial layout with no MetaRow or hairline
+          of its own, so nothing there is affected. */}
       <MetaRow
         tone="dark"
         spread
-        rule
         separator={null}
         wrap={false}
         gap="gap-4"
