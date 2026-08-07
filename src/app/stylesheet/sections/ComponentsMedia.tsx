@@ -413,7 +413,7 @@ export default function ComponentsMedia() {
 
         <Comp
           name="LogoStrip"
-          where="Homepage, UNDER THE HERO and inside the SharedCanvas (2026-08-08: parked off the page that morning, back the same evening at its original 2026-07-10 placement). Also /mockups/old-hero. The parking lasted hours, which is the argument for keeping a component whole rather than deleting it."
+          where="PARKED AGAIN 2026-08-08 ('remove Trusted by section — put on DS page if you want') after a same-day round trip through the hero. Full journey on record in CLAUDE.md. Also /mockups/old-hero. The specimen below is still the real component, live-rendered, not a screenshot of one."
         />
         <What>
           The trust bar: a quiet ruled strip of client marks, each linking to its

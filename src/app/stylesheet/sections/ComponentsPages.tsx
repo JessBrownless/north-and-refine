@@ -390,13 +390,12 @@ export default function ComponentsPages() {
         >
           <Beat n={1} name="SharedCanvas" what="The hero's ground, holding the hero ALONE at intensity 0.7 (the client's knock-the-glows-back call): base, glow, grain, and the foot fade that resolves to ink so the bone act below cuts against canonical ink." />
           <Beat n={2} name="HomeHero" what="The bespoke centred masthead, GROUNDLESS on the canvas and in FLOW since the 2026-08-07 layout pass: kicker, H1, CTAs, then the device row bottom-aligned at the foot — the SYSTEM'S OWN devices since 2026-08-07 night (BrowserMockup + two fluid PhoneMockups, editorial bone screens — 'the white ones we use in graphics'), the trio on one shelf line at HEIGHT PARITY (the phone's width derived from the BrowserMockup's height, tops level at every viewport), no absolute layers left to collide." />
-          <Beat n={3} name="LogoStrip" what="THE TRUST BAR, back under the hero (2026-08-08) and INSIDE the canvas: it owns no ground, so on the canvas it rides the hero's own glow and reads as the masthead's proof line rather than a separate dark band. The devices are CLIPPED at the hero's own bottom edge (HomeHero hangs its shelf on a negative margin and carries overflow:hidden), and the strip begins flush at that line with its top hairline — so the strip reads as the blade while the geometry stays local to the hero." />
-          <Beat n={4} name="ManifestoTrack" what="THE BONE ACT: the ink statement on bg-bone + grain-light, hard designed cuts at both ends, the fill running in normal flow (unpinned 2026-08-07 — the site's last scroll pin). Flush left, .display, with the ↳ Our story secondary in the on-light outline. No exit fade: a bone band cuts, it does not dissolve." />
-          <Beat n={5} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
-          <Beat n={6} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
-          <Beat n={7} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
-          <Beat n={8} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
-          <Beat n={9} name="ContactCTA" what="The close." />
+          <Beat n={3} name="ManifestoTrack" what="THE BONE ACT: the ink statement on bg-bone + grain-light, hard designed cuts at both ends, the fill running in normal flow (unpinned 2026-08-07 — the site's last scroll pin). Flush left, .display, with the ↳ Our story secondary in the on-light outline. No exit fade: a bone band cuts, it does not dissolve." />
+          <Beat n={4} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
+          <Beat n={5} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
+          <Beat n={6} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
+          <Beat n={7} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
+          <Beat n={8} name="ContactCTA" what="The close." />
         </Route>
 
         <Route
