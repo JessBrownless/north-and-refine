@@ -75,6 +75,7 @@ export default function PhoneMockup({
 
   return (
     <div
+      data-device="phone"
       className={`${width} shrink-0 ${className}`}
       style={fluid ? { containerType: "inline-size" } : undefined}
     >

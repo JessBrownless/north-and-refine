@@ -25,6 +25,7 @@ export default function DesignFlipClient({
   return (
     <div className="relative" {...(flipped ? { "data-flip-sketch": "" } : {})}>
       <div
+        data-flip-ui
         style={{
           position: "absolute",
           top: 12,

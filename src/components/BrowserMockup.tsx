@@ -34,6 +34,7 @@ export default function BrowserMockup({
 }: BrowserMockupProps) {
   return (
     <div
+      data-device="browser"
       className={`overflow-hidden rounded-xl border border-ink-line bg-ink-raised shadow-[0_44px_90px_-36px_rgba(0,0,0,0.7)] ${className}`}
     >
       {/* Chrome bar */}

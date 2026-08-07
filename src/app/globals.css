@@ -1384,7 +1384,12 @@ textarea.field-on-dark:-webkit-autofill {
 }
 [data-flip-sketch] .bg-ink-canvas,
 [data-flip-sketch].bg-ink-canvas {
-  background-color: var(--ivory);
+  /* NOT var(--ivory): ivory exists as a Tailwind colour but has NO CSS
+     custom property, so var(--ivory) resolved to nothing and the property
+     fell back to transparent — which is exactly why the hero stayed dark
+     when the client reported it. Never reference a token here without
+     checking it is a :root variable and not only a tailwind.config entry. */
+  background-color: var(--bone);
 }
 [data-flip-sketch] .bg-ink-raised,
 [data-flip-sketch].bg-ink-raised {
@@ -1431,4 +1436,75 @@ textarea.field-on-dark:-webkit-autofill {
 [data-flip-sketch] .grain-light::before {
   mix-blend-mode: normal;
   opacity: 0.04;
+}
+
+/* ── THE GROUNDLESS BANDS (2026-08-08, client: "it doesn't work on the hero
+   section or the selected work section, or the blog — the bg isn't light").
+   Both faults were real and neither was the inversion map.
+
+   FAULT 1 — MOST BANDS PAINT NO GROUND AT ALL. Selected work, What we do,
+   Kind words, the trust bar and the blog rail are all `relative` sections
+   with no bg class: they inherit `main.bg-ink`, which sits OUTSIDE the
+   flipped wrapper, so there was never a background on the band for the map
+   to invert. The band itself has to be given the inverted ground, and only
+   where it has none of its own — hence the :not() guard, which leaves the
+   close (bg-ink) and the manifesto (bg-bone) to the map above. Both SECTION
+   and DIV roots are covered: the trust bar's root is a <div className="shell">,
+   so a section-only rule missed it. The toggle is excluded by data-flip-ui —
+   it is a direct child of the same wrapper. */
+[data-flip-sketch] > section:not([class*="bg-"]),
+[data-flip-sketch] > div:not([class*="bg-"]):not([data-flip-ui]) {
+  background-color: var(--bone);
+}
+
+/* FAULT 2 — THE HERO'S GROUND IS NOT A COLOUR, IT IS LIGHT. SharedCanvas
+   does carry bg-ink-canvas and did invert, but <HeroGlow>'s four absolutely
+   positioned layers (three blurred blobs and the vignette) paint warm dark
+   gradients straight over it from INLINE styles, and the canvas foot fade
+   does the same — so the band stayed dark no matter what the ground colour
+   underneath became. A light sketch of a glow hero is a FLAT one: hide the
+   light layers and let the inverted canvas read. They are all aria-hidden
+   direct children of the canvas, which is what makes this targetable without
+   touching HeroGlow itself. */
+[data-flip-sketch] .bg-ink-canvas > div[aria-hidden] {
+  display: none;
+}
+
+/* DEVICE CHROME IS NOT OUR UI, so it does not invert (the adjudication rule:
+   a picture of somebody else's hardware does not take our colours). Without
+   this the hero's phones and browser frame turn bone and the sketch becomes
+   unreadable as a composition. Re-asserted at higher specificity than the
+   map above rather than excluded from it, because :not() with a descendant
+   combinator is the fragile way to say this. */
+/* ⚠ EACH RULE NEEDS BOTH THE DESCENDANT AND THE COMPOUND FORM. BrowserMockup
+   carries data-device AND bg-ink-raised on the SAME element, so the
+   descendant selector alone left the browser frame inverting to bone while
+   the phones (whose marker sits on an outer wrapper) held. */
+[data-flip-sketch] [data-device] .bg-ink,
+[data-flip-sketch] [data-device].bg-ink {
+  background-color: var(--ink);
+}
+[data-flip-sketch] [data-device] .bg-ink-raised,
+[data-flip-sketch] [data-device].bg-ink-raised {
+  background-color: var(--ink-raised);
+}
+[data-flip-sketch] [data-device] .bg-bone,
+[data-flip-sketch] [data-device].bg-bone {
+  background-color: var(--bone);
+}
+[data-flip-sketch] [data-device] .text-bone,
+[data-flip-sketch] [data-device].text-bone {
+  color: var(--bone);
+}
+[data-flip-sketch] [data-device] .text-ink,
+[data-flip-sketch] [data-device].text-ink {
+  color: var(--ink);
+}
+[data-flip-sketch] [data-device] .rule-dark,
+[data-flip-sketch] [data-device].rule-dark {
+  border-color: var(--ink-line);
+}
+[data-flip-sketch] [data-device] .border-ink-line,
+[data-flip-sketch] [data-device].border-ink-line {
+  border-color: var(--ink-line);
 }
