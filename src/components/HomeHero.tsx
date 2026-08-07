@@ -146,7 +146,18 @@ export default function HomeHero() {
               that patients <em>trust.</em>
             </span>
           </h1>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)", flexWrap: "wrap" }}>
+          {/* STACKED AT EVERY WIDTH (2026-08-08, client with the inspector
+              open: the hero text "ends up looking not centered… it needs to
+              look centered"). Measured at her width: every box was
+              GEOMETRICALLY centred (offsets 0.0), but side by side the pair
+              read left-shifted — the solid pill's centre sat at −83px and
+              the naked ghost's at +129px, so all the visual mass hung left
+              of the axis. Two objects of unequal weight cannot share a
+              centred row; each centres on its OWN line instead, which is
+              also exactly the stacked look the pair already had below the
+              wrap point. Optical centre = geometric centre, by
+              construction. */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "24px", marginTop: "clamp(34px,3.6vw,48px)" }}>
             {/* THE GLASS PRIMARY AND ITS GHOST.
 
                 2026-08-05 put both on the button system: they were hand-rolled
@@ -204,7 +215,17 @@ export default function HomeHero() {
             was the difference between a visible sliver and none. The gap
             UNDER the CTAs went 7vh → 9vh in the breathing-room pass — the
             text block's air below, matching the raised air above. */}
-        <div style={{ marginTop: "auto", paddingTop: "clamp(64px,9vh,128px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
+        {/* THE TRIM (2026-08-08, client: "the case studies need to be a bit
+            trimmed horizontally on the bottom — why was that dropped").
+            Honest answer on record: the bottom bleed went out WHOLESALE with
+            her own "clipped mock-ups read as a mistake" call; this is its
+            partial, deliberate return. The negative bottom margin pushes the
+            shelf's feet past the hero's — and the canvas's — bottom edge, so
+            the clip trims them and the ink→bone cut lands ON the devices
+            rather than under them: a crop against a DIFFERENT ground reads
+            as a decision (the bone-act lesson). ~8% of the device height at
+            desktop, a touch less on phones. */}
+        <div style={{ marginTop: "auto", paddingTop: "clamp(64px,9vh,128px)", marginBottom: "clamp(-56px, -4vh, -20px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
             <PhoneMockup size="fluid" screen="editorial" />
           </div>
