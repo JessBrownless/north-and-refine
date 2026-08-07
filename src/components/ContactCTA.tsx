@@ -1,8 +1,10 @@
 import Link from "next/link";
 import HeroGlow from "@/components/HeroGlow";
+import TypewriterWord from "@/components/TypewriterWord";
 
 interface ContactCTAProps {
-  /** Override the default heading (plain text — no italic accent). */
+  /** Override the default heading (plain text — no italic accent and NO
+      typewriter: the rotating word belongs to the default heading only). */
   heading?: string;
   /** Override the default supporting line. */
   body?: string;
@@ -23,17 +25,25 @@ interface ContactCTAProps {
  * SCOPED exception to the flat-ground rule — the gradient lives INSIDE the
  * card, never on the section ground.
  *
- * THE CLOSE MIRRORS THE HERO (kept from the cream era): kicker, heading-xl
- * (the MOMENTS register), lede, flagship + ghost, left on the rail — and THE
- * CLOSE PLATE (Rowen 8, 16:10) right of the text, bottom-locked to the CTA
- * row (items-end). Static, never overlapping: the close is the back cover;
- * it resolves, it doesn't perform. Type is the ON-INK ladder now
- * (bone/bone-dim); the flagship is the dark-ground pair (btn-primary-dark).
- * Mobile: plate in flow after the buttons, right-anchored at 3/5.
+ * SIMPLIFIED 2026-08-08 (client: "simplify the CTA — maybe remove the image
+ * and just set the text nicely"): THE CLOSE PLATE IS GONE (Rowen 8 returns
+ * to the drawer; the checklist's close-plate items retired with it) and the
+ * card is TYPE ALONE on the gradient — kicker, heading-xl, lede, flagship +
+ * ghost, left on the rail, one column. The hero-mirror grammar survives in
+ * the type; the imagery half of the mirror ended here.
  *
- * The exit-fade left with the cream: this band already ends every page on
- * ink, so there is nothing to fade into. data-nav-light removed — the band
- * is dark; LIGHT_TOP_ROUTES logic is untouched elsewhere.
+ * THE TYPEWRITER (same call: "the typewriter thing where it rubs out the
+ * last word and rewrites it — trust, book from…"): the heading's LAST WORD
+ * cycles through what a practice's patients do — trust, book from, come
+ * back to, recommend — via <TypewriterWord>, the site's SECOND sanctioned
+ * auto-motion (contracts on the component: SSR/no-JS/reduced-motion/SR all
+ * get the static "trust"). THE ACCENT MOVED WITH IT, at her call: <em> sits
+ * on "your" now, NOT the rotating word — the typewriter word stays roman so
+ * the two devices never stack on one word.
+ *
+ * Type is the ON-INK ladder (bone/bone-dim); the flagship is the dark-ground
+ * pair (btn-primary-dark). The exit-fade left with the cream: this band
+ * already ends every page on ink, so there is nothing to fade into.
  */
 export default function ContactCTA({
   heading,
@@ -54,58 +64,41 @@ export default function ContactCTA({
               the close would be a flat dark plate. */}
           <HeroGlow intensity={0.35} />
           <div className="relative z-10 p-10 sm:p-14 md:p-20">
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-8">
-              <div className="md:col-span-7">
-                <p className="overline reveal">Start a project</p>
-                <h2
-                  className="heading-xl from-overline max-w-[24ch] text-balance text-bone reveal"
-                  style={{ transitionDelay: "80ms" }}
-                >
-                  {heading ?? (
-                    <>
-                      Let&rsquo;s build something your patients <em>trust</em>.
-                    </>
-                  )}
-                </h2>
-                <p
-                  className="body-xl mt-10 max-w-[44ch] text-bone-dim reveal md:mt-12"
-                  style={{ transitionDelay: "160ms" }}
-                >
-                  {body}
-                </p>
-                {/* The foot view's flagship + the tertiary ghost — the hero
-                    pair, on the card's dark ground. */}
-                <div
-                  className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 reveal md:mt-12"
-                  style={{ transitionDelay: "240ms" }}
-                >
-                  <Link href="/start-a-project" className="btn btn-primary-dark btn-arrow">
-                    Start a project
-                    <span className="btn-arrow-chip" aria-hidden>↗</span>
-                  </Link>
-                  <Link href="/work" className="btn-ghost text-bone">
-                    See the work <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </div>
-              {/* The close plate — col 8 stays empty (the hero's gutter of
-                  air, mirrored). Below md it stacks after the buttons,
-                  right-anchored like the hero's mobile plate. */}
-              <div
-                className="ml-auto w-3/5 max-w-[280px] reveal md:col-span-4 md:col-start-9 md:ml-0 md:w-auto md:max-w-none"
-                style={{ transitionDelay: "320ms" }}
+            <div className="max-w-[62ch]">
+              <p className="overline reveal">Start a project</p>
+              <h2
+                className="heading-xl from-overline max-w-[24ch] text-balance text-bone reveal"
+                style={{ transitionDelay: "80ms" }}
               >
-                <div className="frame aspect-[16/10]">
-                  {/* Rowen 8 with the real Dr Yalda desktop composited onto
-                      the laptop screen — the hero plate's sibling frame. */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/plates/cta-rowen-08.jpg"
-                    alt="A laptop on a travertine plinth displaying the Dr Yalda Jamali website — web and brand design by North & Refine"
-                    loading="lazy"
-                    className="plate-develop absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
+                {heading ?? (
+                  <>
+                    Let&rsquo;s build something <em>your</em> patients{" "}
+                    <TypewriterWord
+                      words={["trust", "book from", "come back to", "recommend"]}
+                    />
+                    .
+                  </>
+                )}
+              </h2>
+              <p
+                className="body-xl mt-10 max-w-[44ch] text-bone-dim reveal md:mt-12"
+                style={{ transitionDelay: "160ms" }}
+              >
+                {body}
+              </p>
+              {/* The foot view's flagship + the tertiary ghost — the hero
+                  pair, on the card's dark ground. */}
+              <div
+                className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-5 reveal md:mt-12"
+                style={{ transitionDelay: "240ms" }}
+              >
+                <Link href="/start-a-project" className="btn btn-primary-dark btn-arrow">
+                  Start a project
+                  <span className="btn-arrow-chip" aria-hidden>↗</span>
+                </Link>
+                <Link href="/work" className="btn-ghost text-bone">
+                  See the work <span aria-hidden>→</span>
+                </Link>
               </div>
             </div>
           </div>

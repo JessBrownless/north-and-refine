@@ -923,7 +923,7 @@ export default function AtomsTier() {
           <Entry
             name="animate-marquee"
             status="parked"
-            what="A 60s linear -50% loop, with a hover pause in globals.css and two identical copies in a w-max track to make the loop seamless. THE ONE SANCTIONED AUTO-MOTION, minted for the /services fields ribbon at the client's explicit call."
+            what="A 60s linear -50% loop, with a hover pause in globals.css and two identical copies in a w-max track to make the loop seamless. One of TWO sanctioned auto-motions (the other: the ContactCTA typewriter and its .type-caret, 2026-08-08), minted for the /services fields ribbon at the client's explicit call."
             where="Its only consumer, CreditStrip, is parked, so nothing auto-moves on the live site today; the /mockups archive still runs it."
           />
         </div>

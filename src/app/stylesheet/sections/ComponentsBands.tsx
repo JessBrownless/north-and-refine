@@ -180,11 +180,18 @@ export default function ComponentsBands() {
         <What>
           The sitewide close. The section is ink with grain; the close itself is
           a <Code>rounded-plate-lg</Code> card carrying the hero&rsquo;s own
-          ground (warm base, HeroGlow at 0.8, grain) with the CTA inside it. The
-          page opens under a warm glow and shuts on the same light held in a
-          card. The gradient lives INSIDE the card, never on the section ground:
-          a scoped exception to the flat-ground rule, like the homepage craft
-          card.
+          ground (warm base, HeroGlow at its own contained 0.35 — a card&rsquo;s
+          gradient is its content, so it stays off the ground constant — and
+          grain) with the CTA inside it. The page opens under a warm glow and
+          shuts on the same light held in a card. The gradient lives INSIDE the
+          card, never on the section ground: a scoped exception to the
+          flat-ground rule, like the homepage craft card. SIMPLIFIED 2026-08-08
+          (&ldquo;remove the image and just set the text nicely&rdquo;): the
+          close plate is gone and the card is TYPE ALONE — kicker, heading-xl,
+          lede, flagship + ghost, one column. The heading&rsquo;s last word is
+          the TYPEWRITER (<Code>TypewriterWord</Code>: trust → book from → come
+          back to → recommend, the second sanctioned auto-motion), and the
+          italic accent sits on <em>your</em>, never on the rotating word.
         </What>
         <What>
           Inside, the close mirrors the hero: kicker, <Code>.heading-xl</Code>{" "}

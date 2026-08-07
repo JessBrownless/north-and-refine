@@ -205,9 +205,12 @@ export default function PrinciplesTier() {
             the develop. The composition is the frosted panel in Molecules.
           </Point>
           <Point>
-            Nothing auto-moves, and nothing swells on hover.{" "}
-            <Code>animate-marquee</Code> is the one sanctioned auto-motion, it
-            pauses on hover, and its only site consumer is currently parked.
+            Nothing auto-moves, and nothing swells on hover. Two exceptions,
+            both minted at the client&rsquo;s explicit call:{" "}
+            <Code>animate-marquee</Code> (pauses on hover; its only consumer
+            is parked) and the ContactCTA typewriter (
+            <Code>TypewriterWord</Code>, 2026-08-08 — SSR, no-JS, reduced
+            motion and screen readers all get the static first word).
           </Point>
         </Points>
       </Section>

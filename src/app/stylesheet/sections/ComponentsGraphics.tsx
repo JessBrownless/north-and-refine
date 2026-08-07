@@ -407,9 +407,10 @@ export default function ComponentsGraphics() {
           />
         </div>
         <What>
-          It is THE ONE SANCTIONED AUTO-MOTION on the site, which is the other
-          reason to keep it visible here: <Code>.animate-marquee</Code> exists
-          for this component and nothing else. It pauses on hover and the global
+          It is one of the site&rsquo;s TWO sanctioned auto-motions (the other
+          is the ContactCTA typewriter, 2026-08-08), which is the other reason
+          to keep it visible here: <Code>.animate-marquee</Code> exists for
+          this component and nothing else. It pauses on hover and the global
           reduced-motion guard freezes it outright.
         </What>
         <Stage>

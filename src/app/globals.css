@@ -686,12 +686,41 @@
      Tailwind `animate-marquee` utility (tailwind.config.ts — the retired
      2026-07-10 device, back in live service at the client's explicit call
      for the /services who-we-work-with band: "make it scroll so we can fit
-     lots more in". THE ONE SANCTIONED AUTO-MOTION on the site; the
+     lots more in". One of TWO sanctioned auto-motions — the other is the
+     ContactCTA typewriter (.type-caret below, 2026-08-08); the
      nothing-auto-moves rule holds everywhere else). Two identical copies in
      a w-max flex track make the -50% loop seamless. This rule adds the
      hover pause (the Deck's precedent: the reader can always stop the
      motion); under reduced motion the global guard snaps the animation to
      its end state and the duplicate copy still reads as a full row. */
+  /* THE TYPE CARET — the ContactCTA typewriter's cursor (2026-08-08,
+     client: "let's do the typewriter thing where it rubs out the last word
+     and rewrites it"). Champagne, the ornament tint on ink (the StageGlyph
+     precedent) — a detail, not label type, so the gold rule holds. The
+     typewriter itself is the SECOND sanctioned auto-motion (the marquee
+     above is the first); its contracts live on <TypewriterWord>. Hidden
+     outright under reduced motion — a frozen caret would read as a stray
+     mark, and the word it belongs to stops animating anyway. */
+  .type-caret {
+    display: inline-block;
+    width: 2px;
+    height: 0.82em;
+    margin-left: 0.09em;
+    vertical-align: -0.06em;
+    background: var(--champagne);
+    animation: caret-blink 1.1s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .type-caret {
+      display: none;
+    }
+  }
+  @keyframes caret-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
   .animate-marquee:hover {
     animation-play-state: paused;
   }
