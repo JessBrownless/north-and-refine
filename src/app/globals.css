@@ -1513,11 +1513,16 @@ textarea.field-on-dark:-webkit-autofill {
    and elements on the page are not quite working in the Flipper yet").
    Debugged by contrast audit rather than by eye: flip every band, walk each
    text node, compute its ratio against its effective ground. Fourteen groups
-   failed; SIX were a false positive worth recording, because the same trap
-   will catch the next audit — the ghost links' arrow spans carry
-   `transition: color`, and getComputedStyle returns a STALE value on a
-   transitioned node in a backgrounded pane. Cloning the node showed them
-   inheriting correctly all along. Measure a clone before believing a colour.
+   failed and EIGHT were FALSE POSITIVES — recorded in full, because the
+   same trap will catch the next audit. Anything carrying a `transition` on
+   colour (every .btn tier, the ghost links' arrow spans) returns a STALE
+   computed style in a backgrounded pane, so the audit "found" bone text on
+   bone grounds that was never rendering that way.
+   ⚠ CLONING THE CHILD IS NOT ENOUGH: a clone inherits from its REAL parent,
+   so a stale parent yields a stale child reading. Clone the element whose
+   colour is actually DECLARED — the button, not its arrow — and treat any
+   ancestor-walked background as suspect too. Three readings here only became
+   believable once the pill itself was cloned.
 
    The three real causes, all the same shape: A COLOUR THE CLASS INVERSION
    CANNOT SEE.
