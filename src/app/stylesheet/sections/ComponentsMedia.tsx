@@ -140,7 +140,7 @@ export default function ComponentsMedia() {
             what="Sizing and colour. Everything else is fixed."
           />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="flex flex-wrap items-end gap-10">
             <div>
               <NRMonogram className="h-8 w-auto text-bone" />
@@ -156,7 +156,7 @@ export default function ComponentsMedia() {
             </div>
           </div>
         </Stage>
-        <Stage ground="bone">
+        <Stage component ground="bone">
           <NRMonogram className="h-6 w-auto text-ink" />
           <p className="fineprint mt-3 text-ink-mute">
             The same file on bone, tinted by <Code>text-ink</Code>. One mark,
@@ -197,7 +197,7 @@ export default function ComponentsMedia() {
             what="Sizing. Render at h-12 to h-14; below ~32px the overlaps muddy, above ~80px the glyph competes with the type ladder."
           />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="flex flex-wrap items-start gap-x-10 gap-y-8 text-champagne">
             {([1, 2, 3, 4, 5] as const).map((stage) => (
               <div key={stage}>
@@ -212,7 +212,7 @@ export default function ComponentsMedia() {
             label type is not.
           </p>
         </Stage>
-        <Stage ground="bone">
+        <Stage component ground="bone">
           <div className="flex flex-wrap items-start gap-x-10 gap-y-8 text-ink/70">
             {([1, 2, 3, 4, 5] as const).map((stage) => (
               <StageGlyph key={stage} stage={stage} className="h-12 w-12" />
@@ -291,7 +291,7 @@ export default function ComponentsMedia() {
           <Entry name="name / specialty" what="Text inside the placeholder mini-site." />
           <Entry name="className" what="Positioning in a cluster." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="flex flex-wrap items-start gap-10">
             <div>
               <PhoneMockup size="sm" screen="editorial" />
@@ -334,7 +334,7 @@ export default function ComponentsMedia() {
           <Entry name="name / specialty" what="Text inside the placeholder site." />
           <Entry name="className" what="Sizing and position." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="max-w-[560px]">
             <BrowserMockup domain="specimen.example" />
           </div>
@@ -359,7 +359,7 @@ export default function ComponentsMedia() {
           <Entry name="index" what="Drives the 0n placeholder numeral and the alternating side: odd indices flip." />
           <Entry name="tone" what="'dark' (default) | 'light'. No live light consumer; /work runs dark hero to close." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="flex flex-col gap-16">
             <WorkCard project={SPECIMEN_PROJECT} index={0} />
             <WorkCard project={SPECIMEN_PROJECT_TWO} index={1} />
@@ -393,7 +393,7 @@ export default function ComponentsMedia() {
           <Entry name="className" what="Outer spacing." />
           <Entry name="children" what="One node per slide; each is wrapped in a snap-start list item." />
         </Props>
-        <Stage>
+        <Stage component>
           <Carousel ariaLabel="Carousel specimen" slideClassName="w-[62%] sm:w-[42%]">
             {["01", "02", "03", "04"].map((n) => (
               <div key={n} className="frame aspect-[16/10]">
@@ -430,7 +430,7 @@ export default function ComponentsMedia() {
           <Entry name="items" what="{ name, href }[]. The name is matched against the mark pool by regex and is also the link's accessible label; the href is the case study." />
           <Entry name="label" what="The kicker. Defaults to 'Trusted by'." />
         </Props>
-        <Stage>
+        <Stage component>
           <LogoStrip items={SPECIMEN_LOGOS} label="Specimen strip" />
           <p className="fineprint mt-8">
             The names here are specimen text and match nothing in the pool, so
@@ -535,7 +535,35 @@ export default function ComponentsMedia() {
           title="Specimen 1: the canonical split"
           note="align='split' spacious borderBottom, no CTA: the recipe /work, /blog and /about open with. The heading holds cols 1–7, the lede cols 9–12 on the heading's LAST baseline."
         />
-        <Stage>
+        <Stage
+          component
+          /* THE LIGHT RENDERING IS REAL HERE (2026-08-08, wired with the
+             ground flipper). PageHero's tone="light" is a documented prop
+             with NO LIVE CONSUMERS since /blog went back to ink, so this
+             flipper is now the only place on the site where it can be seen
+             at all — which is precisely what a design system is for. The
+             light branch also swaps the hero's primary to the solid ink
+             pill, because glass is 9% bone over a blur and would be a
+             smudge on bone. The seam band below is dark-only, so the light
+             rendering shows the masthead alone. */
+          light={
+            <div className="-mx-6 sm:-mx-8">
+              <PageHero
+                align="split"
+                spacious
+                borderBottom
+                tone="light"
+                overline="Specimen kicker"
+                title={
+                  <>
+                    A specimen masthead, set in the <em>display</em> register.
+                  </>
+                }
+                lede="A short specimen lede that shows the measure of the right-hand column and where it locks to the heading."
+              />
+            </div>
+          }
+        >
           {/* The stage's own padding is bled through horizontally so the hero
               meets the frame edge: a masthead judged inside a second gutter is
               a masthead judged at the wrong measure. The vertical padding
@@ -583,7 +611,7 @@ export default function ComponentsMedia() {
           title="Specimen 2: the media slot"
           note="Split plus media: the text stack drops to cols 1–6, the graphic takes 7–12 centred against it. With the glass CTA and a meta line, which is the live /services recipe."
         />
-        <Stage>
+        <Stage component>
           <div className="-mx-6 sm:-mx-8">
             <PageHero
               align="split"

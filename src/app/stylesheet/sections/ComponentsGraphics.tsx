@@ -114,7 +114,7 @@ export default function ComponentsGraphics() {
           />
           <Entry name="className" what="Sizing in the consumer's grid. Nothing else." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-start">
             <div className="w-[240px] shrink-0">
               <ServicesTileWeb />
@@ -165,7 +165,7 @@ export default function ComponentsGraphics() {
         <Props>
           <Entry name="className" what="Sizing. The composition is otherwise fixed." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="mx-auto max-w-[420px]">
             <ServicesHeroGraphic />
           </div>
@@ -229,14 +229,14 @@ export default function ComponentsGraphics() {
         <Props>
           <Entry name="className" what="Sizing. Each tile is a 900×600 GraphicScaler." />
         </Props>
-        <Stage>
+        <Stage component>
           <ServicesTileWeb />
           <Caption>
             <Code>ServicesTileWeb</Code>. The plate is one AVIF; the markup panel
             and the booking panel are live DOM frosting in over it.
           </Caption>
         </Stage>
-        <Stage>
+        <Stage component>
           <ServicesTileSeo />
           <Caption>
             <Code>ServicesTileSeo</Code>, the busiest of the three: four panels,
@@ -246,7 +246,7 @@ export default function ComponentsGraphics() {
             the curve: an illustration must not fake a dataset.
           </Caption>
         </Stage>
-        <Stage>
+        <Stage component>
           <ServicesTileBrand />
           <Caption>
             <Code>ServicesTileBrand</Code>. The typeface panel rides{" "}
@@ -268,7 +268,7 @@ export default function ComponentsGraphics() {
           available stock rather than a parked decision. They are rendered here
           because stock nobody can see is stock nobody will use.
         </What>
-        <Stage>
+        <Stage component>
           <FeatureShowcaseDesktop />
           <div className="mt-8 max-w-[320px]">
             <FeatureShowcaseMobile />
@@ -302,7 +302,7 @@ export default function ComponentsGraphics() {
           exactly at the visible glyph line. Single footer for the whole site; do
           not fork a second. No props.
         </What>
-        <Stage>
+        <Stage component>
           <Footer />
         </Stage>
         <Caption>
@@ -387,7 +387,7 @@ export default function ComponentsGraphics() {
           through instead, which the specimen does not set, so no card offers a
           case study that does not exist.
         </What>
-        <Stage>
+        <Stage component>
           <Deck slides={DECK_SPECIMEN} />
           <Caption>
             Five placeholder slots, so the fan reads. With no{" "}
@@ -413,7 +413,7 @@ export default function ComponentsGraphics() {
           this component and nothing else. It pauses on hover and the global
           reduced-motion guard freezes it outright.
         </What>
-        <Stage>
+        <Stage component>
           <CreditStrip />
           <Caption>
             The strip includes its own <Code>.shell</Code>, so inside this stage
@@ -439,7 +439,7 @@ export default function ComponentsGraphics() {
           component, and field names must stay in sync with{" "}
           <Code>public/__forms.html</Code>.
         </What>
-        <Stage>
+        <Stage component>
           <NewsletterSignup />
         </Stage>
 
@@ -451,7 +451,7 @@ export default function ComponentsGraphics() {
             where="⚠ NO CONSUMERS AND NO WRITTEN PARK RECORD. Its own comment describes it as a CTA rotator, but no CTA renders it today. It is tagged parked here because it is intact and working, not because a decision to park it was ever recorded. Either give it a record or retire it."
           />
         </div>
-        <Stage>
+        <Stage component>
           <p className="heading-md text-bone">
             Specimen word: <TypewriterWord words={["one", "another", "a third"]} />
           </p>

@@ -603,7 +603,7 @@ export default function ComponentsPages() {
           <Entry name="title" what="ReactNode, so a head can carry the italic accent-word device." />
           <Entry name="linkHref / linkLabel" what="The ghost onward link. The trailing space rides inside the interpolation, so the extracted markup stays byte-identical to what the page shipped." />
         </Props>
-        <Stage>
+        <Stage component>
           <CollectionHeader
             kicker="Specimen kicker"
             title={
@@ -638,7 +638,7 @@ export default function ComponentsPages() {
           <Entry name="kicker / title / linkHref / linkLabel" what="The band's own identity, defaulted here on the ContactCTA precedent. Override for a different collection." />
           <Entry name="railLabel" what="Accessible name for the mobile rail region." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <SelectedWorkBand projects={SPECIMEN_PROJECTS} />
         </Stage>
 
@@ -660,7 +660,7 @@ export default function ComponentsPages() {
           <Entry name="className" what="Where the .reveal class arrives from, because whether a plate reveals depends on where it sits: inside the mobile rail the wrapper already reveals." />
           <Entry name="delay" what="Entrance stagger in ms, applied as an inline transitionDelay by the consumer's beat." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="max-w-[520px]">
             <WorkPlate project={SPECIMEN_PROJECTS[0]} />
           </div>
@@ -679,7 +679,7 @@ export default function ComponentsPages() {
           <Entry name="kicker" what="Defaults to 'What we do'." />
           <Entry name="exitFade" what="Mounts the fade-to-ink handover. Homepage only, and OFF in this specimen: the driver would ink the stage over as the page scrolls." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <WhatWeDoBand />
         </Stage>
 
@@ -700,7 +700,7 @@ export default function ComponentsPages() {
           <Entry name="kicker / title / linkHref / linkLabel / railLabel" what="The band's identity, defaulted." />
           <Entry name="exitFade" what="The handover. Homepage only; off here." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <BlogRailBand posts={SPECIMEN_POSTS} />
         </Stage>
 
@@ -715,7 +715,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="post" what="JournalEntry. Reads the featured image, the published date and the title; the date is formatted en-AU in UTC." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="max-w-[400px]">
             <BlogTeaserCard post={SPECIMEN_POSTS[0]} />
           </div>
@@ -757,7 +757,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="(none)" what="Decorative, so it is a plain aria-hidden span with no image and nothing for screen readers. The sentence must read cleanly without it." />
         </Props>
-        <Stage>
+        <Stage component>
           <p className="display text-bone">
             <span className="whitespace-nowrap">
               A specimen headline <HeadlineTitleChip /> with
@@ -783,7 +783,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="projects" what="readonly WorkEntry[]. Empty renders the written holding line instead of the stack." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <WorkIndexBand projects={SPECIMEN_PROJECTS.slice(0, 2)} />
         </Stage>
 
@@ -836,7 +836,7 @@ export default function ComponentsPages() {
           title="With the meta rail (the /work/[slug] shape)"
           note="facts present, so the header grids: stack on columns 1 to 8, rail on 10 to 12, locked on first baseline."
         />
-        <Stage>
+        <Stage component>
           <ArticleHeader
             className="relative z-10"
             kicker={<>Specimen sector · 2026</>}
@@ -849,7 +849,7 @@ export default function ComponentsPages() {
           title="With a byline (the /blog/[slug] shape)"
           note="No facts, so no grid: the stack runs flat, and the byline takes the rail's slot in the stagger."
         />
-        <Stage>
+        <Stage component>
           <ArticleHeader
             className="relative z-10 max-w-[720px]"
             kicker="Specimen category"
@@ -895,7 +895,7 @@ export default function ComponentsPages() {
           cannot be shown in placeholder mode. The address pill carries a
           specimen domain.
         </p>
-        <Stage flush>
+        <Stage component flush>
           <CaseStudyDeviceCluster
             desktopImage="/assets/desktops/dr-elizabeth-hawkes.jpg"
             desktopAlt="Desktop capture of a client practice website."
@@ -930,7 +930,7 @@ export default function ComponentsPages() {
           <Entry name="metrics" what="readonly WorkMetric[] from frontmatter. Only the first three render; an empty array renders nothing." />
           <Entry name="kicker" what="Defaults to 'The results'." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <ResultsBand metrics={SPECIMEN_METRICS} />
         </Stage>
 
@@ -965,7 +965,7 @@ export default function ComponentsPages() {
           kicker markup by hand here would be the second copy these specimens
           exist to stop.
         </p>
-        <Stage flush>
+        <Stage component flush>
           <CaseStudyProseGrid>
             <p>
               A specimen paragraph in the reading column, columns 7 to 11 on
@@ -1021,7 +1021,7 @@ export default function ComponentsPages() {
           <Entry name="role" what="Optional, joined to the author on a middot." />
           <Entry name="kicker" what="Defaults to 'In the client's words'." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <CaseStudyQuoteBand
             quote="A specimen sentence standing in the quote register, so the band's measure and balance can be read without anybody's words being invented."
             author="Specimen attribution"
@@ -1049,7 +1049,7 @@ export default function ComponentsPages() {
           <Entry name="href / title" what="The next study." />
           <Entry name="kicker" what="Defaults to 'Next project'." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <NextProjectBand href="/stylesheet" title="A specimen next-project title" />
         </Stage>
 
@@ -1081,7 +1081,7 @@ export default function ComponentsPages() {
           <Entry name="caption" what="Optional. The on-ink meta voice: .label in clay." />
           <Entry name="className" what="The consumer's canvas and the gap above it. Defaults to max-w-[880px] with the article's top margin." />
         </Props>
-        <Stage>
+        <Stage component>
           <ArticleFeaturedFigure
             src="/assets/blog/plate-rowen-laptop-1.jpg"
             alt=""
@@ -1110,7 +1110,7 @@ export default function ComponentsPages() {
           <Entry name="children" what="The compiled MDX body." />
           <Entry name="className" what="Measure and the gap above. Defaults to the 720px reading column: journal entries read straight down one column, unlike /work/[slug], whose prose is indented into a 12-col grid and keeps its own well." />
         </Props>
-        <Stage>
+        <Stage component>
           <ArticleProseWell className="max-w-[640px]">
             <p className="body-reading text-bone-dim">
               A specimen paragraph in the reading column, so the well&rsquo;s
@@ -1144,7 +1144,7 @@ export default function ComponentsPages() {
           <Entry name="link" what="{ href, label }. Defaults to /about." />
           <Entry name="className" what="Measure and the ruled gap above. Defaults to the 720px column so the rule lines up with the prose it closes." />
         </Props>
-        <Stage>
+        <Stage component>
           <StudioBioCard className="max-w-[640px] border-t rule-dark pt-10" />
         </Stage>
 
@@ -1167,7 +1167,7 @@ export default function ComponentsPages() {
           <Entry name="label" what="The label after the arrow. Names the collection being returned to, so it stays with the consumer." />
           <Entry name="className" what="Measure and the ruled gap above. Defaults to the 720px reading column." />
         </Props>
-        <Stage>
+        <Stage component>
           <ArticleFootBackLink
             href="/stylesheet"
             label="A specimen collection"
@@ -1194,7 +1194,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="message" what="The holding line. Defaults to the live copy, so a specimen shows the sentence a reader would actually meet." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <BlogEmptyState />
         </Stage>
 
@@ -1231,7 +1231,7 @@ export default function ComponentsPages() {
           title="list='points' (default)"
           note="Full-sentence claims: a 4-col rail carrying the heading group and the prose at .lede, the list running 8 columns as a divided stack with index numerals at body-lg."
         />
-        <Stage flush>
+        <Stage component flush>
           <OfferBand
             kicker="Specimen kicker"
             heading="A specimen band heading"
@@ -1243,7 +1243,7 @@ export default function ComponentsPages() {
           title="list='deliverables', with glow and spacious"
           note="Short phrases: the rail widens to 5 columns and carries only the heading group, the prose moves across to lead the list column at body-lg, and the items sit two-up under a single rule with dash marks. Ten short phrases stacked one per line would run the band twice as long as it needs to be."
         />
-        <Stage flush>
+        <Stage component flush>
           <OfferBand
             glow
             spacious
@@ -1283,14 +1283,14 @@ export default function ComponentsPages() {
           title="layout='index'"
           note="The rows are the page's own content: title at .heading-lg, lead stacked under it inside a 2xl measure, ghost link opposite on a flex row, the stack divided and closed with border-y."
         />
-        <Stage flush>
+        <Stage component flush>
           <RuledLinkRows layout="index" linkLabel="Explore" rows={SPECIMEN_ROWS} />
         </Stage>
         <Sub
           title="layout='onward', with a kicker"
           note="A ruled index of somewhere else, dropped into a page with its own subject: the title steps down to .heading-md so it cannot outrank the page's signposts, and title, lead and link split a 12-col grid at 5 / 5 / 2."
         />
-        <Stage flush>
+        <Stage component flush>
           <RuledLinkRows
             layout="onward"
             spacious
@@ -1325,7 +1325,7 @@ export default function ComponentsPages() {
           <Entry name="heading / lede" what="The heading group above the run." />
           <Entry name="steps" what="{ num, title, body }[], shape-compatible with ServiceStep in lib/services.ts. The component takes whatever count it is given." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <ServiceProcessTimeline
             heading="A specimen process heading."
             lede="A specimen lede at the measure the heading group holds above the run."
@@ -1365,7 +1365,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="paragraphs" what="ReactNode[]. Two or more, which FLOW through the balanced columns rather than sitting one per column, so copy lengths need not match." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <BalancedProsePair paragraphs={SPECIMEN_PROSE_PAIR} />
         </Stage>
 
@@ -1401,7 +1401,7 @@ export default function ComponentsPages() {
           <Entry name="ctaLabel / ctaHref" what="The per-card CTA. ⚠ The href stays /start-a-project so StartProjectOverlay intercepts the click; pointing it anywhere else silently demotes three CTAs to a page load." />
           <Entry name="featuredLabel" what="The mark on the featured card. Defaults to 'Most chosen'." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <PricingPackageGrid packages={SPECIMEN_PACKAGES} />
         </Stage>
 
@@ -1436,7 +1436,7 @@ export default function ComponentsPages() {
           <Entry name="children" what="The bands the canvas grounds. They must carry no ground of their own." />
           <Entry name="intensity" what="Glow dose. Defaults to 0.7, a touch more than the interior heroes because the canvas feeds the glass tiles of the ream too." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <SharedCanvas>
             <div className="shell relative z-10 py-24">
               <p className="overline text-clay">Specimen child</p>
@@ -1471,7 +1471,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="animationDelay" what="Where this lands in the host page's load-in stagger. Composition, not decoration: the /about value continues the hero's sequence." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <SharedCanvas>
             <MockupReamBand />
           </SharedCanvas>
@@ -1499,7 +1499,7 @@ export default function ComponentsPages() {
           <Entry name="lede" what="The opening paragraph, which carries the band at .body-lg on bone." />
           <Entry name="paragraphs" what="ReactNode[]. The rest of the narrative, stepped down to .body on bone-dim." />
         </Props>
-        <Stage flush>
+        <Stage component flush>
           <SharedCanvas>
             <StudioNarrativeBand
               kicker="Specimen kicker"
@@ -1556,7 +1556,7 @@ export default function ComponentsPages() {
           and the three pieces /contact actually puts in the left column each
           have their own specimen below.
         </p>
-        <Stage flush>
+        <Stage component flush>
           <GlowBand pool>
             <div className="md:col-span-5">
               <p className="overline text-clay">Specimen column</p>
@@ -1602,7 +1602,7 @@ export default function ComponentsPages() {
           else, and showing them means this stage and /contact are literally the
           same rows.
         </p>
-        <Stage>
+        <Stage component>
           <div className="max-w-[520px]">
             <StudioFactsLedger />
           </div>
@@ -1629,7 +1629,7 @@ export default function ComponentsPages() {
           <Entry name="className" what="Outer spacing is the RAIL's business, not the list's: the block sits in a stack the page paces." />
           <Entry name="delay" what="Entrance step in ms. The rail's stagger continues through this block, so the page owns the number." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="max-w-[520px]">
             <NextStepsList steps={SPECIMEN_STEPS} kicker="Specimen kicker" />
           </div>
@@ -1657,7 +1657,7 @@ export default function ComponentsPages() {
           <Entry name="className" what="Outer spacing is the RAIL's business; the hairline and the air under it belong to the block." />
           <Entry name="delay" what="Entrance step in ms, continuing the rail's stagger." />
         </Props>
-        <Stage>
+        <Stage component>
           <div className="max-w-[520px]">
             <StartProjectCrossLink />
           </div>
@@ -1685,7 +1685,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="(none)" what="The copy, the measures and the delays are all the component's. The shell owns the column it sits in." />
         </Props>
-        <Stage>
+        <Stage component>
           <HoldingMasthead />
         </Stage>
 
@@ -1706,7 +1706,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="(none)" what="Reads SITE for the legal name and the tagline." />
         </Props>
-        <Stage>
+        <Stage component>
           <HoldingFineprint />
         </Stage>
 

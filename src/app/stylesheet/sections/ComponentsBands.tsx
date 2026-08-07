@@ -219,7 +219,7 @@ export default function ComponentsBands() {
           than a claim about a client, so nothing here needs standing in for
           anything.
         </p>
-        <Stage>
+        <Stage component>
           <ContactCTA />
         </Stage>
 
@@ -274,7 +274,7 @@ export default function ComponentsBands() {
           title="tone='cream' (default)"
           note="scene-cream-deep with grain-light, ink headings, ink-dim answers and kicker, no top rule: the ground change is the boundary."
         />
-        <Stage>
+        <Stage component>
           <FaqSection
             kicker="Specimen kicker"
             heading="Specimen FAQ heading."
@@ -286,7 +286,7 @@ export default function ComponentsBands() {
           title="tone='dark'"
           note="Flat ink with grain, a top hairline (dark on dark needs the rule to mark the section), the on-ink ladder, and a CLAY kicker: a deliberate scoped exception to the bone-kicker default."
         />
-        <Stage>
+        <Stage component>
           <FaqSection
             tone="dark"
             kicker="Specimen kicker"
@@ -343,11 +343,11 @@ export default function ComponentsBands() {
           the last place to repeat a claim we cannot defend.
         </p>
         <Sub title="tone='dark' (default)" note="The homepage configuration, minus exitFade, which needs the ExitFades driver and the page it fades into." />
-        <Stage>
+        <Stage component>
           <Testimonial />
         </Stage>
         <Sub title="tone='ivory'" note="The light act's step up: near-white ground, the on-light ladder, the clay kicker (the tracked-caps ornament exception), and the handoff's own 112/128 pads." />
-        <Stage>
+        <Stage component>
           <Testimonial tone="ivory" />
         </Stage>
 
@@ -373,7 +373,7 @@ export default function ComponentsBands() {
         <Props>
           <Entry name="method" what="{ title, body }[]. The numbered beats." />
         </Props>
-        <Stage>
+        <Stage component>
           <MethodSection method={SPECIMEN_METHOD} />
         </Stage>
 
@@ -386,7 +386,7 @@ export default function ComponentsBands() {
           search, then brand. No props. The homepage&rsquo;s formal stabiliser
           between two asymmetric sections.
         </What>
-        <Stage>
+        <Stage component>
           <ServicesShowcase />
         </Stage>
 
@@ -472,7 +472,7 @@ export default function ComponentsBands() {
           the image state and the parchment placeholder show. ⚠ The specimen
           slugs do not exist, so a card click lands on a 404 by design.
         </p>
-        <Stage>
+        <Stage component>
           <BlogList cards={SPECIMEN_CARDS} filters={SPECIMEN_FILTERS} />
         </Stage>
 
@@ -574,7 +574,7 @@ export default function ComponentsBands() {
           />
         </Props>
         <LiveFormNote form="project-enquiry" />
-        <Stage>
+        <Stage component>
           <div className="max-w-[560px]">
             <ContactForm />
           </div>
@@ -639,7 +639,7 @@ export default function ComponentsBands() {
           title="tone='dark' (default)"
           note="The /start-a-project fallback page: champagne carries focus, errors and the done marks; fields rest on rule-dark."
         />
-        <Stage>
+        <Stage component>
           <div className="max-w-[640px]">
             <StartProjectForm />
           </div>
@@ -648,7 +648,7 @@ export default function ComponentsBands() {
           title="tone='light'"
           note="The overlay's bone column: ink carries focus, errors and the selected card's rim; fields rest at ink/35, because rule-light is a section hairline tint and an affordance has to read. The champagne tick-box survives the ground change."
         />
-        <Stage ground="bone">
+        <Stage component ground="bone">
           <div className="max-w-[640px]">
             <StartProjectForm tone="light" />
           </div>
