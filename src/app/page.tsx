@@ -3,6 +3,7 @@ import { getAllPosts } from "@/lib/journal";
 import BlogRailBand from "@/components/BlogRailBand";
 import LogoStrip, { type LogoStripItem } from "@/components/LogoStrip";
 import ContactCTA from "@/components/ContactCTA";
+import DesignFlip from "@/components/dev/DesignFlip";
 import HomeHero from "@/components/HomeHero";
 import ManifestoTrack from "@/components/ManifestoTrack";
 import SelectedWorkBand from "@/components/SelectedWorkBand";
@@ -75,28 +76,36 @@ export default function HomePage() {
           same" (2026-08-08), then "knock the glow back across the whole
           site" the same day; homepage dose history 1 → 0.7 → 0.4 → the
           shared constant. ══ */}
-      <SharedCanvas>
-        {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
-            re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
-            foot, one column, no absolute layers to collide. */}
-        <HomeHero />
-      </SharedCanvas>
+      <DesignFlip label="Hero">
+        <SharedCanvas>
+          {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
+              re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
+              foot, one column, no absolute layers to collide. */}
+          <HomeHero />
+        </SharedCanvas>
+      </DesignFlip>
 
       {/* ══ THE BONE ACT — the manifesto on its own light ground, hard
           designed cuts at both ends (ink→bone above, bone→ink into Selected
           work). The statement fills word by word in normal flow; flush left
           per the /services precedent. "A studio that treats..." in its
           original This-January form. ══ */}
-      <ManifestoTrack
-        text={MANIFESTO}
-        cta={{ href: "/about", label: "Our story" }}
-      />
+      <DesignFlip label="Manifesto">
+        <ManifestoTrack
+          text={MANIFESTO}
+          cta={{ href: "/about", label: "Our story" }}
+        />
+      </DesignFlip>
 
       {/* ── Selected work — the page's only imagery, and the proof. ── */}
-      <SelectedWorkBand projects={featured} />
+      <DesignFlip label="Selected work">
+        <SelectedWorkBand projects={featured} />
+      </DesignFlip>
 
       {/* ── What we do — the ruled rows, the page's formal stabiliser. ── */}
-      <WhatWeDoBand exitFade />
+      <DesignFlip label="What we do">
+        <WhatWeDoBand exitFade />
+      </DesignFlip>
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
           human proof (work → words). COMPONENTISED 2026-07-24 when /services
@@ -105,13 +114,17 @@ export default function HomePage() {
           <Testimonial>; her full portrait
           (assets/testimonials/client-portrait.jpg) stays in reserve for
           /about. exitFade: the live-era section handover, homepage only. ── */}
-      <Testimonial exitFade />
+      <DesignFlip label="Kind words">
+        <Testimonial exitFade />
+      </DesignFlip>
 
       {/* ── Trust bar — under the testimonial (2026-07-11, second move of
           the day: first-screen → after The Studio → here): one client
           speaks in Kind words, then the roster corroborates — words, then
           receipts. Below the fold it reveals like its neighbours. ── */}
-      <LogoStrip items={logoStripItems} />
+      <DesignFlip label="Trust bar">
+        <LogoStrip items={logoStripItems} />
+      </DesignFlip>
 
       {/* ── (The process left the homepage entirely 2026-07-10 late — it
           burned through carousel, spine timeline and a slim method strip
@@ -120,11 +133,15 @@ export default function HomePage() {
           method-strip pattern survives in git history.) ── */}
 
       {/* ── Blog teasers — a rail instead of a grid (2026-07-10). ── */}
-      <BlogRailBand posts={posts} exitFade />
+      <DesignFlip label="Blog rail">
+        <BlogRailBand posts={posts} exitFade />
+      </DesignFlip>
 
       {/* ── CTA — the close. (It was "the bone interruption" until
           2026-07-24, when the band became ink plus the gradient card.) ── */}
-      <ContactCTA />
+      <DesignFlip label="Close">
+        <ContactCTA />
+      </DesignFlip>
     </main>
   );
 }

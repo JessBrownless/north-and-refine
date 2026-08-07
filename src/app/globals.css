@@ -1347,3 +1347,88 @@ textarea.field-on-dark:-webkit-autofill {
     transition-delay: 0ms !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE DESIGN FLIPPER — DEV-ONLY SKETCH MODE (2026-08-08, client: "I wanted
+   the flipper toggles on the homepage too").
+
+   ⚠ THIS IS A SCRATCH TOOL, NOT A THEME, AND IT NEVER RENDERS IN PRODUCTION.
+   <DesignFlip> returns its children untouched when NODE_ENV is production, so
+   none of the markup that triggers these rules can exist on the deployed site
+   — verified against a real build: zero `data-flip-sketch` in the built
+   homepage HTML. These rules therefore sit inert in the production CSS, which
+   is the trade for keeping them beside the tokens they invert. They are
+   here rather than in a component because they must override utility classes
+   the bands already carry, and Tailwind's colours are HARD-CODED HEX in
+   tailwind.config.ts — not var() references — so the scoped token swap that
+   would have been the elegant version simply does not reach bg-ink or
+   text-bone. Class inversion is the only mechanism that works.
+
+   WHY IT IS ALLOWED TO "LIE" WHERE /stylesheet's FLIPPER IS NOT: the
+   stylesheet flipper documents the system, so a rendering the code cannot
+   produce would be aspirational canon — the thing the 2026-08-02 rebuild
+   exists to prevent. This is an AUDITIONING SKETCH on a working page, seen
+   only by the designer, and every flipped band is stamped SKETCH in the
+   toggle. Judging a composition is exactly what it is for; shipping one is
+   what the env gate forbids. If a band should REALLY go light, that is a
+   `tone` prop on the component, not this.
+
+   The inversion is deliberately SHALLOW — grounds, the two type ladders and
+   the hairlines, which is what a ground decision turns on. It does not touch
+   champagne, ember, the glows or imagery, so anything it renders is a
+   silhouette of the idea, never a spec.
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-flip-sketch] .bg-ink,
+[data-flip-sketch].bg-ink {
+  background-color: var(--bone);
+}
+[data-flip-sketch] .bg-ink-canvas,
+[data-flip-sketch].bg-ink-canvas {
+  background-color: var(--ivory);
+}
+[data-flip-sketch] .bg-ink-raised,
+[data-flip-sketch].bg-ink-raised {
+  background-color: #e9e0cf;
+}
+[data-flip-sketch] .bg-bone,
+[data-flip-sketch].bg-bone {
+  background-color: var(--ink);
+}
+[data-flip-sketch] .bg-ivory,
+[data-flip-sketch].bg-ivory {
+  background-color: var(--ink-canvas);
+}
+[data-flip-sketch] .text-bone {
+  color: var(--ink);
+}
+[data-flip-sketch] .text-bone-dim {
+  color: var(--ink-dim);
+}
+[data-flip-sketch] .text-clay {
+  color: var(--ink-mute);
+}
+[data-flip-sketch] .text-ink {
+  color: var(--bone);
+}
+[data-flip-sketch] .text-ink-dim {
+  color: var(--bone-dim);
+}
+[data-flip-sketch] .text-ink-mute {
+  color: var(--clay);
+}
+[data-flip-sketch] .rule-dark {
+  border-color: var(--bone-line);
+}
+[data-flip-sketch] .rule-light {
+  border-color: var(--ink-line);
+}
+/* The material swaps with the ground: the dark film would wash out on bone,
+   and paper tooth multiplies to nothing on ink (the one-material rule). */
+[data-flip-sketch] .grain::before {
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+[data-flip-sketch] .grain-light::before {
+  mix-blend-mode: normal;
+  opacity: 0.04;
+}
