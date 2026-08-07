@@ -30,23 +30,24 @@ function Phone() {
     <div
       style={{
         position: "relative",
-        // CAPPED 2026-08-07 (client: on desktop the side mock-ups render
-        // "far too large… as a second and third desktop", not phones). The
-        // old width — max(150px, 23vw), a floor with NO ceiling — dated from
-        // the bottom-bleed era, when the hero's clip swallowed all but the
-        // top ~180px of each phone and the crop did the proportion work; the
-        // same day's un-crop revealed the full 700px+ towers that width
-        // actually draws, TALLER than the desktop mockup beside them. The
-        // clamp keeps phones at phone scale against the desktop's 51.5vw
-        // (~14vw ≈ a real phone:laptop width ratio; ceiling 210px so big
-        // monitors don't regrow the towers; floor 150px unchanged, so small
-        // viewports render exactly as before). Consequence, deliberate: the
-        // row now FITS the viewport (~88.5vw), ending the 1D comp's side
-        // shear — the natural conclusion of the client's "clipped mock-ups
-        // read as a mistake" direction. This also RESTORES THE MANIFESTO'S
-        // AIR: the uncapped phones dangled ~390px into the band's top air,
-        // which read as the statement having no top padding at all.
-        width: "clamp(150px, 14vw, 210px)",
+        // HEIGHT PARITY (2026-08-07 evening, client: "the mobile mock ups
+        // can be smaller (on mobile though) and the desktop bigger — like
+        // all the same height"). The phone's width is DERIVED from the
+        // desktop mockup's height: at equal heights a 320/680 phone is
+        // 320/680 of the desktop's ~33.4vw screen height, which lands at
+        // 15.7vw — measured against the live desktop at 1440 (479.5px tall
+        // → parity width 225.6px = 15.67vw). The floor pairs with the
+        // desktop's own 320px floor the same way (its floored height ≈208px
+        // → 98px phone), so THE TOPS STAY LEVEL AT EVERY VIEWPORT — on a
+        // phone the old floors had the slivers towering 124px above the
+        // laptop's top line, which is what the client saw. No ceiling, on
+        // purpose: the previous 210px cap was the tower-guard (capped
+        // phones next to an uncapped desktop), and parity replaces it — the
+        // phone can never outgrow the desktop again because both now scale
+        // with the same vw. History of this width, all 2026: 23vw uncapped
+        // (bleed-crop era, the crop did the proportion work) → clamp 14vw,
+        // 150–210 (the un-crop revealed the towers) → parity (this).
+        width: "max(98px, 15.7vw)",
         aspectRatio: "320 / 680",
         background: "#060607",
         // FIXED-PX CHROME (2026-08-07, critique point 10): the box is capped
@@ -239,9 +240,16 @@ export default function HomeHero() {
             explicit clamp is the minimum breathing gap under the CTAs. The
             gap tightened 4.5vw → 3vw so the trio reads as one group now that
             nothing shears at the edges. */}
-        <div style={{ marginTop: "auto", paddingTop: "clamp(48px,7vh,96px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(20px,3vw,56px)", width: "100%" }}>
+        {/* Gap floor 20 → 12 with the parity pass: on a phone the shelf's
+            margins are all the phones get to show through, and 8px of gap
+            was the difference between a visible sliver and none. */}
+        <div style={{ marginTop: "auto", paddingTop: "clamp(48px,7vh,96px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
           <Phone />
-          <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "max(300px, 51.5vw)" }}>
+          {/* Desktop floor 300 → 320 (the client's "and the desktop bigger",
+              which on mobile is where the floor binds); 51.5vw above it is
+              untouched. The phone's parity floor (98px) is derived from this
+              number — change one, re-derive the other. */}
+          <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "max(320px, 51.5vw)" }}>
             <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "11px", overflow: "hidden", position: "relative", background: "#121112" }} />
           </div>
           <Phone />
