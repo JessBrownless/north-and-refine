@@ -1,12 +1,27 @@
 import Link from "next/link";
+import BrowserMockup from "@/components/BrowserMockup";
+import PhoneMockup from "@/components/PhoneMockup";
 
 /**
  * HOMEPAGE HERO — "1D: edge-to-edge devices, one big title" (2026-07-19,
- * client's Claude Design comp; source at design-refs/hero-edge). The warm
- * glow ground sits inside a rounded "big border" panel; a Geist-Mono kicker (the
- * shared .overline voice), a big Instrument headline with a Saol-italic "trust."
- * accent, and phone·desktop·phone. (The comp's bottom-bleed device crop ended
- * 2026-08-07 — devices render in full now; see the groundless-section note.)
+ * client's Claude Design comp; source at design-refs/hero-edge). A Geist-Mono
+ * kicker (the shared .overline voice), a big Instrument headline with a
+ * Saol-italic "trust." accent, and phone·desktop·phone on one shelf line.
+ *
+ * THE DEVICES ARE THE SYSTEM'S OWN (2026-08-07 night, client: "doesn't the
+ * design system have a 'style'? Like the white ones we use in graphics?").
+ * The hand-rolled black boxes this file drew for three weeks were drift the
+ * whole time — the system already owned canonical device frames, and this
+ * hero was the one place on the site depicting devices any other way. Now:
+ * `BrowserMockup` + two `PhoneMockup`s in their EDITORIAL placeholder mode —
+ * ink frames, ink-line borders, and the BONE mini-site screens ("the white
+ * ones") — so the hero's centrepiece stopped being three black voids without
+ * waiting on real captures (the client's layout-first ruling stands; real
+ * screenshots drop into the same components' `screenshot` props when chosen).
+ * The phones ride the new `size="fluid"`, whose container-query chrome keeps
+ * an iPhone's corner a RATIO of its body — the fix for "the mockup frames
+ * are too rounded on mobile", where fixed 34px corners on a 98px phone had
+ * read 35%-round.
  *
  * NAV: none here (2026-07-20, client: "the nav needs to be the same across
  * home & other pages"). The real site <Navbar> renders above this on the
@@ -15,80 +30,20 @@ import Link from "next/link";
  * FONTS: Saol (--font-saol) and Geist Mono (--font-geist-mono) are loaded
  * GLOBALLY in layout.tsx — no local loads here. The kicker uses the shared
  * .overline class (mono sitewide); the accent word uses the global Saol var.
- *
- * ⚠ REVIVES two retired things — the WARM GLOW GROUND (vs flat ink) and SAOL
- * ITALIC + GEIST MONO type. Reconcile CLAUDE.md + globals if this stays.
- * Device screens are real client captures — swappable; ideally real MOBILE
- * captures for the phones.
  */
 
-// Device screens — BLANK for now (2026-07-23, client: the captures were
-// throwing her eye). The frames hold their shape; screens are quiet dark
-// glass until new imagery is chosen.
-function Phone() {
-  return (
-    <div
-      style={{
-        position: "relative",
-        // HEIGHT PARITY (2026-08-07 evening, client: "the mobile mock ups
-        // can be smaller (on mobile though) and the desktop bigger — like
-        // all the same height"). The phone's width is DERIVED from the
-        // desktop mockup's height: at equal heights a 320/680 phone is
-        // 320/680 of the desktop's ~33.4vw screen height, which lands at
-        // 15.7vw — measured against the live desktop at 1440 (479.5px tall
-        // → parity width 225.6px = 15.67vw). The floor pairs with the
-        // desktop's own 320px floor the same way (its floored height ≈208px
-        // → 98px phone), so THE TOPS STAY LEVEL AT EVERY VIEWPORT — on a
-        // phone the old floors had the slivers towering 124px above the
-        // laptop's top line, which is what the client saw. No ceiling, on
-        // purpose: the previous 210px cap was the tower-guard (capped
-        // phones next to an uncapped desktop), and parity replaces it — the
-        // phone can never outgrow the desktop again because both now scale
-        // with the same vw. History of this width, all 2026: 23vw uncapped
-        // (bleed-crop era, the crop did the proportion work) → clamp 14vw,
-        // 150–210 (the un-crop revealed the towers) → parity (this).
-        width: "max(98px, 15.7vw)",
-        aspectRatio: "320 / 680",
-        background: "#060607",
-        // FIXED-PX CHROME (2026-08-07, critique point 10): the box is capped
-        // at 150–210px but the old vw-derived bezel, notch and radii kept
-        // scaling with the viewport, so on a big monitor a capped phone grew
-        // laptop-sized chrome. A ~200px phone's chrome is a known quantity —
-        // fixed px, tuned once, correct at every viewport. (Sanctioned raw
-        // values: device chrome depicts hardware; see the adjudication rule.)
-        borderRadius: "34px",
-        padding: "7px",
-        boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)",
-        flexShrink: 0,
-      }}
-    >
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "14px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "60px",
-          height: "16px",
-          background: "#000",
-          borderRadius: "999px",
-          zIndex: 6,
-        }}
-      />
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          borderRadius: "27px",
-          overflow: "hidden",
-          background: "#121112",
-        }}
-      />
-    </div>
-  );
-}
+/* HEIGHT PARITY (2026-08-07 evening, client: "like all the same height"),
+   re-derived for the system components the same night. The phone's width is
+   DERIVED from the BrowserMockup's height so the tops stay level at every
+   viewport. The browser is taller than the old bare box (its macOS chrome
+   bar adds ~48px of fixed height on top of the 1.6 viewport), so parity is
+   now an AFFINE relation, not a pure ratio: at equal heights a 0.462-aspect
+   phone is 0.462 × (W_d/1.6 + chrome) ≈ 14.9vw + 22px, floored in step with
+   the desktop's own 320px floor. Tuned against live renders; if either
+   mockup's chrome changes, re-measure both widths. No ceiling: parity is
+   the tower-guard — both ends scale with the same vw. */
+const PHONE_W = "max(121px, 15.6vw + 24px)";
+const DESKTOP_W = "max(320px, 51.5vw)";
 
 export default function HomeHero() {
   return (
@@ -244,15 +199,18 @@ export default function HomeHero() {
             margins are all the phones get to show through, and 8px of gap
             was the difference between a visible sliver and none. */}
         <div style={{ marginTop: "auto", paddingTop: "clamp(48px,7vh,96px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
-          <Phone />
-          {/* Desktop floor 300 → 320 (the client's "and the desktop bigger",
-              which on mobile is where the floor binds); 51.5vw above it is
-              untouched. The phone's parity floor (98px) is derived from this
-              number — change one, re-derive the other. */}
-          <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "max(320px, 51.5vw)" }}>
-            <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "11px", overflow: "hidden", position: "relative", background: "#121112" }} />
+          <div style={{ width: PHONE_W, flexShrink: 0 }}>
+            <PhoneMockup size="fluid" screen="editorial" />
           </div>
-          <Phone />
+          {/* Desktop floor 320 (the client's "and the desktop bigger", which
+              on mobile is where the floor binds); the phone's parity width is
+              derived from this — change one, re-measure the other. */}
+          <div style={{ width: DESKTOP_W, flexShrink: 0 }}>
+            <BrowserMockup />
+          </div>
+          <div style={{ width: PHONE_W, flexShrink: 0 }}>
+            <PhoneMockup size="fluid" screen="editorial" />
+          </div>
         </div>
     </section>
   );

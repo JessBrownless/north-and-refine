@@ -14,6 +14,16 @@
  * 2.75rem, the screen's 2.35rem and the placeholder's rounded-xl DEPICT an
  * iPhone, so they sit outside the plate and surface scales. See the
  * adjudication rule in globals.css.
+ *
+ * THE FLUID SIZE (2026-08-07, born for the homepage hero's parity shelf,
+ * client: "the mockup frames are too rounded on mobile"): `size="fluid"`
+ * fills the CONSUMER'S width box, and the hardware chrome switches from the
+ * fixed rem/px values to CONTAINER-QUERY units — the same proportions the
+ * md tuning has at its 208px width (radius 21cqw ≈ 44px at 208), now held
+ * at every width. Fixed px chrome on a variable box is how a 98px phone
+ * ends up with 35%-round corners: an iPhone's corner is a RATIO of its
+ * body, so a fluid phone's chrome must be too. The three fixed sizes keep
+ * their tuned rem/px values untouched — their widths are known quantities.
  */
 interface PhoneMockupProps {
   name?: string;
@@ -24,7 +34,9 @@ interface PhoneMockupProps {
   /** Required with screenshot (accessibility). */
   screenshotAlt?: string;
   screen?: "editorial" | "ink";
-  size?: "sm" | "md" | "lg";
+  /** "fluid" fills the consumer's width box and scales the hardware chrome
+      proportionally (container-query units). The consumer owns the width. */
+  size?: "sm" | "md" | "lg" | "fluid";
   className?: string;
 }
 
@@ -38,22 +50,42 @@ export default function PhoneMockup({
   className = "",
 }: PhoneMockupProps) {
   const light = screen === "editorial";
+  const fluid = size === "fluid";
   const fg = light ? "text-ink" : "text-bone";
   const bar = light ? "bg-ink/10" : "bg-bone/15";
-  const width = size === "sm" ? "w-40" : size === "lg" ? "w-64 sm:w-80" : "w-52 sm:w-56";
+  const width =
+    size === "sm" ? "w-40" : size === "lg" ? "w-64 sm:w-80" : size === "fluid" ? "w-full" : "w-52 sm:w-56";
+
+  // Fluid chrome = the md tuning's proportions (208px reference) in cqw, so
+  // the hardware holds its ratio at any width the consumer sets. Fixed sizes
+  // keep the tuned rem/px values.
+  // The fluid bezel padding rides an inline style, not a p-[3.4cqw] class:
+  // spacing utilities are frozen until the sweep lands, and hardware
+  // depiction has no business joining that census anyway.
+  const frameChrome = fluid ? "rounded-[21cqw]" : "rounded-[2.75rem] p-[7px]";
+  const screenChrome = fluid ? "rounded-[18cqw]" : "rounded-[2.35rem]";
+  const islandChrome = fluid
+    ? "top-[4.8cqw] h-[7.7cqw] w-[27cqw]"
+    : "top-2.5 h-4 w-14";
 
   return (
-    <div className={`${width} shrink-0 ${className}`}>
+    <div
+      className={`${width} shrink-0 ${className}`}
+      style={fluid ? { containerType: "inline-size" } : undefined}
+    >
       {/* Frame */}
-      <div className="rounded-[2.75rem] border border-ink-line bg-ink p-[7px] shadow-[0_32px_64px_-28px_rgba(17,14,10,0.55)]">
+      <div
+        className={`${frameChrome} border border-ink-line bg-ink shadow-[0_32px_64px_-28px_rgba(17,14,10,0.55)]`}
+        style={fluid ? { padding: "3.4cqw" } : undefined}
+      >
         {/* Screen */}
         <div
-          className={`relative overflow-hidden rounded-[2.35rem] aspect-[0.462] ${
+          className={`relative overflow-hidden ${screenChrome} aspect-[0.462] ${
             light ? "bg-bone" : "bg-ink-raised"
           }`}
         >
           {/* Dynamic island */}
-          <div className="absolute left-1/2 top-2.5 z-10 h-4 w-14 -translate-x-1/2 rounded-full border border-ink-line bg-ink" />
+          <div className={`absolute left-1/2 ${islandChrome} z-10 -translate-x-1/2 rounded-full border border-ink-line bg-ink`} />
 
           {screenshot ? (
             /* Real site screenshot — fills the screen, crops top-aligned */

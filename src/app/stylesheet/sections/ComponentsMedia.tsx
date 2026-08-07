@@ -286,7 +286,7 @@ export default function ComponentsMedia() {
           />
           <Entry
             name="size"
-            what="'sm' (w-40) | 'md' (default, w-52 / sm:w-56) | 'lg' (w-64 / sm:w-80, the hero statement device)."
+            what="'sm' (w-40) | 'md' (default, w-52 / sm:w-56) | 'lg' (w-64 / sm:w-80, the hero statement device) | 'fluid' (fills the consumer's width box, and the hardware chrome switches to container-query units so an iPhone's corner stays a RATIO of its body at any width — born 2026-08-07 for the homepage shelf, where fixed 34px corners on a 98px phone had read 35%-round)."
           />
           <Entry name="name / specialty" what="Text inside the placeholder mini-site." />
           <Entry name="className" what="Positioning in a cluster." />
