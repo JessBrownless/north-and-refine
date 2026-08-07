@@ -49,8 +49,14 @@ function Phone() {
         width: "clamp(150px, 14vw, 210px)",
         aspectRatio: "320 / 680",
         background: "#060607",
-        borderRadius: "clamp(26px,3vw,50px)",
-        padding: "clamp(5px,0.6vw,9px)",
+        // FIXED-PX CHROME (2026-08-07, critique point 10): the box is capped
+        // at 150–210px but the old vw-derived bezel, notch and radii kept
+        // scaling with the viewport, so on a big monitor a capped phone grew
+        // laptop-sized chrome. A ~200px phone's chrome is a known quantity —
+        // fixed px, tuned once, correct at every viewport. (Sanctioned raw
+        // values: device chrome depicts hardware; see the adjudication rule.)
+        borderRadius: "34px",
+        padding: "7px",
         boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)",
         flexShrink: 0,
       }}
@@ -59,11 +65,11 @@ function Phone() {
         aria-hidden
         style={{
           position: "absolute",
-          top: "clamp(11px,1.4vw,22px)",
+          top: "14px",
           left: "50%",
           transform: "translateX(-50%)",
-          width: "clamp(46px,5vw,80px)",
-          height: "clamp(13px,1.4vw,22px)",
+          width: "60px",
+          height: "16px",
           background: "#000",
           borderRadius: "999px",
           zIndex: 6,
@@ -74,7 +80,7 @@ function Phone() {
           position: "relative",
           width: "100%",
           height: "100%",
-          borderRadius: "clamp(22px,2.6vw,42px)",
+          borderRadius: "27px",
           overflow: "hidden",
           background: "#121112",
         }}
@@ -98,19 +104,33 @@ export default function HomeHero() {
        overflow-hidden was doing two jobs — the 1D comp's INTENTIONAL
        edge-to-edge side crop (the ~106vw device row bleeding off both sides)
        and an unintentional BOTTOM crop that amputated the phones mid-bezel.
-       The clip now lives on the canvas, whose sides are the viewport's (so
-       the side bleed crops exactly as before) but whose bottom is the
-       manifesto's foot, ~160vh further down — so the devices render IN FULL,
-       trailing onto the shared ground in the manifesto's air.
+       The clip lives on the canvas now, and since the phone cap the row fits
+       the viewport anyway.
 
-       zIndex 10 lifts the whole hero above the canvas's grain film (z-1);
-       inside, the title block's 20 still rides above the device row's 10. */
+       THE LAYOUT WENT TO FLOW (2026-08-07, the layout pass — the client's
+       critique list, points 3 and 4: the CTA pills collided with the desktop
+       bezel, and the hero had no vertical rhythm). The old build was TWO
+       ABSOLUTE LAYERS positioned independently — title block padded from the
+       top, device row pinned at top:60% — which is why the pills could land
+       on the laptop's bezel at some viewports and why nothing was composed
+       against anything. It dated from the bleed-crop era, when the devices
+       were background texture and overlap was the point. Now they are
+       fully-visible foreground objects, so the hero reads top-to-bottom in
+       FLOW: kicker → H1 → CTAs → devices, one column, explicit gaps, a
+       collision impossible by construction. The devices sit at the section's
+       FOOT (margin-top auto takes the slack when the viewport is tall), so
+       the canvas's ink fade lands behind them and the band below cuts where
+       their feet end. The section GROWS past 100vh when the stack needs it —
+       an intro that scrolls beats an intro that overlaps.
+
+       zIndex 10 lifts the whole hero above the canvas's grain film (z-1). */
     <section
-      style={{ position: "relative", zIndex: 10, minHeight: "100vh", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
+      style={{ position: "relative", zIndex: 10, minHeight: "100vh", display: "flex", flexDirection: "column", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
     >
 
-        {/* CENTRED TITLE BLOCK */}
-        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(200px,24vh,290px) 24px 0" }}>
+        {/* CENTRED TITLE BLOCK — nav clearance + air on top (the nav is
+            absolute over the canvas; measure from its foot), then the stack. */}
+        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(180px,22vh,260px) 24px 0" }}>
           {/* THE MASTHEAD RULE (2026-08-05, client: "we've got five or six
               different hero sections and they're kind of the same, let's build
               a rule in that they all use the same heading style. Right now the
@@ -181,17 +201,14 @@ export default function HomeHero() {
                 HERO PRIMARY SITEWIDE now — no page gets a louder button than
                 any other by virtue of being the front door.
 
-                ⚠ THIS IS THE ONE HERO WHERE GLASS HAS NOTHING BEHIND IT, and
-                that was raised, seen and accepted (client: "looks fine to
-                me"), so don't re-litigate it — but know the measurement before
-                you touch this row. The DEVICE ROW below starts at 60% of the
-                hero and the CTA row sits about 140px INSIDE it, so this pill
-                blurs #060607 phone hardware, not the warm HeroGlow. Every
-                other hero's pill sits on a lit ground, which is the whole
-                argument for glass; this one reads quieter than the nav's solid
-                bone pill directly above it. If it is ever reconsidered, the
-                fix is the CAUSE — drop the device row so the pill lands on the
-                glow — not a special-case pill for one page.
+                ⚠ RESOLVED BY THE FLOW LAYOUT (2026-08-07): this used to be
+                the one hero where glass had nothing behind it — the absolute
+                device row started at 60% of the hero and the CTA row sat
+                ~140px INSIDE it, so the pill blurred #060607 phone hardware.
+                That was raised, seen and accepted at the time; the layout
+                pass then fixed the CAUSE exactly as this note prescribed (the
+                devices moved below the CTAs in flow), so the pill now sits on
+                the warm glow like every other hero's. No special case left.
 
                 ⚠ CONSEQUENCE: the flagship tier (.btn-arrow + chip) now has
                 exactly ONE consumer left, the ContactCTA close band. It is a
@@ -210,15 +227,19 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* DEVICE ROW — phone · desktop · phone, FULLY VISIBLE since
-            2026-08-07 (two client calls, same direction: the cut-off devices
-            "read as a mistake, not a design choice", then the uncapped side
-            phones rendered "far too large" on desktop). With the phone cap
-            the row is ~88.5vw and FITS the viewport, so the 1D comp's
-            edge-to-edge shear is retired along with the bottom bleed; the
-            desktop's foot still trails a little past the hero's 100vh line
-            onto the shared ground, which the canvas leaves unclipped. */}
-        <div style={{ position: "absolute", left: 0, right: 0, top: "60%", zIndex: 10, display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "clamp(16px,4.5vw,80px)" }}>
+        {/* DEVICE ROW — phone · desktop · phone, IN FLOW at the hero's foot
+            (2026-08-07 layout pass; fully visible since the same morning's
+            un-crop and phone cap — two client calls, one direction: cut-off
+            devices "read as a mistake", uncapped phones rendered "far too
+            large"). BOTTOM-ALIGNED (items-end): the capped phones sit on the
+            desktop's own baseline like objects on a shelf, instead of
+            levitating from a shared top line — and that common baseline is
+            the edge the section below cuts against. margin-top auto takes
+            the slack on tall viewports so the row stays at the foot; the
+            explicit clamp is the minimum breathing gap under the CTAs. The
+            gap tightened 4.5vw → 3vw so the trio reads as one group now that
+            nothing shears at the edges. */}
+        <div style={{ marginTop: "auto", paddingTop: "clamp(48px,7vh,96px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(20px,3vw,56px)", width: "100%" }}>
           <Phone />
           <div style={{ background: "#060607", borderRadius: "clamp(12px,1.5vw,20px)", padding: "clamp(6px,0.9vw,11px)", boxShadow: "0 60px 120px -28px rgba(0,0,0,0.6)", flexShrink: 0, width: "max(300px, 51.5vw)" }}>
             <div style={{ width: "100%", aspectRatio: "722 / 459", borderRadius: "11px", overflow: "hidden", position: "relative", background: "#121112" }} />

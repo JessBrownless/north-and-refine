@@ -4,9 +4,11 @@ import { useEffect, useRef } from "react";
 
 /**
  * THE STATEMENT COMPARTMENT — a big statement with a SCROLL-SCRUBBED word
- * highlight: every word starts dim (15% bone) and brightens to full as you
- * scroll through the statement's sticky track. Tied to scroll position, not
- * time, so it moves exactly at your pace and rewinds when you scroll back.
+ * highlight: every word rests at 35% opacity of ITS OWN COLOUR and develops
+ * to full as the statement travels up the viewport — bone words lighting on
+ * a dark ground (/services), ink words coming up like letterpress on the
+ * homepage's bone act. Tied to scroll position, not time, so it moves
+ * exactly at your pace and rewinds when you scroll back.
  * One rAF-throttled listener; measures the nearest <section>.
  * Reduced-motion users see the statement fully lit from the start.
  *

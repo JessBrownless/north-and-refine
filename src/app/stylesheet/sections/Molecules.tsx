@@ -197,7 +197,7 @@ export default function MoleculesTier() {
           <Entry
             name=".btn-secondary-dark / .btn-secondary-light"
             what="Tier 3, the outline. Hover is a champagne RIM plus an 8–10% champagne wash, never a fill."
-            where="The homepage hero's See-the-work pair, ContactCTA's second action."
+            where="Dark: the non-featured pricing packages, FaqSection's dark tone. Light: FaqSection's cream tone and — since the manifesto went bone, 2026-08-07 — the homepage's ↳ Our story pill, which took .btn-secondary-light off the single-consumer backlog list."
           />
           <Entry
             name=".btn-ghost"

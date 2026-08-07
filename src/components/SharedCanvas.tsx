@@ -4,10 +4,14 @@ import HeroGlow from "@/components/HeroGlow";
 /**
  * THE SHARED CANVAS — one ground carrying several dark sections so they read
  * as a single surface (2026-07-23, third pass of the day). Live on /about
- * (hero, mock-up ream, who-we-are) and, since 2026-08-07, the HOMEPAGE
- * (hero + manifesto — a seam was reported at exactly that join, and this
- * component is the prescribed fix). Named AboutSharedCanvas until the second
- * consumer arrived; nothing about it was ever /about-specific.
+ * (hero, mock-up ream, who-we-are) and the HOMEPAGE (the hero alone, at
+ * intensity 0.7 since the client's knock-the-glows-back call — the manifesto
+ * passed through this canvas for half a day before becoming the page's BONE
+ * ACT, whose designed colour cuts need no shared ground). Named
+ * AboutSharedCanvas until the second consumer arrived; nothing about it was
+ * ever /about-specific. A one-child canvas is not a degenerate case: it is
+ * still the one wrapper that owns glow + grain + the resolving foot, so the
+ * ink→bone cut below it lands on canonical ink.
  *
  * THIS IS THE ONE SANCTIONED WAY TO BLEND DARK SECTIONS (see CLAUDE.md,
  * "Blending dark sections"). When the client asks for the hero gradient to

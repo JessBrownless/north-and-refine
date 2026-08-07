@@ -386,16 +386,16 @@ export default function ComponentsPages() {
 
         <Route
           path="/"
-          note="The type-led homepage. Three composed sections, then a scroll-pinned statement, then work, offer, proof and the close, with fade-to-ink handovers between the dark bands."
+          note="The type-led homepage. The dark hero act on its canvas, a hard cut to the bone manifesto act, then back to ink for work, offer, proof and the close, with fade-to-ink handovers between the dark bands only — the bone band cuts instead of dissolving."
         >
-          <Beat n={1} name="SharedCanvas" what="One ground under beats 2 and 3 (2026-08-07, after the hero's one-day seam-contract attempt read as a line): base, the full-dose HeroGlow, grain and the foot fade. Its clip is also what un-crops the hero's devices — sides shear at the viewport edge, bottoms render in full." />
-          <Beat n={2} name="HomeHero" what="The bespoke centred masthead over the device row, GROUNDLESS on the canvas: no background, no clip, no glow of its own. The devices trail past its 100vh line into the manifesto's air." />
-          <Beat n={3} name="ManifestoTrack" what="The statement in a min-h air band, GROUNDLESS on the same canvas, filling word by word as it scrolls through in NORMAL FLOW — unpinned 2026-08-07, the site's last scroll pin. A secondary Our story link below; takes exitFade." />
-          <Beat n={3} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
-          <Beat n={4} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
-          <Beat n={5} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
-          <Beat n={6} name="LogoStrip" what="The trust bar: words first, then the roster corroborates." />
-          <Beat n={7} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
+          <Beat n={1} name="SharedCanvas" what="The hero's ground, holding the hero ALONE at intensity 0.7 (the client's knock-the-glows-back call): base, glow, grain, and the foot fade that resolves to ink so the bone act below cuts against canonical ink." />
+          <Beat n={2} name="HomeHero" what="The bespoke centred masthead, GROUNDLESS on the canvas and in FLOW since the 2026-08-07 layout pass: kicker, H1, CTAs, then the device row bottom-aligned at the foot — phones capped at phone scale with fixed-px chrome, the trio on one shelf line, no absolute layers left to collide." />
+          <Beat n={3} name="ManifestoTrack" what="THE BONE ACT: the ink statement on bg-bone + grain-light, hard designed cuts at both ends, the fill running in normal flow (unpinned 2026-08-07 — the site's last scroll pin). Flush left, .display, with the ↳ Our story secondary in the on-light outline. No exit fade: a bone band cuts, it does not dissolve." />
+          <Beat n={4} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
+          <Beat n={5} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
+          <Beat n={6} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
+          <Beat n={7} name="LogoStrip" what="The trust bar: words first, then the roster corroborates." />
+          <Beat n={8} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
           <Beat n={9} name="ContactCTA" what="The close." />
         </Route>
 
@@ -723,7 +723,7 @@ export default function ComponentsPages() {
 
         <Sub
           title="ManifestoTrack — described, not rendered"
-          note="The statement compartment on its ground: a min-h air band (160vh at md — raised from 100vh the same day, client: 'increase the padding on top and bottom a lot, so you feel like you're scrolling quite a bit' — and 90vh on phones; the air rides min-h + centring rather than frozen py-* utilities) with the statement centred, on the canonical adjoining-section glow recipe — SectionGlow blob left, grain, overflow-hidden — and the fill happening in NORMAL FLOW as it scrolls through. UNPINNED 2026-08-07 (client: it 'blocks the screen into place… much bigger padding or something so it feels more fluid'), the same friction verdict that unpinned /services on 2026-07-24; the pin's 140vh/sticky geometry left with the mechanism, and losing the sticky child is precisely what made the clipped glow recipe legal here (overflow-hidden kills sticky — the ground stayed bare all the weeks the pin lived). Still described rather than staged: the fill scrubs against page scroll, so a specimen would sit at whatever opacity the scroll left it. Props: text (a PLAIN STRING, because the compartment splits it per word and the fill is the emphasis, which is why the statement carries no italic accent), cta ({ href, label }, the secondary link under it) and exitFade. ⚠ data-manifesto-track rides the INNER shell block, not the section: the scrub's completion tuning assumes track ≈ statement block, and measuring the tall air band instead would complete the fill while the words are still at the fold."
+          note="THE BONE ACT (2026-08-07 layout pass, the client's own suggestion): the ink statement on bg-bone + grain-light with hard designed cuts at both ends — a colour cut is an edge, and the dark era's edgeless 160vh field was the lesson. A min-h air band (120vh at md, 70vh on phones; min-h + centring rather than frozen py-* utilities) with the statement centred, on the canonical adjoining-section glow recipe — SectionGlow blob left, grain, overflow-hidden — and the fill happening in NORMAL FLOW as it scrolls through. UNPINNED 2026-08-07 (client: it 'blocks the screen into place… much bigger padding or something so it feels more fluid'), the same friction verdict that unpinned /services on 2026-07-24; the pin's 140vh/sticky geometry left with the mechanism, and losing the sticky child is precisely what made the clipped glow recipe legal here (overflow-hidden kills sticky — the ground stayed bare all the weeks the pin lived). Still described rather than staged: the fill scrubs against page scroll, so a specimen would sit at whatever opacity the scroll left it. Props: text (a PLAIN STRING, because the compartment splits it per word and the fill is the emphasis, which is why the statement carries no italic accent), cta ({ href, label }, the secondary link under it) and exitFade. ⚠ data-manifesto-track rides the INNER shell block, not the section: the scrub's completion tuning assumes track ≈ statement block, and measuring the tall air band instead would complete the fill while the words are still at the fold."
         />
         <Sub
           title="ExitFadeOverlay — described, not rendered"
@@ -1405,7 +1405,7 @@ export default function ComponentsPages() {
           <PricingPackageGrid packages={SPECIMEN_PACKAGES} />
         </Stage>
 
-        <Comp name="SharedCanvas" where="/about, holding the hero, the ream and the narrative." />
+        <Comp name="SharedCanvas" where="/about (hero, ream, narrative) and the homepage (the hero alone) — both at 0.7 since the glow knock-back." />
         <What>
           THE ONE SANCTIONED WAY TO BLEND DARK SECTIONS. When the client asks for
           the hero gradient to fade through into what follows, ONE wrapper owns

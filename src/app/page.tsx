@@ -58,33 +58,35 @@ export default function HomePage() {
 
   return (
     <main className="bg-ink text-bone">
-      {/* ══ THE SHARED CANVAS — hero + manifesto on ONE ground (2026-08-07,
-          client: a visible line at the join, "they need to blend seamlessly,
-          like one shared background… don't fight the seam with
-          colour-matching, remove the seam"). Which is verbatim the
-          shared-canvas rule: the first glowed cut tried the seam contract
-          (anchor strip + SectionGlow resuming the tone) and a line read
-          anyway, exactly as it did twice on /about before that page
-          converted. One wrapper owns base, glow (full hero dose), grain and
-          the foot fade to ink; hero and manifesto render groundless on it.
-          The canvas clip is also what UN-CROPS the hero's device row: sides
-          still shear at the viewport edge (the 1D comp's edge-to-edge crop),
-          but the bottom clip now sits ~160vh further down, so the devices
-          render in full and trail into the manifesto's air. ══ */}
-      <SharedCanvas intensity={1}>
-        {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19). */}
+      {/* ══ THE HERO CANVAS (2026-08-07 layout pass). The canvas holds the
+          HERO ALONE now: the manifesto left it the same day it briefly
+          joined, becoming the BONE ACT below — the client's own call ("maybe
+          try the next section a different bg colour?"), because the shared
+          dark ground gave the band's big air no edges and the devices
+          nothing definite to end against. The canvas still does what it was
+          brought in for — no seam WITHIN the dark act, the clip that lets
+          the devices render in full — and its built-in foot fade resolves
+          the ground to ink so the ink→bone cut below lands as a DESIGNED
+          edge, /about's exact architecture. Intensity 1 → 0.7: the client's
+          "knock opacity back of all blurred gradients so the page feels
+          darker", which also restores the fill-contrast the statement lost
+          when its ground lit up. ══ */}
+      <SharedCanvas intensity={0.7}>
+        {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
+            re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
+            foot, one column, no absolute layers to collide. */}
         <HomeHero />
-
-        {/* Manifesto — the statement fills word by word as it scrolls
-            through, in normal flow on the canvas's own light (unpinned
-            2026-08-07; the site's last scroll pin went with it). "A studio
-            that treats..." in its original This-January form. */}
-        <ManifestoTrack
-          text={MANIFESTO}
-          cta={{ href: "/about", label: "Our story" }}
-          exitFade
-        />
       </SharedCanvas>
+
+      {/* ══ THE BONE ACT — the manifesto on its own light ground, hard
+          designed cuts at both ends (ink→bone above, bone→ink into Selected
+          work). The statement fills word by word in normal flow; flush left
+          per the /services precedent. "A studio that treats..." in its
+          original This-January form. ══ */}
+      <ManifestoTrack
+        text={MANIFESTO}
+        cta={{ href: "/about", label: "Our story" }}
+      />
 
       {/* ── Selected work — the page's only imagery, and the proof. ── */}
       <SelectedWorkBand projects={featured} />
