@@ -21,14 +21,16 @@
  * number (PageHero, SharedCanvas, and through it the homepage and /about).
  * Dose history, every step a client call: heroes 0.85 → 0.6 ("a bit much",
  * 2026-07-24) → 0.4 ("wayyyyyy too powerful", 2026-08-08) → 0.25 ("knock the
- * glow back across the whole site — it's still too much!!", same day). It is
- * exported as ONE constant because the first three trims were chased
- * per-consumer; the next one is a one-number edit. The ContactCTA close card
- * deliberately does NOT read it — a card's gradient is its content, and at
- * ground dose it would be a flat dark plate; it keeps its own contained dose
- * (0.5 since the sitewide knock-back).
+ * glow back across the whole site — it's still too much!!", same day) →
+ * 0.15 (the same words again, "about page has more too", 2026-08-08 night —
+ * the trim that also SHRANK THE BLOBS, because five opacity cuts had never
+ * touched their 57–68% coverage and "can they cover less screen? taking
+ * over…" named the real problem). It is exported as ONE constant because
+ * the first trims were chased per-consumer; a trim is a one-number edit
+ * now. The ContactCTA close card deliberately does NOT read it — a card's
+ * gradient is its content; its own contained dose is 0.35.
  */
-export const GROUND_GLOW_INTENSITY = 0.25;
+export const GROUND_GLOW_INTENSITY = 0.15;
 
 export default function HeroGlow({
   intensity = 1,
@@ -58,10 +60,16 @@ export default function HeroGlow({
     <>
       {/* The champagne pool takes the TOKEN (2026-08-05): a glow may keep a
           raw value the system has no word for (#8A5A2E below), but never a
-          duplicate of one it does — see the adjudication rule in globals.css. */}
-      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "62%", height: "68%", borderRadius: "50%", background: "var(--champagne)", opacity: 0.5 * intensity * topLeft, filter: "blur(130px)", pointerEvents: "none", transform: "translateZ(0)" }} />
-      <div aria-hidden style={{ position: "absolute", right: "-15%", top: "-13%", width: "57%", height: "66%", borderRadius: "50%", background: "#8A5A2E", opacity: 0.55 * intensity, filter: "blur(140px)", pointerEvents: "none", transform: "translateZ(0)" }} />
-      <div aria-hidden style={{ position: "absolute", left: "30%", bottom: "-28%", width: "62%", height: "56%", borderRadius: "50%", background: "#3E2E1C", opacity: 0.85 * intensity, filter: "blur(120px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+          duplicate of one it does — see the adjudication rule in globals.css.
+          BLOB COVERAGE SHRUNK ~30% linear 2026-08-08 night (client: "can
+          they cover less screen? taking over…") — pool 62×68 → 45×48%,
+          amber 57×66 → 42×48%, foot 62×56 → 46×42%. The off-edge anchors
+          stay: smaller bodies on the same anchors means the light pools at
+          the corners instead of washing the middle. The vignette keeps
+          inset-0 — it is the darkener, not a glow. */}
+      <div aria-hidden style={{ position: "absolute", left: "-12%", top: "-24%", width: "45%", height: "48%", borderRadius: "50%", background: "var(--champagne)", opacity: 0.5 * intensity * topLeft, filter: "blur(130px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+      <div aria-hidden style={{ position: "absolute", right: "-15%", top: "-13%", width: "42%", height: "48%", borderRadius: "50%", background: "#8A5A2E", opacity: 0.55 * intensity, filter: "blur(140px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+      <div aria-hidden style={{ position: "absolute", left: "30%", bottom: "-28%", width: "46%", height: "42%", borderRadius: "50%", background: "#3E2E1C", opacity: 0.85 * intensity, filter: "blur(120px)", pointerEvents: "none", transform: "translateZ(0)" }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none",
           transform: "translateZ(0)", background: `radial-gradient(120% 90% at 50% 18%, transparent 42%, rgba(10,8,6,${Math.min(0.55 * vignette, 0.95)}) 100%)` }} />
     </>

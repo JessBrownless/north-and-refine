@@ -46,7 +46,7 @@ import HeroGlow, { GROUND_GLOW_INTENSITY } from "@/components/HeroGlow";
 export default function SharedCanvas({
   children,
   intensity = GROUND_GLOW_INTENSITY,
-  topLeft = 1,
+  topLeft = 0.3,
 }: {
   children: ReactNode;
   /** Glow dose. Defaults to THE ONE GROUND DOSE exported by HeroGlow (0.25
@@ -55,11 +55,11 @@ export default function SharedCanvas({
       the shared constant. The /about ream still reads — its glass tiles
       need a lit backdrop, not a bright one. */
   intensity?: number;
-  /** Multiplier on the top-left champagne pool alone (HeroGlow's own knob,
-      surfaced 2026-08-08 so the homepage canvas can run the SAME recipe as
-      the interior heroes — the shared dose constant plus topLeft 0.3 — per
-      the client's "make the homepage blurred gradient graphics the same").
-      /about keeps the default full pool behind its masthead. */
+  /** Multiplier on the top-left champagne pool alone (HeroGlow's own knob).
+      Default 0.3 = the interior heroes' value, UNIFIED 2026-08-08 night:
+      /about had kept the full pool (topLeft 1) and the client called it —
+      "about page has more too" — so every ground now runs one recipe:
+      GROUND_GLOW_INTENSITY × topLeft 0.3. No live consumer overrides it. */
   topLeft?: number;
 }) {
   return (

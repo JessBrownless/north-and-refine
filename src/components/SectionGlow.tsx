@@ -40,16 +40,17 @@ export default function SectionGlow({
       to "warm up" a section. */
   seamEmphasis?: boolean;
 }) {
-  /* THE CANON DOSES (logged at /stylesheet → Atmosphere). THIRD trim
-     2026-08-08 ("knock the glow back across the whole site — it's still
-     too much!!") — blob 0.05 → 0.03, tail 0.08 → 0.05, seamEmphasis
-     0.07/0.12 → 0.04/0.07, a ~40% step following the ~30% trims of
-     2026-07-24 and 2026-08-01. Change these, change the /stylesheet
-     Atmosphere entry in the same commit. */
-  const blobOpacity = (seamEmphasis ? 0.04 : 0.03) * intensity;
-  const tailOpacity = (seamEmphasis ? 0.07 : 0.05) * intensity;
-  const tailHeight = seamEmphasis ? "44%" : "34%";
-  const tailWidth = seamEmphasis ? "84%" : "80%";
+  /* THE CANON DOSES (logged at /stylesheet → Atmosphere). FOURTH trim
+     2026-08-08 night (the second sitewide knock-back of the day, plus
+     "can they cover less screen?") — opacities blob 0.03 → 0.02, tail
+     0.05 → 0.03, seamEmphasis 0.04/0.07 → 0.03/0.05, AND the geometry
+     shrank: blob 46×40 → 36×30%, tail 80/84% wide → 62/66% at 26/34%
+     tall. Change these, change the /stylesheet Atmosphere entry in the
+     same commit. */
+  const blobOpacity = (seamEmphasis ? 0.03 : 0.02) * intensity;
+  const tailOpacity = (seamEmphasis ? 0.05 : 0.03) * intensity;
+  const tailHeight = seamEmphasis ? "34%" : "26%";
+  const tailWidth = seamEmphasis ? "66%" : "62%";
   return (
     <>
       {/* 1 — the individual blob, one per section, side varies per page. */}
@@ -59,8 +60,8 @@ export default function SectionGlow({
           position: "absolute",
           [blob === "left" ? "left" : "right"]: "-14%",
           top: "34%",
-          width: "46%",
-          height: "40%",
+          width: "36%",
+          height: "30%",
           borderRadius: "50%",
           background: "var(--champagne)",
           // Doses trimmed ~30% 2026-07-24 (client: "a bit much" on some

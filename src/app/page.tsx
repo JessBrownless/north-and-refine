@@ -68,14 +68,14 @@ export default function HomePage() {
           the devices render in full — and its built-in foot fade resolves
           the ground to ink so the ink→bone cut below lands as a DESIGNED
           edge, /about's exact architecture. THE GLOW IS THE INTERIOR RECIPE
-          EXACTLY: intensity comes from HeroGlow's exported ONE GROUND DOSE
-          (no override passed — the homepage cannot drift from the interior
-          heroes by construction) and topLeft 0.3 matches PageHero's. Client
+          EXACTLY: intensity AND topLeft are the shared defaults since the
+          2026-08-08 night unification — no overrides passed at all, so the
+          homepage cannot drift from the interior heroes by construction. Client
           calls, in order: "make the homepage blurred gradient graphics the
           same" (2026-08-08), then "knock the glow back across the whole
           site" the same day; homepage dose history 1 → 0.7 → 0.4 → the
           shared constant. ══ */}
-      <SharedCanvas topLeft={0.3}>
+      <SharedCanvas>
         {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
             re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
             foot, one column, no absolute layers to collide. */}
