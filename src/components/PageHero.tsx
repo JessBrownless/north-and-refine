@@ -316,11 +316,26 @@ export default function PageHero({
     // convert directly into air around the type. (The 2026-07-13 "dialled
     // down" call this reverses was about the OLD cramped composition; the
     // client has now asked for the opposite by name.)
+    //
+    // HEROES WITH BUTTONS RIDE A TOUCH TALLER (2026-08-08, client: "all h1
+    // heros with buttons need a touch more top and bottom padding"). The
+    // geometry behind the call: a CTA row makes the content stack taller,
+    // so at the SAME band height a with-buttons hero has less air around it
+    // than a button-free one — the +6vh (+4 on the media style) restores
+    // the parity, and with items-center it lands as top AND bottom air
+    // equally.
+    const hasActions = Boolean(cta || ctaSecondary);
     const splitBox = spacious
       ? media
-        ? "min-h-[48vh] py-20 md:min-h-[56vh] md:py-28"
-        : "min-h-[56vh] py-20 md:min-h-[72vh] md:py-28"
-      : "min-h-[44vh] py-16 md:min-h-[52vh] md:py-20";
+        ? hasActions
+          ? "min-h-[52vh] py-20 md:min-h-[62vh] md:py-28"
+          : "min-h-[48vh] py-20 md:min-h-[56vh] md:py-28"
+        : hasActions
+          ? "min-h-[60vh] py-20 md:min-h-[78vh] md:py-28"
+          : "min-h-[56vh] py-20 md:min-h-[72vh] md:py-28"
+      : hasActions
+        ? "min-h-[48vh] py-16 md:min-h-[56vh] md:py-20"
+        : "min-h-[44vh] py-16 md:min-h-[52vh] md:py-20";
 
     // SPLIT + MEDIA: the graphic variant. REBALANCED 2026-07-24 (client: the
     // hero "feels unbalanced" — measured on /services, three faults):

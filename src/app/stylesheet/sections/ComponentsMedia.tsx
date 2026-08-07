@@ -460,7 +460,11 @@ export default function ComponentsMedia() {
           type centred in it — the air is the composition); and TEXT+IMAGE
           (the `media` slot, /services), which keeps the 56vh measure because
           the graphic already fills the stage. The style switch is the
-          presence of `media` — no prop.
+          presence of `media` — no prop. HEROES WITH BUTTONS ride a touch
+          taller within each style (78vh text-only, 62vh media, same day): a
+          CTA row makes the stack taller, so equal bands gave with-button
+          heroes less air than button-free ones — the bump restores parity,
+          landing as top and bottom air equally under items-center.
         </What>
         <What>
           The canonical interior masthead. Extend it through props; never spawn a

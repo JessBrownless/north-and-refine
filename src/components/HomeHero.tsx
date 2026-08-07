@@ -89,8 +89,11 @@ export default function HomeHero() {
             Top air 22vh → 25vh in the 2026-08-08 breathing-room pass ("the
             text needs more breathing room on all of them" — the homepage is
             the text+image style, so its room comes from these two inline
-            knobs, not the text-only heroes' vh pump). */}
-        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(200px,25vh,300px) 24px 0" }}>
+            knobs, not the text-only heroes' vh pump), then → 27vh the same
+            day with the with-buttons touch ("all h1 heros with buttons need
+            a touch more top and bottom padding"); the shelf gap moved 9vh →
+            10vh with it. */}
+        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(210px,27vh,330px) 24px 0" }}>
           {/* THE MASTHEAD RULE (2026-08-05, client: "we've got five or six
               different hero sections and they're kind of the same, let's build
               a rule in that they all use the same heading style. Right now the
@@ -225,7 +228,7 @@ export default function HomeHero() {
             rather than under them: a crop against a DIFFERENT ground reads
             as a decision (the bone-act lesson). ~8% of the device height at
             desktop, a touch less on phones. */}
-        <div style={{ marginTop: "auto", paddingTop: "clamp(64px,9vh,128px)", marginBottom: "clamp(-56px, -4vh, -20px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
+        <div style={{ marginTop: "auto", paddingTop: "clamp(72px,10vh,140px)", marginBottom: "clamp(-56px, -4vh, -20px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
             <PhoneMockup size="fluid" screen="editorial" />
           </div>
