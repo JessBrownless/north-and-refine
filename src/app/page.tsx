@@ -56,41 +56,8 @@ export default function HomePage() {
     href: `/work/${project.slug}`,
   }));
 
-  /* ══ THE CARD EXPERIMENT (2026-08-08, client: "can we try something
-     crazy please? anything that is black background, let's make it rounded,
-     and add padding around it so it's white around the edges" — her NURA
-     reference: dark cards floating on a light page). A COMPOSITION-LEVEL
-     TRIAL, deliberately confined to this file so one revert restores the
-     full-bleed ink page:
-       · the page ground flips to BONE; the white around the edges IS the
-         page showing through,
-       · every dark band is clipped into a rounded-plate-lg card (the
-         big-card radius token) with bg-ink of its own,
-       · the BONE ACT needs no card — bone on bone, it reads as the page
-         ground widening between cards, exactly the reference's white
-         stretches,
-       · the ContactCTA keeps its outer ink section, so it renders as a dark
-         card holding the gradient card — nested, accepted for the trial,
-       · gutters/inset ride INLINE values, not utilities: an experiment does
-         not spend freeze-breach capital or enter the spacing census.
-     ⚠ CANON UNTOUCHED ON PURPOSE: this inverts "the ground is flat [and
-     full-bleed]" — if it is KEPT, the rule, /stylesheet, the nav-over-card
-     contract and the other pages' grounds all need deciding together; if
-     not, revert this file and the canon never moved. No sticky content
-     lives on the homepage, so the card clips carry no pin hazard. ══ */
-  const cardCls = "overflow-hidden rounded-plate-lg bg-ink";
-  const gutter = "clamp(12px, 1.5vw, 24px)";
-
   return (
-    <main className="bg-bone text-bone">
-      <div
-        style={{
-          padding: gutter,
-          display: "flex",
-          flexDirection: "column",
-          gap: gutter,
-        }}
-      >
+    <main className="bg-ink text-bone">
       {/* ══ THE HERO CANVAS (2026-08-07 layout pass). The canvas holds the
           HERO ALONE now: the manifesto left it the same day it briefly
           joined, becoming the BONE ACT below — the client's own call ("maybe
@@ -108,14 +75,12 @@ export default function HomePage() {
           same" (2026-08-08), then "knock the glow back across the whole
           site" the same day; homepage dose history 1 → 0.7 → 0.4 → the
           shared constant. ══ */}
-      <div className={cardCls}>
-        <SharedCanvas>
-          {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
-              re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
-              foot, one column, no absolute layers to collide. */}
-          <HomeHero />
-        </SharedCanvas>
-      </div>
+      <SharedCanvas>
+        {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
+            re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
+            foot, one column, no absolute layers to collide. */}
+        <HomeHero />
+      </SharedCanvas>
 
       {/* ══ THE BONE ACT — the manifesto on its own light ground, hard
           designed cuts at both ends (ink→bone above, bone→ink into Selected
@@ -128,14 +93,10 @@ export default function HomePage() {
       />
 
       {/* ── Selected work — the page's only imagery, and the proof. ── */}
-      <div className={cardCls}>
-        <SelectedWorkBand projects={featured} />
-      </div>
+      <SelectedWorkBand projects={featured} />
 
       {/* ── What we do — the ruled rows, the page's formal stabiliser. ── */}
-      <div className={cardCls}>
-        <WhatWeDoBand exitFade />
-      </div>
+      <WhatWeDoBand exitFade />
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
           human proof (work → words). COMPONENTISED 2026-07-24 when /services
@@ -144,17 +105,13 @@ export default function HomePage() {
           <Testimonial>; her full portrait
           (assets/testimonials/client-portrait.jpg) stays in reserve for
           /about. exitFade: the live-era section handover, homepage only. ── */}
-      {/* Kind words + the trust bar share ONE card: one client speaks, the
-          roster corroborates — words then receipts, one surface. */}
-      <div className={cardCls}>
-        <Testimonial exitFade />
+      <Testimonial exitFade />
 
       {/* ── Trust bar — under the testimonial (2026-07-11, second move of
           the day: first-screen → after The Studio → here): one client
           speaks in Kind words, then the roster corroborates — words, then
           receipts. Below the fold it reveals like its neighbours. ── */}
-        <LogoStrip items={logoStripItems} />
-      </div>
+      <LogoStrip items={logoStripItems} />
 
       {/* ── (The process left the homepage entirely 2026-07-10 late — it
           burned through carousel, spine timeline and a slim method strip
@@ -163,16 +120,11 @@ export default function HomePage() {
           method-strip pattern survives in git history.) ── */}
 
       {/* ── Blog teasers — a rail instead of a grid (2026-07-10). ── */}
-      <div className={cardCls}>
-        <BlogRailBand posts={posts} exitFade />
-      </div>
+      <BlogRailBand posts={posts} exitFade />
 
       {/* ── CTA — the close. (It was "the bone interruption" until
           2026-07-24, when the band became ink plus the gradient card.) ── */}
-      <div className={cardCls}>
-        <ContactCTA />
-      </div>
-      </div>
+      <ContactCTA />
     </main>
   );
 }
