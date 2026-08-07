@@ -21,6 +21,19 @@ import type { JournalEntry } from "@/lib/journal";
  * The band's own copy is the section's identity rather than page content, so
  * it defaults here (the ContactCTA precedent) and the page passes only the
  * posts.
+ *
+ * CARDS NOW FILL THE ROW AT lg (2026-08-08, client: "make the posts…
+ * actually go to the edge of the content grid or off-screen"). The old
+ * `lg:w-[30%]` was measured live leaving 74px of dead ground between the
+ * last card and the shell's own content edge — with only three real posts
+ * in `content/blog` today, 3 × 30% plus two gap-8 gaps simply falls short
+ * of the container, and nothing peeks in to signal there's more. The width
+ * is now computed to fill exactly 3 cards across the row — `calc((100% -
+ * 4rem) / 3)`, 4rem being two gap-8 gaps — closing the dead space rather
+ * than guessing a bigger percentage. ⚠ THIS MATH ASSUMES ~3 VISIBLE CARDS:
+ * once there are enough real posts to peek a 4th at lg, re-derive the width
+ * (or drop back to a percentage) so a partial card returns as the
+ * invitation to scroll, per the Carousel's own contract.
  */
 export default function BlogRailBand({
   posts,
@@ -57,7 +70,7 @@ export default function BlogRailBand({
           <Carousel
             ariaLabel={railLabel}
             className="mt-14 md:mt-20"
-            slideClassName="w-[76vw] sm:w-[48%] lg:w-[30%]"
+            slideClassName="w-[76vw] sm:w-[48%] lg:w-[calc((100%-4rem)/3)]"
           >
             {posts.map((post) => (
               <BlogTeaserCard key={post.slug} post={post} />
