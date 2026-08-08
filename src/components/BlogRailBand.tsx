@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import BlogTeaserCard from "@/components/BlogTeaserCard";
 import Carousel from "@/components/Carousel";
 import CollectionHeader from "@/components/CollectionHeader";
-import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 import type { JournalEntry } from "@/lib/journal";
 
 /**
@@ -34,6 +33,24 @@ import type { JournalEntry } from "@/lib/journal";
  * once there are enough real posts to peek a 4th at lg, re-derive the width
  * (or drop back to a percentage) so a partial card returns as the
  * invitation to scroll, per the Carousel's own contract.
+ *
+ * NO EXIT FADE (2026-08-09, client on the What-we-do rows: "fades to white
+ * as you scroll — that needs to go"). The `exitFade` prop is DELETED rather
+ * than left unpassed, following the precedent ManifestoTrack set when it
+ * went bone: the fade-to-ink handover belongs to DARK sections dissolving
+ * into one another, and a light band does not dissolve — it CUTS.
+ *
+ * ⚠ THE OVERLAY WAS A LEFTOVER FROM THIS BAND'S DARK ERA, not a new bug.
+ * ExitFadeOverlay paints `bg-ink`, which was right while the band was ink —
+ * it read as one dark section handing over to the next. The light flip
+ * earlier the same day changed the ground and left the overlay behind, so a
+ * bone band was being washed out by a dark sheet on the way past. The stale
+ * claim that it "reads correctly regardless of the band's own ground" is
+ * removed with it; that was true only while the ground was dark.
+ *
+ * TWO BANDS HAD IT, and only one was reported: the blog rail carried the
+ * identical leftover from the identical flip. Kind words KEEPS its fade —
+ * still an ink band, still dissolving into ink.
  */
 export default function BlogRailBand({
   posts,
@@ -42,7 +59,6 @@ export default function BlogRailBand({
   linkHref = "/blog",
   linkLabel = "All entries",
   railLabel = "Latest blog posts",
-  exitFade = false,
 }: {
   posts: JournalEntry[];
   kicker?: string;
@@ -51,9 +67,6 @@ export default function BlogRailBand({
   linkLabel?: string;
   /** Accessible name for the rail region. */
   railLabel?: string;
-  /** Mounts the fade-to-ink handover (restored 2026-07-11: the live-era
-      section handover the client loved). Homepage only. */
-  exitFade?: boolean;
 }) {
   if (posts.length === 0) return null;
 
@@ -84,7 +97,6 @@ export default function BlogRailBand({
           </Carousel>
         </div>
       </div>
-      {exitFade && <ExitFadeOverlay />}
     </section>
   );
 }
