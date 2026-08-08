@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Carousel from "@/components/Carousel";
 import CollectionHeader from "@/components/CollectionHeader";
+import WorkComingSoon from "@/components/WorkComingSoon";
 import WorkPlate from "@/components/WorkPlate";
 import type { WorkEntry } from "@/lib/work";
 
@@ -95,6 +96,10 @@ export default function SelectedWorkBand({
             {projects.map((project) => (
               <WorkPlate key={project.slug} project={project} tone="light" />
             ))}
+            {/* The honest gap closes the rail too, not just the desktop grid
+                — otherwise the phone reader reaches the end of a two-plate
+                rail with no indication the portfolio is still growing. */}
+            <WorkComingSoon key="coming-soon" shape="plate" tone="light" />
           </Carousel>
         </div>
 
@@ -110,6 +115,13 @@ export default function SelectedWorkBand({
               delay={(i % 2) * 120}
             />
           ))}
+          {/* THE HONEST GAP (2026-08-09, client: down to two real pieces,
+              "just put more coming soon"). It takes the NEXT index's stagger
+              by construction — with two projects it lands at index 2, an
+              even slot, so it sits high like the left column and the grid's
+              deliberate jag survives rather than being flattened by an
+              odd-one-out cell. */}
+          <WorkComingSoon shape="plate" tone="light" />
         </div>
       </div>
     </section>
