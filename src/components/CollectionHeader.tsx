@@ -20,27 +20,39 @@ import type { ReactNode } from "react";
  *
  * `title` takes a node so a head can carry the italic accent-word device
  * (one word per statement); the kicker and the link label are plain strings.
+ *
+ * `tone` (2026-08-09, born when Selected work and Blog rail went light):
+ * the heading itself needs no override — `.heading-part` carries no colour
+ * class, so it already inherits whichever ink the section sets — but the
+ * `.overline` kicker is BONE BY DEFAULT (the sitewide rule) and the ghost
+ * link hardcodes `text-bone`, so both need the on-light swap explicitly.
+ * The kicker takes `text-clay` on light, not `text-ink-mute`: this IS the
+ * section's own kicker (the sanctioned clay-on-light exception), not
+ * running meta.
  */
 export default function CollectionHeader({
   kicker,
   title,
   linkHref,
   linkLabel,
+  tone = "dark",
 }: {
   kicker: string;
   title: ReactNode;
   linkHref: string;
   linkLabel: string;
+  tone?: "dark" | "light";
 }) {
+  const light = tone === "light";
   return (
     <div className="flex flex-wrap items-end [align-items:last_baseline] justify-between gap-6">
       <div>
-        <p className="overline reveal">{kicker}</p>
+        <p className={`overline reveal${light ? " text-clay" : ""}`}>{kicker}</p>
         <h2 className="heading-part from-overline reveal" style={{ transitionDelay: "80ms" }}>
           {title}
         </h2>
       </div>
-      <Link href={linkHref} className="btn-ghost text-bone reveal">
+      <Link href={linkHref} className={`btn-ghost reveal ${light ? "text-ink" : "text-bone"}`}>
         {/* The trailing space rides INSIDE the interpolation: as two adjacent
             children ({linkLabel} then a literal space) React has to separate
             them with a hydration comment, and the extracted markup would stop

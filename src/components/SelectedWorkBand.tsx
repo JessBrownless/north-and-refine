@@ -37,6 +37,16 @@ import type { WorkEntry } from "@/lib/work";
  * it defaults here (the ContactCTA precedent) and the page passes only the
  * projects. Override the strings for a different collection; the data is
  * always the caller's.
+ *
+ * LIGHT, 2026-08-09 (client: "Work: (light BG)" on the homepage): bg-bone +
+ * text-ink + grain-light, the exact light-band recipe ManifestoTrack and
+ * Testimonial's light tone already use. This band carried NO ground class of
+ * its own before — it silently inherited main's bg-ink, which is why it
+ * never needed grain either (a dark section with no visible boundary needs
+ * no material of its own). Now that it is its own light region it takes
+ * grain-light like every other section on the site, per the one-material
+ * rule. tone="light" threads through CollectionHeader, the mobile Carousel's
+ * folio and every WorkPlate, so nothing here still speaks the on-ink ladder.
  */
 export default function SelectedWorkBand({
   projects,
@@ -59,13 +69,17 @@ export default function SelectedWorkBand({
   railLabel?: string;
 }) {
   return (
-    <section id="selected-work" className="relative scroll-mt-14 py-24 md:py-32">
+    <section
+      id="selected-work"
+      className="relative scroll-mt-14 grain-light bg-bone py-24 text-ink md:py-32"
+    >
       <div className="shell">
         <CollectionHeader
           kicker={kicker}
           title={title}
           linkHref={linkHref}
           linkLabel={linkLabel}
+          tone="light"
         />
 
         {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
@@ -76,9 +90,10 @@ export default function SelectedWorkBand({
             ariaLabel={railLabel}
             className="mt-14"
             slideClassName="w-[76vw]"
+            tone="light"
           >
             {projects.map((project) => (
-              <WorkPlate key={project.slug} project={project} />
+              <WorkPlate key={project.slug} project={project} tone="light" />
             ))}
           </Carousel>
         </div>
@@ -90,6 +105,7 @@ export default function SelectedWorkBand({
             <WorkPlate
               key={project.slug}
               project={project}
+              tone="light"
               className={`reveal ${i % 2 === 1 ? "md:mt-28" : ""}`}
               delay={(i % 2) * 120}
             />

@@ -22,7 +22,18 @@ function formatDate(iso: string): string {
  * their images rather than headings, so they share one sans register with the
  * work-card client names and carry no italic accent.
  */
-export default function BlogTeaserCard({ post }: { post: JournalEntry }) {
+export default function BlogTeaserCard({
+  post,
+  tone = "dark",
+}: {
+  post: JournalEntry;
+  /** THE GROUND (2026-08-09, born when the blog rail went light): the date
+      and the title both hardcode the on-ink ladder. The date takes
+      text-ink-mute on light, not clay — it is running caption meta, not the
+      section's own kicker (that exception is narrower, see CollectionHeader). */
+  tone?: "dark" | "light";
+}) {
+  const light = tone === "light";
   return (
     <Link href={`/blog/${post.slug}`} className="group block">
       {/* 16:10 per the ratio canon — blog imagery is FIGURES
@@ -42,8 +53,12 @@ export default function BlogTeaserCard({ post }: { post: JournalEntry }) {
           </span>
         )}
       </div>
-      <p className="overline mt-6 text-clay">{formatDate(post.frontmatter.publishedAt)}</p>
-      <h3 className="card-title mt-3 max-w-[28ch] text-bone transition-opacity group-hover:opacity-70">
+      <p className={`overline mt-6 ${light ? "text-ink-mute" : "text-clay"}`}>
+        {formatDate(post.frontmatter.publishedAt)}
+      </p>
+      <h3
+        className={`card-title mt-3 max-w-[28ch] transition-opacity group-hover:opacity-70 ${light ? "text-ink" : "text-bone"}`}
+      >
         {post.frontmatter.title}
       </h3>
     </Link>

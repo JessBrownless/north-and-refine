@@ -31,6 +31,13 @@ interface CarouselProps {
   slideClassName: string;
   className?: string;
   children: ReactNode;
+  /** THE FOLIO'S GROUND (2026-08-09, born when Selected work and the blog
+      rail went light): the prev/next arrows and the page counter hardcode
+      the on-ink ladder, and the folio's own top hairline picks rule-dark —
+      none of that reads on bone. Defaults dark so every other consumer
+      (the /stylesheet specimen, the archived /mockups/old-hero) is
+      unchanged. */
+  tone?: "dark" | "light";
 }
 
 export default function Carousel({
@@ -38,7 +45,9 @@ export default function Carousel({
   slideClassName,
   className = "",
   children,
+  tone = "dark",
 }: CarouselProps) {
+  const light = tone === "light";
   const trackRef = useRef<HTMLUListElement>(null);
   const [index, setIndex] = useState(0);
   const [atEnd, setAtEnd] = useState(false);
@@ -112,14 +121,14 @@ export default function Carousel({
           rail degrades to a calm static row rather than showing dead
           arrows. */}
       {scrollable && (
-      <div className="mt-8 flex items-baseline gap-7 border-t rule-dark pt-5 md:mt-10">
+      <div className={`mt-8 flex items-baseline gap-7 border-t pt-5 md:mt-10 ${light ? "rule-light" : "rule-dark"}`}>
         <div className="flex items-center gap-5">
           <button
             type="button"
             aria-label="Previous"
             onClick={() => page(-1)}
             disabled={index <= 0}
-            className="-m-2 p-2 text-lg leading-none text-bone transition-colors hover:text-champagne disabled:pointer-events-none disabled:opacity-30"
+            className={`-m-2 p-2 text-lg leading-none transition-colors hover:text-champagne disabled:pointer-events-none disabled:opacity-30 ${light ? "text-ink" : "text-bone"}`}
           >
             <span aria-hidden>←</span>
           </button>
@@ -128,12 +137,12 @@ export default function Carousel({
             aria-label="Next"
             onClick={() => page(1)}
             disabled={atEnd}
-            className="-m-2 p-2 text-lg leading-none text-bone transition-colors hover:text-champagne disabled:pointer-events-none disabled:opacity-30"
+            className={`-m-2 p-2 text-lg leading-none transition-colors hover:text-champagne disabled:pointer-events-none disabled:opacity-30 ${light ? "text-ink" : "text-bone"}`}
           >
             <span aria-hidden>→</span>
           </button>
         </div>
-        <p className="overline text-clay">
+        <p className={`overline ${light ? "text-ink-mute" : "text-clay"}`}>
           {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
         </p>
       </div>

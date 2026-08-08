@@ -25,11 +25,21 @@ export default function WorkPlate({
   project,
   className = "",
   delay = 0,
+  tone = "dark",
 }: {
   project: WorkEntry;
   className?: string;
   delay?: number;
+  /** THE GROUND (2026-08-09, born when Selected work went light). Flips the
+      caption's whole on-ink ladder to on-light: card-title bone→ink, the
+      summary bone-dim→ink-dim, and MetaRow's own tone follows straight
+      through. The services meta stays off clay on light (it reads as
+      running caption meta, not the section's own kicker — the sanctioned
+      clay-on-light exception is narrower than that): it takes text-ink-mute,
+      the on-light meta tier, same as a blog teaser's date. */
+  tone?: "dark" | "light";
 }) {
+  const light = tone === "light";
   return (
     <Link
       href={`/work/${project.slug}`}
@@ -68,7 +78,7 @@ export default function WorkPlate({
           different horizontal editorial layout with no MetaRow or hairline
           of its own, so nothing there is affected. */}
       <MetaRow
-        tone="dark"
+        tone={tone}
         spread
         separator={null}
         wrap={false}
@@ -77,16 +87,19 @@ export default function WorkPlate({
         items={[
           // .card-title (2026-07-11): card titles are captions, not headings —
           // sans, shared with the blog teasers; no Saol em accent.
-          <h3 key="client" className="card-title text-bone transition-opacity group-hover:opacity-70">
+          <h3
+            key="client"
+            className={`card-title transition-opacity group-hover:opacity-70 ${light ? "text-ink" : "text-bone"}`}
+          >
             {project.frontmatter.client}
           </h3>,
-          <span key="services" className="overline text-clay">
+          <span key="services" className={`overline ${light ? "text-ink-mute" : "text-clay"}`}>
             {project.frontmatter.services.slice(0, 2).join(" · ")}
           </span>,
         ]}
       />
       {project.frontmatter.summary && (
-        <p className="body-sm mt-3 max-w-[52ch] text-bone-dim">
+        <p className={`body-sm mt-3 max-w-[52ch] ${light ? "text-ink-dim" : "text-bone-dim"}`}>
           {project.frontmatter.summary}
         </p>
       )}

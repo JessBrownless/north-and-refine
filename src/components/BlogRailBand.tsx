@@ -58,22 +58,28 @@ export default function BlogRailBand({
   if (posts.length === 0) return null;
 
   return (
-    <section className="relative py-24 md:py-32">
+    // LIGHT, 2026-08-09 (client: "Blog: Light BG" on the homepage) — the
+    // same bg-bone + grain-light recipe as its now-light siblings. tone
+    // threads through CollectionHeader, the Carousel folio and every
+    // BlogTeaserCard.
+    <section className="relative grain-light bg-bone py-24 text-ink md:py-32">
       <div className="shell">
         <CollectionHeader
           kicker={kicker}
           title={title}
           linkHref={linkHref}
           linkLabel={linkLabel}
+          tone="light"
         />
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
           <Carousel
             ariaLabel={railLabel}
             className="mt-14 md:mt-20"
             slideClassName="w-[76vw] sm:w-[48%] lg:w-[calc((100%-4rem)/3)]"
+            tone="light"
           >
             {posts.map((post) => (
-              <BlogTeaserCard key={post.slug} post={post} />
+              <BlogTeaserCard key={post.slug} post={post} tone="light" />
             ))}
           </Carousel>
         </div>

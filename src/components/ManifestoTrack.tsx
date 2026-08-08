@@ -2,28 +2,40 @@ import Link from "next/link";
 import ManifestoStatement from "@/components/ManifestoStatement";
 
 /**
- * THE MANIFESTO BAND — THE HOMEPAGE'S BONE ACT (2026-08-07, the layout pass).
+ * THE MANIFESTO BAND — BACK ON INK (2026-08-09, client: "Intro section
+ * after hero: Black (remove rounded corners)"). This band's short history
+ * is worth keeping, because it explains why "ink" isn't simply a return to
+ * where it started: it OPENED dark, edgeless, 160vh tall, on a scroll pin;
+ * went LIGHT for exactly one reason (a COLOUR CUT is the only clean edge
+ * the system has, and the dark version had none — same-colour ground
+ * stretching until it happened to stop, plus the hero's devices "cutting
+ * off into that same-colour field" awkwardly); gained the rounded-top SHEET
+ * EDGE the client liked ("I've seen websites do that… looks nice"); and now
+ * returns to ink with the sheet edge explicitly removed. The reasons that
+ * took it light in the first place (no edge, awkward device crop) are BOTH
+ * STILL SOLVED — not by this band's own colour, but by what changed under
+ * it since: the hero's device shelf now clips against its OWN section edge
+ * (HomeHero's overflow:hidden + negative shelf margin, 2026-08-08), and the
+ * hero's SharedCanvas already resolves to flat `--ink` at its foot. So an
+ * ink Manifesto sitting directly under an ink-resolving hero foot is TWO
+ * flat sections meeting at the exact same token (#110E0A both sides) —
+ * literally no seam to hide, the CLAUDE.md-sanctioned outcome, achieved for
+ * free rather than by wrapping both in one shared canvas.
  *
- * The band went LIGHT at the client's own suggestion, closing two of her
- * critique points with one move. The dark version's 160vh of air had no
- * edges — same-colour ground stretching until it happened to stop, which
- * read as "forgot to put something here" rather than margin — and the
- * hero's devices had always cut off into that same-colour field awkwardly
- * ("they felt weird cutting off with such a big airy next section of the
- * same colour"). A COLOUR CUT is an absolute edge: the hero's canvas
- * resolves to ink at its foot, then ink meets bone, and at the band's other
- * end bone meets Selected work's ink. Inside a BOUNDED band the air reads
- * as generous margin. This is /about's shipped architecture (canvas → foot
- * fade → designed cut), and the light-act register is the strongest change
- * the system has — on this site's dark ground, a bone band is a turned page.
+ * NO ROUNDED CORNERS, explicitly asked for: `rounded-t-plate-lg` is
+ * dropped outright, not swapped for a smaller radius. The sheet-edge device
+ * only ever made sense as the seam between two DIFFERENT colours (the ink
+ * peeking through the notch was the whole effect); on ink-into-ink there is
+ * no colour to peek through, so a rounded top here would be corners with
+ * nothing to curve away from.
  *
  * THE PIN IS GONE (2026-08-07 morning, client: it "blocks the screen into
  * place… much bigger padding or something so it feels more fluid") — the
  * site's last scroll pin, ending on the same verdict that unpinned /services
  * on 2026-07-24. The statement fills word by word at the reader's scroll
- * pace, in normal flow; on bone the words develop from dim ink to full ink,
- * which reads as letterpress coming up rather than the old bone-on-dark
- * lighting. Statement stays FLUSH LEFT on the rail (client's call — the
+ * pace, in normal flow; RE-INVERTED 2026-08-09 (the words develop dim
+ * bone → full bone again, matching every other dark section's fill).
+ * Statement stays FLUSH LEFT on the rail (client's call — the
  * /services belief precedent; the hero above remains the page's one centred
  * moment).
  *
@@ -106,7 +118,7 @@ export default function ManifestoTrack({
        straight edge on purpose — one curved lift, one clean cut, so the
        device reads as an entrance, not a pill. The card trial died the same
        hour this was born; this is the one survivor of it the client kept. */
-    <section className="relative z-10 overflow-hidden rounded-t-plate-lg grain-light bg-bone text-ink">
+    <section className="relative z-10 overflow-hidden grain bg-ink text-bone">
       <div className="relative z-10 flex min-h-[100vh] items-center md:min-h-[80vh]">
         <div className="shell grid w-full grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8">
           {/* THE STATEMENT NARROWS TO THE LEFT COLUMNS (2026-08-08, client:
@@ -125,12 +137,12 @@ export default function ManifestoTrack({
             <ManifestoStatement text={text} className="heading-xl max-w-none" />
             {cta && (
             <div className="mt-12 reveal" style={{ transitionDelay: "160ms" }}>
-              {/* The on-LIGHT secondary — .btn-secondary-light's SECOND live
-                  consumer (it had one, FaqSection's cream band, and was a
-                  fold-or-earn backlog item on exactly those grounds). The
-                  pill itself is unchanged by the band's re-grounding: the
-                  client's "okay for now" on the stranded-object critique. */}
-              <Link href={cta.href} className="btn btn-secondary-light">
+              {/* BACK TO THE ON-INK SECONDARY (2026-08-09, with the band's
+                  reversion): .btn-secondary-light loses its second live
+                  consumer here and returns to ONE (FaqSection's cream
+                  band) — a fold-or-earn backlog candidate again, on the
+                  same terms as before this band ever went light. */}
+              <Link href={cta.href} className="btn btn-secondary-dark">
                 <span aria-hidden>↳</span>
                 {cta.label}
               </Link>
