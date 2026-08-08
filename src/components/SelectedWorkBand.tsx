@@ -28,6 +28,24 @@ import type { WorkEntry } from "@/lib/work";
  * reachable from the nav and the footer, but if this band is meant to feed
  * the case-study index, that link needs a home.
  *
+ * THE SIGNPOST replaced it the same day (client: "a small label above the
+ * portfolio pieces… body text styled with a downward arrow saying selected
+ * work, almost like it looks like it's at the bottom of the text section
+ * above"). It is deliberately NOT the header that just left, and the
+ * difference is the whole point: a header ANNOUNCES the section beneath it,
+ * a signpost POINTS at it. So this takes the BODY register rather than
+ * `.overline` or a ladder rung — a kicker in tracked caps would read as
+ * exactly the label the client removed — and the ↓ does the pointing.
+ *
+ * ⚠ IT SITS AT THE TOP OF THIS BAND, NOT THE FOOT OF THE MANIFESTO, even
+ * though the client described it as looking like it belongs to the section
+ * above. Putting it literally there would strand it: the manifesto is INK
+ * and this band is BONE, so the designed colour cut runs between them, and
+ * a label on the far side of that cut is separated from the very thing it
+ * points at. The "bottom of the section above" feeling is carried by the
+ * TREATMENT — small, quiet, body-weight, arrow-led — rather than by
+ * position.
+ *
  * `id="selected-work"` is a live anchor target (SmoothScroll intercepts the
  * same-page jump), so it stays with the section, as does the `scroll-mt-14`
  * that keeps the head clear of the landing.
@@ -73,6 +91,19 @@ export default function SelectedWorkBand({
       className="relative scroll-mt-14 grain-light bg-bone py-16 text-ink md:py-24"
     >
       <div className="shell">
+        {/* THE SIGNPOST — see the note above for why this is body register
+            and not a kicker. `text-ink-dim` is the on-light BODY tint, not
+            the meta tier: the client asked for body text, and ink-mute would
+            quietly demote it to a caption. The arrow is aria-hidden — it is
+            a direction, not a word, and a screen reader reading "Selected
+            work down arrow" would be worse than reading "Selected work". */}
+        <p
+          className="body mb-10 flex items-baseline gap-2 text-ink-dim reveal md:mb-12"
+        >
+          Selected work
+          <span aria-hidden>↓</span>
+        </p>
+
         {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
             all four captures in one beat, reader-driven like the blog
             rail below. */}
