@@ -1,6 +1,4 @@
-import type { ReactNode } from "react";
 import Carousel from "@/components/Carousel";
-import CollectionHeader from "@/components/CollectionHeader";
 import WorkComingSoon from "@/components/WorkComingSoon";
 import WorkPlate from "@/components/WorkPlate";
 import type { WorkEntry } from "@/lib/work";
@@ -15,24 +13,34 @@ import type { WorkEntry } from "@/lib/work";
  * TWO LAYOUTS, ONE SET OF PLATES:
  *   · mobile — the contact-sheet rail (2026-07-11, client's call), all four
  *     captures in one beat, reader-driven like the blog rail;
- *   · md+ — the staggered pair rhythm, the right column starting a beat lower
- *     (the deliberate jag that What-we-do's ruled rows stabilise).
+ *   · md+ — a LEVEL pair. The right column used to start a beat lower (a
+ *     deliberate jag); the client levelled it 2026-08-09, in the same breath
+ *     as removing the header. The two calls belong together: the jag was
+ *     legible as rhythm while a header sat above it setting the section's
+ *     baseline, and with the header gone the offset just read as one plate
+ *     hanging lower than the other.
+ *
+ * NO HEADER SINCE 2026-08-09 (client: remove "Selected work / Practices
+ * we've refined / All work"). The plates introduce themselves — each already
+ * carries its client name and its one-line outcome — so the band is now the
+ * work and nothing else. ⚠ CONSEQUENCE WORTH KNOWING: the "All work" link
+ * went with it, so this section no longer routes anywhere. /work is still
+ * reachable from the nav and the footer, but if this band is meant to feed
+ * the case-study index, that link needs a home.
  *
  * `id="selected-work"` is a live anchor target (SmoothScroll intercepts the
  * same-page jump), so it stays with the section, as does the `scroll-mt-14`
  * that keeps the head clear of the landing.
  *
- * TOP PADDING RESTORED (2026-08-08, client: "give Selected work section some
- * top padding") — this was the ONE homepage band still on bottom-only
- * padding; its two siblings on the same page, WhatWeDoBand and
- * BlogRailBand, both already carry the sitewide section rhythm `py-24
- * md:py-32` on both edges. It went asymmetric back when the manifesto above
- * it was still the dark, self-padded min-h band and needed none of its own;
- * once the manifesto became the bone act's hard designed CUT (a colour
- * boundary with zero trailing air of its own — measured live: the section
- * used to start exactly 0px below the cut), this was the one band left
- * flush against it. `pb-24 md:pb-32` → `py-24 md:py-32` completes a pattern
- * already standard on this page rather than introducing a new value.
+ * PADDING, 2026-08-09 (client: "remove excessive padding"). `py-24 md:py-32`
+ * → `py-16 md:py-24`, and the grid's own `mt-14 md:mt-20` lead-in is gone
+ * outright. That lead-in was the gap BETWEEN the header and the plates; with
+ * the header removed it became a second helping of top padding stacked on
+ * the section's own, which is most of what read as excessive — 128px of
+ * section padding plus 80px of grid margin put the first plate 208px below
+ * the band's edge. Both values are already in the sitewide census, so this
+ * is a re-use rather than a new number. (It supersedes the 2026-08-08 note
+ * that had just restored symmetric padding here for the opposite reason.)
  *
  * The band's own copy is the section's identity rather than page content, so
  * it defaults here (the ContactCTA precedent) and the page passes only the
@@ -46,50 +54,32 @@ import type { WorkEntry } from "@/lib/work";
  * never needed grain either (a dark section with no visible boundary needs
  * no material of its own). Now that it is its own light region it takes
  * grain-light like every other section on the site, per the one-material
- * rule. tone="light" threads through CollectionHeader, the mobile Carousel's
- * folio and every WorkPlate, so nothing here still speaks the on-ink ladder.
+ * rule. tone="light" threads through the mobile Carousel's folio and every
+ * WorkPlate, so nothing here still speaks the on-ink ladder.
  */
 export default function SelectedWorkBand({
   projects,
-  kicker = "Selected work",
-  title = (
-    <>
-      Practices we&rsquo;ve <em>refined</em>
-    </>
-  ),
-  linkHref = "/work",
-  linkLabel = "All work",
   railLabel = "Selected work",
 }: {
   projects: WorkEntry[];
-  kicker?: string;
-  title?: ReactNode;
-  linkHref?: string;
-  linkLabel?: string;
-  /** Accessible name for the mobile rail region. */
+  /** Accessible name for the mobile rail region. The band has no visible
+      heading now, so this is the only thing naming the rail to a screen
+      reader — it is load-bearing rather than decorative. */
   railLabel?: string;
 }) {
   return (
     <section
       id="selected-work"
-      className="relative scroll-mt-14 grain-light bg-bone py-24 text-ink md:py-32"
+      className="relative scroll-mt-14 grain-light bg-bone py-16 text-ink md:py-24"
     >
       <div className="shell">
-        <CollectionHeader
-          kicker={kicker}
-          title={title}
-          linkHref={linkHref}
-          linkLabel={linkLabel}
-          tone="light"
-        />
-
         {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
             all four captures in one beat, reader-driven like the blog
             rail below. */}
         <div className="reveal md:hidden" style={{ transitionDelay: "120ms" }}>
           <Carousel
             ariaLabel={railLabel}
-            className="mt-14"
+            className=""
             slideClassName="w-[76vw]"
             tone="light"
           >
@@ -103,24 +93,25 @@ export default function SelectedWorkBand({
           </Carousel>
         </div>
 
-        {/* Desktop: the staggered pair rhythm — the right column starts a
-            beat lower. */}
-        <div className="mt-14 hidden grid-cols-1 gap-x-8 gap-y-16 md:mt-20 md:grid md:grid-cols-2">
+        {/* Desktop: a LEVEL pair — the stagger came off 2026-08-09 with the
+            header (see the note above for why the two go together). The
+            plates now share one top line, and `items-start` keeps that true
+            when their captions run to different depths: without it the grid
+            stretches both cells to the tallest and a shorter plate's caption
+            drifts from its neighbour's. */}
+        <div className="hidden grid-cols-1 items-start gap-x-8 gap-y-16 md:grid md:grid-cols-2">
           {projects.map((project, i) => (
             <WorkPlate
               key={project.slug}
               project={project}
               tone="light"
-              className={`reveal ${i % 2 === 1 ? "md:mt-28" : ""}`}
+              className="reveal"
               delay={(i % 2) * 120}
             />
           ))}
           {/* THE HONEST GAP (2026-08-09, client: down to two real pieces,
-              "just put more coming soon"). It takes the NEXT index's stagger
-              by construction — with two projects it lands at index 2, an
-              even slot, so it sits high like the left column and the grid's
-              deliberate jag survives rather than being flattened by an
-              odd-one-out cell. */}
+              "just put more coming soon"). With the stagger gone it simply
+              takes the next cell — first column of the second row. */}
           <WorkComingSoon shape="plate" tone="light" />
         </div>
       </div>
