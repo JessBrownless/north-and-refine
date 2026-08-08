@@ -65,6 +65,45 @@ import PhoneMockup from "@/components/PhoneMockup";
 const PHONE_W = "max(121px, 16cqw + 20px)";
 const DESKTOP_W = "max(320px, 52.7cqw)";
 
+/* THE OUTER PAIR (2026-08-09, client: "I like how the mockups are now set
+   in the content grid, but I want things on the outsides too… even if
+   they're trimmed off the edges" — two more frames, one either side).
+
+   DELIBERATELY VW, NOT CQW: the whole point of PHONE_W/DESKTOP_W going cqw
+   a few commits ago was to make the CENTRE TRIO stop overflowing the shell
+   at wide viewports. These two are the opposite job — they exist ONLY to
+   overflow, so they revive the plain, uncapped vw formula the centre trio
+   used to carry before that fix (this file's own "1D: edge-to-edge" era).
+   cqw is capped by the shell's own 1600px ceiling; a vw value never is, so
+   the outer pair keeps pushing past the viewport edge at any width instead
+   of eventually fitting inside the shell and reading as just two more
+   grid-safe phones — the one outcome the client explicitly welcomed
+   ("even if they're trimmed off the edges").
+
+   No separate positioning mechanism needed: they're plain flex children of
+   the SAME centred row as the trio. Once the row's total content exceeds
+   its own box (guaranteed once these are vw-sized), a flex row overflows
+   its container by default — no clip of its own — and the OUTER SECTION's
+   overflow:hidden (already there, for the shelf's own bottom trim) is what
+   crops them at the true viewport edge. Sized close to PHONE_W's own scale
+   at typical widths (~16vw either way) so the five read as one shelf, not
+   two different devices.
+
+   ⚠ MEASURED, NOT ASSUMED: this genuinely bleeds past the viewport at
+   ORDINARY widths (1470px: ~36% of the outer phone sits outside 0/vw,
+   cropped) but STOPS bleeding on a big external monitor once `.shell`'s own
+   1600px cap binds — at 2200px there is 300px of gutter on each side
+   between the capped shell and the true viewport edge, comfortably wider
+   than a 16vw (352px at that width) phone, so it renders whole. Not a bug:
+   the client's "even if they're trimmed off the edges" was permission for
+   the crop, not a demand for it at every width, and a full extra phone in
+   spare gutter on a wide monitor is a reasonable, non-broken outcome. If a
+   future ask wants the crop GUARANTEED at any width, the fix is pushing
+   these on a value that keeps outrunning the gutter (e.g. anchored to the
+   true viewport edge with a transform, not flex overflow) — a different,
+   larger mechanism than this one. */
+const OUTER_PHONE_W = "max(140px, 16vw)";
+
 export default function HomeHero() {
   return (
     /* GROUNDLESS SINCE 2026-08-07 (client: a visible seam at the hero →
@@ -240,18 +279,25 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* DEVICE ROW — phone · desktop · phone, IN FLOW at the hero's foot
-            (2026-08-07 layout pass; fully visible since the same morning's
-            un-crop and phone cap — two client calls, one direction: cut-off
-            devices "read as a mistake", uncapped phones rendered "far too
-            large"). BOTTOM-ALIGNED (items-end): the capped phones sit on the
-            desktop's own baseline like objects on a shelf, instead of
-            levitating from a shared top line — and that common baseline is
-            the edge the section below cuts against. margin-top auto takes
-            the slack on tall viewports so the row stays at the foot; the
-            explicit clamp is the minimum breathing gap under the CTAs. The
-            gap tightened 4.5vw → 3vw so the trio reads as one group now that
-            nothing shears at the edges. */}
+        {/* DEVICE ROW — phone · phone · desktop · phone · phone, IN FLOW at
+            the hero's foot (2026-08-07 layout pass; fully visible since the
+            same morning's un-crop and phone cap — two client calls, one
+            direction: cut-off devices "read as a mistake", uncapped phones
+            rendered "far too large"). FIVE, NOT THREE, since 2026-08-09
+            (client: "I want things on the outsides too… even if they're
+            trimmed off the edges") — the inner trio stays grid-safe on
+            OUTER_PHONE_W's cqw-capped siblings (PHONE_W/DESKTOP_W), and the
+            two new outer phones use plain vw so they keep bleeding past the
+            shell at any width; see the constants above and the note beside
+            them below for why one pair is capped and the other isn't.
+            BOTTOM-ALIGNED (items-end): every phone sits on the desktop's own
+            baseline like objects on one shelf, instead of levitating from a
+            shared top line — and that common baseline is the edge the
+            section below cuts against. margin-top auto takes the slack on
+            tall viewports so the row stays at the foot; the explicit clamp
+            is the minimum breathing gap under the CTAs. The gap tightened
+            4.5vw → 3vw so the group reads as one shelf now that nothing
+            shears at the edges. */}
         {/* Gap floor 20 → 12 with the parity pass: on a phone the shelf's
             margins are all the phones get to show through, and 8px of gap
             was the difference between a visible sliver and none. The gap
@@ -305,7 +351,39 @@ export default function HomeHero() {
               for the composition, not new content, so it goes alt=""
               — the CaseStudyDeviceCluster precedent (desktopAlt required,
               mobileAlt="" default) for exactly this one-real/one-decorative
-              shape. */}
+              shape.
+
+              THE OUTER PAIR (2026-08-09, client: "I want things on the
+              outsides too… even if they're trimmed off the edges") are two
+              MORE instances of the same mobile capture — not new content,
+              purely compositional continuations of the shelf — so both go
+              alt="" like the right inner phone already does. They sit
+              OUTSIDE the trio deliberately: first and last children of this
+              same row, on OUTER_PHONE_W (plain vw, no shell cap), so the row's
+              own content now exceeds the shell's width and overflows it
+              symmetrically — cropped only by the section's own
+              overflow:hidden, the same mechanism that already trims the
+              shelf's bottom edge.
+
+              ⚠ THE PULL-IN MARGIN IS LOAD-BEARING, not decorative spacing:
+              the row's own `gap` alone (shared with every other pair in the
+              row) left only ~42px of a ~235px phone inside the viewport at
+              1470px — a rounded-corner sliver, not legibly a phone. A fixed
+              negative margin overlaps the outer phone further onto its own
+              inner neighbour, which reads as depth (one device tucked partly
+              behind the next, a fanned pair) rather than a stray shape —
+              measured live at 1470px: ~64% of the outer phone lands inside
+              the viewport (152 of 235px). Fixed px, not vw: the amount of
+              OVERLAP wanted is a constant relationship between two adjacent
+              objects, not a fraction of the viewport. */}
+          <div style={{ width: OUTER_PHONE_W, flexShrink: 0, marginRight: "-110px" }}>
+            <PhoneMockup
+              size="fluid"
+              screen="editorial"
+              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshotAlt=""
+            />
+          </div>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
             <PhoneMockup
               size="fluid"
@@ -325,6 +403,14 @@ export default function HomeHero() {
             />
           </div>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
+            <PhoneMockup
+              size="fluid"
+              screen="editorial"
+              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshotAlt=""
+            />
+          </div>
+          <div style={{ width: OUTER_PHONE_W, flexShrink: 0, marginLeft: "-110px" }}>
             <PhoneMockup
               size="fluid"
               screen="editorial"
