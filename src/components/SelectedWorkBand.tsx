@@ -1,5 +1,4 @@
 import Carousel from "@/components/Carousel";
-import WorkComingSoon from "@/components/WorkComingSoon";
 import WorkPlate from "@/components/WorkPlate";
 import type { WorkEntry } from "@/lib/work";
 
@@ -28,7 +27,18 @@ import type { WorkEntry } from "@/lib/work";
  * reachable from the nav and the footer, but if this band is meant to feed
  * the case-study index, that link needs a home.
  *
- * THE SIGNPOST replaced it the same day (client: "a small label above the
+ * NO COMING-SOON PLOT HERE SINCE 2026-08-09 (client: "remove the coming
+ * soon from the selected work"), on the homepage BOTH layouts — the desktop
+ * grid and the mobile rail. It had been added hours earlier ("just put more
+ * coming soon") when the portfolio came down to two real pieces. The
+ * component is untouched and still live on /work, where `WorkIndexBand`
+ * closes the editorial index with `shape="row"`: the honest-gap argument
+ * holds on the page whose whole job is the complete portfolio, and reads
+ * differently on a homepage band that only ever showed a selection. A
+ * SELECTION is not expected to be exhaustive, so it needs no note
+ * explaining that it isn't.
+ *
+ * THE SIGNPOST replaced the header the same day (client: "a small label above the
  * portfolio pieces… body text styled with a downward arrow saying selected
  * work, almost like it looks like it's at the bottom of the text section
  * above"). It is deliberately NOT the header that just left, and the
@@ -117,10 +127,6 @@ export default function SelectedWorkBand({
             {projects.map((project) => (
               <WorkPlate key={project.slug} project={project} tone="light" />
             ))}
-            {/* The honest gap closes the rail too, not just the desktop grid
-                — otherwise the phone reader reaches the end of a two-plate
-                rail with no indication the portfolio is still growing. */}
-            <WorkComingSoon key="coming-soon" shape="plate" tone="light" />
           </Carousel>
         </div>
 
@@ -140,10 +146,6 @@ export default function SelectedWorkBand({
               delay={(i % 2) * 120}
             />
           ))}
-          {/* THE HONEST GAP (2026-08-09, client: down to two real pieces,
-              "just put more coming soon"). With the stagger gone it simply
-              takes the next cell — first column of the second row. */}
-          <WorkComingSoon shape="plate" tone="light" />
         </div>
       </div>
     </section>
