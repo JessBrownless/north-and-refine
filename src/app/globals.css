@@ -174,6 +174,26 @@
        tracked type, and the wordmark. Pills stay pills (.btn is 9999px, the
        wax seal), avatar chips stay circles, device bezels keep their
        hardware radii, and logo marks and the OG card are untouched. */
+    /* THE HEADING WEIGHT (2026-08-09, client: "can we try a bolder variant
+       of the sans serif for headings"). ONE dial for the whole ladder —
+       every rung and the h1–h6 base read it, so the register moves as a set
+       and can be re-judged with a single number.
+
+       ⚠ THIS REOPENS A RULE THAT WAS TRUE AND IS NOT ANY MORE. "Hierarchy
+       comes from SIZE, not weight" was a TECHNICAL constraint of the
+       two-font house: Saol Display shipped one upright weight, so a
+       font-weight on a heading would have synthesised a fake bold. Since the
+       2026-07-14 one-font call the display face IS Instrument Sans, which
+       carries a real 400–700 variable range — layout.tsx has flagged this
+       exact revisit as pending ever since ("revisit… the size-only hierarchy
+       rule, now that a weighted family is available"). It survived as a
+       TASTE rule, which is the client's to change, and she has.
+
+       .form-title's 600 is no longer the one weight-led register on the
+       site, but it stays justified on its own terms: it is FURNITURE that
+       leads by emphasis at a size the ladder never reaches. */
+    --heading-weight: 500;
+
     --radius-ui-sm: 10px; /* chips, choice cards, small controls, swatches */
     --radius-ui: 16px; /* panels, cards, glass surfaces, form containers */
     --radius-ui-lg: 22px; /* the largest contained surfaces on a page */
@@ -214,11 +234,12 @@
   /* Headings default to Saol at 400. Don't override per-element without
      reason — use the .heading-* utilities. */
   h1, h2, h3, h4, h5, h6 {
-    /* Saol Display carries ALL headers (decided 2026-07-05; Instrument
-       Sans remains the body/UI voice). One upright weight (400) is loaded —
-       hierarchy comes from size, not weight. */
+    /* --font-display is ALIASED to Instrument Sans on <html> (the 2026-07-14
+       one-font call), so this resolves to the house sans. The weight is the
+       shared dial — see --heading-weight in :root for why the old
+       "hierarchy comes from size, not weight" note no longer binds. */
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400;
+    font-weight: var(--heading-weight);
     letter-spacing: -0.01em;
     margin: 0;
     /* Headings sit at 98% — a whisper of transparency softens big type on
@@ -247,7 +268,7 @@
 
   .display-mega {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */
+    font-weight: var(--heading-weight);
     font-size: var(--masthead-size); /* 52 → 152px */
     line-height: 0.94;
     letter-spacing: -0.015em;
@@ -255,7 +276,7 @@
 
   .display {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */
+    font-weight: var(--heading-weight);
     font-size: clamp(2.625rem, 1.35rem + 6vw, 6.25rem); /* 42 → 100px */
     line-height: 1;
     letter-spacing: -0.015em;
@@ -263,7 +284,7 @@
 
   .heading-xl {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */
+    font-weight: var(--heading-weight);
     font-size: clamp(2.25rem, 1.4rem + 4.25vw, 4.9375rem); /* 36 → 79px */
     line-height: 1.04;
     letter-spacing: -0.01em;
@@ -277,7 +298,7 @@
      the signposts (28→48) and the moments (36→79). */
   .heading-part {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */
+    font-weight: var(--heading-weight);
     font-size: clamp(2rem, 1.25rem + 2.9vw, 3.875rem); /* 32 → 62px */
     line-height: 1.1;
     letter-spacing: -0.01em;
@@ -285,7 +306,7 @@
 
   .statement {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */ /* matches the heading utilities — 450 read as a stray voice next to them */
+    font-weight: var(--heading-weight); /* tracks the ladder deliberately — a quote that drifts off the heading weight reads as a stray voice */
     font-size: clamp(1.75rem, 1.1rem + 3.25vw, 3.5rem); /* 28 → 56px */
     line-height: 1.14;
     letter-spacing: -0.01em;
@@ -313,7 +334,7 @@
 
   .heading-lg {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */
+    font-weight: var(--heading-weight);
     font-size: clamp(1.75rem, 1.3rem + 2.3vw, 3rem); /* 28 → 48px (lifted with the rest of the Saol scale — 40 was crowded by the new 32px H3) */
     line-height: 1.18;
     letter-spacing: -0.01em;
@@ -321,7 +342,7 @@
 
   .heading-md {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */
+    font-weight: var(--heading-weight);
     /* 24 → 36px. DROPPED FROM 40px 2026-08-05 (client: "heading medium and
        heading large are way too similar"). The ladder was lopsided, and the
        measurements said so: at desktop lg/md was 1.20, barely a step, while
@@ -339,7 +360,7 @@
 
   .heading-sm {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400; /* Saol ships one upright weight here */
+    font-weight: var(--heading-weight);
     font-size: clamp(1.25rem, 1.05rem + 1vw, 1.75rem); /* 20 → 28px (second Saol lift 2026-07-05) */
     line-height: 1.3;
     letter-spacing: -0.005em;
@@ -452,14 +473,14 @@
   /* THE FORM SECTION TITLE (2026-08-01, client on the Start-a-project form:
      "titles on the form smaller and bolder").
 
-     The first register where WEIGHT does the leading rather than size —
-     .belief-statement already sets at 500, but it is display-sized too. It
-     needs saying why that's legal: the size-only hierarchy rule belonged to
-     the two-font house, where Saol shipped ONE upright weight and a
-     `font-medium` heading would have synthesised a fake bold. Since the
-     2026-07-14 one-font call the house face is Instrument Sans, which
-     carries REAL weights, and the layout.tsx note flagged the rule for
-     exactly this revisit.
+     It WAS the first register where weight did the leading rather than
+     size; since 2026-08-09 the whole heading ladder carries
+     --heading-weight (500), so that is no longer what makes this special.
+     What still does: .form-title leads by emphasis at 15px, a size the
+     ladder never reaches, so it reads as furniture rather than as a rung.
+     Its 600 must stay ABOVE the heading token to keep that reading — if
+     --heading-weight is ever raised to 600, this needs re-judging rather
+     than leaving to collide.
 
      It is a UI register, not a ladder rung: a form's sections are furniture
      the reader scans, not editorial moments, so they lead by emphasis and

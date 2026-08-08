@@ -120,7 +120,9 @@ export default function HomeHero() {
               Four house rules were being broken in this one tag, and adopting
               the class fixes all four at once rather than one at a time:
               the size is now the ladder's, `fontWeight: 500` is gone (headings
-              never take a weight — the size IS the hierarchy), the tracking
+              never took a weight then — the size WAS the whole hierarchy;
+              since 2026-08-09 the ladder carries --heading-weight, so this H1
+              is 500 like every other rung), the tracking
               and leading come from the rung, and the <em> drops its inline
               Saol so the ACCENT-WORD DEVICE applies from globals instead of a
               hand-typed copy of it that had drifted to a raw #F6E8CD.

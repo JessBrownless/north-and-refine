@@ -160,12 +160,21 @@ export default function AtomsTier() {
           </p>
           <p className="fineprint mt-7">Weight</p>
           <p className="body mt-1.5 text-bone-dim">
-            Every rung of the ladder sets 400, so heading hierarchy comes from
-            size. Weight leads in one place only: .form-title at 600. That is
-            legal because the house face carries real weights; the old
-            size-only rule belonged to the era when the display face shipped a
-            single upright weight and a font-medium heading would have
-            synthesised a fake bold.
+            Every rung of the ladder reads one token, --heading-weight,
+            currently 500 (2026-08-09: the client asked to try a bolder sans
+            for headings). Size still carries the hierarchy — the rungs all
+            share this one weight, so nothing leads by weight WITHIN the
+            ladder — but the ladder as a whole now sits above the body’s 400.
+            Change the token, not a rung. The old size-only rule was a
+            TECHNICAL limit of the two-font house, where the display face
+            shipped a single upright weight and a font-medium heading would
+            have synthesised a fake bold; the house face has carried a real
+            400–700 axis since the one-font call, so it survived only as
+            taste, and the client has now spent it. Two deliberate exceptions
+            hold: .card-title stays 400 because card titles are captions to
+            their images rather than headings, and .form-title stays 600
+            because it is furniture that leads by emphasis at a size the
+            ladder never reaches.
           </p>
         </Stage>
 
