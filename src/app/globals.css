@@ -1644,3 +1644,18 @@ textarea.field-on-dark:-webkit-autofill {
 [data-flip-sketch] [data-device] .fineprint {
   color: var(--clay);
 }
+
+/* ── THE HERO CAROUSEL'S ONE GEOMETRY KNOB (2026-08-09, design figure 20a).
+   Every card width in <HeroCarousel> is a RATIO of this height, so the strip
+   rescales from a single property and the cards keep their designed
+   proportions. It lives here rather than inline because it needs a
+   breakpoint: the design's 380px, stepping down to the brief's ~300px on
+   phones so a card never fills a small screen. */
+.nr-hero-carousel {
+  --nr-card-h: 300px;
+}
+@media (min-width: 768px) {
+  .nr-hero-carousel {
+    --nr-card-h: 380px;
+  }
+}
