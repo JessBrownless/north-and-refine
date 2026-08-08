@@ -45,14 +45,18 @@ export default function BlogIndexPage() {
   ).map((c) => ({ value: c, label: getCategoryLabel(c) }));
 
   return (
-    /* BACK ON INK (2026-07-16, hero-cohesion pass): the 2026-07-12
-       light-topped exploration + experimental glow left with the sweep —
-       every hero now opens on the same flat ink ground ("/blog" removed
-       from Navbar's LIGHT_TOP_ROUTES; the glow prop is deleted from
-       PageHero). The LISTING below keeps its bone ground — sections may
-       alternate; only the hero rejoined the ink family — so main stays
-       bg-bone for the seams below the hero. Post DETAIL pages
-       (/blog/[slug]) were always dark. */
+    /* HERO BACK ON BONE (2026-08-09, client: "hero: Light BG" on /blog) —
+       reversing the 2026-07-16 hero-cohesion call that put it back on ink.
+       This now makes /blog a SINGLE CONTINUOUS BONE GROUND top to bottom:
+       the hero and the listing below were already the same colour in
+       every case except this one, so the flip removes the page's one
+       ink→bone cut rather than introducing a new seam. PageHero's own
+       tone="light" branch already picks rule-light for borderBottom, so
+       the hero's foot hairline reads as a soft divider on a continuous
+       ground rather than a colour boundary. Registered in Navbar's
+       LIGHT_TOP_ROUTES (required by PageHero's own tone="light" contract,
+       or the unscrolled nav renders bone-on-bone). Post DETAIL pages
+       (/blog/[slug]) are unaffected — always dark, untouched here. */
     <main className="bg-bone">
       <JsonLd
         data={breadcrumbSchema([
@@ -70,6 +74,7 @@ export default function BlogIndexPage() {
         align="split"
         spacious
         borderBottom
+        tone="light"
         /* "Blog", not "The Blog" (2026-08-05): the kicker is the page name
            exactly as the nav says it, article included. */
         overline="Blog"

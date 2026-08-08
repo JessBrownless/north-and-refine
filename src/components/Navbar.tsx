@@ -20,11 +20,12 @@ import StartProjectOverlayHost from "@/components/StartProjectOverlay";
  *
  * Pages whose top-of-page is LIGHT (bone hero) list their EXACT route here
  * so the nav renders ink-on-light instead of bone-on-transparent. Exact
- * match, not prefix. EMPTY since 2026-07-16 (the hero-cohesion pass): /blog
- * rejoined the ink family, so every page now opens dark. The machinery stays
- * for any future light-topped page.
+ * match, not prefix. /blog REJOINED THE LIGHT FAMILY 2026-08-09 (client:
+ * "hero: Light BG" on /blog) — reversing the 2026-07-16 hero-cohesion call
+ * that emptied this list. The machinery otherwise stays for any future
+ * light-topped page.
  */
-const LIGHT_TOP_ROUTES: string[] = [];
+const LIGHT_TOP_ROUTES: string[] = ["/blog"];
 
 export default function Navbar() {
   const pathname = usePathname();
