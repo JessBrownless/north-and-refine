@@ -288,17 +288,49 @@ export default function HomeHero() {
             new `.shell` wrapper, its width already IS the shell's own
             content box — no separate padding math to duplicate. */}
         <div style={{ containerType: "inline-size", marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", marginBottom: "clamp(-56px, -4vh, -20px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
+          {/* REAL CAPTURES, 2026-08-09 (client: "put dr yalda mockups in
+              them please") — the editorial CSS placeholder mode retired from
+              this hero the moment real work was chosen for it; the client's
+              own layout-first ruling ("waiting on captures" per the note
+              above) was exactly this trade, made now. Both files are the
+              live captures already on record for her featured case study
+              (content/work/dr-yalda-jamali.mdx: heroImage / mobileImage),
+              reused rather than re-described — one client, one true set of
+              alt text, whichever component is showing it.
+
+              ALT TEXT: the desktop capture (centre) carries the real
+              descriptive alt, reused verbatim from the work entry's own
+              heroImageAlt. The LEFT phone carries mobileImageAlt for the
+              same reason; the RIGHT phone is the identical capture mirrored
+              for the composition, not new content, so it goes alt=""
+              — the CaseStudyDeviceCluster precedent (desktopAlt required,
+              mobileAlt="" default) for exactly this one-real/one-decorative
+              shape. */}
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
-            <PhoneMockup size="fluid" screen="editorial" />
+            <PhoneMockup
+              size="fluid"
+              screen="editorial"
+              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshotAlt="Dr Yalda Jamali website homepage on mobile — serif wordmark over a cinematic film still"
+            />
           </div>
           {/* Desktop floor 320 (the client's "and the desktop bigger", which
               on mobile is where the floor binds); the phone's parity width is
               derived from this — change one, re-measure the other. */}
           <div style={{ width: DESKTOP_W, flexShrink: 0 }}>
-            <BrowserMockup />
+            <BrowserMockup
+              domain="dryalda.com.au"
+              screenshot="/assets/desktops/dr-yalda-jamali.png"
+              screenshotAlt="Dr Yalda Jamali website homepage — cinematic full-bleed hero beneath the serif wordmark, desktop view"
+            />
           </div>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
-            <PhoneMockup size="fluid" screen="editorial" />
+            <PhoneMockup
+              size="fluid"
+              screen="editorial"
+              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshotAlt=""
+            />
           </div>
         </div>
       </div>
