@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ManifestoStatement from "@/components/ManifestoStatement";
+import SectionGlow from "@/components/SectionGlow";
 
 /**
  * THE MANIFESTO BAND — BACK ON INK (2026-08-09, client: "Intro section
@@ -110,6 +111,35 @@ export default function ManifestoTrack({
        device reads as an entrance, not a pill. The card trial died the same
        hour this was born; this is the one survivor of it the client kept. */
     <section className="relative z-10 overflow-hidden grain bg-ink text-bone">
+      {/* LIGHT ON THE RIGHT (2026-08-09, client: "what about if we went a bit
+          heavier on the blurred gradient over the background on the right of
+          the… section?"). Worth recording that this band had NO glow at all
+          before — it was flat ink, the SharedCanvas glow belonging to the
+          hero above — so this adds one rather than raising one.
+
+          It answers the same problem the 4:5 plate and the borrowed carousel
+          card were both trying to solve and the client rejected: the
+          statement holds the left of the rail and the right half was empty.
+          LIGHT fills it without putting an object there, which is why this
+          one works where the other two did not.
+
+          `seam={false}` renders the placed blob ALONE. The tail and the
+          seam wash exist to carry a hero's warmth across a boundary; this
+          band sits under a canvas that already resolves to flat ink, so a
+          wash would lift the top edge for no reason.
+
+          BOTH NUMBERS ARE WELL ABOVE CANON, and deliberately: the 0.02 dose
+          and 36×30% geometry are tuned for a glow DECAYING out of a hero,
+          where being easy to miss is the point. This one is the only light
+          in its band and has to carry a whole half of the rail, so it runs
+          at 0.18 across 52×58%. Tuned by eye against the statement — first
+          pass at intensity 4 (0.08) on canon geometry was invisible. */}
+      <SectionGlow
+        blob="right"
+        seam={false}
+        intensity={9}
+        blobSize={{ width: "52%", height: "58%", top: "16%" }}
+      />
       <div className="relative z-10 flex min-h-[56vh] items-center md:min-h-[80vh]">
         {/* TEXT ONLY AGAIN (2026-08-09, client: "I'm very happy with the
             images now in the hero so can we revert the… section to be text

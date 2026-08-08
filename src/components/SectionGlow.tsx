@@ -27,11 +27,30 @@
 export default function SectionGlow({
   blob = "right",
   intensity = 1,
+  seam = true,
+  blobSize,
   seamEmphasis = false,
 }: {
   /** Which side the section's individual blob sits — vary per page. */
   blob?: "left" | "right";
   intensity?: number;
+  /** THE BLOB ALONE (2026-08-09, born for the manifesto band). This
+      component does two jobs at once — it places ONE glow inside a section
+      (layer 1), and it continues a hero's warmth across a seam (layers 2 and
+      3, the amber tail and the wash that resumes from the hero's anchor
+      tone). A band that just wants light on one side needs the first job and
+      not the second: the manifesto sits under a canvas that already resolves
+      to flat ink, so a seam wash there would lift the top edge for no
+      reason and re-open exactly the colour-matched-boundary problem the
+      shared-canvas rule exists to avoid. Defaults true, so every existing
+      consumer is untouched. */
+  seam?: boolean;
+  /** THE BLOB'S OWN GEOMETRY (2026-08-09, with `seam`). The canon 36×30% is
+      sized for a glow DECAYING out of a hero — small, low, easy to miss on
+      purpose. A band using the blob ALONE needs it to actually fill the side
+      it sits on, which is a different job at a different size, so the two
+      cases stop sharing one number. Omit it and nothing moves. */
+  blobSize?: { width: string; height: string; top: string };
   /** The /services hero→belief seam ONLY (2026-07-24 services-pacing
       handoff): richer tail (opacity 0.16, ~44% tall, 84% wide) and a
       slightly stronger side blob (0.09), so the hero's warmth carries
@@ -59,9 +78,9 @@ export default function SectionGlow({
         style={{
           position: "absolute",
           [blob === "left" ? "left" : "right"]: "-14%",
-          top: "34%",
-          width: "36%",
-          height: "30%",
+          top: blobSize?.top ?? "34%",
+          width: blobSize?.width ?? "36%",
+          height: blobSize?.height ?? "30%",
           borderRadius: "50%",
           background: "var(--champagne)",
           // Doses trimmed ~30% 2026-07-24 (client: "a bit much" on some
@@ -72,6 +91,8 @@ export default function SectionGlow({
           transform: "translateZ(0)",
         }}
       />
+      {seam && (
+      <>
       {/* 2 — the amber tail bleeding down from the seam. */}
       <div
         aria-hidden
@@ -109,6 +130,8 @@ export default function SectionGlow({
           transform: "translateZ(0)",
         }}
       />
+      </>
+      )}
     </>
   );
 }
