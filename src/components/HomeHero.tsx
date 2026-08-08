@@ -380,7 +380,7 @@ export default function HomeHero() {
             <PhoneMockup
               size="fluid"
               screen="editorial"
-              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshot="/assets/trial/yalda-phone-media.jpg"
               screenshotAlt=""
             />
           </div>
@@ -388,7 +388,7 @@ export default function HomeHero() {
             <PhoneMockup
               size="fluid"
               screen="editorial"
-              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshot="/assets/trial/yalda-phone-home.jpg"
               screenshotAlt="Dr Yalda Jamali website homepage on mobile — serif wordmark over a cinematic film still"
             />
           </div>
@@ -398,7 +398,7 @@ export default function HomeHero() {
           <div style={{ width: DESKTOP_W, flexShrink: 0 }}>
             <BrowserMockup
               domain="dryalda.com.au"
-              screenshot="/assets/desktops/dr-yalda-jamali.png"
+              screenshot="/assets/trial/yalda-desktop-home.jpg"
               screenshotAlt="Dr Yalda Jamali website homepage — cinematic full-bleed hero beneath the serif wordmark, desktop view"
             />
           </div>
@@ -406,7 +406,7 @@ export default function HomeHero() {
             <PhoneMockup
               size="fluid"
               screen="editorial"
-              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshot="/assets/trial/yalda-phone-services.jpg"
               screenshotAlt=""
             />
           </div>
@@ -414,7 +414,7 @@ export default function HomeHero() {
             <PhoneMockup
               size="fluid"
               screen="editorial"
-              screenshot="/assets/phones/dr-yalda-hero.jpg"
+              screenshot="/assets/trial/yalda-phone-about.jpg"
               screenshotAlt=""
             />
           </div>
