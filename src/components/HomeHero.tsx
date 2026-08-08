@@ -4,9 +4,14 @@ import PhoneMockup from "@/components/PhoneMockup";
 
 /**
  * HOMEPAGE HERO — "1D: edge-to-edge devices, one big title" (2026-07-19,
- * client's Claude Design comp; source at design-refs/hero-edge). A Geist-Mono
- * kicker (the shared .overline voice), a big Instrument headline with a
- * Saol-italic "trust." accent, and phone·desktop·phone on one shelf line.
+ * client's Claude Design comp; source at design-refs/hero-edge — the NAME
+ * survives as the comp's own title, not a description of the current build:
+ * "edge-to-edge" described the comp's own composition, which this file
+ * departed from once the devices went in FLOW (2026-08-07) and then onto
+ * `.shell` (2026-08-09, below) — the row is grid-contained now, not
+ * viewport-bleeding). A Geist-Mono kicker (the shared .overline voice), a
+ * big Instrument headline with a Saol-italic "trust." accent, and
+ * phone·desktop·phone on one shelf line.
  *
  * THE DEVICES ARE THE SYSTEM'S OWN (2026-08-07 night, client: "doesn't the
  * design system have a 'style'? Like the white ones we use in graphics?").
@@ -38,12 +43,27 @@ import PhoneMockup from "@/components/PhoneMockup";
    viewport. The browser is taller than the old bare box (its macOS chrome
    bar adds ~48px of fixed height on top of the 1.6 viewport), so parity is
    now an AFFINE relation, not a pure ratio: at equal heights a 0.462-aspect
-   phone is 0.462 × (W_d/1.6 + chrome) ≈ 14.9vw + 22px, floored in step with
-   the desktop's own 320px floor. Tuned against live renders; if either
-   mockup's chrome changes, re-measure both widths. No ceiling: parity is
-   the tower-guard — both ends scale with the same vw. */
-const PHONE_W = "max(121px, 15.6vw + 24px)";
-const DESKTOP_W = "max(320px, 51.5vw)";
+   phone is a fraction of the desktop's width plus the chrome offset,
+   floored in step with the desktop's own 320px floor.
+
+   CQW, NOT VW (2026-08-09, client: "the device mockups perhaps need to go
+   to the same content grid as everything else on desktop"). Measured before
+   touching anything, at 2200px: .shell's content capped at 1504px (its own
+   1600px ceiling minus padding) while the vw-derived row kept growing on
+   raw viewport width, so the two phones sat 238px outside the shell's own
+   edges on each side — the desktop mockup between them was still inside by
+   coincidence, only the phones visibly bled past the rail everything else
+   respects. cqw measures against the QUERY CONTAINER (the shell-nested
+   wrapper below, containerType:"inline-size", zero padding of its own) —
+   the exact same content box .shell hands every other section — so once
+   that box stops growing at the 1600px cap, these widths stop growing with
+   it. Below the cap the two bases track closely (a shell's own padding is
+   the only difference), so the coefficients are re-tuned, not renamed: were
+   51.5vw / 15.6vw+24px, now the cqw equivalents measured live at 1470 and
+   2200px against the new container. No ceiling beyond the container's own
+   — parity is still the tower-guard, both ends scale with the same unit. */
+const PHONE_W = "max(121px, 16cqw + 20px)";
+const DESKTOP_W = "max(320px, 52.7cqw)";
 
 export default function HomeHero() {
   return (
@@ -79,11 +99,28 @@ export default function HomeHero() {
        their feet end. The section GROWS past 100vh when the stack needs it —
        an intro that scrolls beats an intro that overlaps.
 
-       zIndex 10 lifts the whole hero above the canvas's grain film (z-1). */
+       zIndex 10 lifts the whole hero above the canvas's grain film (z-1).
+
+       THE SHELL WRAP (2026-08-09, client: "the device mockups perhaps need
+       to go to the same content grid as everything else on desktop"). The
+       hero used to be the one section on the page that wasn't on `.shell` —
+       CLAUDE.md's own layout note says the nav and every section share that
+       one rail "so the logo/links/CTA align with the hero, sections and
+       footer," but the rebuilt-in-flow hero (2026-08-07) never actually
+       rejoined it; the title block ran flat 24px side padding with no
+       max-width, and the device row sized itself off the raw viewport. Both
+       track the viewport near-identically below ~1600px, which is why this
+       went unnoticed at typical laptop widths — the divergence only opens
+       up once `.shell`'s own 1600px cap binds. Measured before fixing, at
+       2200px: shell content 341–1845px, the device row's phones 103–2082px,
+       238px outside the rail on each side while Selected work and every
+       other band stayed inside it. Now `flex-1` so the shell itself fills
+       the section's height and the device row's `marginTop:auto` still
+       pushes correctly against IT rather than the section directly. */
     <section
       style={{ position: "relative", zIndex: 10, minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", fontFamily: "var(--font-sans), system-ui, sans-serif" }}
     >
-
+      <div className="shell relative z-10 flex w-full flex-1 flex-col">
         {/* CENTRED TITLE BLOCK — nav clearance + air on top (the nav is
             absolute over the canvas; measure from its foot), then the stack.
             Top air 22vh → 25vh in the 2026-08-08 breathing-room pass ("the
@@ -93,8 +130,10 @@ export default function HomeHero() {
             same day with the with-buttons touch ("all h1 heros with buttons
             need a touch more top and bottom padding" — the 27vh first cut
             was +16px at her viewport, invisible, hence "made no
-            difference"); the shelf gap moved 9 → 10 → 12vh with it. */}
-        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(230px,30vh,360px) 24px 0" }}>
+            difference"); the shelf gap moved 9 → 10 → 12vh with it. Side
+            padding dropped 2026-08-09: `.shell` provides it now, so a flat
+            24px here would have DOUBLE-padded the H1 against the rail. */}
+        <div style={{ position: "relative", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "clamp(230px,30vh,360px) 0 0" }}>
           {/* THE MASTHEAD RULE (2026-08-05, client: "we've got five or six
               different hero sections and they're kind of the same, let's build
               a rule in that they all use the same heading style. Right now the
@@ -236,8 +275,19 @@ export default function HomeHero() {
             them there — landing the ink→bone cut ON the devices rather than
             under them, which is what makes a crop read as a decision rather
             than an accident (the bone-act lesson). ~8% of the device height
-            at desktop, a touch less on phones. */}
-        <div style={{ marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", marginBottom: "clamp(-56px, -4vh, -20px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
+            at desktop, a touch less on phones.
+
+            ⚠ containerType:"inline-size" ADDED 2026-08-09, ON THIS SAME DIV
+            (it was already the flex row AND the flex item taking the
+            auto-margin push — no extra wrapper needed). It makes this box a
+            CSS container-query context sized by ITS OWN width alone (100%,
+            explicit, so containment has something to measure without
+            depending on its children — required by the spec), and PHONE_W /
+            DESKTOP_W read `cqw` against exactly that box rather than the
+            raw viewport. Since the box is a direct, unpadded child of the
+            new `.shell` wrapper, its width already IS the shell's own
+            content box — no separate padding math to duplicate. */}
+        <div style={{ containerType: "inline-size", marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", marginBottom: "clamp(-56px, -4vh, -20px)", zIndex: 10, display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "clamp(12px,3vw,56px)", width: "100%" }}>
           <div style={{ width: PHONE_W, flexShrink: 0 }}>
             <PhoneMockup size="fluid" screen="editorial" />
           </div>
@@ -251,6 +301,7 @@ export default function HomeHero() {
             <PhoneMockup size="fluid" screen="editorial" />
           </div>
         </div>
+      </div>
     </section>
   );
 }
