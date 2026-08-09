@@ -4,51 +4,60 @@ import JsonLd from "@/components/JsonLd";
 import ContactForm from "@/components/ContactForm";
 import GlowBand from "@/components/GlowBand";
 import HeroGlow from "@/components/HeroGlow";
-import PageHero from "@/components/PageHero";
 import StudioFactsLedger from "@/components/StudioFactsLedger";
 
 /**
- * THE MASTHEAD RUNS FULL WIDTH, THE FORM AND THE DETAILS SIT UNDER IT
- * (2026-08-09, second pass, client: "the title at the top with the
- * subheading, but just less padding, and then the form and the contact info
- * underneath, like left and right").
+ * ONE BAND, TWO COLUMNS — the Relume contact1 shape (2026-08-09, third pass,
+ * client: "let's try something a bit more like this" + the reference).
  *
- * The first pass put the form in PageHero's own right-column slot, which did
- * solve the measured problem (the first field had sat at 902px against a
- * 900px viewport, with Send 449px down the page). The client kept the fix and
- * changed the shape: masthead across the top, then the two columns below it.
+ * WHAT THE REFERENCE ACTUALLY DOES, since that is the whole brief: the
+ * heading, the subtitle and the contact details all live in the LEFT column,
+ * and the form fills the RIGHT column starting level with the heading. There
+ * is no masthead band above it. That single move is what makes the form reach
+ * the top of the page — the thing this page has been chased about for three
+ * passes — because the form no longer waits for a masthead to finish.
  *
- * "LESS PADDING" IS THE `spacious` PROP, NOT A PADDING EDIT. Dropping it is
- * the system's own lever for exactly this and moves the band from
- * md:min-h-[72vh] md:py-28 to md:min-h-[52vh] md:py-20 — so no frozen
- * spacing utility was touched to get it. It is also the right call on
- * meaning, not just on numbers: the tall VH stage exists for heroes where
- * "the air IS the composition", and this masthead is now a header for the
- * two columns underneath rather than the whole event.
+ * ⚠ THIS PAGE NO LONGER OPENS WITH `PageHero`, AND THAT IS A REAL DEPARTURE
+ * FROM CANON ("every top-level interior page opens with the same recipe").
+ * It is deliberate and it is the client's direction, but it should be an
+ * argued exception rather than a quiet one:
+ *  · The layout is not expressible through PageHero. Its text column takes a
+ *    kicker, a title, a lede and actions — there is no slot for a details
+ *    rail beneath them, and the one pass that put the FORM in its `media`
+ *    slot could not also place the details on the left.
+ *  · Nor is it a HeroX (drift pattern 1): nothing here is a hero variant.
+ *    /contact simply has no masthead band any more; it has a contact band.
+ *  · THE MASTHEAD GRAMMAR SURVIVES VERBATIM, which is the part that actually
+ *    matters for an SEO-led site. The H1 is still
+ *    `<h1 class="display with-overline">` with the kicker as its first span,
+ *    still carries the LOAD-BEARING {" "} between the spans (without it the
+ *    H1 extracts as "ContactTalk to the studio."), and still reads "Contact
+ *    Talk to the studio." to a crawler exactly as it did through PageHero.
+ *    Verified by extracting the rendered H1, not by reading the JSX.
+ *  · The load-in stagger is PageHero's own: kicker 0s, title 0.1s, lede
+ *    0.25s.
+ * If a second page ever wants this shape, that is the moment to make it a
+ * component — not now, on a sample of one.
  *
- * ⚠ THE FORM IS FIRST IN THE DOM AND SECOND ON SCREEN. The client's standing
- * rule from the first pass — "it definitely shouldn't be before the form on
- * mobile" — outlives the layout change, so the form is written first and
- * pushed to the RIGHT with explicit grid placement (md:col-start-7 +
- * md:row-start-1), while the details are written second and pulled LEFT to
- * col-start-1 on the same row. Explicit placement rather than `order-*`
- * because the columns then keep one source of truth for where they sit. Read
- * the file top to bottom and you are reading the mobile order.
+ * NAV CLEARANCE MOVED WITH THE BAND. The nav is ABSOLUTE and transparent, so
+ * the first ~128px of the page sit behind it. PageHero was carrying that
+ * clearance; with it gone the band has to, hence `pt-32 md:pt-40` passed
+ * through GlowBand's existing `padding` prop — PageHero's own values, so no
+ * new spacing value enters the census. Miss this and the kicker sits under
+ * the nav, which is exactly how the 2026-07-24 hero-padding whiplash started.
  *
- * THE DETAILS TAKE A KICKER of their own (client: "maybe a little title above
- * the details on the left") and the SOCIALS TAKE MARKS (client: "maybe some
- * icons or something for the socials") — both live in the ledger now, hers.
+ * ⚠ THE FORM IS WRITTEN BEFORE THE DETAILS — the client's standing
+ * rule, now three passes old: "it definitely shouldn't be before the form on
+ * mobile". The three blocks are written masthead → FORM → details and placed
+ * with explicit grid coordinates (masthead col 1-5/row 1; form col 7-12
+ * spanning BOTH rows; details col 1-5/row 2). So the desktop reads heading
+ * over details on the left with the form beside them, while the phone reads
+ * heading, form, details. Read the file top to bottom and you are reading the
+ * mobile order.
  *
- * TWO BLOCKS LEFT THE PAGE IN THIS PASS:
- *  · "What happens next" MOVED to the start-project form's success message
- *    (client: "on the contact page, if you think about it, they could be
- *    getting in touch about anything"). A numbered proposal sequence is a
- *    promise about a PROJECT, and this page takes questions, introductions
- *    and press just as readily.
- *  · The "Start a project?" cross-link was REMOVED outright (client's call in
- *    the same breath). Every page already carries a Start-a-project pill in
- *    the nav, so the rail was a second door to a room the reader could
- *    already see.
+ * THE DETAILS ARE ICON-LED to match the reference: a mark and a value on one
+ * line, no label column. The kicker above them is the client's from the
+ * previous pass ("a little title above the details on the left") and is kept.
  *
  * /contact — PLAIN CONTACT since 2026-07-31 (client: "make the contact page
  * say contact"; the start-a-project questions moved to the full-page form at
@@ -81,27 +90,39 @@ export default function ContactPage() {
         ]}
       />
 
-      {/* The canonical interior masthead — full width, and NOT `spacious`:
-          see the note above for why that prop is the padding lever here. */}
-      <PageHero
-        align="split"
-        overline="Contact"
-        title={
-          <>
-            Talk to the <em>studio</em>.
-          </>
-        }
-        lede="Questions, introductions, or the beginning of a project. Email us directly or use the form; we reply within two working days."
-      />
+      {/* pt-32/md:pt-40 is NAV CLEARANCE, not taste — see the note above. */}
+      <GlowBand blob="left" pool padding="pt-32 pb-24 md:pt-40 md:pb-32">
+        {/* ── 1. THE MASTHEAD — left column, first row. PageHero's exact H1
+               markup and stagger, kept by hand because the component is not
+               in this page any more. */}
+        <div className="md:col-span-5 md:col-start-1 md:row-start-1">
+          <h1 className="display with-overline">
+            <span className="overline opacity-0 animate-fade-in">Contact</span>
+            {/* ⚠ LOAD-BEARING SPACE — without it the H1 extracts as
+                "ContactTalk to the studio." */}{" "}
+            <span
+              className="opacity-0 animate-fade-in"
+              style={{ animationDelay: "0.1s" }}
+            >
+              Talk to the <em>studio</em>.
+            </span>
+          </h1>
+          <p
+            className="lede body-lg max-w-[46ch] text-bone-dim opacity-0 animate-fade-in"
+            style={{ animationDelay: "0.25s" }}
+          >
+            Questions, introductions, or the beginning of a project. Email us
+            directly or use the form; we reply within two working days.
+          </p>
+        </div>
 
-      <GlowBand blob="left" pool>
-        {/* THE FORM — FIRST IN THE DOM so the mobile stack reads masthead →
-            form → details, then placed in the RIGHT columns on desktop.
-            It keeps the gradient card from the first pass: ContactCTA's
-            close-card recipe (warm ink-canvas + a contained HeroGlow at the
-            card's own 0.35 + grain, rounded-plate-lg), which is what makes
-            the page read branded without inventing imagery. */}
-        <div className="md:col-span-6 md:col-start-7 md:row-start-1">
+        {/* ── 2. THE FORM — written BEFORE the details (the mobile order),
+               placed in the
+               right columns and spanning BOTH rows so it runs the full height
+               of the left rail, as the reference's does. It keeps the gradient
+               card: ContactCTA's close-card recipe, which is what makes the
+               page read branded without inventing imagery. */}
+        <div className="md:col-span-6 md:col-start-7 md:row-span-2 md:row-start-1">
           <div className="relative overflow-hidden grain rounded-plate-lg bg-ink-canvas">
             <HeroGlow intensity={0.35} />
             <div className="relative z-10 p-8 sm:p-10">
@@ -110,11 +131,9 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* THE DETAILS — SECOND in the DOM, pulled to the LEFT columns on the
-            same grid row. The kicker is the client's "little title above the
-            details"; it takes clay because this is the block's OWN kicker on
-            a dark ground, the sanctioned brand-tint use. */}
-        <div className="md:col-span-5 md:col-start-1 md:row-start-1">
+        {/* ── 3. THE DETAILS — last in the DOM, pulled up to the left column's
+               second row so they sit under the masthead on desktop. */}
+        <div className="md:col-span-5 md:col-start-1 md:row-start-2">
           <p className="overline mb-8 reveal text-clay">Details</p>
           <StudioFactsLedger />
         </div>

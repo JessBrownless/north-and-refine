@@ -1,6 +1,10 @@
 /**
- * THE SOCIAL MARKS (2026-08-09, client on the contact details: "maybe some
- * icons or something for the socials").
+ * THE CONTACT MARKS (2026-08-09, client: "maybe some icons or something for
+ * the socials", then a Relume contact1 reference whose details list is
+ * ICON-LED — glyph and value on one line, no label column). It was
+ * SocialIcon for half a day; the email row needed a mark too the moment the
+ * labels went, and an "email" case does not belong in something called
+ * SocialIcon.
  *
  * HAND-DRAWN, NEVER AN IMPORTED ICON SET — the StageGlyph rule, and for the
  * same reason: an icon library arrives with its own line weight, its own
@@ -24,13 +28,13 @@
  * in one place, and an icon that tracked a fluid type scale would wobble
  * against the ledger's fixed hairlines.
  */
-export type SocialName = "instagram" | "linkedin";
+export type ContactChannel = "email" | "instagram" | "linkedin";
 
-export default function SocialIcon({
+export default function ContactIcon({
   name,
   className = "",
 }: {
-  name: SocialName;
+  name: ContactChannel;
   /** Colour comes from the consumer via currentColor; this is for layout. */
   className?: string;
 }) {
@@ -45,14 +49,24 @@ export default function SocialIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
       vectorEffect="non-scaling-stroke"
-      /* Decorative: every consumer already names the destination in text
-         (the ledger's label and the handle itself), so announcing the mark
-         again would make a screen reader read the platform twice. */
+      /* Decorative. ⚠ THIS PUTS THE BURDEN ON THE CONSUMER: since the
+         ledger's visible LABEL column went away, the row's own aria-label is
+         now the only thing naming the channel to a screen reader. Keep it
+         there, or these rows become "studio@northandrefine.com" with no
+         indication of what the glyph beside it means. */
       aria-hidden="true"
       focusable="false"
       className={`shrink-0 ${className}`}
     >
-      {name === "instagram" ? (
+      {name === "email" ? (
+        <>
+          {/* Envelope: the body, then the flap folding to the centre. Drawn
+              open-flap rather than closed so it reads at 18px — a closed
+              envelope at this size is just a rectangle. */}
+          <rect x="2.5" y="4" width="13" height="10" rx="1.5" />
+          <path d="M2.9 4.9 9 9.7l6.1-4.8" />
+        </>
+      ) : name === "instagram" ? (
         <>
           <rect x="2.5" y="2.5" width="13" height="13" rx="4" />
           <circle cx="9" cy="9" r="3.25" />

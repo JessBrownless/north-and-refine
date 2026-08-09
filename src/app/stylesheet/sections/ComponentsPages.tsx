@@ -514,10 +514,10 @@ export default function ComponentsPages() {
           path="/contact"
           note="A CONVERSION page: masthead over one banded section, and no ContactCTA, because the form is the close. Plain contact since the project questions moved to their own route."
         >
-          <Beat n={1} name="PageHero" what="Split masthead, no hero CTA (the form below is the CTA) and deliberately NOT spacious: dropping that prop is what 'less padding' means here, taking the band from md:min-h-[72vh] md:py-28 to md:min-h-[52vh] md:py-20 without touching a frozen spacing utility. The tall VH stage is for heroes where the air IS the composition; this masthead heads the two columns under it." />
-          <Beat n={2} name="GlowBand" what="blob='left' behind the details rail, pool on for the quiet canvas wash. Beats 3 and 4 sit inside it, on ONE grid row." />
-          <Beat n={3} name="ContactForm" what="FIRST IN THE DOM, placed in the RIGHT columns (md:col-start-7). Written first so the mobile stack reads masthead, form, details: the client's rule is that the info must never precede the form on a phone. Wrapped in ContactCTA's gradient-card recipe, which is what makes the page read branded without inventing imagery. Netlify form project-enquiry." />
-          <Beat n={4} name="StudioFactsLedger" what="SECOND in the DOM, pulled to the LEFT columns on the same row, under a 'Details' kicker. Email plus the two socials, each with a hand-drawn mark. Reads SITE, so it cannot drift from the schema or the footer." />
+          <Beat n={1} name="GlowBand" what="THE WHOLE PAGE, one band: blob='left', pool on, and pt-32/md:pt-40 passed through its padding prop because with no PageHero this band now carries the NAV CLEARANCE itself (the nav is absolute and transparent, so the first ~128px sit behind it). Three blocks on a 12-col grid, placed by explicit coordinates." />
+          <Beat n={2} name="Masthead (inline)" what="⚠ NOT PageHero — the one argued exception to the split-masthead canon. Cols 1-5, row 1. PageHero's H1 markup reproduced verbatim: display + with-overline, kicker as the first span, the load-bearing space between spans, stagger 0/0.1/0.25s. It extracts as 'Contact Talk to the studio.' exactly as it did through the component." />
+          <Beat n={3} name="ContactForm" what="Cols 7-12, spanning BOTH rows so it runs the full height of the left rail — which is what puts the first field level with the heading instead of below a masthead. Written BEFORE the details in the DOM, because on a phone the info must never precede the form. In ContactCTA's gradient card. Netlify form project-enquiry." />
+          <Beat n={4} name="StudioFactsLedger" what="Cols 1-5, row 2, under a 'Details' kicker: icon-led rows, a mark and a value on one line." />
         </Route>
 
         <Route
@@ -1571,7 +1571,7 @@ export default function ComponentsPages() {
           </GlowBand>
         </Stage>
 
-        <Comp name="StudioFactsLedger" where="/contact, in GlowBand's left column, under a 'Details' kicker." />
+        <Comp name="StudioFactsLedger" where="/contact, left column, under a 'Details' kicker." />
         <What>
           The studio&rsquo;s details as RULED LEDGER ROWS: hairline, label left,
           value locked to its baseline. THIS IS THE DESIGN SYSTEM&rsquo;S
@@ -1600,15 +1600,32 @@ export default function ComponentsPages() {
           same rows.
         </p>
         <What>
-          THE SOCIALS CARRY MARKS (2026-08-09): a hand-drawn Instagram or
-          LinkedIn glyph before the handle, at the same NON-SCALING 1px hairline
+          ⚠ ICON-LED SINCE 2026-08-09 (client, with a Relume contact1
+          reference). The tracked-caps LABEL COLUMN is gone and the mark took
+          its place: a glyph and a value on one line. The values carry
+          themselves, which is why the reference can drop the labels — an email
+          address looks like an email address and @northandrefine looks like a
+          handle. It is STILL <Code>LedgerRow layout=&quot;split&quot;</Code>,
+          with ONE cell: split is <Code>justify-between</Code>, and a single
+          child under it simply sits at the start, so a left-flowing row falls
+          out of the shape already shipped. No third layout, the hairline and
+          py-5 rhythm untouched, and the baseline lock unstrained because the
+          icon rides INSIDE the one cell rather than being aligned against type.
+        </What>
+        <What>
+          ⚠ THE LABEL STILL EXISTS IN THE DATA AND IS NOT RENDERED — it is the
+          row&rsquo;s <Code>aria-label</Code>. With no visible label, it is the
+          only thing telling a screen reader which channel a glyph belongs to.
+          Never drop it to tidy up the type.
+        </What>
+        <What>
+          THE MARKS: a hand-drawn email, Instagram or LinkedIn glyph before the value, at the same NON-SCALING 1px hairline
           as the rules it sits between, in <Code>currentColor</Code> so the row
           hover turns glyph and handle champagne together with no second rule.
           They are drawn rather than imported for the StageGlyph reason: an icon
           set arrives with its own line weight and its own radii, and the moment
           one lands every future icon is picked from it instead of drawn for this
-          brand. The email row has none, because the marks are there to tell the
-          SOCIALS apart, not to decorate every row.
+          brand. Every row carries one now that the labels have gone.
         </What>
         <What>
           ⚠ &ldquo;Where we work&rdquo; was REMOVED in the same change (the
