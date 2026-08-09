@@ -11,11 +11,21 @@ import ServicesShowcase from "@/components/ServicesShowcase";
  * `ServicesShowcase`, which owns the order that is the sell (web first, search
  * second, brand third) and the `.display` register they speak in.
  *
- * DARK AGAIN 2026-08-09 (client: "make all sections on the homepage dark
- * background by default"), reverting the light flip made earlier the same
- * day. No ground class of its own — it inherits main's bg-ink, the pre-flip
- * state — so the kicker returns to bone by default and ServicesShowcase to
- * its on-ink rows.
+ * LIGHT AGAIN 2026-08-09 (client: "can you make blog, kind words and what we
+ * do on the homepage be light background by default"). Third ground call on
+ * this band in one day — light, then dark with "make all sections dark by
+ * default", now light again — which is precisely why the `tone` props were
+ * KEPT through the dark revert rather than stripped: this flip is a one-word
+ * change per consumer instead of a re-plumb of five molecules.
+ *
+ * ⚠ THE SELECTION IS NOT THE SAME AS LAST TIME. Selected work stays DARK now
+ * (it did not before) and Kind words joins the light run (it never was), so
+ * the page reads dark · dark · dark · LIGHT · LIGHT · LIGHT · dark: one light
+ * act of three bands in the middle rather than alternating stripes. Do not
+ * "restore" the earlier grouping from git — it was a different arrangement.
+ *
+ * The kicker takes clay rather than ink-mute: this IS the section's own
+ * kicker (the sanctioned clay-on-light exception), not a card's running meta.
  *
  * NO EXIT FADE (2026-08-09, client on the What-we-do rows: "fades to white
  * as you scroll — that needs to go"). The `exitFade` prop is DELETED rather
@@ -41,11 +51,11 @@ export default function WhatWeDoBand({
   kicker?: string;
 }) {
   return (
-    <section className="relative py-24 md:py-32">
+    <section className="relative grain-light bg-bone py-24 text-ink md:py-32">
       <div className="shell">
-        <p className="overline mb-8 reveal md:mb-10">{kicker}</p>
+        <p className="overline mb-8 reveal text-clay md:mb-10">{kicker}</p>
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
-          <ServicesShowcase />
+          <ServicesShowcase tone="light" />
         </div>
       </div>
     </section>

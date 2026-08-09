@@ -109,7 +109,18 @@ export default function HomePage() {
           (assets/testimonials/client-portrait.jpg) stays in reserve for
           /about. exitFade: the live-era section handover, homepage only. ── */}
       <DesignFlip label="Kind words">
-        <Testimonial exitFade />
+        {/* LIGHT 2026-08-09 (client: "blog, kind words and what we do…
+            light background"). Testimonial was ALREADY fully tone-aware —
+            ground, kicker tint, hairline and AttributionRow all key off this
+            one prop — so this band needed no component change at all, unlike
+            its two neighbours.
+
+            ⚠ exitFade DROPPED IN THE SAME BREATH. It was this band's last
+            consumer, and an ink fade-out over a bone ground is exactly the
+            defect the client reported on What we do earlier today ("fades to
+            white as you scroll"). Passing tone="light" while leaving the
+            fade on would have re-created it here, one band down. */}
+        <Testimonial tone="light" />
       </DesignFlip>
 
 

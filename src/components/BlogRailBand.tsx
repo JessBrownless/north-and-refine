@@ -51,6 +51,19 @@ import type { JournalEntry } from "@/lib/journal";
  * TWO BANDS HAD IT, and only one was reported: the blog rail carried the
  * identical overlay and lost it in the same change. Kind words KEEPS its
  * fade — it was never part of the complaint.
+ *
+ * LIGHT AGAIN 2026-08-09 (client: "can you make blog, kind words and what we
+ * do on the homepage be light background by default"). Third ground call on
+ * this band in one day — light, then dark with "make all sections dark by
+ * default", now light again — which is precisely why the `tone` props were
+ * KEPT through the dark revert rather than stripped: this flip is a one-word
+ * change per consumer instead of a re-plumb of five molecules.
+ *
+ * ⚠ THE SELECTION IS NOT THE SAME AS LAST TIME. Selected work stays DARK now
+ * (it did not before) and Kind words joins the light run (it never was), so
+ * the page reads dark · dark · dark · LIGHT · LIGHT · LIGHT · dark: one light
+ * act of three bands in the middle rather than alternating stripes. Do not
+ * "restore" the earlier grouping from git — it was a different arrangement.
  */
 export default function BlogRailBand({
   posts,
@@ -71,27 +84,27 @@ export default function BlogRailBand({
   if (posts.length === 0) return null;
 
   return (
-    // DARK AGAIN 2026-08-09 (client: "make all sections on the homepage dark
-    // background by default"). No ground of its own — it inherits main's
-    // bg-ink, the pre-flip state — and the tone threading is withdrawn, so
-    // CollectionHeader, the Carousel folio and every BlogTeaserCard speak
-    // the on-ink ladder again.
-    <section className="relative py-24 md:py-32">
+    // LIGHT AGAIN 2026-08-09 — see the ground note in the docblock above.
+    // tone threads back through CollectionHeader, the Carousel folio and
+    // every BlogTeaserCard.
+    <section className="relative grain-light bg-bone py-24 text-ink md:py-32">
       <div className="shell">
         <CollectionHeader
           kicker={kicker}
           title={title}
           linkHref={linkHref}
           linkLabel={linkLabel}
+          tone="light"
         />
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
           <Carousel
             ariaLabel={railLabel}
             className="mt-14 md:mt-20"
             slideClassName="w-[76vw] sm:w-[48%] lg:w-[calc((100%-4rem)/3)]"
+            tone="light"
           >
             {posts.map((post) => (
-              <BlogTeaserCard key={post.slug} post={post} />
+              <BlogTeaserCard key={post.slug} post={post} tone="light" />
             ))}
           </Carousel>
         </div>
