@@ -15,13 +15,24 @@ interface PageHeroProps {
       accent-word <em> at the display register. */
   title: React.ReactNode;
   lede?: string;
-  /** THE HERO PRIMARY, and it is ALWAYS THE GLASS PILL (2026-08-06, client:
-      "add CTAs to all heroes where it makes sense and they should be glass as
-      primary and text as secondary"). No variant prop: a hero CTA is glass,
-      full stop. Glass is the right pill for this slot specifically because a
-      hero is the one place on the site with a LIT GROUND behind the button —
-      the warm HeroGlow — so the blur has something to do; the same pill on a
-      flat section would be a sheet of glass over nothing.
+  /** THE HERO PRIMARY, and it is THE FILLED PILL (2026-08-09, client:
+      "across all heros can we try the filled variant from the top of the
+      page, and at the top of the page can we try an outlined one" — a
+      straight swap with the nav). Still no variant prop: a hero CTA is the
+      solid pill, full stop.
+
+      ⚠ THIS REVERSES 2026-08-06 ("they should be glass as primary"), and the
+      argument that carried glass is worth keeping because it was sound and
+      is now simply outranked: a hero is the one slot with a LIT ground
+      behind the button, so the blur had something to do there and nowhere
+      else. That is still true — it just is not what the client wants the
+      hero to say. Glass loses its last consumer here; see the PARKED note on
+      `.btn-glass` in globals.css before reviving it.
+
+      THE HIERARCHY THIS PRODUCES IS ASCENDING, and better than what it
+      replaced: the nav is now the OUTLINED pill, a hero is the FILLED pill,
+      and the ContactCTA close keeps the flagship (the same fill plus the
+      circular ↗ chip). Quietest at the top of the page, loudest at the foot.
 
       HERO-CTA POLICY (widened 2026-08-06, superseding the commercial-pages-
       only rule of 2026-07-16): /work and /about gained one, because someone
@@ -254,11 +265,12 @@ export default function PageHero({
   // what lets a 53px pill and an 11px tracked link sit together without a
   // nudge — the pill's label and the ghost's label share a line.
   //
-  // The LIGHT fallback is not a style preference, it is a constraint: glass is
-  // 9% bone over a backdrop-blur, which needs a lit dark ground to read as
-  // anything. On bone it would be a faint smudge, so a light hero takes the
-  // solid ink pill instead. (No live light heroes, but the branch has to be
-  // right the day one appears.)
+  // The light branch is the same tier in the other polarity: a solid ink pill
+  // on bone against the solid bone pill on ink. It stopped being a
+  // CONSTRAINT when the dark side left glass behind (glass needed a lit dark
+  // ground to read at all; a fill does not care), and is now simply the
+  // filled variant for a light ground. No live light heroes, but the branch
+  // has to be right the day one appears.
   const actionsEl =
     cta || ctaSecondary || meta ? (
       <div
@@ -270,7 +282,7 @@ export default function PageHero({
         {cta && (
           <Link
             href={cta.href}
-            className={`btn ${light ? "btn-primary-light" : "btn-glass"}`}
+            className={`btn ${light ? "btn-primary-light" : "btn-primary-dark"}`}
           >
             {cta.label}
             <span aria-hidden>→</span>

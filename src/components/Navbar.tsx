@@ -131,7 +131,7 @@ export default function Navbar() {
                   full-page form overlay in place. */}
               <Link
                 href="/start-a-project"
-                className={`btn btn-sm ${lightTop ? "btn-primary-light" : "btn-primary-dark"}`}
+                className={`btn btn-sm ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
               >
                 Start a project
               </Link>
@@ -147,7 +147,7 @@ export default function Navbar() {
               <Link
                 href="/start-a-project"
                 onClick={() => setOpen(false)}
-                className={`btn btn-sm ${lightTop ? "btn-primary-light" : "btn-primary-dark"}`}
+                className={`btn btn-sm ${lightTop ? "btn-secondary-light" : "btn-secondary-dark"}`}
               >
                 Start a project
               </Link>

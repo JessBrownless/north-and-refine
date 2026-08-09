@@ -990,10 +990,15 @@
     background: var(--champagne-soft);
     border-color: var(--champagne-soft);
   }
-  /* THE GLASS PILL — and since 2026-08-06 it IS THE HERO PRIMARY, on every
-     hero on the site (client: hero CTAs "should be glass as primary and text
-     as secondary"). It began as a /services trial on 2026-07-24 ("a glassy
-     button") and spent a fortnight as a one-page exception.
+  /* THE GLASS PILL — ⚠ PARKED 2026-08-09, NO LIVE CONSUMERS. It was the hero
+     primary sitewide for three days (2026-08-06, "they should be glass as
+     primary and text as secondary") until the client swapped heroes and nav:
+     the heroes took the filled pill, the nav took the outline, and glass was
+     left holding nothing. Its whole life: a /services trial on 2026-07-24
+     ("a glassy button"), a fortnight as a one-page exception, three days
+     sitewide, then parked. Kept rather than deleted, on the usual terms —
+     parking is not deletion, and the constraint below is what decides where
+     it could ever return.
 
      The .card-glass surface in button form: low bone fill + backdrop blur, so
      the warm hero ground reads through the pill. Dark grounds only, and the
@@ -1001,15 +1006,14 @@
      to heroes specifically: a HERO is the one slot on the site with a LIT
      ground behind the button — the warm HeroGlow — so the blur has something
      to do. The same pill on a flat ink section is a sheet of glass over
-     nothing, which is why it is not the sitewide primary; .btn-primary-dark
-     still is, everywhere below the fold. On a LIGHT hero it cannot be used at
-     all (9% bone over bone is a smudge), so PageHero falls back to the solid
-     ink pill there.
+     nothing. On a LIGHT hero it cannot be used at all (9% bone over bone is a
+     smudge). So if it is ever revived, it wants a lit dark ground: do not
+     reach for it on a flat section.
 
-     ⚠ KNOWN EXCEPTION, accepted with eyes open: the HOMEPAGE hero's CTA row
-     overlaps its device mock-ups, so that one pill blurs black hardware
-     rather than the glow and reads quieter than the nav pill above it. Raised
-     and signed off 2026-08-06; the note in HomeHero.tsx carries the numbers.
+     (The 2026-08-06 known exception — the homepage hero's pill blurring its
+     device mock-ups rather than the glow — retired twice over: the layout
+     pass moved the devices below the CTAs, and the pill is not glass any
+     more.)
 
      Hover follows the gold rule like every tier: champagne rim + faint wash,
      never a solid fill. */

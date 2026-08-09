@@ -222,8 +222,15 @@ export default function HomeHero() {
                 2026-08-06 REPLACED THAT WITH GLASS (client: hero CTAs "should
                 be glass as primary and text as secondary"), and the client
                 took the homepage with the rest rather than exempting it. ONE
-                HERO PRIMARY SITEWIDE now — no page gets a louder button than
-                any other by virtue of being the front door.
+                HERO PRIMARY SITEWIDE — no page gets a louder button than any
+                other by virtue of being the front door.
+
+                2026-08-09 SWAPPED GLASS FOR THE FILLED PILL, trading places
+                with the nav ("across all heros can we try the filled variant
+                from the top of the page, and at the top of the page can we
+                try an outlined one"). The one-hero-primary rule survives the
+                swap untouched: this is still whatever PageHero uses, which
+                is the whole point of keeping them the same string.
 
                 ⚠ RESOLVED BY THE FLOW LAYOUT (2026-08-07): this used to be
                 the one hero where glass had nothing behind it — the absolute
@@ -241,7 +248,7 @@ export default function HomeHero() {
                 place or folds into its neighbour. It is not folded here
                 because the close band is a different question from the hero
                 and the client has not nominated it. */}
-              <Link href="/start-a-project" className="btn btn-glass">
+              <Link href="/start-a-project" className="btn btn-primary-dark">
                 Start a project
                 <span aria-hidden>→</span>
               </Link>
