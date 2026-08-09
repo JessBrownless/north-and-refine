@@ -32,8 +32,16 @@ export default function ExitFades() {
         if (!scope) continue;
         const bottom = scope.getBoundingClientRect().bottom;
         const long = el.classList.contains("exit-fade-long");
-        const start = (long ? 0.78 : 0.45) * vh; // fade begins (bottom here)
-        const end = (long ? 0.14 : 0.08) * vh; // fully ink (bottom here)
+        // WINDOW WIDENED AND RAISED 2026-08-09 (client: "not quite enough"),
+        // long profile only: 0.78→0.14 became 0.88→0.28. Two effects, both
+        // wanted — it STARTS sooner (the band begins deepening while it is
+        // still well on screen) and it FINISHES sooner (full depth with
+        // ~28vh still showing, instead of a sliver), so the darkening is
+        // something you watch happen rather than something that completes
+        // just as the band disappears. The `late` profile is untouched; it
+        // has no live consumer.
+        const start = (long ? 0.88 : 0.45) * vh; // fade begins (bottom here)
+        const end = (long ? 0.28 : 0.08) * vh; // fully dark (bottom here)
         const p = (start - bottom) / (start - end);
         el.style.opacity = String(Math.min(1, Math.max(0, p)));
       }

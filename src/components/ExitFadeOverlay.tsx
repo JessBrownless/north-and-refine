@@ -11,6 +11,22 @@
  * or the fade times against the wrong box. It renders nothing of its own
  * around the overlay for that reason.
  *
+ * ⚠ THE FILL IS DARKER THAN --ink, AND THAT IS THE WHOLE POINT (2026-08-09,
+ * client: "it works, but just not quite enough… make it a bit darker"). It
+ * was `bg-ink` — THE SAME COLOUR AS THE BANDS IT FADES — so on a flat ink
+ * section it could only ever dim the CONTENT; the ground was already at the
+ * fill's own value and had nowhere to go. globals' own profile note conceded
+ * this in passing ("dark CONTENT sections, whose ink-on-ink background can't
+ * show a late fade"). #070505 is past the bottom of the scale, so the band
+ * itself now deepens as it leaves rather than just losing its contents.
+ *
+ * It is a RAW VALUE on purpose and stays warm on purpose: no token is darker
+ * than --ink (#110E0A), and this needs to go beyond it, which is the
+ * sanctioned "unexpressible value" case in the adjudication rule. R > B
+ * keeps it on the palette's warm axis — a fade to pure #000 would reintroduce
+ * the cool black the 2026-07-31 re-tone removed, on the largest surface on
+ * the page. Not tokenised because it has exactly one consumer: this file.
+ *
  * `timing` picks the profile documented in globals.css: "long" is the early
  * window (bottom 78vh → 14vh) for dark CONTENT sections, whose ink-on-ink
  * ground can't show a late fade, and it is what every live consumer takes;
@@ -31,7 +47,7 @@ export default function ExitFadeOverlay({
       aria-hidden
       className={`exit-fade ${
         timing === "long" ? "exit-fade-long " : ""
-      }absolute inset-0 z-20 bg-ink`}
+      }absolute inset-0 z-20 bg-[#070505]`}
     />
   );
 }

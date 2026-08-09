@@ -855,9 +855,13 @@
      .exit-fade       — late window: lit until the arriving section covers
                         ~55% of the viewport, ink by ~92% (for sections whose
                         foot is a full-bleed visual: the hero, the bone CTA).
-     .exit-fade-long  — earlier window (bottom 78vh → 14vh) for dark CONTENT
-                        sections, whose ink-on-ink background can't show a
-                        late fade. */
+     .exit-fade-long  — earlier window (bottom 88vh → 28vh, widened 2026-08-09
+                        from 78→14) for dark CONTENT sections. The old note
+                        that these "can't show a late fade" because the
+                        background is ink-on-ink is FIXED rather than worked
+                        around: the overlay's fill is now #070505, darker
+                        than --ink, so the ground deepens too. See
+                        ExitFadeOverlay for why that value is raw. */
   .exit-fade {
     opacity: 0;
     pointer-events: none;
