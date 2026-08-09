@@ -163,6 +163,32 @@ export default function HomeHero() {
               that patients <em>trust.</em>
             </span>
           </h1>
+          {/* THE SUBTITLE (2026-08-09, client: "the homepage hero needs a
+              subtitle"). It was the ONE hero on the site without a lede —
+              every PageHero has carried one since the hero-cohesion pass, so
+              this closes the last gap rather than inventing a slot.
+
+              `.body-xl`, NOT `.body-lg`, and the ladder decides that rather
+              than taste: CLAUDE.md names body-xl "THE LARGE LEDE — the
+              centred manifesto hero…", one step above body-lg which "stays
+              the left/split hero lede". PageHero encodes the same fork in
+              code (`centered ? "body-xl" : "body-lg"`). This hero is the
+              site's one centred masthead, so it takes the large rung, plus
+              `.lede` for the gap and 46ch measure and `mx-auto` to centre
+              that measure — exactly PageHero's centred branch.
+
+              COPY NOTES, since it is new: it does NOT restate the kicker
+              above it ("Web, search & SEO for clinics" already lists the
+              disciplines), so it names the AUDIENCE and the span of the work
+              instead. No dash (house rule), Australian English, and nothing
+              in it is a claim a practice would have to stand behind. */}
+          <p
+            className="lede body-xl mx-auto text-bone-dim opacity-0 animate-fade-in"
+            style={{ animationDelay: "0.25s" }}
+          >
+            A specialist studio for private medical and surgical practices,
+            from the first search to the booked consultation.
+          </p>
           {/* SIDE BY SIDE AGAIN (2026-08-08 late, client: "make the hero
               buttons sit side by side" — reversing the STACKED-AT-EVERY-
               WIDTH call from earlier the same day). That call was measured
@@ -173,7 +199,18 @@ export default function HomeHero() {
               is the same row treatment PageHero and ContactCTA already use
               for a glass-or-primary + ghost pair, so the hero rejoins that
               one recipe instead of carrying its own bespoke column. */}
-          <div className="flex flex-wrap items-baseline justify-center gap-x-8 gap-y-5" style={{ marginTop: "clamp(34px,3.6vw,48px)" }}>
+          {/* ⚠ THE LOAD-IN DELAY ARRIVED WITH THE SUBTITLE (2026-08-09).
+              This row had no entrance at all while the kicker and H1 both
+              faded in, which went unnoticed while it was the last element:
+              it simply appeared with the page. Putting a lede ABOVE it made
+              the gap visible — the buttons would have been up before the
+              sentence they follow. 0.45s is PageHero's own value for the
+              same row, so the homepage now runs the house sequence in full:
+              kicker 0s, heading 0.1s, lede 0.25s, actions 0.45s. */}
+          <div
+            className="flex flex-wrap items-baseline justify-center gap-x-8 gap-y-5 opacity-0 animate-fade-in"
+            style={{ marginTop: "clamp(34px,3.6vw,48px)", animationDelay: "0.45s" }}
+          >
             {/* THE GLASS PRIMARY AND ITS GHOST.
 
                 2026-08-05 put both on the button system: they were hand-rolled
