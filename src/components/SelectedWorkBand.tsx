@@ -1,4 +1,5 @@
 import Carousel from "@/components/Carousel";
+import SectionGlow from "@/components/SectionGlow";
 import WorkPlate from "@/components/WorkPlate";
 import type { WorkEntry } from "@/lib/work";
 
@@ -60,7 +61,9 @@ import type { WorkEntry } from "@/lib/work";
  * same-page jump), so it stays with the section, as does the `scroll-mt-14`
  * that keeps the head clear of the landing.
  *
- * PADDING, 2026-08-09 (client: "remove excessive padding"). `py-24 md:py-32`
+ * PADDING, 2026-08-09 (client: "remove excessive padding", then later the
+ * same day "the padding needs to be removed from the top" — so the band is
+ * now bottom-padded only, `pb-16 md:pb-24`). First pass: `py-24 md:py-32`
  * → `py-16 md:py-24`, and the grid's own `mt-14 md:mt-20` lead-in is gone
  * outright. That lead-in was the gap BETWEEN the header and the plates; with
  * the header removed it became a second helping of top padding stacked on
@@ -98,9 +101,42 @@ export default function SelectedWorkBand({
   return (
     <section
       id="selected-work"
-      className="relative scroll-mt-14 py-16 md:py-24"
+      className="relative scroll-mt-14 overflow-hidden pb-16 md:pb-24"
     >
-      <div className="shell">
+      {/* THE GLOW CARRIES OVER (2026-08-09, client: "the blurred gradient
+          bits from the section above need to kind of come into this
+          section"). The gradient was stopping dead at the boundary for a
+          concrete reason rather than a stylistic one: ManifestoTrack carries
+          `overflow-hidden`, which CLIPS its glow at its own bottom edge, so
+          the light physically could not spill however bright it got.
+
+          This is SectionGlow used exactly as briefed. Its own origin was the
+          client asking for "a blob that helps it fade into the next section,
+          AND THEN an individual blob in the next section" — a two-part
+          device, not one glow stretched across a seam. So the tail (which
+          starts at top:-12%, above this section's own edge) reads as the
+          manifesto's light bleeding down, and the blob carries it on into
+          the band. `seam` stays ON here, unlike the manifesto's blob-only
+          call: the seam layers ARE the carry-over.
+
+          RIGHT-WEIGHTED to match the band above, so the two read as one wash
+          rather than two unrelated pools, and a step quieter (3 against the
+          manifesto's 4) because a glow that travels should decay.
+
+          ⚠ overflow-hidden is REQUIRED with a glow — the blob sits at
+          right:-14% and would otherwise widen the page. Nothing here pins or
+          sticks, so the clip carries no sticky hazard. */}
+      <SectionGlow blob="right" intensity={3} />
+
+      {/* NO TOP PADDING (same call: "the padding needs to be removed from
+          the top"). `py-16 md:py-24` → `pb-16 md:pb-24`. It was symmetric
+          for one day, added on 2026-08-08 when the band sat under the bone
+          act's hard colour CUT and needed to clear it. That cut is gone —
+          the manifesto is ink again, this band is ink, and with the glow now
+          crossing the boundary the two are meant to read as continuous. Air
+          at the top would reinstate exactly the separation the glow is here
+          to remove. */}
+      <div className="shell relative z-10">
         {/* THE SIGNPOST — see the note above for why this is body register
             and not a kicker. `text-bone-dim` is the on-ink BODY tint (it was
             ink-dim while this band was light): the client asked for body
