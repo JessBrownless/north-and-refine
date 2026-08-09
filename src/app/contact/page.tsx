@@ -3,12 +3,48 @@ import { breadcrumbSchema, contactPageSchema } from "@/lib/schema";
 import JsonLd from "@/components/JsonLd";
 import ContactForm from "@/components/ContactForm";
 import GlowBand from "@/components/GlowBand";
+import HeroGlow from "@/components/HeroGlow";
 import NextStepsList from "@/components/NextStepsList";
 import PageHero from "@/components/PageHero";
 import StartProjectCrossLink from "@/components/StartProjectCrossLink";
 import StudioFactsLedger from "@/components/StudioFactsLedger";
 
 /**
+ * THE FORM IS IN THE HERO (2026-08-09, client: "a contact page where the
+ * form isn't way below the fold on desktop… some form of graphic or something
+ * that feels branded… a different layout with the info on the left… it
+ * definitely shouldn't be before the form on mobile").
+ *
+ * MEASURED BEFORE CHANGING ANYTHING, because "below the fold" turned out to
+ * be literal: at 1470x900 the first visible field sat at 902px against a
+ * 900px viewport — not one field was on screen at load — and reaching Send
+ * took 449px of scrolling. The hero alone was 776px.
+ *
+ * THE FIX USES PageHero's OWN `media` SLOT rather than a bespoke split, so
+ * this page does not become a HeroX (drift pattern 1). That slot puts the
+ * text stack on cols 1–6 and its node on 7–12, which is exactly the shape
+ * wanted — and its DOM order is text-then-node, so the MOBILE stack comes
+ * out masthead → form → info with no ordering work at all. The client's
+ * "definitely shouldn't be before the form on mobile" is satisfied by the
+ * structure rather than by a re-order.
+ *
+ * ⚠ THE SLOT IS DOCUMENTED AS "THE GRAPHIC SLOT" AND THIS PUTS A FORM IN IT.
+ * That is a deliberate widening of its use, not a misreading: it is the
+ * hero's right column, and on a conversion page the form is what belongs
+ * there. The mechanism is untouched.
+ *
+ * THE BRANDED PART IS THE GRADIENT CARD, not a picture. Three plates were
+ * available and all three had already been rejected by the client from other
+ * slots (contact-rowen-phone-02 was this very page's plate, called off with
+ * "doesn't go well anymore"), so reviving one would have re-proposed
+ * something she killed. Instead the form sits in ContactCTA's own approved
+ * device — a rounded card carrying the hero's warm ground — so the page
+ * feels branded through the system's own language, invents no imagery, and
+ * needs no new asset.
+ *
+ * THE INFO IS ON THE LEFT, in its own band below: the ledger, the steps and
+ * the cross-link, all on cols 1–5.
+ *
  * /contact — PLAIN CONTACT since 2026-07-31 (client: "make the contact page
  * say contact"; the start-a-project questions moved to the full-page form at
  * /start-a-project). RESTAGED IN THE SERVICES LANGUAGE the same night — the
@@ -61,13 +97,26 @@ export default function ContactPage() {
           </>
         }
         lede="Questions, introductions, or the beginning of a project. Email us directly or use the form; we reply within two working days."
+        media={
+          /* THE FORM, IN THE GRADIENT CARD — the ContactCTA close-card
+             recipe verbatim (warm ink-canvas ground + a contained HeroGlow +
+             grain, rounded on the large plate stop). Its dose is the card's
+             own 0.35 rather than the ground constant, for the reason that
+             note gives: a card's gradient is its content, and at ground dose
+             it would be a flat dark plate. Content rides z-10 above it. */
+          <div className="relative overflow-hidden grain rounded-plate-lg bg-ink-canvas">
+            <HeroGlow intensity={0.35} />
+            <div className="relative z-10 p-8 sm:p-10">
+              <ContactForm />
+            </div>
+          </div>
+        }
       />
 
-      {/* The hero blend decays THROUGH this section (the seam contract):
-          /contact's individual blob sits RIGHT, behind the form column, and
-          the canvas pool sits low-left under the ledger so the facts rail
-          isn't flat ink. */}
-      <GlowBand blob="right" pool>
+      {/* THE INFO BAND — left rail only now that the form has moved up into
+          the hero. The blob moves to the LEFT with it: the glow should sit
+          behind the content, and the content is no longer on the right. */}
+      <GlowBand blob="left" pool>
         {/* The facts rail — the studio's details as RULED LEDGER ROWS
             (the /services row grammar: hairline, label left, value
             locked to its baseline), then the numbered steps below. */}
@@ -75,21 +124,15 @@ export default function ContactPage() {
           <StudioFactsLedger />
 
           {/* What happens next — the numbered-steps grammar from the
-              services process, at rail scale. Fills the lower half of
-              the column where the phone plate used to sit. */}
+              services process, at rail scale. */}
           <NextStepsList steps={NEXT_STEPS} className="mt-14" delay={240} />
 
           {/* The shorter route — points project enquiries at the
               full-page form, so the two conversion paths cross-link. */}
           <StartProjectCrossLink className="mt-14" delay={320} />
         </div>
-
-        {/* Form — Netlify Forms via the runtime-v5 pattern; the static
-            definition lives in public/__forms.html */}
-        <div className="md:col-span-6 md:col-start-7">
-          <ContactForm />
-        </div>
       </GlowBand>
+
     </main>
   );
 }
