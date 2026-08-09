@@ -1,8 +1,17 @@
 import Link from "next/link";
+import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 import HeroGlow from "@/components/HeroGlow";
 import TypewriterWord from "@/components/TypewriterWord";
 
 interface ContactCTAProps {
+  /** THE BLACK FADE-OUT as this band leaves the top of the viewport
+      (2026-08-09, client: "any section that's black… fade into black"). A
+      PROP rather than unconditional, unlike the homepage's other dark bands,
+      for one reason: this component renders on twelve routes, and firing the
+      overlay on all of them from a homepage request would be a sitewide
+      change made by accident. The homepage opts in; extending it is one prop
+      per page if the same treatment is wanted elsewhere. */
+  exitFade?: boolean;
   /** Override the default heading (plain text — no italic accent and NO
       typewriter: the rotating word belongs to the default heading only). */
   heading?: string;
@@ -78,6 +87,7 @@ interface ContactCTAProps {
 export default function ContactCTA({
   heading,
   body = "Tell us about your practice and where you want it to be. We take on a limited number of projects at a time, so the right fit matters.",
+  exitFade = false,
 }: ContactCTAProps) {
   return (
     <section className="relative overflow-hidden grain bg-ink">
@@ -151,6 +161,9 @@ export default function ContactCTA({
           </div>
         </div>
       </div>
+      {/* Direct child of the section on purpose — <ExitFades> measures
+          el.parentElement for its scope. */}
+      {exitFade && <ExitFadeOverlay />}
     </section>
   );
 }

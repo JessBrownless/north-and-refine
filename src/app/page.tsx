@@ -138,7 +138,7 @@ export default function HomePage() {
       {/* ── CTA — the close. (It was "the bone interruption" until
           2026-07-24, when the band became ink plus the gradient card.) ── */}
       <DesignFlip label="Close">
-        <ContactCTA />
+        <ContactCTA exitFade />
       </DesignFlip>
     </main>
   );

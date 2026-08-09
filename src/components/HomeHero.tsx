@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 import HeroCarousel from "@/components/HeroCarousel";
 
 /**
@@ -282,6 +283,21 @@ export default function HomeHero() {
       <div style={{ marginTop: "auto", paddingTop: "clamp(80px,12vh,160px)", position: "relative", zIndex: 10 }}>
         <HeroCarousel />
       </div>
+      {/* THE BLACK FADE-OUT (2026-08-09, client: "any section that's black,
+          as it goes up to the top of the screen on scroll, to fade into
+          black… a little black fade over it"). This is the site's existing
+          handover overlay, driven by <ExitFades> in the root layout, and the
+          rule it has always carried is the one the client just described in
+          her own words: the fade-to-INK belongs to DARK sections. That is
+          precisely why it came OFF What we do, Kind words and the blog rail
+          earlier today — those went bone, and an ink wash over a light band
+          was the "fades to white as you scroll" bug. Now it goes back on the
+          bands that are actually black.
+
+          ⚠ It must stay a DIRECT child of this section: <ExitFades> measures
+          el.parentElement to get its scope, so wrapping it changes the window
+          it fades over. */}
+      <ExitFadeOverlay />
     </section>
   );
 }

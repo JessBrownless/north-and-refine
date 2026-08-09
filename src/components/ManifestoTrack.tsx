@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 import ManifestoStatement from "@/components/ManifestoStatement";
 import SectionGlow from "@/components/SectionGlow";
 
@@ -72,7 +73,13 @@ import SectionGlow from "@/components/SectionGlow";
  * first line of text at 0px. With the plate gone the original number clears
  * the content again. Re-measure if the statement or CTA grows materially.
  *
- * NO EXIT FADE, and the old `exitFade` prop is DELETED rather than parked:
+ * THE EXIT FADE IS BACK (2026-08-09) now that this band is INK again — it
+ * renders unconditionally rather than behind a prop, because this component
+ * is homepage-only and the fade is not optional on a black band. The note
+ * below is kept because its REASONING still governs: it explains why the
+ * fade must never return if this band ever goes bone again.
+ *
+ * (Historic) NO EXIT FADE, and the old `exitFade` prop was DELETED:
  * the fade-to-ink handover belongs to dark sections dissolving into each
  * other, and a bone band does not dissolve — it CUTS. (Its one consumer was
  * this band's dark era; the overlay component lives on under the dark bands
@@ -183,6 +190,21 @@ export default function ManifestoTrack({
           )}
         </div>
       </div>
+      {/* THE BLACK FADE-OUT (2026-08-09, client: "any section that's black,
+          as it goes up to the top of the screen on scroll, to fade into
+          black… a little black fade over it"). This is the site's existing
+          handover overlay, driven by <ExitFades> in the root layout, and the
+          rule it has always carried is the one the client just described in
+          her own words: the fade-to-INK belongs to DARK sections. That is
+          precisely why it came OFF What we do, Kind words and the blog rail
+          earlier today — those went bone, and an ink wash over a light band
+          was the "fades to white as you scroll" bug. Now it goes back on the
+          bands that are actually black.
+
+          ⚠ It must stay a DIRECT child of this section: <ExitFades> measures
+          el.parentElement to get its scope, so wrapping it changes the window
+          it fades over. */}
+      <ExitFadeOverlay />
     </section>
   );
 }
