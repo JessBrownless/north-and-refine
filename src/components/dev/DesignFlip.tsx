@@ -43,6 +43,20 @@ import DesignFlipClient from "@/components/dev/DesignFlipClient";
  * is where you decide that a light variant is worth building; it is never
  * the light variant.
  */
+/**
+ * ⚠ THE ON/OFF SWITCH (2026-08-09, client: "hide the colour flippers now").
+ * One constant rather than unpicking the seven <DesignFlip> wrappers in
+ * page.tsx: with it false the component returns its children untouched, so
+ * the toggles vanish, the wrapper element vanishes with them, and the dev
+ * DOM becomes byte-identical to production. Flip it back to true and every
+ * band has its toggle again — that is the whole reason the wrappers stay in
+ * page.tsx rather than being torn out. The word "now" in the request was
+ * read as "for the moment", not "for good"; if they are genuinely done with,
+ * delete the wrappers, this file, DesignFlipClient and the sketch rules at
+ * the end of globals.css together, since none of them has another consumer.
+ */
+const SHOW_FLIPPERS = false;
+
 export default function DesignFlip({
   label,
   children,
@@ -51,6 +65,7 @@ export default function DesignFlip({
   label: string;
   children: React.ReactNode;
 }) {
+  if (!SHOW_FLIPPERS) return <>{children}</>;
   if (process.env.NODE_ENV === "production") return <>{children}</>;
   return <DesignFlipClient label={label}>{children}</DesignFlipClient>;
 }
