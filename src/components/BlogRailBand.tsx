@@ -36,21 +36,21 @@ import type { JournalEntry } from "@/lib/journal";
  *
  * NO EXIT FADE (2026-08-09, client on the What-we-do rows: "fades to white
  * as you scroll — that needs to go"). The `exitFade` prop is DELETED rather
- * than left unpassed, following the precedent ManifestoTrack set when it
- * went bone: the fade-to-ink handover belongs to DARK sections dissolving
- * into one another, and a light band does not dissolve — it CUTS.
+ * than left unpassed, following ManifestoTrack's precedent for retiring a
+ * prop whose last consumer has gone.
  *
- * ⚠ THE OVERLAY WAS A LEFTOVER FROM THIS BAND'S DARK ERA, not a new bug.
- * ExitFadeOverlay paints `bg-ink`, which was right while the band was ink —
- * it read as one dark section handing over to the next. The light flip
- * earlier the same day changed the ground and left the overlay behind, so a
- * bone band was being washed out by a dark sheet on the way past. The stale
- * claim that it "reads correctly regardless of the band's own ground" is
- * removed with it; that was true only while the ground was dark.
+ * ⚠ THE REASON IS THE CLIENT'S INSTRUCTION, NOT THE GROUND — and that
+ * distinction matters now, because the ground has since changed back. The
+ * fade was REPORTED while this band was bone, where an ink overlay washed a
+ * light band out on the way past; the band returned to ink hours later, so
+ * "a light band cuts rather than dissolves" no longer describes anything
+ * here. What stands is simply that she asked for the fade gone. Do not
+ * reinstate it on the grounds that the band is dark again; that would be
+ * reading the old rationale back as permission.
  *
  * TWO BANDS HAD IT, and only one was reported: the blog rail carried the
- * identical leftover from the identical flip. Kind words KEEPS its fade —
- * still an ink band, still dissolving into ink.
+ * identical overlay and lost it in the same change. Kind words KEEPS its
+ * fade — it was never part of the complaint.
  */
 export default function BlogRailBand({
   posts,
@@ -71,28 +71,27 @@ export default function BlogRailBand({
   if (posts.length === 0) return null;
 
   return (
-    // LIGHT, 2026-08-09 (client: "Blog: Light BG" on the homepage) — the
-    // same bg-bone + grain-light recipe as its now-light siblings. tone
-    // threads through CollectionHeader, the Carousel folio and every
-    // BlogTeaserCard.
-    <section className="relative grain-light bg-bone py-24 text-ink md:py-32">
+    // DARK AGAIN 2026-08-09 (client: "make all sections on the homepage dark
+    // background by default"). No ground of its own — it inherits main's
+    // bg-ink, the pre-flip state — and the tone threading is withdrawn, so
+    // CollectionHeader, the Carousel folio and every BlogTeaserCard speak
+    // the on-ink ladder again.
+    <section className="relative py-24 md:py-32">
       <div className="shell">
         <CollectionHeader
           kicker={kicker}
           title={title}
           linkHref={linkHref}
           linkLabel={linkLabel}
-          tone="light"
         />
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
           <Carousel
             ariaLabel={railLabel}
             className="mt-14 md:mt-20"
             slideClassName="w-[76vw] sm:w-[48%] lg:w-[calc((100%-4rem)/3)]"
-            tone="light"
           >
             {posts.map((post) => (
-              <BlogTeaserCard key={post.slug} post={post} tone="light" />
+              <BlogTeaserCard key={post.slug} post={post} />
             ))}
           </Carousel>
         </div>

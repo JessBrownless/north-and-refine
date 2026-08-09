@@ -75,15 +75,15 @@ import type { WorkEntry } from "@/lib/work";
  * projects. Override the strings for a different collection; the data is
  * always the caller's.
  *
- * LIGHT, 2026-08-09 (client: "Work: (light BG)" on the homepage): bg-bone +
- * text-ink + grain-light, the exact light-band recipe ManifestoTrack and
- * Testimonial's light tone already use. This band carried NO ground class of
- * its own before — it silently inherited main's bg-ink, which is why it
- * never needed grain either (a dark section with no visible boundary needs
- * no material of its own). Now that it is its own light region it takes
- * grain-light like every other section on the site, per the one-material
- * rule. tone="light" threads through the mobile Carousel's folio and every
- * WorkPlate, so nothing here still speaks the on-ink ladder.
+ * DARK AGAIN 2026-08-09 (client: "make all sections on the homepage dark
+ * background by default"), reverting the light flip made earlier the same
+ * day. It carries NO ground class of its own — it inherits main's bg-ink,
+ * which is the pre-flip state and the reason it needs no grain either: a
+ * dark section with no visible boundary of its own needs no material. The
+ * tone="light" threading is withdrawn, so the mobile Carousel folio and
+ * every WorkPlate speak the on-ink ladder again. Today's other work on this
+ * band SURVIVES the revert: no header, the level pair, the tightened
+ * padding and the signpost are all unrelated to ground.
  */
 export default function SelectedWorkBand({
   projects,
@@ -98,17 +98,17 @@ export default function SelectedWorkBand({
   return (
     <section
       id="selected-work"
-      className="relative scroll-mt-14 grain-light bg-bone py-16 text-ink md:py-24"
+      className="relative scroll-mt-14 py-16 md:py-24"
     >
       <div className="shell">
         {/* THE SIGNPOST — see the note above for why this is body register
-            and not a kicker. `text-ink-dim` is the on-light BODY tint, not
-            the meta tier: the client asked for body text, and ink-mute would
-            quietly demote it to a caption. The arrow is aria-hidden — it is
+            and not a kicker. `text-bone-dim` is the on-ink BODY tint (it was
+            ink-dim while this band was light): the client asked for body
+            text, so it takes the body tier rather than clay's meta tier. The arrow is aria-hidden — it is
             a direction, not a word, and a screen reader reading "Selected
             work down arrow" would be worse than reading "Selected work". */}
         <p
-          className="body mb-10 flex items-baseline gap-2 text-ink-dim reveal md:mb-12"
+          className="body mb-10 flex items-baseline gap-2 text-bone-dim reveal md:mb-12"
         >
           Selected work
           <span aria-hidden>↓</span>
@@ -122,10 +122,9 @@ export default function SelectedWorkBand({
             ariaLabel={railLabel}
             className=""
             slideClassName="w-[76vw]"
-            tone="light"
           >
             {projects.map((project) => (
-              <WorkPlate key={project.slug} project={project} tone="light" />
+              <WorkPlate key={project.slug} project={project} />
             ))}
           </Carousel>
         </div>
@@ -141,7 +140,6 @@ export default function SelectedWorkBand({
             <WorkPlate
               key={project.slug}
               project={project}
-              tone="light"
               className="reveal"
               delay={(i % 2) * 120}
             />
