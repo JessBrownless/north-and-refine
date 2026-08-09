@@ -8,6 +8,21 @@
  * promise its own FAQ makes ("What happens when we get in touch?"), and any
  * other page's sequence is its own.
  *
+ * ⚠ ITS HOME MOVED 2026-08-09 (client: "What happens next? That's quite
+ * nice, but that'll be better as a success message on the start-project
+ * form, because on the contact page, if you think about it, they could be
+ * getting in touch about anything"). That reasoning is worth keeping: a
+ * numbered proposal sequence is a PROMISE ABOUT A PROJECT, and /contact
+ * takes questions, introductions and press as readily as briefs, so the
+ * steps were answering a question half its readers had not asked. On the
+ * start-project success screen every reader has, by definition, just asked
+ * it. Its only live consumer is now `StartProjectForm`'s sent state.
+ *
+ * TONE (2026-08-09) — the FaqSection precedent, added in the same move
+ * because the success screen renders on the overlay's BONE column as well as
+ * the dark fallback page. Defaults to "dark", so the change was inert
+ * everywhere it already rendered.
+ *
  * The heavier sibling is `MethodSection`'s band, where the numeral, a title
  * and a body split a full-rail grid over rule-light. This one is the rail
  * version: no rules, no titles, one line per step, because it sits in a
@@ -18,6 +33,7 @@ export default function NextStepsList({
   kicker = "What happens next",
   className = "",
   delay = 0,
+  tone = "dark",
 }: {
   /** One line per step. Numbering is the component's (01, 02, 03). */
   steps: readonly string[];
@@ -29,18 +45,25 @@ export default function NextStepsList({
   /** Entrance step, ms. The rail's stagger continues through this block, so
       the page owns the number. */
   delay?: number;
+  /** Which ground it sits on. Light takes the on-LIGHT ladder: ink-mute for
+      the kicker and the numerals (the AA meta tint; clay is sub-AA on bone)
+      and ink-dim for the step body. */
+  tone?: "dark" | "light";
 }) {
+  const light = tone === "light";
+  const meta = light ? "text-ink-mute" : "text-clay";
+  const body = light ? "text-ink-dim" : "text-bone-dim";
   return (
     <div
       className={className ? `${className} reveal` : "reveal"}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
-      <p className="overline text-clay">{kicker}</p>
+      <p className={`overline ${meta}`}>{kicker}</p>
       <ol className="mt-7 space-y-6">
         {steps.map((step, i) => (
           <li key={step} className="flex gap-5">
-            <span className="index-num text-clay">0{i + 1}</span>
-            <p className="body text-bone-dim">{step}</p>
+            <span className={`index-num ${meta}`}>0{i + 1}</span>
+            <p className={`body ${body}`}>{step}</p>
           </li>
         ))}
       </ol>

@@ -1,6 +1,15 @@
 import Link from "next/link";
 
 /**
+ * ⚠ PARKED 2026-08-09 — NO LIVE CONSUMER. The client removed it from
+ * /contact ("maybe remove that Start a project bit on the contact page too")
+ * in the pass that moved "What happens next" to the start-project success
+ * screen. The reasoning: every page already carries a Start-a-project pill in
+ * the nav, so this rail block was a second door to a room the reader could
+ * already see. It still renders on /stylesheet, live from this file rather
+ * than as a picture of it — parking is not deletion. If it stays unused, the
+ * honest next step is deleting it and its stylesheet card together.
+ *
  * THE SHORTER ROUTE — the block at the foot of /contact's rail that points
  * project enquiries at the full-page form, so the site's two conversion paths
  * cross-link. It exists because the client separated them 2026-07-31

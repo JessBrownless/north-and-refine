@@ -514,12 +514,10 @@ export default function ComponentsPages() {
           path="/contact"
           note="A CONVERSION page: masthead over one banded section, and no ContactCTA, because the form is the close. Plain contact since the project questions moved to their own route."
         >
-          <Beat n={1} name="PageHero" what="Split masthead, no hero CTA: the form below is the CTA." />
-          <Beat n={2} name="GlowBand" what="blob='right' behind the form column, pool on for the quiet canvas wash low-left under the ledger. Beats 3 to 6 sit inside it." />
-          <Beat n={3} name="StudioFactsLedger" what="The studio's details as ruled ledger rows, label left, value locked to its baseline. Reads SITE, so it cannot drift from the schema or the footer." />
-          <Beat n={4} name="NextStepsList" what="Three numbered steps at rail scale, the process grammar compressed." />
-          <Beat n={5} name="StartProjectCrossLink" what="A ruled pointer to /start-a-project, so the two conversion paths cross-link." />
-          <Beat n={6} name="ContactForm" what="Right columns. Netlify form project-enquiry." />
+          <Beat n={1} name="PageHero" what="Split masthead, no hero CTA (the form below is the CTA) and deliberately NOT spacious: dropping that prop is what 'less padding' means here, taking the band from md:min-h-[72vh] md:py-28 to md:min-h-[52vh] md:py-20 without touching a frozen spacing utility. The tall VH stage is for heroes where the air IS the composition; this masthead heads the two columns under it." />
+          <Beat n={2} name="GlowBand" what="blob='left' behind the details rail, pool on for the quiet canvas wash. Beats 3 and 4 sit inside it, on ONE grid row." />
+          <Beat n={3} name="ContactForm" what="FIRST IN THE DOM, placed in the RIGHT columns (md:col-start-7). Written first so the mobile stack reads masthead, form, details: the client's rule is that the info must never precede the form on a phone. Wrapped in ContactCTA's gradient-card recipe, which is what makes the page read branded without inventing imagery. Netlify form project-enquiry." />
+          <Beat n={4} name="StudioFactsLedger" what="SECOND in the DOM, pulled to the LEFT columns on the same row, under a 'Details' kicker. Email plus the two socials, each with a hand-drawn mark. Reads SITE, so it cannot drift from the schema or the footer." />
         </Route>
 
         <Route
@@ -1573,7 +1571,7 @@ export default function ComponentsPages() {
           </GlowBand>
         </Stage>
 
-        <Comp name="StudioFactsLedger" where="/contact, in GlowBand's left column." />
+        <Comp name="StudioFactsLedger" where="/contact, in GlowBand's left column, under a 'Details' kicker." />
         <What>
           The studio&rsquo;s details as RULED LEDGER ROWS: hairline, label left,
           value locked to its baseline. THIS IS THE DESIGN SYSTEM&rsquo;S
@@ -1601,19 +1599,49 @@ export default function ComponentsPages() {
           else, and showing them means this stage and /contact are literally the
           same rows.
         </p>
+        <What>
+          THE SOCIALS CARRY MARKS (2026-08-09): a hand-drawn Instagram or
+          LinkedIn glyph before the handle, at the same NON-SCALING 1px hairline
+          as the rules it sits between, in <Code>currentColor</Code> so the row
+          hover turns glyph and handle champagne together with no second rule.
+          They are drawn rather than imported for the StageGlyph reason: an icon
+          set arrives with its own line weight and its own radii, and the moment
+          one lands every future icon is picked from it instead of drawn for this
+          brand. The email row has none, because the marks are there to tell the
+          SOCIALS apart, not to decorate every row.
+        </What>
+        <What>
+          ⚠ &ldquo;Where we work&rdquo; was REMOVED in the same change (the
+          client: we don&rsquo;t need it). It listed <Code>SITE.areaServed</Code>,
+          and that field is NOT orphaned by its absence: it still drives{" "}
+          <Code>areaServed</Code> on both the Organization and the Service
+          schema, so the jurisdictions are still declared to a crawler. They just
+          stopped being a row a reader had to scan on the way to the form. LinkedIn
+          joined at the same time and is not a new claim either, since the footer
+          has always mapped over the whole of <Code>SITE.sameAs</Code>.
+        </What>
         <Stage component>
           <div className="max-w-[520px]">
             <StudioFactsLedger />
           </div>
         </Stage>
 
-        <Comp name="NextStepsList" where="/contact, under the facts ledger." />
+        <Comp name="NextStepsList" where="StartProjectForm's SENT state, on both tones. It lived on /contact until 2026-08-09." />
         <What>
           A kicker over numbered steps at RAIL scale: index numeral beside a line
           of body, the process grammar the site uses wherever it explains a
-          sequence. The steps are DATA rather than copy the component owns, since
-          /contact&rsquo;s three are the promise its own FAQ makes and any other
-          page&rsquo;s sequence is its own.
+          sequence. The steps are DATA rather than copy the component owns, so
+          any page&rsquo;s sequence is its own.
+        </What>
+        <What>
+          ⚠ ITS HOME MOVED 2026-08-09, and the reasoning is the useful part. It
+          was built for /contact&rsquo;s rail; the client moved it to the
+          start-project success screen because &ldquo;on the contact page, if you
+          think about it, they could be getting in touch about anything.&rdquo; A
+          numbered proposal sequence is a PROMISE ABOUT A PROJECT, and /contact
+          takes questions, introductions and press just as readily, so the steps
+          were answering a question half its readers had not asked. On the success
+          screen every reader has, by definition, just asked it.
         </What>
         <What>
           The heavier sibling is <Code>MethodSection</Code>&rsquo;s band, where
@@ -1627,6 +1655,7 @@ export default function ComponentsPages() {
           <Entry name="kicker" what="Names the sequence. Defaults to 'What happens next'." />
           <Entry name="className" what="Outer spacing is the RAIL's business, not the list's: the block sits in a stack the page paces." />
           <Entry name="delay" what="Entrance step in ms. The rail's stagger continues through this block, so the page owns the number." />
+          <Entry name="tone" what="'dark' (default) or 'light' — the FaqSection precedent, added 2026-08-09 because the success screen renders on the overlay's BONE column as well as the dark fallback page. Light takes the on-LIGHT ladder: ink-mute for the kicker and numerals, ink-dim for the step body." />
         </Props>
         <Stage component>
           <div className="max-w-[520px]">
@@ -1634,7 +1663,7 @@ export default function ComponentsPages() {
           </div>
         </Stage>
 
-        <Comp name="StartProjectCrossLink" where="/contact, at the foot of the rail." />
+        <Comp name="StartProjectCrossLink" where="PARKED 2026-08-09 — NO LIVE CONSUMER. The client removed it from /contact ('maybe remove that Start a project bit on the contact page too') in the pass that moved the steps to the success screen. Every page already carries a Start-a-project pill in the nav, so the rail was a second door to a room the reader could already see. The specimen below is the real component, live-rendered." />
         <What>
           THE SHORTER ROUTE: the block that points project enquiries at the
           full-page form, so the site&rsquo;s two conversion paths cross-link. It

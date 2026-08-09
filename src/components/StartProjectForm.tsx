@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import NextStepsList from "@/components/NextStepsList";
 import { SITE } from "@/lib/site";
 import { EMAIL_RE, errorTone, postNetlifyForm, type FormTone } from "@/lib/forms";
 import FieldGroup, { FieldError } from "@/components/FieldGroup";
@@ -336,16 +337,37 @@ export default function StartProjectForm({
     setStatus(ok ? "sent" : "error");
   }
 
+  /* WHAT HAPPENS NEXT — moved here from /contact 2026-08-09 (client: "that'll
+     be better as a success message on the start-project form, because on the
+     contact page, if you think about it, they could be getting in touch about
+     anything"). These are the studio's own promise, and they are the same
+     three lines /contact carried; nothing was rewritten in the move.
+
+     ⚠ THEY MUST NOT RESTATE THE PARAGRAPH ABOVE THEM. The sent state used to
+     say "we'll reply within two working days" in its body, which is now
+     verbatim step 01 — so the body was trimmed to the part the steps DON'T
+     make (the honest we-might-not-be-right-for-it line). If you edit either,
+     read the other. */
+  const NEXT_STEPS = [
+    "We reply within two working days, with honest first thoughts.",
+    "A short call: you tell us where the practice is and where you want it to be.",
+    "If we're the right studio for it, a written proposal follows with scope, timeline and price.",
+  ];
+
   if (status === "sent") {
     return (
       <div className={className}>
         <p className={`overline ${light ? T.label : ""}`}>Thank you</p>
         <h2 className={`heading-lg from-overline ${T.title}`}>Received.</h2>
         <p className={`body mt-5 max-w-[46ch] ${T.body}`}>
-          We&rsquo;ll read it properly and reply within two working days. If
-          we&rsquo;re not the right studio for it, we&rsquo;ll say so and
-          suggest a better route.
+          We&rsquo;ll read it properly. If we&rsquo;re not the right studio for
+          it, we&rsquo;ll say so and suggest a better route.
         </p>
+        <NextStepsList
+          steps={NEXT_STEPS}
+          className="mt-10"
+          tone={light ? "light" : "dark"}
+        />
         <div className="mt-8 flex flex-wrap items-baseline gap-x-8 gap-y-4">
           <Link href="/work" className={`btn-ghost ${T.ghost}`}>
             See the work <span aria-hidden>→</span>

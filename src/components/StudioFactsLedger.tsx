@@ -1,4 +1,5 @@
 import LedgerRow from "@/components/LedgerRow";
+import SocialIcon, { type SocialName } from "@/components/SocialIcon";
 import { SITE } from "@/lib/site";
 
 export interface StudioFact {
@@ -11,15 +12,42 @@ export interface StudioFact {
       WITHOUT one is meta, so it dims to bone-dim. The tone follows from
       what the row is, which is why it isn't a prop. */
   href?: string;
+  /** A social mark drawn before the value (2026-08-09). Rows without one —
+      the email — stay plain text: the icon is here to distinguish the
+      SOCIALS from each other at a glance, not to decorate every row. */
+  icon?: SocialName;
 }
 
 /* The studio's own details, read from SITE so the ledger can never drift
    from the schema, the footer and the metadata. */
 const STUDIO_FACTS: readonly StudioFact[] = [
   { label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
-  { label: "Instagram", value: "@northandrefine", href: SITE.sameAs[0] },
-  { label: "Where we work", value: SITE.areaServed.join(" · ") },
+  {
+    label: "Instagram",
+    value: "@northandrefine",
+    href: SITE.sameAs[0],
+    icon: "instagram",
+  },
+  {
+    label: "LinkedIn",
+    value: "North & Refine",
+    href: SITE.sameAs[1],
+    icon: "linkedin",
+  },
 ];
+
+/* ⚠ "WHERE WE WORK" WAS REMOVED 2026-08-09 (client: "remove Where we work,
+   we don't need that"). It listed SITE.areaServed, and that field is NOT
+   orphaned by this — it still drives `areaServed` on both the Organization
+   and the Service schema in lib/schema.ts, so the jurisdictions are still
+   declared to a crawler; they just stopped being a row a reader had to
+   scan on the way to the form. Do not "tidy up" areaServed on the strength
+   of this row's absence.
+
+   LINKEDIN JOINED IN THE SAME CHANGE, and it is not a new claim: the footer
+   has always mapped over the whole of SITE.sameAs, so the profile was
+   already linked in public. The ledger had simply been showing sameAs[0]
+   only. */
 
 /**
  * THE STUDIO FACTS RAIL — /contact's details as RULED LEDGER ROWS: hairline,
@@ -73,8 +101,12 @@ export default function StudioFactsLedger({
               {...(fact.href.startsWith("http")
                 ? { target: "_blank", rel: "noreferrer" }
                 : {})}
-              className="body text-bone transition-colors hover:text-champagne"
+              /* inline-flex so the mark rides the value's own line and
+                 inherits its colour through currentColor — the hover turns
+                 glyph and handle champagne together, with no second rule. */
+              className="body inline-flex items-center gap-3 text-bone transition-colors hover:text-champagne"
             >
+              {fact.icon && <SocialIcon name={fact.icon} />}
               {fact.value}
             </a>
           ) : (
