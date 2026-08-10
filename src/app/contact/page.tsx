@@ -3,7 +3,6 @@ import { breadcrumbSchema, contactPageSchema } from "@/lib/schema";
 import JsonLd from "@/components/JsonLd";
 import ContactForm from "@/components/ContactForm";
 import GlowBand from "@/components/GlowBand";
-import HeroGlow from "@/components/HeroGlow";
 import StudioFactsLedger from "@/components/StudioFactsLedger";
 
 /**
@@ -117,17 +116,39 @@ export default function ContactPage() {
         </div>
 
         {/* ── 2. THE FORM — written BEFORE the details (the mobile order),
-               placed in the
-               right columns and spanning BOTH rows so it runs the full height
-               of the left rail, as the reference's does. It keeps the gradient
-               card: ContactCTA's close-card recipe, which is what makes the
-               page read branded without inventing imagery. */}
+               placed in the right columns and spanning BOTH rows so it runs
+               the full height of the left rail, as the reference's does.
+
+               ⚠ THE GRADIENT CARD IS GONE (2026-08-09, client: the form
+               "conflicts with the background because it's repeating it, but
+               just making it less see-through… doesn't feel classy at all…
+               the container, for starters, is just ruining everything").
+               That diagnosis was exactly right and worth keeping: the card
+               was `bg-ink-canvas` + a contained `HeroGlow`, which is THE SAME
+               GRADIENT LANGUAGE as the SectionGlow already burning behind
+               this band. So it was not a distinct surface at all — it was the
+               ground, repeated at a different opacity, which is precisely how
+               a panel ends up reading as a smudge. A card can only carry the
+               hero's ground where nothing else is (the ContactCTA close sits
+               on flat ink; that is why the recipe works THERE and fails here).
+
+               WHAT REPLACES IT IS THE HOUSE FORM PANEL — the same device the
+               Start-a-project overlay uses, which is what she pointed at:
+               `rounded-ui-lg`, ONE hairline, NO FILL, panel padding. A form's
+               container exists to bound what the reader ACTS on, nothing more.
+
+               THE HAIRLINE IS bone/10, AND THE VALUE IS ARGUED. On the
+               overlay's bone column the panel is ink/25 while the fields rest
+               at ink/35 — the container is deliberately QUIETER than the
+               affordance inside it. Preserving that on ink: bone/10
+               composites to ≈#28241F against `rule-dark`'s #2F2820, so it
+               lands just under the field rule. bone/15 (the nearest existing
+               step) computes to ≈#332F2A — BRIGHTER than rule-dark — which
+               would invert the relationship, so it was rejected rather than
+               reached for because it already existed. */}
         <div className="md:col-span-6 md:col-start-7 md:row-span-2 md:row-start-1">
-          <div className="relative overflow-hidden grain rounded-plate-lg bg-ink-canvas">
-            <HeroGlow intensity={0.35} />
-            <div className="relative z-10 p-8 sm:p-10">
-              <ContactForm />
-            </div>
+          <div className="rounded-ui-lg border border-bone/10 p-6 sm:p-7">
+            <ContactForm />
           </div>
         </div>
 
