@@ -28,8 +28,17 @@ export const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
    Chrome paints its own pale blue over filled fields and only an opaque inset
    box-shadow can override it, so each ground carries a class that repaints
    the fill in its own colour. */
+/* ⚠ THE PLACEHOLDER LEFT CHAMPAGNE 2026-08-09 (client, on the contact form:
+   "can the placeholders and borders not be the gold tone? More of a bone vibe
+   please?"). THIRD tone this placeholder has had, so the history matters: it
+   was clay/60, then bone-dim/40 (client: "still looks really grey/blue"), then
+   champagne/35 to escape the blue cast. Going back to bone is NOT a return to
+   the rejected version — bone (#F4EDDF) is the warm cream, where bone-dim
+   (#CFC5B2) is the desaturated grey that drew the complaint. bone/30 over ink
+   composites to ≈#55514A: warm, clearly not blue, and clearly not gold.
+   Do not "fix" this back to bone-dim; that is the tone she rejected. */
 export const FIELD_BASE =
-  "field-on-dark w-full bg-transparent border-0 border-b py-3 text-bone placeholder:text-champagne/35 focus:outline-none focus:border-champagne transition-colors";
+  "field-on-dark w-full bg-transparent border-0 border-b py-3 text-bone placeholder:text-bone/30 focus:outline-none focus:border-champagne transition-colors";
 
 /** Which ground the form is sitting on. */
 export type FormTone = "dark" | "light";
@@ -57,9 +66,25 @@ export function fieldBorder(error?: string, tone: FormTone = "dark") {
      ink/35 over bone ≈ the ink-faint band — clearly a line, still quieter
      than focus (full ink). Dark keeps rule-dark: bone-tinted rules on ink
      already read as fields. */
+  /* ⚠ THE DARK RESTING RULE LEFT rule-dark 2026-08-09, same client note
+     ("borders… more of a bone vibe"). It is bone/20 (≈#3E3B35 over ink) and
+     that is MORE consistent with this file's own light-side principle, not
+     less: on bone the field rests at ink/35 rather than the rule-light
+     section hairline, precisely because "a section hairline whispers; an
+     affordance must read". rule-dark IS the section hairline on ink, so the
+     dark side had been breaking the rule the light side spells out. bone/20
+     also sits just above the /contact form panel's bone/10, keeping the
+     container quieter than the control inside it. */
   if (tone === "light") return error ? "border-ink" : "border-ink/35";
-  return error ? "border-champagne" : "rule-dark";
+  return error ? "border-champagne" : "border-bone/20";
 }
+
+/* ⚠ CHAMPAGNE STAYS ON FOCUS AND ERROR, deliberately. The 2026-08-09 note
+   asked for the RESTING placeholder and border to leave gold, and both did;
+   focus and error are the house FEEDBACK language, which the colour rule
+   reserves champagne for ("details & interactions ONLY… form feedback").
+   Stripping gold from those too would be a different, larger decision about
+   the interaction vocabulary sitewide, not a tone tweak on one form. */
 
 /** Error text tone: champagne is the house feedback colour on ink; on bone it
     fails contrast, so the message goes full ink and the field's ink rule is

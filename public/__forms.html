@@ -14,13 +14,17 @@
     <!-- /contact (and the coming-soon page): the lean contact form. The
          practice + interest fields moved to the start-project form below
          when /start-a-project split off (2026-07-31). -->
+    <!-- marketing-opt-in REMOVED 2026-08-09 (client: "remove this too I don't
+         like it") — same rule as the start-project form below: the form posts
+         no marketing consent, so none is recorded and no marketing email may
+         be sent to these addresses (Spam Act/PECR). Checkbox and consent
+         record return together or not at all. -->
     <form name="project-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="project-enquiry" />
       <input name="bot-field" />
       <input type="text" name="name" />
       <input type="email" name="email" />
       <textarea name="message"></textarea>
-      <input type="checkbox" name="marketing-opt-in" />
     </form>
 
     <!-- /start-a-project: the project form, in the overlay and on the

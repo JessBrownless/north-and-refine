@@ -17,7 +17,15 @@ export const SITE = {
   areaServed: ["Australia", "United Kingdom", "United States"],
   sameAs: [
     "https://www.instagram.com/northandrefine",
-    "https://www.linkedin.com/company/northandrefine",
+    /* ⚠ LINKEDIN REMOVED 2026-08-09 (client: "there's no linkedin profile so
+       remove that"). Taken out HERE rather than only from the contact ledger,
+       because sameAs has three consumers and the other two were the actual
+       problem: `organizationSchema` spreads this array into the Organization's
+       `sameAs`, so the site was ASSERTING A PROFILE THAT DOES NOT EXIST in its
+       structured data, and the footer's "Elsewhere" list maps over the whole
+       array, so it was rendering a live link to a dead page. Both cleared by
+       deleting the line. Re-add here the day a profile exists and all three
+       surfaces light up together. */
   ],
   logo: "/logo.svg",
   ogImage: "/og/default.png",

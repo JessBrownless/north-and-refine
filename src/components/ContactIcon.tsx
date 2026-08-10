@@ -24,6 +24,13 @@
  * Don't redraw them "more accurately" — closer to the real trademark is worse
  * here, not better, both legally and visually.
  *
+ * ⚠ THE LINKEDIN GLYPH HAS NO CONSUMER (2026-08-09, same day it was drawn):
+ * the client removed the profile from SITE.sameAs because it does not exist.
+ * PARKED rather than deleted, per the rule that unused things are explicitly
+ * one or the other — it is six lines, it costs nothing, and the moment a
+ * profile exists the ledger picks it back up. Do not "clean it up" without
+ * checking SITE.sameAs first.
+ *
  * Size is fixed at 18px rather than em-scaled: these sit beside `.body` text
  * in one place, and an icon that tracked a fluid type scale would wobble
  * against the ledger's fixed hairlines.

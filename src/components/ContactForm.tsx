@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { SITE } from "@/lib/site";
 import { EMAIL_RE, postNetlifyForm } from "@/lib/forms";
 import FieldGroup from "@/components/FieldGroup";
-import { TickPath } from "@/components/TickBox";
 
 /**
  * The /contact enquiry form, wired for Netlify Forms via the Next.js runtime
@@ -120,7 +119,6 @@ export default function ContactForm() {
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       message: String(data.get("message") ?? ""),
-      "marketing-opt-in": String(data.get("marketing-opt-in") ?? ""),
     });
     setStatus(ok ? "sent" : "error");
   }
@@ -218,39 +216,19 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Marketing consent — UNTICKED and optional (UK GDPR/PECR): the
-          reply happens regardless; only ticked boxes join the mailing list.
-          Same field name as the newsletter form = one consent record.
+      {/* ⚠ THE MARKETING CONSENT LINE WAS REMOVED 2026-08-09 (client: "remove
+          this too I don't like it"), and it went from THREE PLACES AT ONCE —
+          this UI, the POST body, and the project-enquiry definition in
+          public/__forms.html. That is the same discipline the start-project
+          form followed on 2026-08-01, and it is not tidiness: NO CONSENT
+          RECORDED MEANS NO MARKETING MAY BE SENT to these addresses (Spam
+          Act / PECR). A checkbox left in the static definition would keep an
+          empty column in the Netlify export and imply a consent question was
+          asked. If marketing ever returns to this form, the checkbox and the
+          consent record come back TOGETHER.
 
-          NOT a `TickBox`, and deliberately (2026-08-05). This box is the same
-          champagne-fill-under-an-ink-glyph idea, but a different instrument:
-          the INPUT ITSELF is the square here (appearance-none, `peer`,
-          uncontrolled), it is 16px rather than 20, it carries no radius and no
-          card, and the tick reveals from `peer-checked` instead of React
-          state. Making one component serve both would take five props that
-          each have exactly one consumer, which is a fork wearing a component's
-          name. What IS shared is the geometry, and that is `TickPath`. */}
-      <label className="flex cursor-pointer items-start gap-3">
-        <span className="relative mt-1 inline-flex h-4 w-4 shrink-0">
-          <input
-            type="checkbox"
-            name="marketing-opt-in"
-            value="yes"
-            className="peer h-4 w-4 cursor-pointer appearance-none border rule-dark bg-transparent transition-colors checked:border-champagne checked:bg-champagne"
-          />
-          {/* Ink checkmark over the champagne fill, revealed on tick */}
-          <svg
-            aria-hidden
-            viewBox="0 0 12 12"
-            className="pointer-events-none absolute inset-0 m-auto h-2.5 w-2.5 text-ink opacity-0 transition-opacity peer-checked:opacity-100"
-          >
-            <TickPath strokeWidth="2" />
-          </svg>
-        </span>
-        <span className="label text-bone-dim">
-          Send me the occasional note on web &amp; search for clinics.
-        </span>
-      </label>
+          The NEWSLETTER form keeps its own marketing-opt-in, untouched —
+          there the consent IS the transaction. */}
 
       <button type="submit" className="btn btn-primary-dark btn-arrow" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send message"}

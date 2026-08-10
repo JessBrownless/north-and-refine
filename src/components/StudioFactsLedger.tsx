@@ -34,12 +34,6 @@ const STUDIO_FACTS: readonly StudioFact[] = [
     href: SITE.sameAs[0],
     icon: "instagram",
   },
-  {
-    label: "LinkedIn",
-    value: "North & Refine",
-    href: SITE.sameAs[1],
-    icon: "linkedin",
-  },
 ];
 
 /* ⚠ "WHERE WE WORK" WAS REMOVED 2026-08-09 (client: "remove Where we work,
@@ -50,10 +44,12 @@ const STUDIO_FACTS: readonly StudioFact[] = [
    scan on the way to the form. Do not "tidy up" areaServed on the strength
    of this row's absence.
 
-   LINKEDIN JOINED IN THE SAME CHANGE, and it is not a new claim: the footer
-   has always mapped over the whole of SITE.sameAs, so the profile was
-   already linked in public. The ledger had simply been showing sameAs[0]
-   only. */
+   ⚠ LINKEDIN CAME AND WENT ON THE SAME DAY. It was added here on the
+   strength of it already being in SITE.sameAs (the footer maps the whole
+   array, so it was linked in public), and removed hours later when the
+   client said the profile does not exist. The fix was made at SITE.sameAs,
+   not here — see the note in lib/site.ts for why that mattered more than
+   this row did. */
 
 /**
  * THE STUDIO FACTS RAIL — /contact's details as RULED LEDGER ROWS: hairline,

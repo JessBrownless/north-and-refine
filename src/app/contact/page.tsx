@@ -40,10 +40,13 @@ import StudioFactsLedger from "@/components/StudioFactsLedger";
  *
  * NAV CLEARANCE MOVED WITH THE BAND. The nav is ABSOLUTE and transparent, so
  * the first ~128px of the page sit behind it. PageHero was carrying that
- * clearance; with it gone the band has to, hence `pt-32 md:pt-40` passed
- * through GlowBand's existing `padding` prop — PageHero's own values, so no
- * new spacing value enters the census. Miss this and the kicker sits under
- * the nav, which is exactly how the 2026-07-24 hero-padding whiplash started.
+ * clearance; with it gone the band has to, hence `pt-40` passed through
+ * GlowBand's existing `padding` prop — PageHero's own value, so no new
+ * spacing value enters the census. (It was `pt-32 md:pt-40` until the client
+ * asked for more mobile air on 2026-08-09; one value now serves both, since
+ * the mobile step landed on the figure md was already using.) Miss this and
+ * the kicker sits under the nav, which is exactly how the 2026-07-24
+ * hero-padding whiplash started.
  *
  * ⚠ THE FORM IS WRITTEN BEFORE THE DETAILS — the client's standing
  * rule, now three passes old: "it definitely shouldn't be before the form on
@@ -89,12 +92,25 @@ export default function ContactPage() {
         ]}
       />
 
-      {/* pt-32/md:pt-40 is NAV CLEARANCE, not taste — see the note above. */}
-      <GlowBand blob="left" pool padding="pt-32 pb-24 md:pt-40 md:pb-32">
+      {/* pt-40 is NAV CLEARANCE plus air — see the note above for the
+          clearance half. ⚠ SPACING-FREEZE BREACH, made on an explicit request
+          (client: "could we have more padding above and below Contact / Talk
+          to the studio / [the lede] on mobile?"). It is the SECOND sanctioned
+          breach, on the same terms as the hero-padding one: the mobile top
+          steps pt-32 → pt-40, which is the value this band ALREADY uses at md,
+          so the census gains a use of an existing value and no new value; and
+          the masthead block below takes pb-8 md:pb-0, likewise existing. One
+          file, two lines, revertible on its own. */}
+      <GlowBand blob="left" pool padding="pt-40 pb-24 md:pb-32">
         {/* ── 1. THE MASTHEAD — left column, first row. PageHero's exact H1
                markup and stagger, kept by hand because the component is not
                in this page any more. */}
-        <div className="md:col-span-5 md:col-start-1 md:row-start-1">
+        {/* pb-8 md:pb-0 is the "below" half of the same request: on mobile
+            the grid's gap-12 was the only thing between the lede and the
+            form, and she wanted the masthead to breathe. At md the grid owns
+            the spacing again, so the padding is reset rather than left to
+            double up with the row gap. */}
+        <div className="pb-8 md:col-span-5 md:col-start-1 md:row-start-1 md:pb-0">
           <h1 className="display with-overline">
             <span className="overline opacity-0 animate-fade-in">Contact</span>
             {/* ⚠ LOAD-BEARING SPACE — without it the H1 extracts as

@@ -1619,7 +1619,7 @@ export default function ComponentsPages() {
           Never drop it to tidy up the type.
         </What>
         <What>
-          THE MARKS: a hand-drawn email, Instagram or LinkedIn glyph before the value, at the same NON-SCALING 1px hairline
+          THE MARKS: a hand-drawn email or Instagram glyph before the value, at the same NON-SCALING 1px hairline
           as the rules it sits between, in <Code>currentColor</Code> so the row
           hover turns glyph and handle champagne together with no second rule.
           They are drawn rather than imported for the StageGlyph reason: an icon
@@ -1633,9 +1633,19 @@ export default function ComponentsPages() {
           and that field is NOT orphaned by its absence: it still drives{" "}
           <Code>areaServed</Code> on both the Organization and the Service
           schema, so the jurisdictions are still declared to a crawler. They just
-          stopped being a row a reader had to scan on the way to the form. LinkedIn
-          joined at the same time and is not a new claim either, since the footer
-          has always mapped over the whole of <Code>SITE.sameAs</Code>.
+          stopped being a row a reader had to scan on the way to the form.
+        </What>
+        <What>
+          ⚠ LINKEDIN CAME AND WENT ON 2026-08-09. It was added here because it
+          was already in <Code>SITE.sameAs</Code> (the footer maps the whole
+          array, so it was public), then removed hours later: the client said
+          the profile does not exist. THE FIX WAS MADE AT{" "}
+          <Code>SITE.sameAs</Code>, NOT AT THIS ROW, and that is the part worth
+          remembering — the array also feeds the Organization schema&rsquo;s{" "}
+          <Code>sameAs</Code>, so the site had been ASSERTING A PROFILE THAT
+          DOES NOT EXIST in its structured data while the footer rendered a
+          live link to a dead page. Deleting one line cleared all three. The
+          LinkedIn glyph in <Code>ContactIcon</Code> is PARKED, not deleted.
         </What>
         <Stage component>
           <div className="max-w-[520px]">
