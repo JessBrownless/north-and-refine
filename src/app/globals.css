@@ -1367,11 +1367,31 @@ textarea.field-on-light:-webkit-autofill {
   caret-color: var(--ink);
   transition: background-color 600000s 0s;
 }
+/* ⚠ THE DARK SIDE PAINTS NO FILL AT ALL (2026-08-09, client: "I don't like
+   how the field is darker black once filled — can just the text go whiter but
+   not a dark black background"). It used to carry
+   `-webkit-box-shadow: 0 0 0 1000px var(--ink) inset`, and that was the bug:
+   an OPAQUE FLAT INK RECTANGLE over a ground that is not flat ink. On
+   /contact the fields sit in a fill-less panel over the section's warm glow,
+   so the autofill block read as a dark slab exactly the height of the padding
+   box — visible in her screenshot as a band behind each filled value.
+
+   The fix is to let the transition hack do the work ALONE. `transition:
+   background-color 600000s` defers Chrome's autofill background paint
+   essentially forever, so the input keeps its own `bg-transparent` and the
+   ground shows through unchanged; only the TEXT is repainted, which is all
+   that was ever wanted here.
+
+   ⚠ THE LIGHT SIDE KEEPS ITS BOX-SHADOW ON PURPOSE — it is not an oversight
+   and the two are not "inconsistent". The overlay's form column is FLAT BONE,
+   so an opaque bone fill matches its ground exactly and costs nothing, while
+   giving belt-and-braces cover if a future Chrome ignores the transition
+   hack. The dark side cannot have that cover, because no single opaque colour
+   can match a gradient. Ground decides, not symmetry. */
 input.field-on-dark:-webkit-autofill,
 input.field-on-dark:-webkit-autofill:hover,
 input.field-on-dark:-webkit-autofill:focus,
 textarea.field-on-dark:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--ink) inset;
   -webkit-text-fill-color: var(--bone);
   caret-color: var(--bone);
   transition: background-color 600000s 0s;

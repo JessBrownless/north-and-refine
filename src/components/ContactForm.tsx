@@ -54,7 +54,7 @@ function validate(field: Field, raw: string): string | undefined {
   }
 }
 
-export default function ContactForm() {
+export default function ContactForm({ title }: { title?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const formRef = useRef<HTMLFormElement>(null);
@@ -153,6 +153,20 @@ export default function ContactForm() {
       className="space-y-5"
     >
       <input type="hidden" name="form-name" value="project-enquiry" />
+
+      {/* THE FORM'S OWN TITLE (2026-08-09, client: "a little title on the
+          form as well — small sans serif"). It takes `.form-title`, which is
+          exactly the register CLAUDE.md reserved for this and even named this
+          form as its likely second consumer: 15px at weight 600, sentence
+          case, NO RULE UNDER IT. Form furniture leads by emphasis rather than
+          size, which is legal because the house face has real weights.
+
+          ⚠ IT IS A PROP, NOT UNCONDITIONAL, because this form has THREE
+          consumers: /contact, the /stylesheet specimen, and
+          HoldingEnquiryCard on the coming-soon page. Only /contact wants a
+          title — the holding card already sits under its own heading, and a
+          second one there would be a heading stuttering at the reader. */}
+      {title && <p className="form-title text-bone">{title}</p>}
       {/* Honeypot — hidden from people, tempting to bots */}
       <p className="hidden">
         <label>
@@ -234,6 +248,32 @@ export default function ContactForm() {
         {status === "sending" ? "Sending…" : "Send message"}
         <span className="btn-arrow-chip" aria-hidden>↗</span>
       </button>
+      {/* ⚠ A NOTICE, NOT A CONSENT CHECKBOX (2026-08-09, answering the
+          client's GDPR question). Replying to someone who wrote to us is
+          lawful under legitimate interests / steps prior to a contract — it
+          does not run on consent, and gating SUBMIT on a consent tick would
+          actually weaken the position, because consent must be freely given
+          and cannot be a condition of the service. What the UK/EU regime does
+          require here is TRANSPARENCY at the point of collection: say what
+          the data is for and where the full notice lives. That is this line.
+
+          It can say "only to reply" truthfully BECAUSE the marketing checkbox
+          was removed on 2026-08-09 — no marketing consent is collected, so no
+          marketing may be sent. If marketing ever returns, this sentence is
+          wrong and must change in the same commit as the checkbox.
+
+          Matches NewsletterSignup's existing privacy-line pattern. */}
+      <p className="fineprint">
+        We&rsquo;ll only use these details to reply to your enquiry. See our{" "}
+        <a
+          href="/privacy"
+          className="underline underline-offset-2 transition-colors hover:text-bone"
+        >
+          privacy policy
+        </a>
+        .
+      </p>
+
       {status === "error" && (
         <p role="alert" className="fineprint text-champagne">
           Something went wrong sending that. Please try again, or email us at {SITE.email}.

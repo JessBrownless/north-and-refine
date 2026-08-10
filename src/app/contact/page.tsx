@@ -172,10 +172,17 @@ export default function ContactPage() {
                 15.4px   the kicker's line box (.overline, 11px, fixed)
               + 0.35em   the .with-overline flex gap at display tier
               + 1.11em   that line's baseline within its own line box
-              from the panel's top down to the NAME label's baseline
-              − 70.5px   sm:p-7 padding (28px) + the label's own metrics
+              from the panel's top down to the FORM TITLE's baseline
+              − 68.0px   sm:p-7 padding (28px) + .form-title's own metrics
 
-              offset = 1.46em − 55.1px, em = --display-size
+              offset = 1.46em − 52.6px, em = --display-size
+
+            ⚠ THE LOCKED ELEMENT CHANGED 2026-08-09. It was the NAME label
+            (constant 55.1px); the client added the form title and asked for
+            THAT line to carry the alignment instead. Only the right-hand
+            term moved — the 1.46em is the left column's geometry and is
+            unchanged. Re-measure the right-hand term, not the whole thing,
+            if the panel padding or the title's register ever changes.
 
             IT CANNOT BE A STATIC PX VALUE: the display size is a clamp, so
             the true offset runs from ~27px at the small end to ~91px at
@@ -196,9 +203,9 @@ export default function ContactPage() {
 
             md+ only: on a phone the columns are stacked and there is nothing
             to align to. */}
-        <div className="md:col-span-6 md:col-start-7 md:row-span-2 md:row-start-1 md:mt-[calc(1.46*var(--display-size)-55.1px)]">
+        <div className="md:col-span-6 md:col-start-7 md:row-span-2 md:row-start-1 md:mt-[calc(1.46*var(--display-size)-52.6px)]">
           <div className="rounded-ui-lg border border-bone/10 p-6 sm:p-7">
-            <ContactForm />
+            <ContactForm title="Fill out the form" />
           </div>
         </div>
 
