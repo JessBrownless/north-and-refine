@@ -359,7 +359,7 @@ export default function AtomsTier() {
             </>
           }
           register="THE MASTHEADS AND THE LEDGER ROWS. Every H1 on the site, plus the What-we-do service rows."
-          where="HomeHero, PageHero, ServicesShowcase."
+          where="HomeHero, PageHero, ServicesShowcase, and /contact's inline masthead. Its size comes from --display-size (2026-08-09), the sibling of --masthead-size above and extracted for the same reason: anything that must align to this heading's first line reads the variable rather than copying the clamp. /contact is the first such consumer — it baseline-locks its form's first field label to this heading's first line, an offset that is part fixed and part proportional to this token, so it cannot be a static px value. ⚠ That only works because this rung is line-height 1: a 1em line box puts the baseline at a fixed fraction of font-size, which is what makes the lock hold across the whole clamp (measured drift 0.26px or less from 800px to 2200px)."
         />
         <Rung
           cls="heading-xl"

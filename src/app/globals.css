@@ -209,6 +209,18 @@
        and a 136px/1280 variant — both in git history; retune this if the
        grid ever genuinely changes. */
     --masthead-size: clamp(3.25rem, 1.5rem + 8.75vw, 9.5rem); /* 52 → 152px */
+
+    /* THE SAME IDEA ONE RUNG DOWN (2026-08-09). `.display`'s clamp, extracted
+       for exactly the reason --masthead-size above was: ANYTHING THAT MUST
+       ALIGN TO A HEADING'S FIRST LINE READS THE VARIABLE RATHER THAN COPYING
+       THE CLAMP. Nothing about the size changed on extraction. Its consumer
+       is /contact, which baseline-locks its form's first field label to the
+       H1's first line; that distance is part fixed (the kicker's line box,
+       the panel's padding) and part proportional to THIS value, so it cannot
+       be a static px offset. The derivation lives in contact/page.tsx.
+       ⚠ It is only scale-invariant because `.display` is line-height: 1 —
+       a 1em line box puts the baseline at a fixed fraction of font-size. */
+    --display-size: clamp(2.625rem, 1.35rem + 6vw, 6.25rem); /* 42 → 100px */
   }
 
   html {
@@ -277,7 +289,12 @@
   .display {
     font-family: var(--font-display), Georgia, serif;
     font-weight: var(--heading-weight);
-    font-size: clamp(2.625rem, 1.35rem + 6vw, 6.25rem); /* 42 → 100px */
+    /* THE CLAMP MOVED TO `--display-size` (2026-08-09) so a second rule can
+       read it. Nothing about the size changed — this is an extraction, not a
+       new value. Its one other consumer is /contact's form panel, which
+       BASELINE-ALIGNS its first field label to this heading's first line and
+       therefore has to know how big this heading is. See the note there. */
+    font-size: var(--display-size); /* 42 → 100px */
     line-height: 1;
     letter-spacing: -0.015em;
   }

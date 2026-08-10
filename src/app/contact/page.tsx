@@ -162,7 +162,41 @@ export default function ContactPage() {
                step) computes to ≈#332F2A — BRIGHTER than rule-dark — which
                would invert the relationship, so it was rejected rather than
                reached for because it already existed. */}
-        <div className="md:col-span-6 md:col-start-7 md:row-span-2 md:row-start-1">
+        {/* ⚠ THE BASELINE LOCK (2026-08-09, client: "baseline align 'Name',
+            the label on the right, with the line that says 'Talk to the' on
+            the left, on desktop"). BASELINES LOCK is house canon and it
+            forbids eyeballed pt-* nudges, so this offset is DERIVED, and the
+            derivation is here so it can be re-derived rather than re-guessed:
+
+              from the H1's top down to its FIRST DISPLAY LINE's baseline
+                15.4px   the kicker's line box (.overline, 11px, fixed)
+              + 0.35em   the .with-overline flex gap at display tier
+              + 1.11em   that line's baseline within its own line box
+              from the panel's top down to the NAME label's baseline
+              − 70.5px   sm:p-7 padding (28px) + the label's own metrics
+
+              offset = 1.46em − 55.1px, em = --display-size
+
+            IT CANNOT BE A STATIC PX VALUE: the display size is a clamp, so
+            the true offset runs from ~27px at the small end to ~91px at
+            100px display. That is the whole reason `--display-size` exists as
+            a token — see globals.css.
+
+            IT IS SCALE-INVARIANT for a good reason: `.display` sets
+            `line-height: 1`, so a line box is exactly 1em tall and the
+            baseline sits at a FIXED FRACTION of the font-size. Change that
+            line-height, the kicker's size, or the panel's padding, and the
+            two constants above must be re-measured.
+
+            ⚠ NOT EXPRESSIBLE WITH `items-baseline`, which would otherwise be
+            the canon answer. `.with-overline` is a COLUMN FLEX, so the H1's
+            first baseline is the KICKER's — CSS would happily lock NAME to
+            "Contact", which is not what was asked for. There is no selector
+            for "the second line's baseline".
+
+            md+ only: on a phone the columns are stacked and there is nothing
+            to align to. */}
+        <div className="md:col-span-6 md:col-start-7 md:row-span-2 md:row-start-1 md:mt-[calc(1.46*var(--display-size)-55.1px)]">
           <div className="rounded-ui-lg border border-bone/10 p-6 sm:p-7">
             <ContactForm />
           </div>
