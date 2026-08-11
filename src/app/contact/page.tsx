@@ -92,16 +92,35 @@ export default function ContactPage() {
         ]}
       />
 
-      {/* pt-40 is NAV CLEARANCE plus air — see the note above for the
-          clearance half. ⚠ SPACING-FREEZE BREACH, made on an explicit request
-          (client: "could we have more padding above and below Contact / Talk
-          to the studio / [the lede] on mobile?"). It is the SECOND sanctioned
-          breach, on the same terms as the hero-padding one: the mobile top
-          steps pt-32 → pt-40, which is the value this band ALREADY uses at md,
-          so the census gains a use of an existing value and no new value; and
-          the masthead block below takes pb-8 md:pb-0, likewise existing. One
-          file, two lines, revertible on its own. */}
-      <GlowBand blob="left" pool padding="pt-40 pb-24 md:pb-32">
+      {/* ⚠ SPACING-FREEZE BREACHES, BOTH ON EXPLICIT REQUEST, both using
+          values that already exist in the census — no new value is minted.
+
+          MOBILE (2026-08-09): "more padding above and below Contact / Talk to
+          the studio / [the lede] on mobile". pt-32 → pt-40 (the figure this
+          band already used at md) plus pb-8 md:pb-0 on the masthead block.
+
+          DESKTOP (2026-08-09, same day): "increase the padding on the page on
+          desktop so it feels a bit more luxurious". THIS WAS A REAL DEFICIT,
+          not a taste top-up, and the cause is worth recording: PageHero's
+          `splitBox` contributed md:py-28 (112px) of hero air on every other
+          page, and when this page stopped using PageHero only the nav
+          clearance came with it. Measured, /contact had 32px of OPTICAL AIR
+          below the nav's foot against the house hero target of 144px — it was
+          short by almost exactly the 112px the component used to add.
+
+          ⚠ IT CANNOT SIMPLY BE RESTORED TO 144, and this is the one page
+          where that trade is real: every other page puts the hero ABOVE its
+          content, so hero air costs nothing downstream. Here the masthead and
+          the form share ONE band, so top padding pushes the send button down.
+          Measured at md:pt-64 (the house figure): optical air 128px, but Send
+          needed 63px of scroll at an 800px viewport — re-breaking the exact
+          complaint that started this page's three redesigns.
+
+          md:pt-52 / md:pb-44 is the balance point: optical air 80px (2.5× what
+          it was), all fields above the fold, Send fully visible at 900px and
+          15px down at 800px. If more air is ever wanted, the honest lever is
+          shortening the form or the masthead, not more padding. */}
+      <GlowBand blob="left" pool padding="pt-40 pb-24 md:pt-52 md:pb-44">
         {/* ── 1. THE MASTHEAD — left column, first row. PageHero's exact H1
                markup and stagger, kept by hand because the component is not
                in this page any more. */}
