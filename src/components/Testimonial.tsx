@@ -34,6 +34,8 @@ import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 
 export default function Testimonial({
   rule = false,
+  ground,
+  actSelf = false,
   exitFade = false,
   tone = "dark",
   spacious = false,
@@ -42,6 +44,13 @@ export default function Testimonial({
     alt: "A phone on travertine displaying the Dr Yalda Jamali mobile site — brand and web design by North & Refine",
   },
 }: {
+  /** THE ACT SYSTEM (2026-08-11) — declaring a ground opts this band into the
+      act rule in globals.css. Omit it and the band keeps its own padding,
+      which is what all twelve non-homepage consumers do. */
+  ground?: "ink" | "bone";
+  /** "I declare my ground for ADJACENCY only; I pace myself." */
+  actSelf?: boolean;
+
   rule?: boolean;
   exitFade?: boolean;
   /** "ivory" (2026-07-24 services-pacing handoff): the light act's STEP UP —
@@ -53,7 +62,7 @@ export default function Testimonial({
 }) {
   const dark = tone === "dark";
   const ivory = tone === "ivory";
-  const ground = dark
+  const groundCls = dark
     ? "grain bg-ink"
     : `grain-light ${ivory ? "bg-ivory" : "bg-bone"} text-ink`;
   const ruleCls = dark ? "rule-dark" : "rule-light";
@@ -69,7 +78,9 @@ export default function Testimonial({
 
   return (
     <section
-      className={`relative overflow-hidden ${ground}${
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
+      className={`relative overflow-hidden ${groundCls}${
         rule ? ` border-t ${ruleCls}` : ""
       }`}
     >

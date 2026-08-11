@@ -86,6 +86,8 @@ export default function HomePage() {
           original This-January form. ══ */}
       <DesignFlip label="Manifesto">
         <ManifestoTrack
+          ground="ink"
+          actSelf
           text={MANIFESTO}
           cta={{ href: "/about", label: "Our story" }}
         />
@@ -93,12 +95,12 @@ export default function HomePage() {
 
       {/* ── Selected work — the page's only imagery, and the proof. ── */}
       <DesignFlip label="Selected work">
-        <SelectedWorkBand projects={featured} />
+        <SelectedWorkBand projects={featured} ground="ink" />
       </DesignFlip>
 
       {/* ── What we do — the ruled rows, the page's formal stabiliser. ── */}
       <DesignFlip label="What we do">
-        <WhatWeDoBand />
+        <WhatWeDoBand ground="bone" />
       </DesignFlip>
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
@@ -120,7 +122,7 @@ export default function HomePage() {
             defect the client reported on What we do earlier today ("fades to
             white as you scroll"). Passing tone="light" while leaving the
             fade on would have re-created it here, one band down. */}
-        <Testimonial tone="light" />
+        <Testimonial tone="light" ground="bone" />
       </DesignFlip>
 
 
@@ -132,13 +134,13 @@ export default function HomePage() {
 
       {/* ── Blog teasers — a rail instead of a grid (2026-07-10). ── */}
       <DesignFlip label="Blog rail">
-        <BlogRailBand posts={posts} />
+        <BlogRailBand posts={posts} ground="bone" />
       </DesignFlip>
 
       {/* ── CTA — the close. (It was "the bone interruption" until
           2026-07-24, when the band became ink plus the gradient card.) ── */}
       <DesignFlip label="Close">
-        <ContactCTA exitFade />
+        <ContactCTA exitFade ground="ink" />
       </DesignFlip>
     </main>
   );

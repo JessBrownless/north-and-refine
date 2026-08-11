@@ -98,7 +98,16 @@ import SectionGlow from "@/components/SectionGlow";
 export default function ManifestoTrack({
   text,
   cta,
+  ground,
+  actSelf = false,
 }: {
+  /** THE ACT SYSTEM (2026-08-11) — declaring a ground opts this band into the
+      act rule in globals.css. Omit it and the band keeps its own padding,
+      which is what every non-homepage consumer does. */
+  ground?: "ink" | "bone";
+  /** "I declare my ground for ADJACENCY only; I pace myself." */
+  actSelf?: boolean;
+
   /** The statement itself. One thought; at heading-xl in the six-column
       split the homepage runs five lines. */
   text: string;
@@ -117,7 +126,10 @@ export default function ManifestoTrack({
        straight edge on purpose — one curved lift, one clean cut, so the
        device reads as an entrance, not a pill. The card trial died the same
        hour this was born; this is the one survivor of it the client kept. */
-    <section className="relative z-10 overflow-hidden grain bg-ink text-bone">
+    <section className="relative z-10 overflow-hidden grain bg-ink text-bone"
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
+    >
       {/* LIGHT ON THE RIGHT (2026-08-09, client: "what about if we went a bit
           heavier on the blurred gradient over the background on the right of
           the… section?"). Worth recording that this band had NO glow at all

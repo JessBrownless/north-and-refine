@@ -221,6 +221,27 @@
        ⚠ It is only scale-invariant because `.display` is line-height: 1 —
        a 1em line box puts the baseline at a fixed fraction of font-size. */
     --display-size: clamp(2.625rem, 1.35rem + 6vw, 6.25rem); /* 42 → 100px */
+
+    /* ── THE ACT SCALE (2026-08-11, client: "when two or more sections have
+       the same colour, don't just have equal top and bottom padding. The top
+       of the first should be bigger, the bottom of the last bigger, but in
+       between it shouldn't feel so huge… it's meant to be a luxury site and
+       it all feels a bit chopped in").
+
+       AN ACT is a RUN OF ADJACENT SECTIONS SHARING A GROUND. Padding belongs
+       to the act, not to the section, because a reader sees acts: the joins
+       INSIDE one are invisible, and only its outer edges are real boundaries.
+
+       THE FAULT THIS FIXES, measured on the homepage before the change: the
+       two largest gaps on the page sat at joins you cannot see. Inside the
+       bone act each section paid 128 bottom + 128 top = 256px at an invisible
+       join, while the act's actual colour cuts got 128. Every section had
+       equal padding, so the air pooled in the middle and the ends were
+       starved — cavernous where nothing happens, cramped where it does.
+
+       Two numbers, one job each. Tune these, not the sections. */
+    --act-edge: clamp(7rem, 4rem + 5vw, 10rem); /* 112 → 160px — an act OPENS and CLOSES */
+    --act-join: clamp(4.5rem, 3rem + 3vw, 7rem); /* 72 → 112px — the invisible join INSIDE one */
   }
 
   html {
@@ -1724,4 +1745,43 @@ textarea.field-on-dark:-webkit-autofill {
   .nr-hero-carousel {
     --nr-card-h: 380px;
   }
+}
+
+/* ── THE ACT RULE (2026-08-11) ───────────────────────────────────────────────
+   Opt-in: a band declares `data-ground` and the run it belongs to is derived
+   from its neighbours. See --act-edge / --act-join for the reasoning.
+
+   ⚠ UNLAYERED ON PURPOSE, exactly like the `.overline` decoration override
+   below/above it. Tailwind's `py-*` utilities live in @layer utilities, which
+   beats anything in @layer components, so an act rule written inside a layer
+   would silently lose to the `py-24 md:py-32` the bands already carry. This
+   lands last in the output and wins. It is also why the rule is OPT-IN: it
+   overrides real padding, so it must never touch a band that has not asked.
+   ContactCTA renders on thirteen routes and only the homepage instance opts
+   in; every other page keeps the component's own padding untouched.
+
+   ⚠ `data-act-self` = "I declare my ground for ADJACENCY ONLY; I pace myself."
+   The homepage hero and the manifesto are both self-airing — the manifesto's
+   room comes from a min-h band in normal flow, not from padding, and the pair
+   were tuned over a full day in 2026-08-07. They must still announce their
+   ground, or the band beneath them cannot know it is mid-act, but they must
+   not be re-padded. Without this the manifesto would take a 160px act-opening
+   top directly under a hero it is meant to continue from.
+
+   ⚠ `:has()` carries the closing half. Where it is unsupported the interior
+   TOP still collapses (the `+` selector is ancient), so the join degrades to
+   roughly today's spacing rather than to something broken. */
+[data-ground]:not([data-act-self]) {
+  padding-top: var(--act-edge);
+  padding-bottom: var(--act-edge);
+}
+
+/* Mid-act: the join is ONE dose carried by the section above, not two stacked. */
+[data-ground="ink"] + [data-ground="ink"]:not([data-act-self]),
+[data-ground="bone"] + [data-ground="bone"]:not([data-act-self]) {
+  padding-top: 0;
+}
+[data-ground="ink"]:not([data-act-self]):has(+ [data-ground="ink"]),
+[data-ground="bone"]:not([data-act-self]):has(+ [data-ground="bone"]) {
+  padding-bottom: var(--act-join);
 }

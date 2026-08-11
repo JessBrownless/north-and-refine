@@ -72,7 +72,18 @@ export default function BlogRailBand({
   linkHref = "/blog",
   linkLabel = "All entries",
   railLabel = "Latest blog posts",
+  ground,
+  actSelf = false,
 }: {
+  /** THE ACT SYSTEM (2026-08-11). Declaring a ground opts this band into the
+      act rule in globals.css: a run of adjacent same-ground bands is padded
+      as ONE act — generous at the outer edges, one small dose at the
+      invisible joins between. Omit it and the band keeps its own padding,
+      which is what every non-homepage consumer does. */
+  ground?: "ink" | "bone";
+  /** "I declare my ground for ADJACENCY only; I pace myself." For bands whose
+      air comes from something other than padding. */
+  actSelf?: boolean;
   posts: JournalEntry[];
   kicker?: string;
   title?: ReactNode;
@@ -87,7 +98,10 @@ export default function BlogRailBand({
     // LIGHT AGAIN 2026-08-09 — see the ground note in the docblock above.
     // tone threads back through CollectionHeader, the Carousel folio and
     // every BlogTeaserCard.
-    <section className="relative grain-light bg-bone py-24 text-ink md:py-32">
+    <section className="relative grain-light bg-bone py-24 text-ink md:py-32"
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
+    >
       <div className="shell">
         <CollectionHeader
           kicker={kicker}

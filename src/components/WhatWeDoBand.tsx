@@ -47,11 +47,25 @@ import ServicesShowcase from "@/components/ServicesShowcase";
  */
 export default function WhatWeDoBand({
   kicker = "What we do",
+  ground,
+  actSelf = false,
 }: {
+  /** THE ACT SYSTEM (2026-08-11). Declaring a ground opts this band into the
+      act rule in globals.css: a run of adjacent same-ground bands is padded
+      as ONE act — generous at the outer edges, one small dose at the
+      invisible joins between. Omit it and the band keeps its own padding,
+      which is what every non-homepage consumer does. */
+  ground?: "ink" | "bone";
+  /** "I declare my ground for ADJACENCY only; I pace myself." For bands whose
+      air comes from something other than padding. */
+  actSelf?: boolean;
   kicker?: string;
 }) {
   return (
-    <section className="relative grain-light bg-bone py-24 text-ink md:py-32">
+    <section className="relative grain-light bg-bone py-24 text-ink md:py-32"
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
+    >
       <div className="shell">
         <p className="overline mb-8 reveal text-clay md:mb-10">{kicker}</p>
         <div className="reveal" style={{ transitionDelay: "120ms" }}>

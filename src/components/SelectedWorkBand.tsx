@@ -92,7 +92,18 @@ import type { WorkEntry } from "@/lib/work";
 export default function SelectedWorkBand({
   projects,
   railLabel = "Selected work",
+  ground,
+  actSelf = false,
 }: {
+  /** THE ACT SYSTEM (2026-08-11). Declaring a ground opts this band into the
+      act rule in globals.css: a run of adjacent same-ground bands is padded
+      as ONE act — generous at the outer edges, one small dose at the
+      invisible joins between. Omit it and the band keeps its own padding,
+      which is what every non-homepage consumer does. */
+  ground?: "ink" | "bone";
+  /** "I declare my ground for ADJACENCY only; I pace myself." For bands whose
+      air comes from something other than padding. */
+  actSelf?: boolean;
   projects: WorkEntry[];
   /** Accessible name for the mobile rail region. The band has no visible
       heading now, so this is the only thing naming the rail to a screen
@@ -101,6 +112,8 @@ export default function SelectedWorkBand({
 }) {
   return (
     <section
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
       id="selected-work"
       className="relative scroll-mt-14 overflow-hidden pb-16 md:pb-24"
     >

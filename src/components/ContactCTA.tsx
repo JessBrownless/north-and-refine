@@ -4,6 +4,13 @@ import HeroGlow from "@/components/HeroGlow";
 import TypewriterWord from "@/components/TypewriterWord";
 
 interface ContactCTAProps {
+  /** THE ACT SYSTEM (2026-08-11) — declaring a ground opts this band into the
+      act rule in globals.css. Omit it and the band keeps its own padding,
+      which is what all twelve non-homepage consumers do. */
+  ground?: "ink" | "bone";
+  /** "I declare my ground for ADJACENCY only; I pace myself." */
+  actSelf?: boolean;
+
   /** THE BLACK FADE-OUT as this band leaves the top of the viewport
       (2026-08-09, client: "any section that's black… fade into black"). A
       PROP rather than unconditional, unlike the homepage's other dark bands,
@@ -88,9 +95,14 @@ export default function ContactCTA({
   heading,
   body = "Tell us about your practice and where you want it to be. We take on a limited number of projects at a time, so the right fit matters.",
   exitFade = false,
+  ground,
+  actSelf = false,
 }: ContactCTAProps) {
   return (
-    <section className="relative overflow-hidden grain bg-ink">
+    <section className="relative overflow-hidden grain bg-ink"
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
+    >
       {/* Statement-moment spacing tier: py-32 md:py-44 — the studio moment
           and this close share it; standard sections sit on py-24 md:py-32. */}
       <div className="shell relative z-10 py-32 md:py-44">

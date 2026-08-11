@@ -576,6 +576,67 @@ export default function AtomsTier() {
         </div>
 
         <Sub
+
+          title="Section rhythm: THE ACT"
+
+          note="An ACT is a run of adjacent sections sharing a ground. Padding belongs to the act, not the section, because a reader sees acts: the joins inside one are invisible and only its outer edges are real boundaries."
+
+        />
+
+        <div className="mt-5">
+
+          <Entry
+
+            name="--act-edge"
+
+            what="clamp(7rem, 4rem + 5vw, 10rem) — 112 to 160px. What an act OPENS and CLOSES with: the top of its first section and the bottom of its last."
+
+            where="Any section carrying data-ground. Tune this, not the sections."
+
+          />
+
+          <Entry
+
+            name="--act-join"
+
+            what="clamp(4.5rem, 3rem + 3vw, 7rem) — 72 to 112px. ONE dose at an invisible join inside an act, carried by the section above while the one below takes zero. Never two paddings stacked."
+
+            where="Derived from a band's neighbours; no consumer sets it."
+
+          />
+
+          <Entry
+
+            name="data-ground / data-act-self"
+
+            what="A band declares data-ground='ink' or 'bone' to opt into the act rule; the run it belongs to is derived from its siblings, so re-grounding or reordering a band re-paces the page with no other edit. data-act-self means 'I declare my ground for ADJACENCY only; I pace myself' — for bands whose air comes from something other than padding."
+
+            where="The homepage's six bands; the manifesto is act-self, its room being a min-h band in normal flow. ⚠ OPT-IN because the rule is UNLAYERED and overrides real padding — ContactCTA renders on thirteen routes and only the homepage instance opts in."
+
+          />
+
+        </div>
+
+        <p className="fineprint mt-4">
+
+          ⚠ THE FAULT THIS FIXES, measured 2026-08-11: the two largest gaps on
+
+          the homepage sat at joins you cannot see. Inside the bone act each
+
+          section paid 128 bottom + 128 top = 256px at an invisible join, while
+
+          the act&rsquo;s real colour cuts got 128. Equal padding on every section
+
+          pools the air in the middle and starves the ends. After: 92px at the
+
+          invisible joins, 276px at the cuts, and Selected work&rsquo;s closing
+
+          edge up from 96 to 138.
+
+        </p>
+
+
+        <Sub
           title="The 12-column grid"
           note="Always grid-cols-1 md:grid-cols-12. A bare grid-cols-12 overflows on mobile, which is drift pattern 2 and the single most common one."
         />
@@ -593,7 +654,10 @@ export default function AtomsTier() {
           <p className="fineprint mt-4">
             The canonical hero split is heading on columns 1 to 7 and lede on 9
             to 12; the media variant moves the text to 1 to 6 and puts the
-            graphic on 8 to 12.
+            graphic on 7 to 12 (md:col-span-6 md:col-start-7 — this page and
+              CLAUDE.md both said 8 to 12 until 2026-08-11; the code has
+              always said 7, so the halves meet in the middle with no
+              gutter column).
           </p>
         </Stage>
 
