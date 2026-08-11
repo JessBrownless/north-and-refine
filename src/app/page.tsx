@@ -1,3 +1,4 @@
+import GroundTheme from "@/components/GroundTheme";
 import { getFeaturedProjects } from "@/lib/work";
 import { getAllPosts } from "@/lib/journal";
 import BlogRailBand from "@/components/BlogRailBand";
@@ -52,7 +53,9 @@ export default function HomePage() {
   const posts = getAllPosts().slice(0, 6);
 
   return (
-    <main className="bg-ink text-bone">
+    <>
+      <GroundTheme />
+      <main className="bg-ink text-bone">
       {/* ══ THE HERO CANVAS (2026-08-07 layout pass). The canvas holds the
           HERO ALONE now: the manifesto left it the same day it briefly
           joined, becoming the BONE ACT below — the client's own call ("maybe
@@ -143,5 +146,6 @@ export default function HomePage() {
         <ContactCTA exitFade ground="ink" />
       </DesignFlip>
     </main>
+    </>
   );
 }

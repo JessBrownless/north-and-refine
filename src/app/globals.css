@@ -242,6 +242,14 @@
        Two numbers, one job each. Tune these, not the sections. */
     --act-edge: clamp(7rem, 4rem + 5vw, 10rem); /* 112 → 160px — an act OPENS and CLOSES */
     --act-join: clamp(4.5rem, 3rem + 3vw, 7rem); /* 72 → 112px — the invisible join INSIDE one */
+
+    /* How long the ground takes to change hands (2026-08-11). Habitat's own
+       figure is 0.65s ease-in-out and it is a good one: long enough to read as
+       a change of light rather than a cut, short enough that a fast scroller
+       never waits for the page to catch up. Tune HERE — ground and both type
+       ladders share this clock on purpose, because the moment they disagree
+       you get unreadable type mid-swap. */
+    --theme-swap: 0.65s;
   }
 
   html {
@@ -1784,4 +1792,151 @@ textarea.field-on-dark:-webkit-autofill {
 [data-ground="ink"]:not([data-act-self]):has(+ [data-ground="ink"]),
 [data-ground="bone"]:not([data-act-self]):has(+ [data-ground="bone"]) {
   padding-bottom: var(--act-join);
+}
+
+/* ── THE GROUND THEME (2026-08-11) ───────────────────────────────────────────
+   The page holds ONE ground at a time and it changes hands as you scroll. See
+   `GroundTheme.tsx` for what the reference actually does and why the type has
+   to travel with the ground.
+
+   ⚠ EVERY RULE IS SCOPED UNDER `html[data-theme]`, an attribute that exists
+   only once the driver has mounted. Before hydration, with JS off, or on any
+   other route, none of this applies and the bands paint themselves exactly as
+   they always have. The effect is additive; nothing depends on it to be
+   legible.
+
+   ⚠ UNLAYERED, like the act rule and the `.overline` override — it has to beat
+   Tailwind's own colour utilities in @layer utilities. */
+
+/* 1 — the page paints, the bands stop. */
+/* ⚠ THE PAINT GOES ON `body`, NOT ON `html`, and the reason is worth keeping:
+   a background on the ROOT element is propagated to the canvas, and once it is,
+   `getComputedStyle(document.documentElement).backgroundColor` reports
+   rgba(0,0,0,0) no matter what you set — even an inline red. So a theme painted
+   on `html` is invisible to every check you would write to prove it works.
+   Painting `body` puts the colour somewhere readable, which is also where the
+   reference does it. The ATTRIBUTE stays on `html` so the type rules below can
+   scope to it. */
+html[data-theme] body {
+  transition: background-color var(--theme-swap) ease-in-out;
+}
+html[data-theme="ink"] body {
+  background-color: var(--ink);
+}
+html[data-theme="bone"] body {
+  background-color: var(--bone);
+}
+html[data-theme] main,
+html[data-theme] [data-ground] {
+  background-color: transparent;
+}
+
+/* 2 — both type ladders follow, on the same clock. A band keeps whichever
+   colour classes it was written with; these remap them to the ladder the
+   CURRENT theme needs, so text is always right-polarity no matter which act
+   owns it. Same mapping the /stylesheet flipper uses, which is where it was
+   proven. */
+html[data-theme] [class*="text-"],
+html[data-theme] [class*="rule-"] {
+  transition: color var(--theme-swap) ease-in-out,
+    border-color var(--theme-swap) ease-in-out;
+}
+/* ⚠ THE DEFAULTS THAT ARE NOT UTILITY CLASSES COME FIRST. A remap keyed on
+   `text-*` classes only sees colour that arrived as a utility. `.overline`
+   takes its bone from its own rule in globals, and the button chip from the
+   button system, so neither is reachable that way and both go invisible under
+   the opposite theme. These are listed BEFORE the utility remaps so a band
+   that DID state a tint explicitly still wins. */
+html[data-theme="bone"] .overline {
+  color: var(--ink-mute);
+}
+html[data-theme="ink"] .overline {
+  color: var(--bone);
+}
+
+html[data-theme="bone"] .text-bone {
+  color: var(--ink);
+}
+html[data-theme="bone"] .text-bone-dim {
+  color: var(--ink-dim);
+}
+html[data-theme="bone"] .text-clay {
+  color: var(--ink-mute);
+}
+html[data-theme="bone"] .rule-dark {
+  border-color: var(--bone-line);
+}
+html[data-theme="ink"] .text-ink {
+  color: var(--bone);
+}
+html[data-theme="ink"] .text-ink-dim {
+  color: var(--bone-dim);
+}
+html[data-theme="ink"] .text-ink-mute {
+  color: var(--clay);
+}
+html[data-theme="ink"] .rule-light {
+  border-color: var(--ink-line);
+}
+
+/* 2b — ⚠ THE THREE COLOUR SYSTEMS THAT ARE NOT UTILITY CLASSES. A remap keyed
+   on `text-*` cannot see colour that arrives from a component system, and each
+   of these went invisible under the opposite theme before being listed here.
+   They are the complete set found by testing every text node on the page
+   against the ground it actually sits on — 1 per theme remained after the
+   kicker was handled, and these are those two.
+
+   THE ACCENT `<em>`: the italic accent word inside a display-tier statement
+   carries its own colour, so it does not inherit the remapped parent. `inherit`
+   hands it back to the heading it lives in, which IS remapped.
+
+   THE BUTTONS: `dark`/`light` in a button's name is THE GROUND IT SITS ON, so
+   a theme change inverts which variant is correct. Only the four variants that
+   appear inside theme-participating bands are mapped; the flagship's fill and
+   every hover state are deliberately untouched, because champagne is the hover
+   on BOTH grounds and does not flip. */
+html[data-theme="bone"] .statement em,
+html[data-theme="ink"] .statement em,
+html[data-theme] .display em,
+html[data-theme] .heading-xl em {
+  color: inherit;
+}
+html[data-theme="bone"] .btn-secondary-dark {
+  color: var(--ink);
+  border-color: var(--ink-line);
+}
+html[data-theme="ink"] .btn-secondary-light {
+  color: var(--bone);
+  border-color: var(--bone-line);
+}
+html[data-theme="bone"] .btn-primary-dark {
+  background-color: var(--ink);
+  color: var(--bone);
+}
+html[data-theme="ink"] .btn-ghost {
+  color: var(--bone);
+}
+
+/* 3 — the material follows too: the dark film would wash out on bone, and the
+   multiply-blended light grain goes muddy on ink. */
+html[data-theme="bone"] .grain::before {
+  mix-blend-mode: multiply;
+  opacity: 0.05;
+}
+html[data-theme="ink"] .grain-light::before {
+  mix-blend-mode: normal;
+  opacity: 0.04;
+}
+
+/* 4 — ⚠ THE HERO IS EXEMPT. It carries its own warm canvas and glow, tuned
+   over a full day in 2026-08-07, and it is not a `[data-ground]` band. It must
+   keep painting itself or the theme would strip the canvas out from under the
+   glow. */
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme],
+  html[data-theme] [class*="text-"],
+  html[data-theme] [class*="rule-"] {
+    transition-duration: 0s;
+  }
 }
