@@ -1785,3 +1785,58 @@ textarea.field-on-dark:-webkit-autofill {
 [data-ground="bone"]:not([data-act-self]):has(+ [data-ground="bone"]) {
   padding-bottom: var(--act-join);
 }
+
+/* ── THE ACT DISSOLVE (2026-08-11) ───────────────────────────────────────────
+   Client: "as a section scrolls into view, the background colour changes as it
+   scrolls into view, so it feels more seamless… I've never seen this done
+   before." What she photographed was actually a BUG — SectionGlow's near-black
+   seam wash bleeding over a bone band — but the effect she liked in it is real,
+   so this is that effect built on purpose.
+
+   ⚠ IT NEEDS NO JAVASCRIPT, AND THAT IS THE WHOLE TRICK. The thing that reads
+   as "the colour changes as you scroll" is simply a GRADIENT YOU SCROLL
+   THROUGH: the incoming act paints its opening padding as a fade FROM the
+   outgoing ground TO its own. Scrolling past it delivers the colour
+   progressively, which is exactly what she described — and the bug she liked
+   was itself a static gradient, which is the proof. No scroll listener, no rAF,
+   nothing to strand under reduced motion, and it is correct on first paint for
+   SSR and for a reader who lands mid-page.
+
+   ⚠ THE TRANSITION LIVES WHERE NO TYPE DOES. The reason this effect is rare is
+   that a ground changing mid-scroll drags every heading and kicker across the
+   contrast boundary with it, and bone type on a lightening ground disappears
+   somewhere in the middle. Here the fade occupies the act's OPENING PADDING —
+   `--act-edge` of deliberately empty ground — so nothing has to survive the
+   crossover. That constraint is what makes it safe, so keep the height tied to
+   the padding: if a band ever puts content in its opening padding, the fade has
+   to go, not the content.
+
+   ⚠ ONLY AT ACT EDGES. Interior joins are invisible already (same ground) and
+   the two colour cuts are the page's only real punctuation — dissolving every
+   boundary would cost the acts their edges. The adjacency selectors give this
+   for free: a rule only fires where the ground actually changes.
+
+   ⚠ `::after`, NEVER `::before` — every band carries `.grain`, which owns
+   `::before`. A band that is BOTH the last of one act and the first of the next
+   (a single-band act between two different grounds) would need both pseudos and
+   would silently lose one. No such band exists today; if one appears, give it a
+   real element rather than widening this.
+
+   Content rides z-10 above it — the same requirement `.grain` already makes. */
+[data-ground="ink"] + [data-ground="bone"]:not([data-act-self])::after,
+[data-ground="bone"] + [data-ground="ink"]:not([data-act-self])::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--act-edge);
+  pointer-events: none;
+  z-index: 0;
+}
+[data-ground="ink"] + [data-ground="bone"]:not([data-act-self])::after {
+  background: linear-gradient(180deg, var(--ink) 0%, rgba(17, 14, 10, 0) 100%);
+}
+[data-ground="bone"] + [data-ground="ink"]:not([data-act-self])::after {
+  background: linear-gradient(180deg, var(--bone) 0%, rgba(244, 237, 223, 0) 100%);
+}
