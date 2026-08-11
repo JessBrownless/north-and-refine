@@ -116,11 +116,28 @@ export default function ContactPage() {
           needed 63px of scroll at an 800px viewport — re-breaking the exact
           complaint that started this page's three redesigns.
 
-          md:pt-52 / md:pb-44 is the balance point: optical air 80px (2.5× what
-          it was), all fields above the fold, Send fully visible at 900px and
-          15px down at 800px. If more air is ever wanted, the honest lever is
-          shortening the form or the masthead, not more padding. */}
-      <GlowBand blob="left" pool padding="pt-40 pb-24 md:pt-52 md:pb-44">
+          md:pt-52 / md:pb-44 is the balance point on a SHORT viewport.
+
+          THE BIG-SCREEN STEP (2026-08-09, client: "still not feeling airy
+          enough on big screen") KEYS ON VIEWPORT HEIGHT, NOT WIDTH, and that
+          is the whole idea. Vertical air is limited by vertical room, so a
+          width breakpoint answers the wrong question: a 1920x800 window is
+          "big" by width and has no room to spend, while the client's own
+          1470px laptop is BELOW the 2xl breakpoint and would have received
+          nothing from a `2xl:` step. `[@media(min-height:900px)]` asks the
+          only question that matters — is there room? — so the page takes the
+          full house hero air wherever it fits and quietly keeps the tighter
+          figure where it does not.
+
+          Stacked on `md:` so it never fires on a phone.
+
+            short viewport (<900px tall)   80px optical air, Send 15px down
+            tall viewport  (>=900px tall) 128px optical air, Send still visible
+
+          If more air is ever wanted beyond this, the honest lever is a
+          shorter form or a shorter masthead, not a bigger number — past this
+          point padding and the send button are in direct competition. */}
+      <GlowBand blob="left" pool padding="pt-40 pb-24 md:pt-52 md:pb-44 [@media(min-height:900px)]:md:pt-64 [@media(min-height:900px)]:md:pb-52">
         {/* ── 1. THE MASTHEAD — left column, first row. PageHero's exact H1
                markup and stagger, kept by hand because the component is not
                in this page any more. */}
