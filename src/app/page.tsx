@@ -50,6 +50,16 @@ const MANIFESTO =
 
 export default function HomePage() {
   const featured = getFeaturedProjects(4);
+  /* THE THIRD PLATE (2026-08-11 night, client: "there needs to be a third one
+     (just do yalda twice)"). Only two real case studies exist, so the third
+     slot repeats the first entry — Dr Yalda — as an explicit placeholder.
+     Self-healing: the moment a third piece is marked featured, the slice
+     takes over and the duplicate disappears without an edit here. ⚠ The
+     duplicate is HER call, made knowingly — do not "fix" it away; the honest
+     alternative (WorkComingSoon) was already tried and she removed it from
+     this band on 2026-08-09. */
+  const plates =
+    featured.length >= 3 ? featured.slice(0, 3) : [...featured, featured[0]];
   const posts = getAllPosts().slice(0, 6);
 
   return (
@@ -105,12 +115,22 @@ export default function HomePage() {
 
       {/* ── Selected work — the page's only imagery, and the proof. ── */}
       <DesignFlip label="Selected work">
-        <WhatWeDoBand ground="ink" />
+        <SelectedWorkBand projects={plates} ground="bone" />
       </DesignFlip>
 
       {/* ── What we do — the ruled rows, the page's formal stabiliser. ── */}
       <DesignFlip label="What we do">
-        <SelectedWorkBand projects={featured} ground="bone" />
+        {/* BACK BELOW THE WORK (2026-08-11 night, client: "the work needs to
+            be above what we do") — reversing this morning's swap. It returns
+            to BONE with the move: putting it back between two light bands on
+            ink would recreate the alternating stripes she rejected on
+            2026-08-09 ("one light act of three bands in the middle rather
+            than alternating") — the light act is now FOUR bands: work, rows,
+            Kind words, Blog. The ground prop drives paint, ladder and the
+            ServicesShowcase tone together, so this is one word. The stale
+            DesignFlip labels from the morning swap (each band wore the
+            other's) are fixed in the same edit. */}
+        <WhatWeDoBand ground="bone" />
       </DesignFlip>
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's

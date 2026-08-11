@@ -212,8 +212,12 @@ export default function SelectedWorkBand({
             className=""
             slideClassName="w-[76vw]"
           >
-            {projects.map((project) => (
-              <WorkPlate key={project.slug} project={project} />
+            {/* Keys carry the index (2026-08-11 night): the third slot
+                repeats Dr Yalda as a placeholder until a third piece exists,
+                and duplicate slugs as keys would make React fold the two
+                plates into one. */}
+            {projects.map((project, i) => (
+              <WorkPlate key={`${project.slug}-${i}`} project={project} />
             ))}
           </Carousel>
         </div>
@@ -227,7 +231,7 @@ export default function SelectedWorkBand({
         <div className="hidden grid-cols-1 items-start gap-x-8 gap-y-16 md:grid md:grid-cols-2">
           {projects.map((project, i) => (
             <WorkPlate
-              key={project.slug}
+              key={`${project.slug}-${i}`}
               project={project}
               className="reveal"
               delay={(i % 2) * 120}
