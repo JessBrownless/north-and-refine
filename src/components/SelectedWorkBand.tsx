@@ -190,7 +190,17 @@ export default function SelectedWorkBand({
             title ended up flush against the plates — 0px. These are that
             signpost's original values, restored, not new spacing. */}
         <div className="mb-10 md:mb-12">
-          <CollectionHeader kicker="Selected work" title="Recent work, up close." />
+          <CollectionHeader
+            kicker="Selected work"
+            title="Recent work, up close."
+            /* ⚠ THE TONE MUST FOLLOW THE GROUND. Without this the kicker
+               renders bone-on-bone and is INVISIBLE — the band was re-grounded
+               to bone on 2026-08-11 and its head kept CollectionHeader's dark
+               default. Third instance of the same lesson in two days (paint,
+               then glow, now type): a band's ground has to carry everything
+               ground-dependent with it. */
+            tone={ground === "bone" ? "light" : "dark"}
+          />
         </div>
 
         {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
