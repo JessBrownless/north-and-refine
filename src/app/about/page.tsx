@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import ContactCTA from "@/components/ContactCTA";
 import GroundTheme from "@/components/GroundTheme";
 import FaqSection from "@/components/FaqSection";
-import MethodSection from "@/components/MethodSection";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
 import SharedCanvas from "@/components/SharedCanvas";
@@ -44,7 +43,9 @@ import { breadcrumbSchema, faqSchema } from "@/lib/schema";
  * marquee, reworded the hero, and moved the DS's big numbers to Saol):
  * hero (centred manifesto) → full-bleed scene band → who we are + stats →
  * the method (bone, indexed) → split FAQ → ContactCTA (close: image +
- * text).
+ * text). ⚠ THE METHOD BAND LEFT 2026-08-11 NIGHT (parked; see the note at
+ * its old position in the JSX) — the live order is hero → ream → who we
+ * are → FAQ → close.
  *
  * NO CLIENT FACES on this page (settled 2026-07-11 brief) holds: the scene
  * band is a DEVICE MOCKUP of the studio's work (the sanctioned "craft, not
@@ -63,24 +64,6 @@ export const metadata: Metadata = {
    how-we-work section ("Working together") — their copy survives in git
    and the brief if any of it returns. */
 
-/* The three method beats — the 1a comp's indexed list (2026-07-12 night):
-   clay indices + hairline rows on bone, no StageGlyphs (the glyph plates
-   left this page with the comp restage; the full five-glyph vocabulary
-   stays on /services). */
-const METHOD: { title: string; body: string }[] = [
-  {
-    title: "Understand the practice.",
-    body: "Every engagement starts in the consulting room, not the moodboard: who the practice serves, what patients ask, what the practitioner wants to be known for. The brand and the website are answers; the practice is the question.",
-  },
-  {
-    title: "Design with restraint.",
-    body: "In this field, taste signals competence. We make fewer, better decisions: considered type, honest photography, copy that reassures rather than sells. That is what a discerning patient responds to.",
-  },
-  {
-    title: "Measure and refine.",
-    body: "Launch is the midpoint, not the finish. We watch how patients actually find and use the work, from search to enquiries to the pages that earn attention, and keep refining until the site serves the practice as well as the practice serves its patients.",
-  },
-];
 
 /* One source for the rendered FAQ AND the FAQPage schema — the brief's
    Q&A text verbatim (questions phrased as real search queries; don't
@@ -252,23 +235,24 @@ export default function AboutPage() {
         {/* ── shared canvas ends: hero → ream → who-we-are, one ground ── */}
       </SharedCanvas>
 
-      {/* TEXT · the method — the 1a comp's convictions layout on BONE
-          (the light middle returns at the client's call): header stack
-          left (kicker, signpost heading, short lede, ghost onward link),
-          the three beats as an indexed ruled list right — clay indices per
-          canon (the client chose canon colours over the comp's gold), rule
-          ABOVE every row per the comp, index on the title's baseline.
-          Relabelled from the comp's "What we believe" to the method's own
-          voice — the values stack below owns that kicker. */}
-      {/* GROUND SETTLED 2026-07-24: the 2026-07-16 test rendered this band
-          TWICE (bone then ink) to compare grounds and the comparison never
-          got called — it was still shipping both, ~30% of the page, with a
-          duplicate H2 on an SEO-led route. The client chose BONE; the ink
-          copy and the `tone` prop are gone. This is now the page's ONE light
-          act, between the dark canvas above and the ink FAQ below.
-          ⚠ placeholder image in MethodSection until the Claude Design asset
-          lands. */}
-      <MethodSection method={METHOD} ground="bone" actSelf />
+      {/* THE METHOD BAND LEFT THIS PAGE 2026-08-11 NIGHT (client: "this whole
+          section needs to leave the about page and go to unused components")
+          — PARKED as <MethodSection>, its approved copy preserved in the
+          component as the prop's default. The argument was the section's own
+          onward link: the real processes live on /services since 2026-07-24,
+          so this was a summary of something one click away, on a page whose
+          history is five approved cuts.
+
+          ⚠ THE ARC CHANGED WITH IT: that band was this page's ONE light act,
+          so the page now runs dark canvas → cream FAQ → ink close, and the
+          FAQ is the only light band left. By FaqSection's own tone rule
+          ("pick tone by the PAGE'S ARC: cream for pages with a light middle
+          act, dark for pages that run dark hero-to-close") this FAQ arguably
+          now wants tone="dark" — the exact reasoning that re-toned /services'
+          FAQ. NOT changed here: the client asked for the removal, not a
+          re-tone, and the single cream moment before the close may be the
+          arc she wants (the ivory testimonial plays that role on /services).
+          FLAGGED, not decided. The ground theme re-derives either way. */}
 
       {/* TEXT · FAQ — the split band, via the shared <FaqSection>
           (componentised 2026-07-12 at the client's call; /services uses

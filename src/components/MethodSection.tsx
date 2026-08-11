@@ -4,7 +4,38 @@ import LedgerRow from "@/components/LedgerRow";
 
 type MethodItem = { title: string; body: string };
 
+/* THE /about COPY, preserved with the parked component (2026-08-11 night).
+   These are the client-approved beats that ran on the live page from
+   2026-07-11 to 2026-08-11 — real copy, not specimen filler. They are the
+   prop's DEFAULT so a revival gets the real words back with the component,
+   and so parking the band never deletes approved writing from the codebase. */
+export const ABOUT_METHOD: MethodItem[] = [
+  {
+    title: "Understand the practice.",
+    body: "Every engagement starts in the consulting room, not the moodboard: who the practice serves, what patients ask, what the practitioner wants to be known for. The brand and the website are answers; the practice is the question.",
+  },
+  {
+    title: "Design with restraint.",
+    body: "In this field, taste signals competence. We make fewer, better decisions: considered type, honest photography, copy that reassures rather than sells. That is what a discerning patient responds to.",
+  },
+  {
+    title: "Measure and refine.",
+    body: "Launch is the midpoint, not the finish. We watch how patients actually find and use the work, from search to enquiries to the pages that earn attention, and keep refining until the site serves the practice as well as the practice serves its patients.",
+  },
+];
+
 /**
+ * ⚠ PARKED 2026-08-11 NIGHT — NO LIVE CONSUMER (client: "this whole section
+ * needs to leave the about page and go to unused components"). The section's
+ * own onward link was the argument: "The full process →" points at /services
+ * because the real per-discipline processes moved there on 2026-07-24, so
+ * what ran here was a summary of something one click away. It renders on
+ * /stylesheet live from this file — parking is not deletion — and the /about
+ * copy survives above as the prop's default.
+ *
+ * ⚠ CONSEQUENCE RECORDED AT THE PAGE: this was /about's ONE light act, so the
+ * page's arc changed with the cut — see about/page.tsx.
+ *
  * "How we think" — the /about method band, on BONE (the page's one light act).
  *
  * GROUND SETTLED 2026-07-24: this was built tone-aware and rendered TWICE on
@@ -29,11 +60,11 @@ type MethodItem = { title: string; body: string };
  * pre-launch checklist. Decorative until then, so `alt` stays empty.
  */
 export default function MethodSection({
-  method,
+  method = ABOUT_METHOD,
   ground,
   actSelf = false,
 }: {
-  method: MethodItem[];
+  method?: MethodItem[];
   /** THE GROUND-THEME TRIGGER (2026-08-11 evening): declaring a ground counts
       this band for GroundTheme's midpoint sampling and lets the page's one
       body colour stand in for its own paint. ⚠ /about passes actSelf WITH it:

@@ -406,9 +406,8 @@ export default function ComponentsPages() {
           <Beat n={2} name="PageHero" what="The canonical split masthead, rendered groundless (ground={false}) so the canvas shows through. No hero CTA: /about is not a commercial page." />
           <Beat n={3} name="MockupReamBand" what="Two staggered, edge-cropped rows of black glass tiles carrying blank devices. Decorative, aria-hidden, on the load-in entrance." />
           <Beat n={4} name="StudioNarrativeBand" what="Kicker in the left rail, the origin narrative in the right measure, plus one quiet blob of its own since the canvas glow leans left." />
-          <Beat n={5} name="MethodSection" what="The three method beats as an indexed ruled list on bone. The page's one light act." />
-          <Beat n={6} name="FaqSection" what="Cream tone. The same FAQS array feeds this band and the page's FAQPage schema." />
-          <Beat n={7} name="ContactCTA" what="The close." />
+          <Beat n={5} name="FaqSection" what="Cream tone — and since MethodSection was parked on 2026-08-11 night, the page's ONLY light band. By the tone rule's own arc logic a dark FAQ is arguable here (the /services precedent); flagged at the page, not decided. The same FAQS array feeds this band and the page's FAQPage schema." />
+          <Beat n={6} name="ContactCTA" what="The close." />
         </Route>
 
         <Route

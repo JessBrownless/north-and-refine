@@ -351,7 +351,7 @@ export default function ComponentsBands() {
           <Testimonial tone="ivory" />
         </Stage>
 
-        <Comp name="MethodSection" where="/about only." />
+        <Comp name="MethodSection" where="PARKED 2026-08-11 NIGHT — NO LIVE CONSUMER (client: 'this whole section needs to leave the about page and go to unused components'). It was /about's one light act from 2026-07-11. The argument was its own onward link: the real processes moved to /services on 2026-07-24, so this was a summary of something one click away. The specimen below is the real component, live-rendered — parking is not deletion — and the client-approved /about copy is preserved in the component as the prop's default." />
         <What>
           &quot;How we think&quot;, on bone with <Code>grain-light</Code>: the
           page&rsquo;s one light act. Two bands. First a 1:1 image on columns 1
