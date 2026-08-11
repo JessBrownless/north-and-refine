@@ -37,11 +37,45 @@
  * Mount it only where the driver is wanted: a documentation specimen should
  * leave it off, or the overlay will ink the specimen over as it scrolls.
  */
+
+/**
+ * ⚠ TRIAL SWITCH, OFF 2026-08-11 (client: "I think the fade to black is
+ * ruining the seamlessness of the backgrounds because it's revealing seams.
+ * Could we take the fade to black thing off for me to see whether that's the
+ * problem?").
+ *
+ * THIS IS A DIAGNOSTIC, NOT A DECISION. She is testing a hypothesis, so the
+ * fade is switched off in ONE place rather than unpicked from five consumers:
+ * with this false the component returns null, every `.exit-fade` node stops
+ * existing, and `<ExitFades />` in the root layout finds nothing to drive —
+ * so the whole effect is gone with no other file touched. Flip it back to
+ * true and all five consumers have their fade again, unchanged. That is the
+ * entire reason the wrappers stay in place, and it follows DesignFlip's
+ * SHOW_FLIPPERS precedent.
+ *
+ * ⚠ IF THE VERDICT IS "KEEP IT OFF", THIS IS NOT THE FINISHED STATE: delete
+ * this file, the five `<ExitFadeOverlay />` call sites, `ExitFades`, its mount
+ * in layout.tsx, the `.exit-fade` / `.exit-fade-long` rules in globals.css and
+ * their /stylesheet cards, together. A permanently-false switch is exactly the
+ * dead weight the system's own DELETED-or-PARKED rule exists to prevent.
+ *
+ * THE HYPOTHESIS IS PLAUSIBLE, which is worth recording. The fill is #070505,
+ * deliberately DARKER than --ink (#110E0A) so a flat ink band deepens rather
+ * than just dimming its contents. But it is applied per-SECTION, and each
+ * overlay is driven by its own parent's geometry — so two adjacent bands are
+ * at different fade opacities at the same moment, and a boundary that is
+ * genuinely seamless when both sides sit at --ink stops being seamless the
+ * instant one side is at #070505 and its neighbour is not. That is a seam the
+ * fade CREATES, not one it reveals.
+ */
+const SHOW_EXIT_FADES = false;
+
 export default function ExitFadeOverlay({
   timing = "long",
 }: {
   timing?: "long" | "late";
 }) {
+  if (!SHOW_EXIT_FADES) return null;
   return (
     <div
       aria-hidden
