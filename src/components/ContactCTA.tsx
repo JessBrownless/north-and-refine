@@ -109,7 +109,20 @@ export default function ContactCTA({
         {/* THE CARD — the hero ground, held. relative + overflow-hidden +
             grain per the .grain contract; content rides z-10 above the glow.
             Radius in the /about tiles' clamp family. */}
-        <div className="reveal relative overflow-hidden grain rounded-plate-lg bg-ink-canvas">
+        {/* ⚠ data-ground-opaque (2026-08-11 evening): the card is a
+            SELF-PAINTED ISLAND under the ground theme — it carries the hero's
+            dark canvas as CONTENT, inside whatever band the page put it in.
+            Without the marker, a light theme remaps the card's bone type to
+            ink while the card stays dark: invisible text precisely while the
+            close and a light band share the screen. The island-restore block
+            in globals keys on this attribute. Found on /about's cream sweep;
+            the homepage had the same latent bug — its earlier sweep only
+            measured text sitting on the page ground, so card-surface text
+            was never checked. */}
+        <div
+          data-ground-opaque=""
+          className="reveal relative overflow-hidden grain rounded-plate-lg bg-ink-canvas"
+        >
           {/* The card's own contained dose — 0.8 → 0.5 → 0.35 across the two
               2026-08-08 sitewide knock-backs. Deliberately NOT the ground
               constant: a card's gradient is its content, and at ground dose

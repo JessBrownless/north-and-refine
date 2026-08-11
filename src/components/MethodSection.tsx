@@ -28,9 +28,27 @@ type MethodItem = { title: string; body: string };
  * practice ("Lumen") and is bound for a Claude Design replacement — see the
  * pre-launch checklist. Decorative until then, so `alt` stays empty.
  */
-export default function MethodSection({ method }: { method: MethodItem[] }) {
+export default function MethodSection({
+  method,
+  ground,
+  actSelf = false,
+}: {
+  method: MethodItem[];
+  /** THE GROUND-THEME TRIGGER (2026-08-11 evening): declaring a ground counts
+      this band for GroundTheme's midpoint sampling and lets the page's one
+      body colour stand in for its own paint. ⚠ /about passes actSelf WITH it:
+      this band's padding lives on the INNER shell (py-20 md:py-32), which the
+      act rule's section-level override cannot reach — participating in act
+      padding would DOUBLE it. Theme yes, re-pacing no. */
+  ground?: "bone";
+  actSelf?: boolean;
+}) {
   return (
-    <section className="relative overflow-hidden grain-light bg-bone text-ink">
+    <section
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
+      className="relative overflow-hidden grain-light bg-bone text-ink"
+    >
       <div className="shell relative z-10 py-20 md:py-32">
         {/* BAND 1 — image + intro, the intro CENTRED against the image (the
             same grammar PageHero's graphic slot uses for a short text stack

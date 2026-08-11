@@ -74,7 +74,14 @@ export default function HomePage() {
           site" the same day; homepage dose history 1 → 0.7 → 0.4 → the
           shared constant. ══ */}
       <DesignFlip label="Hero">
-        <SharedCanvas>
+        {/* ground="ink" (2026-08-11 evening): declared when /about joined the
+            treatment and the sweep showed the HERO's text flipping to the
+            on-light ladder under the bone theme while its canvas stayed dark.
+            Unreachable on a real scroll — the theme is always ink while the
+            hero is on screen — but the island marker makes it impossible, and
+            the declaration changes nothing at rest: the seed was already ink
+            via the manifesto. */}
+        <SharedCanvas ground="ink">
           {/* HOMEPAGE HERO — 1D promoted from Claude Design (2026-07-19),
               re-laid in FLOW 2026-08-07: kicker → H1 → CTAs → devices at the
               foot, one column, no absolute layers to collide. */}

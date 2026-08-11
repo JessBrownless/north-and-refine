@@ -47,8 +47,19 @@ export default function SharedCanvas({
   children,
   intensity = GROUND_GLOW_INTENSITY,
   topLeft = 0.3,
+  ground,
 }: {
   children: ReactNode;
+  /** THE GROUND-THEME TRIGGER (2026-08-11 evening). Declaring a ground counts
+      this canvas for GroundTheme's midpoint sampling, so the band BELOW it
+      arrives wearing the canvas's dark ground and animates to its own — the
+      treatment at the page's biggest cut. It renders WITH data-ground-opaque
+      and data-act-self, always: the canvas paints a warm gradient no body
+      colour can stand in for, and it paces itself. /about passes "ink"; the
+      homepage deliberately does not (its canvas is followed by an ink band,
+      so declaring would change nothing — zero-diff on a page she has already
+      called done). */
+  ground?: "ink";
   /** Glow dose. Defaults to THE ONE GROUND DOSE exported by HeroGlow (0.25
       since the fourth trim, 2026-08-08 — history and reasoning live on the
       constant). Canvas-specific history for the record: 0.9 → 0.7 → 0.4 →
@@ -63,7 +74,12 @@ export default function SharedCanvas({
   topLeft?: number;
 }) {
   return (
-    <div className="relative overflow-hidden grain bg-ink-canvas">
+    <div
+      {...(ground
+        ? { "data-ground": ground, "data-act-self": "", "data-ground-opaque": "" }
+        : {})}
+      className="relative overflow-hidden grain bg-ink-canvas"
+    >
       <HeroGlow intensity={intensity} topLeft={topLeft} />
       {/* The canvas foot resolves to page ink over its last stretch — what
           follows on /about is BONE, so the dark story ends on canonical ink

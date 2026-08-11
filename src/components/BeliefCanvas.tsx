@@ -33,9 +33,24 @@ import SectionGlow from "@/components/SectionGlow";
  * here until the belief's own pin was removed the same day — see
  * <BeliefStatement>. The constraint did not leave with it.)
  */
-export default function BeliefCanvas({ children }: { children: ReactNode }) {
+export default function BeliefCanvas({
+  children,
+  ground,
+}: {
+  children: ReactNode;
+  /** THE GROUND-THEME TRIGGER (2026-08-11 evening) — see SharedCanvas for the
+      contract. Always opaque: this canvas's glow blobs only work on its own
+      ink; under a light theme a transparent canvas would float dark stains on
+      an ivory body. Always self-paced: its rhythm is the beats inside it. */
+  ground?: "ink";
+}) {
   return (
-    <section className="relative grain bg-ink">
+    <section
+      {...(ground
+        ? { "data-ground": ground, "data-act-self": "", "data-ground-opaque": "" }
+        : {})}
+      className="relative grain bg-ink"
+    >
       <div aria-hidden className="absolute inset-0 overflow-hidden">
         {/* Standard dose since 2026-07-31 (was seamEmphasis, the handoff's
             richer amber tail): with the hero's new foot hairline the

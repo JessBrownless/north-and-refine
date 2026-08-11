@@ -53,7 +53,7 @@ export default function Testimonial({
       passes one; /services and the /stylesheet specimen keep the bare kicker,
       so this stays one component on two grounds rather than a fork. */
   title?: string;
-  ground?: "ink" | "bone";
+  ground?: "ink" | "bone" | "ivory";
   /** "I declare my ground for ADJACENCY only; I pace myself." */
   actSelf?: boolean;
 

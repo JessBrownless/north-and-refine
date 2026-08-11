@@ -171,6 +171,14 @@ export default function PageHero({
   // heroes need a bit of gradient blend — they don't look like the same site").
   // Same warm base + <HeroGlow> the homepage 1D hero uses. `grain` still layers
   // its film texture over it if set.
+  /* data-ground-opaque on the dark self-painting branch (2026-08-11
+     evening): under a page-level ground theme, the global type remaps would
+     flip this hero's bone type to ink while its own canvas stays dark. The
+     midpoint model means the mismatch cannot occur on a real scroll today —
+     the theme is always ink while a dark hero is on screen — but one
+     attribute makes it impossible rather than merely unreachable, and a
+     future band reorder cannot resurrect it. Light heroes need the opposite
+     restore and have no consumer; add one only with a real page to test. */
   const sectionCls = light
     ? "relative scene-warm overflow-hidden"
     : ground
@@ -382,7 +390,10 @@ export default function PageHero({
     //     the stack against the graphic's midline instead.
     if (media) {
       return (
-        <section className={sectionCls}>
+        <section
+      {...(!light && ground ? { "data-ground-opaque": "" } : {})}
+      className={sectionCls}
+    >
         {heroGlow}
           <div className="shell relative z-10 pt-32 pb-6 md:pt-40 md:pb-8">
             <div className={`flex items-center ${splitBox}${shellBorder}`}>
@@ -413,7 +424,10 @@ export default function PageHero({
     }
 
     return (
-      <section className={sectionCls}>
+      <section
+      {...(!light && ground ? { "data-ground-opaque": "" } : {})}
+      className={sectionCls}
+    >
         {heroGlow}
         {/* .shell provides width + horizontal padding only; the inner wrapper
             (content width) carries the min-vh, the vertical centring and the
@@ -481,7 +495,10 @@ export default function PageHero({
   );
 
   return (
-    <section className={sectionCls}>
+    <section
+      {...(!light && ground ? { "data-ground-opaque": "" } : {})}
+      className={sectionCls}
+    >
         {heroGlow}
       {/* The legacy left/center layouts joined the 2026-08-08 breathing-room
           pass through a MIN-H WELL rather than their frozen padY: these are

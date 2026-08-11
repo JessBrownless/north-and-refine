@@ -18,6 +18,16 @@ interface FaqSectionProps {
       moment, the close, exactly the homepage's arc). Same layout either way;
       only the ground and the type ladder swap. */
   tone?: "cream" | "dark";
+  /** THE GROUND-THEME TRIGGER (2026-08-11 evening). ⚠ MUST AGREE WITH `tone`:
+      "cream" belongs to the default cream tone, "ink" to tone="dark" — the
+      page body paints this colour while the band goes transparent, so a
+      mismatch puts the wrong ground under the band's type. Only /about
+      (cream) and /services (ink) declare; /pricing, /industries/[slug] and
+      /services/[slug] stay undeclared and keep their own paint. Passed with
+      actSelf on both pages: this band's padding lives on the inner shell,
+      out of the act rule's section-level reach. */
+  ground?: "ink" | "cream";
+  actSelf?: boolean;
 }
 
 /**
@@ -57,6 +67,8 @@ export default function FaqSection({
   faqs,
   cta,
   tone = "cream",
+  ground,
+  actSelf = false,
 }: FaqSectionProps) {
   const dark = tone === "dark";
   const sectionCls = dark
@@ -73,7 +85,11 @@ export default function FaqSection({
   const button = dark ? "btn-secondary-dark" : "btn-secondary-light";
 
   return (
-    <section className={sectionCls}>
+    <section
+      {...(ground ? { "data-ground": ground } : {})}
+      {...(actSelf ? { "data-act-self": "" } : {})}
+      className={sectionCls}
+    >
       <div className="shell relative z-10 py-24 md:py-32">
         {/* Cream kicker is ink-DIM, not ink-mute: on the deeper cream
             ink-mute measures 3.85:1 (sub-AA); ink-dim is 5.43:1 and matches

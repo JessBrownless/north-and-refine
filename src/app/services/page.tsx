@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import ContactCTA from "@/components/ContactCTA";
+import GroundTheme from "@/components/GroundTheme";
 import FaqSection from "@/components/FaqSection";
 import JsonLd from "@/components/JsonLd";
 import ServicesScrollIndex from "@/components/ServicesScrollIndex";
@@ -199,7 +200,16 @@ const FAQS = [
 
 export default function ServicesPage() {
   return (
-    <main>
+    <>
+      {/* THE GROUND THEME (2026-08-11 evening) — see /about for the shape.
+          Here: belief canvas (ink, opaque — its glow blobs only work on their
+          own ground) → testimonial (IVORY, the services-pacing step-up kept
+          rather than squashed to bone) → FAQ (ink) → close (ink). All
+          actSelf: theme, not re-pacing. ⚠ The sticky odometer lives inside
+          the canvas — the theme adds no overflow-hidden anywhere, so the pin
+          is untouched. */}
+      <GroundTheme />
+      <main>
       <JsonLd
         data={[
           /* Each service's Service schema now points at ITS OWN page
@@ -287,7 +297,7 @@ export default function ServicesPage() {
           ⚠ The index's odometer numeral is position:sticky, so nothing in
           this tree may be overflow-hidden — see the canvas docstring for why
           the glow's clipping layer has to stay a SIBLING. */}
-      <BeliefCanvas>
+      <BeliefCanvas ground="ink">
         {/* THE CREDIT STRIP left this page 2026-07-24 (client: "drop the
             industries strip now… we might bring it back") — PARKED as
             <CreditStrip> in the components drawer, alongside Deck and
@@ -356,6 +366,8 @@ export default function ServicesPage() {
           before this page goes near launch. Logged in the checklist. */}
       <Testimonial
         tone="ivory"
+        ground="ivory"
+        actSelf
         image={{
           src: "/assets/graphics/services-testimonial-client.avif",
           alt: "The Dr Yalda Jamali mobile site shown on a phone over a softly blurred bleed of its own hero, with two glass panels summarising build quality and review rating — web design by North & Refine",
@@ -372,13 +384,16 @@ export default function ServicesPage() {
           finishing the page, the homepage's proven arc. */}
       <FaqSection
         tone="dark"
+        ground="ink"
+        actSelf
         kicker="Questions"
         heading="Common questions."
         faqs={FAQS}
         cta={{ label: "Ask us directly", href: "/contact" }}
       />
 
-      <ContactCTA />
-    </main>
+      <ContactCTA ground="ink" actSelf />
+      </main>
+    </>
   );
 }

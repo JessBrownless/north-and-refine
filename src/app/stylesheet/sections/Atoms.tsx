@@ -586,6 +586,11 @@ export default function AtomsTier() {
         <div className="mt-5">
 
           <Entry
+            name="--theme-swap"
+            what="0.65s — how long the ground takes to change hands under the GROUND THEME. Habitat's own figure, and a good one: long enough to read as a change of light rather than a cut, short enough that a fast scroller never waits. Ground and BOTH type ladders share this one clock on purpose — the moment they disagree you get unreadable type mid-swap. Reduced motion collapses it to 0s: the ground still changes, it never animates."
+            where="html[data-theme] body and every theme type remap. Tune here, never per element."
+          />
+          <Entry
 
             name="--act-edge"
 
@@ -609,7 +614,7 @@ export default function AtomsTier() {
 
             name="data-ground / data-act-self"
 
-            what="A band declares data-ground='ink' or 'bone' to opt into the act rule; the run it belongs to is derived from its siblings, so re-grounding or reordering a band re-paces the page with no other edit. data-act-self means 'I declare my ground for ADJACENCY only; I pace myself' — for bands whose air comes from something other than padding."
+            what="A band declares data-ground to opt into the ground systems; the run it belongs to is derived from its siblings, so re-grounding or reordering a band re-paces the page with no other edit. FOUR VALUES since 2026-08-11 evening: 'ink' and 'bone' (the homepage), plus 'ivory' (/services' testimonial step-up) and 'cream' (/about's FAQ) — the vocabulary grew when those pages joined the ground theme, because squashing either onto bone would have undone a deliberate ground decision. data-act-self means 'I declare my ground for the theme and adjacency; I pace myself' — every /about and /services band passes it, so those pages take the THEME without the act re-pacing (their padding lives on inner shells the act rule cannot reach). data-ground-opaque marks a SELF-PAINTED ISLAND: a compound canvas (SharedCanvas, BeliefCanvas, PageHero's dark ground, the ContactCTA card) that counts for the theme's sampling but keeps its own paint, because its glow only works on its own dark ground — the island-restore block in globals holds its type on the on-ink ladder while the page around it changes."
 
             where="The homepage's six bands; the manifesto is act-self, its room being a min-h band in normal flow. ⚠ OPT-IN because the rule is UNLAYERED and overrides real padding — ContactCTA renders on thirteen routes and only the homepage instance opts in."
 

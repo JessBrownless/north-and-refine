@@ -1591,6 +1591,42 @@ export default function ComponentsPages() {
           </GlowBand>
         </Stage>
 
+        <Comp name="GroundTheme" where="Mounted once per participating page: the homepage, /about and /services (2026-08-11). Never sitewide — the theme is a property of a page whose acts are designed as one run of colour, opted into per page." />
+        <What>
+          THE GROUND THEME: the page holds ONE ground at a time and it changes
+          hands as you scroll. Built from the client&rsquo;s reference
+          (agencyhabitat.com) after a first attempt shipped a gradient and was
+          rejected &mdash; what the reference actually does is carry the theme
+          on the page, paint NOTHING on the sections, and animate the swap with
+          a plain 0.65s transition (<Code>--theme-swap</Code>). The whole page
+          changes at once, which is why it reads as seamless rather than as a
+          seam you scroll past.
+        </What>
+        <What>
+          NO SCROLL LISTENER: an IntersectionObserver with -50% margins on both
+          edges leaves a 1px sampling line at the viewport&rsquo;s middle, so
+          exactly one band intersects at a time. ⚠ THE OBSERVER IS A TRIGGER,
+          NOT THE ANSWER &mdash; after a jump-scroll several bands cross the
+          line in one batch and the last write wins, which once shipped a page
+          painting bone while the attribute said ink. The callback only asks
+          &ldquo;did anything change?&rdquo;; the ground is read from geometry.
+        </What>
+        <What>
+          THE MODEL ONLY WORKS IF NOTHING PAINTS ITSELF, so the theme owns the
+          ground AND both type ladders on the same clock &mdash; a ground that
+          lightens under unchanged bone text is invisible text. Compound
+          canvases that MUST paint themselves (their glow only works on their
+          own dark ground) declare <Code>data-ground-opaque</Code> and the
+          island-restore block holds their type on the on-ink ladder. It all
+          degrades to the unthemed page: every rule is scoped under
+          <Code>html[data-theme]</Code>, which exists only once the driver
+          mounts &mdash; JS off, pre-hydration, or any other route and the
+          bands paint themselves exactly as before.
+        </What>
+        <Props>
+          <Entry name="(none)" what="The driver reads [data-ground] from the DOM and writes data-theme on the root; everything else is CSS. Configuration is the bands' own data-ground declarations." />
+        </Props>
+
         <Comp name="StudioFactsLedger" where="/contact, left column, under a 'Details' kicker." />
         <What>
           The studio&rsquo;s details as RULED LEDGER ROWS: hairline, label left,

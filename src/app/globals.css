@@ -1826,8 +1826,32 @@ html[data-theme="ink"] body {
 html[data-theme="bone"] body {
   background-color: var(--bone);
 }
+/* ⚠ THE VOCABULARY GREW 2026-08-11 EVENING when /about and /services joined
+   the treatment (client: "the about page and services page would really
+   benefit from the same treatment"). The homepage is flat ink/bone; those two
+   pages are not — /services climbs bone → IVORY for its testimonial (the
+   2026-07-24 services-pacing step-up) and /about's FAQ sits on the DEEP CREAM.
+   Squashing either onto bone would undo a deliberate ground decision, so the
+   theme learned their colours instead. Ivory has NO CSS custom property on
+   purpose (see the flip-sketch note near line 1453) — the literal matches
+   tailwind.config.ts. Cream is .scene-cream-deep's own color-mix, verbatim. */
+html[data-theme="ivory"] body {
+  background-color: #fdf8ef;
+}
+html[data-theme="cream"] body {
+  background-color: color-mix(
+    in srgb,
+    var(--ink) 6%,
+    color-mix(in srgb, var(--champagne-soft) 35%, var(--bone))
+  );
+}
+/* ⚠ `data-ground-opaque` = "count me for the THEME TRIGGER, but I paint
+   myself." For compound canvases whose ground is inseparable from their glow:
+   BeliefCanvas's blobs and SharedCanvas's warm gradient only work on their own
+   dark ground, so going transparent under a light theme would float dark glow
+   stains on an ivory body. A flat band never needs this. */
 html[data-theme] main,
-html[data-theme] [data-ground] {
+html[data-theme] [data-ground]:not([data-ground-opaque]) {
   background-color: transparent;
 }
 
@@ -1866,6 +1890,39 @@ html[data-theme="bone"] .text-clay {
 html[data-theme="bone"] .rule-dark {
   border-color: var(--bone-line);
 }
+/* IVORY reads exactly as bone does — it is lighter than bone, so every
+   AA figure only improves. CREAM is NOT a straight clone, and the difference
+   is canon (the colour table): on either cream the meta tier is text-ink-dim,
+   because ink-mute measures 3.85:1 on the deep cream — sub-AA. So cream maps
+   every meta-tier tint to ink-dim, INCLUDING elements that carry ink-mute
+   explicitly: the documented contrast rule, enforced by the theme rather than
+   trusted to each band. */
+html[data-theme="ivory"] .overline {
+  color: var(--ink-mute);
+}
+html[data-theme="cream"] .overline {
+  color: var(--ink-dim);
+}
+html[data-theme="ivory"] .text-bone,
+html[data-theme="cream"] .text-bone {
+  color: var(--ink);
+}
+html[data-theme="ivory"] .text-bone-dim,
+html[data-theme="cream"] .text-bone-dim {
+  color: var(--ink-dim);
+}
+html[data-theme="ivory"] .text-clay {
+  color: var(--ink-mute);
+}
+html[data-theme="cream"] .text-clay,
+html[data-theme="cream"] .text-ink-mute {
+  color: var(--ink-dim);
+}
+html[data-theme="ivory"] .rule-dark,
+html[data-theme="cream"] .rule-dark {
+  border-color: var(--bone-line);
+}
+
 html[data-theme="ink"] .text-ink {
   color: var(--bone);
 }
@@ -1895,13 +1952,14 @@ html[data-theme="ink"] .rule-light {
    appear inside theme-participating bands are mapped; the flagship's fill and
    every hover state are deliberately untouched, because champagne is the hover
    on BOTH grounds and does not flip. */
-html[data-theme="bone"] .statement em,
-html[data-theme="ink"] .statement em,
+html[data-theme] .statement em,
 html[data-theme] .display em,
 html[data-theme] .heading-xl em {
   color: inherit;
 }
-html[data-theme="bone"] .btn-secondary-dark {
+html[data-theme="bone"] .btn-secondary-dark,
+html[data-theme="ivory"] .btn-secondary-dark,
+html[data-theme="cream"] .btn-secondary-dark {
   color: var(--ink);
   border-color: var(--ink-line);
 }
@@ -1909,7 +1967,9 @@ html[data-theme="ink"] .btn-secondary-light {
   color: var(--bone);
   border-color: var(--bone-line);
 }
-html[data-theme="bone"] .btn-primary-dark {
+html[data-theme="bone"] .btn-primary-dark,
+html[data-theme="ivory"] .btn-primary-dark,
+html[data-theme="cream"] .btn-primary-dark {
   background-color: var(--ink);
   color: var(--bone);
 }
@@ -1919,7 +1979,9 @@ html[data-theme="ink"] .btn-ghost {
 
 /* 3 — the material follows too: the dark film would wash out on bone, and the
    multiply-blended light grain goes muddy on ink. */
-html[data-theme="bone"] .grain::before {
+html[data-theme="bone"] .grain::before,
+html[data-theme="ivory"] .grain::before,
+html[data-theme="cream"] .grain::before {
   mix-blend-mode: multiply;
   opacity: 0.05;
 }
@@ -1932,6 +1994,56 @@ html[data-theme="ink"] .grain-light::before {
    over a full day in 2026-08-07, and it is not a `[data-ground]` band. It must
    keep painting itself or the theme would strip the canvas out from under the
    glow. */
+
+/* ── THE SELF-PAINTED ISLANDS KEEP THEIR OWN LADDER ──────────────────────────
+   ⚠ Without this block the opaque canvases break during every swap: the type
+   remaps above are scoped only by theme, so under a light theme the canvas's
+   text would flip to the on-light ladder while its ground — which
+   data-ground-opaque deliberately keeps dark — stays ink. Ink text on an ink
+   canvas, exactly at the moment both are on screen. Every value below is the
+   on-ink ladder restated for descendants of an opaque island, placed AFTER the
+   remaps so it wins on order as well as specificity. If a LIGHT self-painted
+   canvas ever exists, it needs its own restore block; none does today. */
+/* Inherited text first: a canvas's copy often takes its colour from an
+   ancestor OUTSIDE the island (the homepage's main.text-bone), so no element
+   inside it carries a class the per-class restores could match. Re-seeding
+   the inherited colour at the island root covers that; anything with its own
+   class is then handled by the per-class rules below. */
+html[data-theme] [data-ground-opaque] {
+  color: var(--bone);
+}
+html[data-theme] [data-ground-opaque] .overline,
+html[data-theme] [data-ground-opaque].text-bone,
+html[data-theme] [data-ground-opaque] .text-bone {
+  color: var(--bone);
+}
+html[data-theme] [data-ground-opaque].text-bone-dim,
+html[data-theme] [data-ground-opaque] .text-bone-dim {
+  color: var(--bone-dim);
+}
+html[data-theme] [data-ground-opaque].text-clay,
+html[data-theme] [data-ground-opaque] .text-clay {
+  color: var(--clay);
+}
+html[data-theme] [data-ground-opaque].rule-dark,
+html[data-theme] [data-ground-opaque] .rule-dark {
+  border-color: var(--ink-line);
+}
+html[data-theme] [data-ground-opaque] .btn-secondary-dark {
+  color: var(--bone);
+  border-color: var(--bone-line);
+}
+html[data-theme] [data-ground-opaque] .btn-primary-dark {
+  background-color: var(--bone);
+  color: var(--ink);
+}
+html[data-theme] [data-ground-opaque] .btn-ghost {
+  color: var(--bone);
+}
+html[data-theme] [data-ground-opaque] .grain::before {
+  mix-blend-mode: normal;
+  opacity: 0.04;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html[data-theme],

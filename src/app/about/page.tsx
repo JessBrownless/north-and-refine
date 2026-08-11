@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactCTA from "@/components/ContactCTA";
+import GroundTheme from "@/components/GroundTheme";
 import FaqSection from "@/components/FaqSection";
 import MethodSection from "@/components/MethodSection";
 import JsonLd from "@/components/JsonLd";
@@ -168,7 +169,17 @@ const NARRATIVE = [
 
 export default function AboutPage() {
   return (
-    <main>
+    <>
+      {/* THE GROUND THEME (2026-08-11 evening, client: "the about page and
+          services page would really benefit from the same treatment"). One
+          page-level ground that changes hands as the midpoint crosses the
+          declared bands below: canvas (ink, opaque) → method (bone) → FAQ
+          (CREAM — the vocabulary's first non-bone light) → close (ink). Every
+          band passes actSelf, so this page's PACING is untouched — the theme
+          is the treatment here, not the act padding (the bands' padding lives
+          on inner shells the act rule cannot reach; see MethodSection). */}
+      <GroundTheme />
+      <main>
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -197,7 +208,7 @@ export default function AboutPage() {
           (ground={false}) and the bands below sit lower on the same canvas;
           the canvas foot fades to ink so the BONE method band below meets a
           canonical ink→bone cut. */}
-      <SharedCanvas>
+      <SharedCanvas ground="ink">
         <PageHero
           align="split"
           spacious
@@ -257,7 +268,7 @@ export default function AboutPage() {
           act, between the dark canvas above and the ink FAQ below.
           ⚠ placeholder image in MethodSection until the Claude Design asset
           lands. */}
-      <MethodSection method={METHOD} />
+      <MethodSection method={METHOD} ground="bone" actSelf />
 
       {/* TEXT · FAQ — the split band, via the shared <FaqSection>
           (componentised 2026-07-12 at the client's call; /services uses
@@ -268,13 +279,16 @@ export default function AboutPage() {
           register. The top rule marks the bone-to-ink seam under the
           method section. */}
       <FaqSection
+        ground="cream"
+        actSelf
         kicker="Common questions"
         heading="What practices ask us."
         faqs={FAQS}
         cta={{ label: "Ask us directly", href: "/contact" }}
       />
 
-      <ContactCTA />
-    </main>
+      <ContactCTA ground="ink" actSelf />
+      </main>
+    </>
   );
 }

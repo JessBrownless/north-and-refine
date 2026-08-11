@@ -40,9 +40,19 @@ import { useEffect } from "react";
  * REDUCED MOTION is handled in CSS: the transition duration collapses to 0, so
  * the ground still changes but never animates.
  *
- * Homepage only. Every other route keeps per-band paint — the theme is a
- * property of a page whose acts are designed as one run of colour, not a
- * sitewide mechanism.
+ * ⚠ THREE PAGES SINCE 2026-08-11 EVENING (client: "the about page and
+ * services page would really benefit from the same treatment") — the homepage,
+ * /about and /services each mount one driver. The "homepage only" line that
+ * stood here lasted a day; what held is the principle behind it: the theme is
+ * a property of a page whose acts are designed as one run of colour, opted
+ * into per page, never a sitewide default. The vocabulary also grew past
+ * ink/bone that evening — /services' testimonial declares IVORY and /about's
+ * FAQ declares CREAM, with their remaps beside the others in globals.
+ *
+ * ⚠ `data-ground-opaque` arrived with them: a compound canvas (SharedCanvas,
+ * BeliefCanvas) declares its ground for THIS driver's sampling but keeps its
+ * own paint, because its glow only works on its own dark ground. The driver
+ * needs no knowledge of it — it only reads data-ground.
  */
 export default function GroundTheme() {
   useEffect(() => {
