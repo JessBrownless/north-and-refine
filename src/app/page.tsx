@@ -134,7 +134,7 @@ export default function HomePage() {
 
       {/* ── Blog teasers — a rail instead of a grid (2026-07-10). ── */}
       <DesignFlip label="Blog rail">
-        <BlogRailBand posts={posts} ground="ink" />
+        <BlogRailBand posts={posts} ground="bone" />
       </DesignFlip>
 
       {/* ── CTA — the close. (It was "the bone interruption" until

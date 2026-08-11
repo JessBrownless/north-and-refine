@@ -150,7 +150,20 @@ export default function SelectedWorkBand({
           ⚠ overflow-hidden is REQUIRED with a glow — the blob sits at
           right:-14% and would otherwise widen the page. Nothing here pins or
           sticks, so the clip carries no sticky hazard. */}
-      <SectionGlow blob="right" intensity={3} />
+      {/* ⚠ THE GLOW IS A DARK-GROUND DEVICE AND MUST FOLLOW THE GROUND
+          (2026-08-11, client: "this harsh fade is bad"). All three SectionGlow
+          layers are painted for ink — the seam wash in particular is
+          `linear-gradient(180deg, #14100B 0%, …)`, i.e. NEAR-BLACK AT THE TOP
+          EDGE. When this band was re-grounded to bone the wash stayed, so a
+          black gradient was being laid over the top of a bone section and
+          fading out mid-band. That is the harsh fade she photographed, and it
+          was my regression from the re-ground, not a tuning problem.
+
+          Same lesson as `ground` driving paint: a band's ground has to carry
+          EVERYTHING that is ground-dependent with it, glow included. On bone
+          the band is flat paper — the light act does not carry the hero's
+          warmth, it cuts away from it. */}
+      {ground !== "bone" && <SectionGlow blob="right" intensity={3} />}
 
       {/* NO TOP PADDING (same call: "the padding needs to be removed from
           the top"). `py-16 md:py-24` → `pb-16 md:pb-24`. It was symmetric
