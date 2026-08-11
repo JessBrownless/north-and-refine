@@ -249,7 +249,22 @@
        never waits for the page to catch up. Tune HERE — ground and both type
        ladders share this clock on purpose, because the moment they disagree
        you get unreadable type mid-swap. */
-    --theme-swap: 0.65s;
+    /* RETUNED 2026-08-11 night (client: "It already looks great, but I'd
+       love it to be super smooth"). Two knobs moved together:
+       · 0.65s → 1s. Habitat's 0.65 is tuned for a page that swaps often;
+         ours swaps at two or three boundaries per page, so each change can
+         afford to read as a slow change of light rather than an event.
+       · ease-in-out → a sine-like bezier. The default curve accelerates
+         hard in its middle third, which is where a large-area colour change
+         is most visible — the sine curve spends longer at both ends and
+         moves gently through the middle, so the swap has no perceptible
+         "start" or "stop". This is the perceptual half of "smooth"; the
+         duration is the arithmetic half.
+       A fast scroller crossing two boundaries mid-flight is safe: CSS
+       retargets a running transition from its current computed value, so
+       the colour bends toward the new target rather than jumping. */
+    --theme-swap: 1s;
+    --theme-swap-ease: cubic-bezier(0.45, 0.05, 0.55, 0.95);
   }
 
   html {
@@ -1818,7 +1833,7 @@ textarea.field-on-dark:-webkit-autofill {
    reference does it. The ATTRIBUTE stays on `html` so the type rules below can
    scope to it. */
 html[data-theme] body {
-  transition: background-color var(--theme-swap) ease-in-out;
+  transition: background-color var(--theme-swap) var(--theme-swap-ease);
 }
 html[data-theme="ink"] body {
   background-color: var(--ink);
@@ -1862,8 +1877,8 @@ html[data-theme] [data-ground]:not([data-ground-opaque]) {
    proven. */
 html[data-theme] [class*="text-"],
 html[data-theme] [class*="rule-"] {
-  transition: color var(--theme-swap) ease-in-out,
-    border-color var(--theme-swap) ease-in-out;
+  transition: color var(--theme-swap) var(--theme-swap-ease),
+    border-color var(--theme-swap) var(--theme-swap-ease);
 }
 /* ⚠ THE DEFAULTS THAT ARE NOT UTILITY CLASSES COME FIRST. A remap keyed on
    `text-*` classes only sees colour that arrived as a utility. `.overline`

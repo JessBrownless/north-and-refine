@@ -587,7 +587,7 @@ export default function AtomsTier() {
 
           <Entry
             name="--theme-swap"
-            what="0.65s — how long the ground takes to change hands under the GROUND THEME. Habitat's own figure, and a good one: long enough to read as a change of light rather than a cut, short enough that a fast scroller never waits. Ground and BOTH type ladders share this one clock on purpose — the moment they disagree you get unreadable type mid-swap. Reduced motion collapses it to 0s: the ground still changes, it never animates."
+            what="1s, on a sine-like bezier (--theme-swap-ease) — how long the ground takes to change hands under the GROUND THEME. Started at Habitat's own 0.65s/ease-in-out; retuned 2026-08-11 night at the client's 'super smooth' call: our pages swap at two or three boundaries, so each change can afford to read as a slow change of light, and the sine curve removes the default ease's hard middle so the swap has no perceptible start or stop. Ground and BOTH type ladders share this one clock on purpose — the moment they disagree you get unreadable type mid-swap. Reduced motion collapses it to 0s: the ground still changes, it never animates."
             where="html[data-theme] body and every theme type remap. Tune here, never per element."
           />
           <Entry
