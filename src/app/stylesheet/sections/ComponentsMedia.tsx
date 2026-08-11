@@ -388,6 +388,7 @@ export default function ComponentsMedia() {
           respect reduced motion with an instant jump.
         </What>
         <Props>
+          <Entry name="tone" what="'dark' (default) or 'light'. Added 2026-08-09 for the homepage's light-band flip and KEPT when three of those bands reverted to ink hours later — which is the point: re-flipping a band is now one word per consumer instead of a re-plumb of five molecules. It defaults dark, so adding it moved nothing. Here it flips the FOLIO — its arrows, hairline and page counter — to the on-light ladder. Both live consumers passed 'light' while the homepage's middle act was bone." />
           <Entry name="ariaLabel" what="Accessible name for the region, e.g. 'Latest blog posts'." />
           <Entry name="slideClassName" what="Width classes per slide. This is where the peek is set." />
           <Entry name="className" what="Outer spacing." />
@@ -729,6 +730,8 @@ export default function ComponentsMedia() {
         <Props>
           <Entry name="blob" what="'left' | 'right'. Vary per page so neighbouring pages do not repeat." />
           <Entry name="intensity" what="Scales the whole dose." />
+          <Entry name="seam" what="Defaults TRUE. False gives THE BLOB ALONE (2026-08-09, born for the manifesto band): this component does two jobs — it places one glow inside a section, and it continues a hero's warmth across a seam via the amber tail and the resuming wash. A band that only wants light on one side needs the first job and not the second; the manifesto sits under a canvas that already resolves to flat ink, so a seam wash there would lift its top edge for no reason and re-open the very colour-matched-boundary problem the shared-canvas rule exists to avoid." />
+          <Entry name="blobSize" what="{ width, height, top }. The canon 36x30% is sized for a glow DECAYING out of a hero — small, low, easy to miss on purpose. A band using the blob ALONE needs it to fill the side it sits on, which is a different job at a different size, so the two cases stopped sharing one number (2026-08-09, with seam). Omit it and nothing moves." />
           <Entry name="seamEmphasis" what="The /services hero to belief seam only: a richer tail and a slightly stronger side blob. Not a general warm-up knob." />
         </Props>
       </Section>

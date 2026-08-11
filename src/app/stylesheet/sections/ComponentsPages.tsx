@@ -598,6 +598,7 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="kicker" what="Plain string. The tracked-caps label above the title." />
           <Entry name="title" what="ReactNode, so a head can carry the italic accent-word device." />
+          <Entry name="tone" what="'dark' (default) or 'light'. Added 2026-08-09 for the homepage's light-band flip and KEPT when three of those bands reverted to ink hours later — which is the point: re-flipping a band is now one word per consumer instead of a re-plumb of five molecules. It defaults dark, so adding it moved nothing. Here it swaps the on-ink type ladder for the on-light one." />
           <Entry name="linkHref / linkLabel" what="The ghost onward link. The trailing space rides inside the interpolation, so the extracted markup stays byte-identical to what the page shipped." />
         </Props>
         <Stage component>
@@ -653,6 +654,7 @@ export default function ComponentsPages() {
           unillustrated study rather than a documentation trick.
         </What>
         <Props>
+          <Entry name="tone" what="'dark' (default) or 'light'. Added 2026-08-09 for the homepage's light-band flip and KEPT when three of those bands reverted to ink hours later — which is the point: re-flipping a band is now one word per consumer instead of a re-plumb of five molecules. It defaults dark, so adding it moved nothing. Here it carries the caption's tints: client name, services meta and the outcome line." />
           <Entry name="project" what="WorkEntry. Reads client, services, summary and the thumb image." />
           <Entry name="className" what="Where the .reveal class arrives from, because whether a plate reveals depends on where it sits: inside the mobile rail the wrapper already reveals." />
           <Entry name="delay" what="Entrance stagger in ms, applied as an inline transitionDelay by the consumer's beat." />
@@ -674,8 +676,20 @@ export default function ComponentsPages() {
         </What>
         <Props>
           <Entry name="kicker" what="Defaults to 'What we do'." />
-          <Entry name="exitFade" what="Mounts the fade-to-ink handover. Homepage only, and OFF in this specimen: the driver would ink the stage over as the page scrolls." />
         </Props>
+        <What>
+          ⚠ THE <Code>exitFade</Code> PROP IS GONE (2026-08-09, client on these
+          rows: &ldquo;fades to white as you scroll &mdash; that needs to
+          go&rdquo;). It was DELETED from the component rather than left
+          unpassed, following ManifestoTrack&rsquo;s precedent for retiring a
+          prop whose last consumer has left, and this card documented it for a
+          while afterwards &mdash; caught by the 2026-08-09 truth audit.
+          ⚠ The reason is her instruction, NOT the ground: the fade was
+          reported while this band was bone, and the band has since returned to
+          ink. Do not reinstate it on the grounds that a dark band can carry
+          one. <Code>Testimonial</Code> keeps its fade; it was never part of
+          the complaint.
+        </What>
         <Stage component flush>
           <WhatWeDoBand />
         </Stage>
@@ -695,8 +709,13 @@ export default function ComponentsPages() {
         <Props>
           <Entry name="posts" what="JournalEntry[]. Empty returns null." />
           <Entry name="kicker / title / linkHref / linkLabel / railLabel" what="The band's identity, defaulted." />
-          <Entry name="exitFade" what="The handover. Homepage only; off here." />
         </Props>
+        <What>
+          ⚠ THE <Code>exitFade</Code> PROP IS GONE (2026-08-09). Two bands
+          carried the identical overlay and only What-we-do was reported; this
+          rail lost it in the same change, and this card kept documenting it
+          until the 2026-08-09 truth audit.
+        </What>
         <Stage component flush>
           <BlogRailBand posts={SPECIMEN_POSTS} />
         </Stage>
@@ -710,6 +729,7 @@ export default function ComponentsPages() {
           their images rather than headings, so they carry no italic accent.
         </What>
         <Props>
+          <Entry name="tone" what="'dark' (default) or 'light'. Added 2026-08-09 for the homepage's light-band flip and KEPT when three of those bands reverted to ink hours later — which is the point: re-flipping a band is now one word per consumer instead of a re-plumb of five molecules. It defaults dark, so adding it moved nothing. Here it carries the date, title and meta tints." />
           <Entry name="post" what="JournalEntry. Reads the featured image, the published date and the title; the date is formatted en-AU in UTC." />
         </Props>
         <Stage component>

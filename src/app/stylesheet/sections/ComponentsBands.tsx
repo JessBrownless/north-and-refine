@@ -386,7 +386,10 @@ export default function ComponentsBands() {
           search, then brand. No props. The homepage&rsquo;s formal stabiliser
           between two asymmetric sections.
         </What>
-        <Stage component>
+        <Props>
+          <Entry name="tone" what="'dark' (default) or 'light'. Born 2026-08-09 when the What-we-do band went light; it swaps the ruled rows' hairlines and the on-ink type ladder. Its one live consumer, WhatWeDoBand, passes 'light'. Kept when the homepage's grounds moved again, because a ground flip is then one word rather than a re-plumb." />
+        </Props>
+<Stage component>
           <ServicesShowcase />
         </Stage>
 
