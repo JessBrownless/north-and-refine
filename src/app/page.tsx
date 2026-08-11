@@ -122,7 +122,7 @@ export default function HomePage() {
             defect the client reported on What we do earlier today ("fades to
             white as you scroll"). Passing tone="light" while leaving the
             fade on would have re-created it here, one band down. */}
-        <Testimonial tone="light" ground="bone" />
+        <Testimonial tone="light" ground="bone" title="In their words." />
       </DesignFlip>
 
 

@@ -1,3 +1,4 @@
+import CollectionHeader from "@/components/CollectionHeader";
 import ServicesShowcase from "@/components/ServicesShowcase";
 
 /**
@@ -47,6 +48,7 @@ import ServicesShowcase from "@/components/ServicesShowcase";
  */
 export default function WhatWeDoBand({
   kicker = "What we do",
+  title = "Web, search and brand, working as one.",
   ground,
   actSelf = false,
 }: {
@@ -60,6 +62,8 @@ export default function WhatWeDoBand({
       air comes from something other than padding. */
   actSelf?: boolean;
   kicker?: string;
+  /** The part-title (2026-08-11 section-head grammar). */
+  title?: string;
 }) {
   return (
     <section className="relative grain-light bg-bone py-24 text-ink md:py-32"
@@ -67,7 +71,7 @@ export default function WhatWeDoBand({
       {...(actSelf ? { "data-act-self": "" } : {})}
     >
       <div className="shell">
-        <p className="overline mb-8 reveal text-clay md:mb-10">{kicker}</p>
+        <CollectionHeader kicker={kicker} title={title} tone="light" />
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
           <ServicesShowcase tone="light" />
         </div>

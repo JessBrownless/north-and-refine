@@ -1,3 +1,4 @@
+import CollectionHeader from "@/components/CollectionHeader";
 /**
  * KIND WORDS — the one-testimonial band, componentised 2026-07-24 when
  * /services asked for it (client: "I don't like the recent work as social
@@ -34,6 +35,7 @@ import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 
 export default function Testimonial({
   rule = false,
+  title,
   ground,
   actSelf = false,
   exitFade = false,
@@ -47,6 +49,10 @@ export default function Testimonial({
   /** THE ACT SYSTEM (2026-08-11) — declaring a ground opts this band into the
       act rule in globals.css. Omit it and the band keeps its own padding,
       which is what all twelve non-homepage consumers do. */
+  /** OPT-IN part-title (2026-08-11 section-head grammar). Only the homepage
+      passes one; /services and the /stylesheet specimen keep the bare kicker,
+      so this stays one component on two grounds rather than a fork. */
+  title?: string;
   ground?: "ink" | "bone";
   /** "I declare my ground for ADJACENCY only; I pace myself." */
   actSelf?: boolean;
@@ -85,7 +91,15 @@ export default function Testimonial({
       }`}
     >
       <div className={`shell relative z-10 ${pad}`}>
-        <p className={`overline${kickerColor} mb-8 reveal md:mb-10`}>Kind words</p>
+        {title ? (
+          <CollectionHeader
+            kicker="Kind words"
+            title={title}
+            tone={dark ? "dark" : "light"}
+          />
+        ) : (
+          <p className={`overline${kickerColor} mb-8 reveal md:mb-10`}>Kind words</p>
+        )}
         {/* 5 / break / 5 / break (2026-07-24, client's call, third shape of
             the day — 4/7 → 6/6 → this): image cols 1–5, col 6 the gutter,
             words cols 7–11, col 12 open air on the right — the balanced

@@ -39,8 +39,13 @@ export default function CollectionHeader({
 }: {
   kicker: string;
   title: ReactNode;
-  linkHref: string;
-  linkLabel: string;
+  /** THE ONWARD LINK IS OPTIONAL SINCE 2026-08-11. The head became the
+      homepage's single section-head grammar that day, and two of its four
+      consumers have nowhere to go: Kind words has no index behind it, and
+      Selected work's "All work" link was removed by the client on 2026-08-09
+      and stays removed. Pass BOTH or NEITHER. */
+  linkHref?: string;
+  linkLabel?: string;
   tone?: "dark" | "light";
 }) {
   const light = tone === "light";
@@ -52,6 +57,7 @@ export default function CollectionHeader({
           {title}
         </h2>
       </div>
+      {linkHref && linkLabel && (
       <Link href={linkHref} className={`btn-ghost reveal ${light ? "text-ink" : "text-bone"}`}>
         {/* The trailing space rides INSIDE the interpolation: as two adjacent
             children ({linkLabel} then a literal space) React has to separate
@@ -60,6 +66,7 @@ export default function CollectionHeader({
         {`${linkLabel} `}
         <span aria-hidden>→</span>
       </Link>
+      )}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import CollectionHeader from "@/components/CollectionHeader";
 import Carousel from "@/components/Carousel";
 import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 import SectionGlow from "@/components/SectionGlow";
@@ -151,18 +152,16 @@ export default function SelectedWorkBand({
           at the top would reinstate exactly the separation the glow is here
           to remove. */}
       <div className="shell relative z-10">
-        {/* THE SIGNPOST — see the note above for why this is body register
-            and not a kicker. `text-bone-dim` is the on-ink BODY tint (it was
-            ink-dim while this band was light): the client asked for body
-            text, so it takes the body tier rather than clay's meta tier. The arrow is aria-hidden — it is
-            a direction, not a word, and a screen reader reading "Selected
-            work down arrow" would be worse than reading "Selected work". */}
-        <p
-          className="body mb-10 flex items-baseline gap-2 text-bone-dim reveal md:mb-12"
-        >
-          Selected work
-          <span aria-hidden>↓</span>
-        </p>
+        {/* ⚠ THE HOUSE SECTION HEAD (2026-08-11). This band had NO head at all
+            from 2026-08-09, then a 16px `.body` line with a down-arrow. Both were
+            superseded when the client chose ONE grammar for every homepage band
+            ("they don't look like they live on the same website"). Measured, this
+            band was the hole in the page: its largest type was a 22px CARD
+            CAPTION, sitting between bands at 100px and 100px, and it named itself
+            in the BODY voice while every other band used the Geist Mono kicker.
+            ⚠ THE "All work" LINK STAYS REMOVED (client, 2026-08-09) — only the
+            head came back, which is why CollectionHeader's link is now optional. */}
+        <CollectionHeader kicker="Selected work" title="Recent work, up close." />
 
         {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
             all four captures in one beat, reader-driven like the blog
