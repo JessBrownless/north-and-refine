@@ -158,6 +158,29 @@ export default function FieldGroup({
           rows={rows}
           required={required}
           maxLength={maxLength}
+          /* ⚠ WIRED 2026-08-09. `spellCheck` was declared in this component's
+             props and applied to the INPUT branch only, so passing it to a
+             textarea silently did nothing — the prop existed and lied. */
+          spellCheck={spellCheck}
+          /* ⚠ THIRD-PARTY WRITING OVERLAYS ARE TURNED OFF ON EVERY HOUSE
+             FIELD (2026-08-09, client: "a spell checker thing appeared under
+             my name… which turned the text black, which is not good"). That
+             was Grammarly, whose extension injects its own absolutely
+             positioned text layer over the real control to draw its
+             underlines. That layer carries ITS OWN colour, so on our dark
+             grounds the value rendered near-black on near-black and the field
+             looked broken — a third party silently overriding the one thing
+             the field must get right, which is that typed text is legible.
+
+             `data-gramm` is Grammarly's documented opt-out; the other two are
+             the older attribute names its earlier builds honour, kept because
+             we cannot know which build a visitor is running. It is applied
+             HERE, unconditionally, rather than per consumer: no form on this
+             site wants a third-party layer repainting its values, and a prop
+             would just be a way to forget it. */
+          data-gramm="false"
+          data-gramm_editor="false"
+          data-enable-grammarly="false"
           aria-invalid={invalid}
           aria-describedby={describedBy}
           onBlur={onBlur}
@@ -175,6 +198,25 @@ export default function FieldGroup({
           autoComplete={autoComplete}
           inputMode={inputMode}
           spellCheck={spellCheck}
+          /* ⚠ THIRD-PARTY WRITING OVERLAYS ARE TURNED OFF ON EVERY HOUSE
+             FIELD (2026-08-09, client: "a spell checker thing appeared under
+             my name… which turned the text black, which is not good"). That
+             was Grammarly, whose extension injects its own absolutely
+             positioned text layer over the real control to draw its
+             underlines. That layer carries ITS OWN colour, so on our dark
+             grounds the value rendered near-black on near-black and the field
+             looked broken — a third party silently overriding the one thing
+             the field must get right, which is that typed text is legible.
+
+             `data-gramm` is Grammarly's documented opt-out; the other two are
+             the older attribute names its earlier builds honour, kept because
+             we cannot know which build a visitor is running. It is applied
+             HERE, unconditionally, rather than per consumer: no form on this
+             site wants a third-party layer repainting its values, and a prop
+             would just be a way to forget it. */
+          data-gramm="false"
+          data-gramm_editor="false"
+          data-enable-grammarly="false"
           aria-invalid={invalid}
           aria-describedby={describedBy}
           onBlur={onBlur}

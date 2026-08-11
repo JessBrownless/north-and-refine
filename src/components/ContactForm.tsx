@@ -185,6 +185,12 @@ export default function ContactForm({ title }: { title?: string }) {
           required
           maxLength={100}
           autoComplete="name"
+          /* A PERSON'S NAME IS NOT A DICTIONARY WORD (2026-08-09) — native
+             spellcheck flags most real surnames, which is where the client
+             saw a red squiggle under her own. The message field keeps its
+             spellcheck: there it is checking prose the visitor wrote, which
+             is the one place it earns its keep. */
+          spellCheck={false}
           error={errors.name}
           onBlur={handleBlur("name")}
           onChange={handleChange("name")}
