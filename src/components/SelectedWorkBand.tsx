@@ -111,12 +111,21 @@ export default function SelectedWorkBand({
       reader — it is load-bearing rather than decorative. */
   railLabel?: string;
 }) {
+  /* ⚠ GROUND DRIVES COLOUR AS WELL AS SPACING (2026-08-11). It began as a
+     spacing declaration for the act rule, which left the actual background
+     hardcoded separately — so a band could say data-ground="ink" while
+     rendering bg-bone, and the act padding would be computed for a colour the
+     page was not showing. One prop now decides the paint, the material, the
+     type ladder threaded to the molecules AND the act padding, so they cannot
+     disagree. Re-grounding a band is one word; this page's grounds have moved
+     five times in a month. */
+  const light = ground === "bone";
   return (
     <section
       {...(ground ? { "data-ground": ground } : {})}
       {...(actSelf ? { "data-act-self": "" } : {})}
       id="selected-work"
-      className="relative scroll-mt-14 overflow-hidden pb-16 md:pb-24"
+      className={`relative scroll-mt-14 overflow-hidden pb-16 md:pb-24 ${light ? "grain-light bg-bone text-ink" : ""}`}
     >
       {/* THE GLOW CARRIES OVER (2026-08-09, client: "the blurred gradient
           bits from the section above need to kind of come into this

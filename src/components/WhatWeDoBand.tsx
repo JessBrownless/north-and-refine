@@ -69,15 +69,24 @@ export default function WhatWeDoBand({
   actSelf?: boolean;
   kicker?: string;
 }) {
+  /* ⚠ GROUND DRIVES COLOUR AS WELL AS SPACING (2026-08-11). It began as a
+     spacing declaration for the act rule, which left the actual background
+     hardcoded separately — so a band could say data-ground="ink" while
+     rendering bg-bone, and the act padding would be computed for a colour the
+     page was not showing. One prop now decides the paint, the material, the
+     type ladder threaded to the molecules AND the act padding, so they cannot
+     disagree. Re-grounding a band is one word; this page's grounds have moved
+     five times in a month. */
+  const light = ground !== "ink";
   return (
-    <section className="relative grain-light bg-bone py-24 text-ink md:py-32"
+    <section className={`relative py-24 md:py-32 ${light ? "grain-light bg-bone text-ink" : "grain bg-ink text-bone"}`}
       {...(ground ? { "data-ground": ground } : {})}
       {...(actSelf ? { "data-act-self": "" } : {})}
     >
       <div className="shell">
-        <p className="overline mb-8 reveal text-clay md:mb-10">{kicker}</p>
+        <p className={`overline mb-8 reveal md:mb-10 ${light ? "text-clay" : ""}`}>{kicker}</p>
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
-          <ServicesShowcase tone="light" />
+          <ServicesShowcase tone={light ? "light" : "dark"} />
         </div>
       </div>
     </section>

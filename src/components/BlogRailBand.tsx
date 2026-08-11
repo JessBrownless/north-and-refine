@@ -94,11 +94,21 @@ export default function BlogRailBand({
 }) {
   if (posts.length === 0) return null;
 
+  /* ⚠ GROUND DRIVES COLOUR AS WELL AS SPACING (2026-08-11). It began as a
+     spacing declaration for the act rule, which left the actual background
+     hardcoded separately — so a band could say data-ground="ink" while
+     rendering bg-bone, and the act padding would be computed for a colour the
+     page was not showing. One prop now decides the paint, the material, the
+     type ladder threaded to the molecules AND the act padding, so they cannot
+     disagree. Re-grounding a band is one word; this page's grounds have moved
+     five times in a month. */
+  const light = ground !== "ink";
   return (
     // LIGHT AGAIN 2026-08-09 — see the ground note in the docblock above.
     // tone threads back through CollectionHeader, the Carousel folio and
     // every BlogTeaserCard.
-    <section className="relative grain-light bg-bone py-24 text-ink md:py-32"
+    <section
+      className={`relative py-24 md:py-32 ${light ? "grain-light bg-bone text-ink" : "grain bg-ink text-bone"}`}
       {...(ground ? { "data-ground": ground } : {})}
       {...(actSelf ? { "data-act-self": "" } : {})}
     >
@@ -108,17 +118,17 @@ export default function BlogRailBand({
           title={title}
           linkHref={linkHref}
           linkLabel={linkLabel}
-          tone="light"
+          tone={light ? "light" : "dark"}
         />
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
           <Carousel
             ariaLabel={railLabel}
             className="mt-14 md:mt-20"
             slideClassName="w-[76vw] sm:w-[48%] lg:w-[calc((100%-4rem)/3)]"
-            tone="light"
+            tone={light ? "light" : "dark"}
           >
             {posts.map((post) => (
-              <BlogTeaserCard key={post.slug} post={post} tone="light" />
+              <BlogTeaserCard key={post.slug} post={post} tone={light ? "light" : "dark"} />
             ))}
           </Carousel>
         </div>

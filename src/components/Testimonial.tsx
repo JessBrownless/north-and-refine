@@ -66,7 +66,15 @@ export default function Testimonial({
   spacious?: boolean;
   image?: { src: string; alt: string; square?: boolean };
 }) {
-  const dark = tone === "dark";
+  /* ⚠ GROUND DRIVES COLOUR AS WELL AS SPACING (2026-08-11). It began as a
+     spacing declaration for the act rule, which left the actual background
+     hardcoded separately — so a band could say data-ground="ink" while
+     rendering bg-bone, and the act padding would be computed for a colour the
+     page was not showing. One prop now decides the paint, the material, the
+     type ladder threaded to the molecules AND the act padding, so they cannot
+     disagree. Re-grounding a band is one word; this page's grounds have moved
+     five times in a month. */
+  const dark = ground ? ground === "ink" : tone === "dark";
   const ivory = tone === "ivory";
   const groundCls = dark
     ? "grain bg-ink"

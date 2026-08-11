@@ -95,12 +95,12 @@ export default function HomePage() {
 
       {/* ── Selected work — the page's only imagery, and the proof. ── */}
       <DesignFlip label="Selected work">
-        <SelectedWorkBand projects={featured} ground="ink" />
+        <WhatWeDoBand ground="ink" />
       </DesignFlip>
 
       {/* ── What we do — the ruled rows, the page's formal stabiliser. ── */}
       <DesignFlip label="What we do">
-        <WhatWeDoBand ground="bone" />
+        <SelectedWorkBand projects={featured} ground="bone" />
       </DesignFlip>
 
       {/* ── Kind words — ONE testimonial, returned 2026-07-09 as the page's
@@ -134,7 +134,7 @@ export default function HomePage() {
 
       {/* ── Blog teasers — a rail instead of a grid (2026-07-10). ── */}
       <DesignFlip label="Blog rail">
-        <BlogRailBand posts={posts} ground="bone" />
+        <BlogRailBand posts={posts} ground="ink" />
       </DesignFlip>
 
       {/* ── CTA — the close. (It was "the bone interruption" until
