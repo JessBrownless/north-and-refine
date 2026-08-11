@@ -92,11 +92,15 @@ export default function Testimonial({
     >
       <div className={`shell relative z-10 ${pad}`}>
         {title ? (
+          /* The wrapper carries the gap the bare kicker's mb-8 md:mb-10 used
+             to provide; CollectionHeader leaves outer spacing to consumers. */
+          <div className="mb-8 md:mb-10">
           <CollectionHeader
             kicker="Kind words"
             title={title}
             tone={dark ? "dark" : "light"}
           />
+          </div>
         ) : (
           <p className={`overline${kickerColor} mb-8 reveal md:mb-10`}>Kind words</p>
         )}

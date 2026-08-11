@@ -161,7 +161,15 @@ export default function SelectedWorkBand({
             in the BODY voice while every other band used the Geist Mono kicker.
             ⚠ THE "All work" LINK STAYS REMOVED (client, 2026-08-09) — only the
             head came back, which is why CollectionHeader's link is now optional. */}
-        <CollectionHeader kicker="Selected work" title="Recent work, up close." />
+        {/* ⚠ THE GAP LIVES HERE, NOT IN THE HEAD. CollectionHeader leaves outer
+            spacing to its consumer (Blog supplies it via the carousel's mt-14
+            md:mt-20). When this band's 16px signpost became the house head on
+            2026-08-11 the signpost's own mb-10 md:mb-12 went with it and the
+            title ended up flush against the plates — 0px. These are that
+            signpost's original values, restored, not new spacing. */}
+        <div className="mb-10 md:mb-12">
+          <CollectionHeader kicker="Selected work" title="Recent work, up close." />
+        </div>
 
         {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
             all four captures in one beat, reader-driven like the blog

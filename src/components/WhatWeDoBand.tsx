@@ -1,4 +1,3 @@
-import CollectionHeader from "@/components/CollectionHeader";
 import ServicesShowcase from "@/components/ServicesShowcase";
 
 /**
@@ -28,6 +27,14 @@ import ServicesShowcase from "@/components/ServicesShowcase";
  * The kicker takes clay rather than ink-mute: this IS the section's own
  * kicker (the sanctioned clay-on-light exception), not a card's running meta.
  *
+ * ⚠ NO PART-TITLE, AND THAT IS DELIBERATE (2026-08-11, client: "some of them
+ * just don't need a title, like the big services bit"). It was given one for
+ * about an hour under the section-head grammar and it was wrong twice over:
+ * the ruled service rows already speak at `.display` (100px), so a 62px title
+ * above them is both redundant AND a ladder violation — a list item must
+ * never outrank its own section head, and these rows outranked it by 38px.
+ * THE ROWS ARE THIS BAND'S TITLE. It keeps the bare kicker.
+ *
  * NO EXIT FADE (2026-08-09, client on the What-we-do rows: "fades to white
  * as you scroll — that needs to go"). The `exitFade` prop is DELETED rather
  * than left unpassed, following ManifestoTrack's precedent for retiring a
@@ -48,7 +55,6 @@ import ServicesShowcase from "@/components/ServicesShowcase";
  */
 export default function WhatWeDoBand({
   kicker = "What we do",
-  title = "Web, search and brand, working as one.",
   ground,
   actSelf = false,
 }: {
@@ -62,8 +68,6 @@ export default function WhatWeDoBand({
       air comes from something other than padding. */
   actSelf?: boolean;
   kicker?: string;
-  /** The part-title (2026-08-11 section-head grammar). */
-  title?: string;
 }) {
   return (
     <section className="relative grain-light bg-bone py-24 text-ink md:py-32"
@@ -71,7 +75,7 @@ export default function WhatWeDoBand({
       {...(actSelf ? { "data-act-self": "" } : {})}
     >
       <div className="shell">
-        <CollectionHeader kicker={kicker} title={title} tone="light" />
+        <p className="overline mb-8 reveal text-clay md:mb-10">{kicker}</p>
         <div className="reveal" style={{ transitionDelay: "120ms" }}>
           <ServicesShowcase tone="light" />
         </div>
