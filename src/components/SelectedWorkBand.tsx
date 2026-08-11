@@ -1,4 +1,3 @@
-import CollectionHeader from "@/components/CollectionHeader";
 import Carousel from "@/components/Carousel";
 import ExitFadeOverlay from "@/components/ExitFadeOverlay";
 import SectionGlow from "@/components/SectionGlow";
@@ -174,69 +173,56 @@ export default function SelectedWorkBand({
           at the top would reinstate exactly the separation the glow is here
           to remove. */}
       <div className="shell relative z-10">
-        {/* ⚠ THE HOUSE SECTION HEAD (2026-08-11). This band had NO head at all
-            from 2026-08-09, then a 16px `.body` line with a down-arrow. Both were
-            superseded when the client chose ONE grammar for every homepage band
-            ("they don't look like they live on the same website"). Measured, this
-            band was the hole in the page: its largest type was a 22px CARD
-            CAPTION, sitting between bands at 100px and 100px, and it named itself
-            in the BODY voice while every other band used the Geist Mono kicker.
-            ⚠ THE "All work" LINK STAYS REMOVED (client, 2026-08-09) — only the
-            head came back, which is why CollectionHeader's link is now optional. */}
-        {/* ⚠ THE GAP LIVES HERE, NOT IN THE HEAD. CollectionHeader leaves outer
-            spacing to its consumer (Blog supplies it via the carousel's mt-14
-            md:mt-20). When this band's 16px signpost became the house head on
-            2026-08-11 the signpost's own mb-10 md:mb-12 went with it and the
-            title ended up flush against the plates — 0px. These are that
-            signpost's original values, restored, not new spacing. */}
-        <div className="mb-10 md:mb-12">
-          <CollectionHeader
-            kicker="Selected work"
-            title="Recent work, up close."
-            /* ⚠ THE TONE MUST FOLLOW THE GROUND. Without this the kicker
-               renders bone-on-bone and is INVISIBLE — the band was re-grounded
-               to bone on 2026-08-11 and its head kept CollectionHeader's dark
-               default. Third instance of the same lesson in two days (paint,
-               then glow, now type): a band's ground has to carry everything
-               ground-dependent with it. */
-            tone={ground === "bone" ? "light" : "dark"}
-          />
-        </div>
+        {/* KICKER ONLY (2026-08-11 night, client: "the big title on the work
+            section totally needs to go") — her verdict on the drafted
+            "Recent work, up close.", which lived for a day. The band joins
+            What we do in the grammar's exception class: content that speaks
+            for itself takes the kicker alone. ⚠ Do not re-add a title in a
+            future consistency pass; it has now been removed TWICE (the
+            2026-08-09 header cut, and this). The kicker keeps the head's
+            spacing values (they were the original signpost's), and clay is
+            the sanctioned tracked-caps brand tint on light grounds. */}
+        <p
+          className={`overline mb-10 reveal md:mb-12${
+            ground === "bone" ? " text-clay" : ""
+          }`}
+        >
+          Selected work
+        </p>
 
-        {/* Mobile: the contact-sheet rail (2026-07-11, client's call) —
-            all four captures in one beat, reader-driven like the blog
-            rail below. */}
-        <div className="reveal md:hidden" style={{ transitionDelay: "120ms" }}>
+        {/* ONE RAIL AT EVERY SIZE (2026-08-11 night, client: "the third one
+            should go off the page like a carousel"). The desktop pair grid
+            is DELETED, not hidden — the contact-sheet rail that has carried
+            this band on mobile since 2026-07-11 is now the mechanism
+            everywhere, which is what "work in components" means here. At md
+            each slide is 46% of the rail: two plates sit fully in view and
+            the third crops at the shell edge — visibly continuing off the
+            page, which is the ask — and the folio (arrows · counter) shows
+            itself because there is overflow to turn. ⚠ tone is threaded from
+            the ground: the mobile folio had silently kept its dark tone when
+            the band returned to bone on 2026-08-11 — invisible arrows on a
+            bone ground — masked at runtime by the ground theme's remap and
+            only honest again now. The theme may own type while JS runs; the
+            band must still be right without it. */}
+        <div className="reveal" style={{ transitionDelay: "120ms" }}>
           <Carousel
             ariaLabel={railLabel}
             className=""
-            slideClassName="w-[76vw]"
+            slideClassName="w-[76vw] md:w-[46%]"
+            tone={ground === "bone" ? "light" : "dark"}
           >
             {/* Keys carry the index (2026-08-11 night): the third slot
                 repeats Dr Yalda as a placeholder until a third piece exists,
                 and duplicate slugs as keys would make React fold the two
                 plates into one. */}
             {projects.map((project, i) => (
-              <WorkPlate key={`${project.slug}-${i}`} project={project} />
+              <WorkPlate
+                key={`${project.slug}-${i}`}
+                project={project}
+                tone={ground === "bone" ? "light" : "dark"}
+              />
             ))}
           </Carousel>
-        </div>
-
-        {/* Desktop: a LEVEL pair — the stagger came off 2026-08-09 with the
-            header (see the note above for why the two go together). The
-            plates now share one top line, and `items-start` keeps that true
-            when their captions run to different depths: without it the grid
-            stretches both cells to the tallest and a shorter plate's caption
-            drifts from its neighbour's. */}
-        <div className="hidden grid-cols-1 items-start gap-x-8 gap-y-16 md:grid md:grid-cols-2">
-          {projects.map((project, i) => (
-            <WorkPlate
-              key={`${project.slug}-${i}`}
-              project={project}
-              className="reveal"
-              delay={(i % 2) * 120}
-            />
-          ))}
         </div>
       </div>
       {/* THE BLACK FADE-OUT (2026-08-09, client: "any section that's black,

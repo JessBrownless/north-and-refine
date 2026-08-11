@@ -391,7 +391,7 @@ export default function ComponentsPages() {
           <Beat n={1} name="SharedCanvas" what="The hero's ground, holding the hero ALONE at intensity 0.7 (the client's knock-the-glows-back call): base, glow, grain, and the foot fade that resolves to ink so the bone act below cuts against canonical ink." />
           <Beat n={2} name="HomeHero" what="The bespoke centred masthead, GROUNDLESS on the canvas and in FLOW since the 2026-08-07 layout pass: kicker, H1, CTAs, then the device row bottom-aligned at the foot — the SYSTEM'S OWN devices since 2026-08-07 night (BrowserMockup + two fluid PhoneMockups, editorial bone screens — 'the white ones we use in graphics'), the trio on one shelf line at HEIGHT PARITY (the phone's width derived from the BrowserMockup's height, tops level at every viewport), no absolute layers left to collide. ON .shell SINCE 2026-08-09 ('the device mockups perhaps need to go to the same content grid as everything else on desktop'): the title block and the device row are both nested in the same rail as every section below, and the device widths read cqw (container-query units, off a zero-padding wrapper inside the shell) rather than raw vw, so they stop growing once the shell's own 1600px cap does — measured before the fix, the phones sat 238px outside the shell's edges at 2200px viewport width." />
           <Beat n={3} name="ManifestoTrack" what="THE BONE ACT: the ink statement on bg-bone + grain-light, hard designed cuts at both ends, the fill running in normal flow (unpinned 2026-08-07 — the site's last scroll pin). Flush left, .display, with the ↳ Our story secondary in the on-light outline. No exit fade: a bone band cuts, it does not dissolve." />
-          <Beat n={4} name="SelectedWorkBand" what="CollectionHeader over the featured projects: a Carousel rail below md, a staggered pair grid above it, each plate a WorkPlate." />
+          <Beat n={4} name="SelectedWorkBand" what="A bare kicker over ONE Carousel rail at every size (2026-08-11 night: the desktop pair grid is DELETED — at md each slide is 46% of the rail, so two plates sit in view and the third crops off the shell edge, the client's 'off the page like a carousel'; the third slot repeats Dr Yalda until a third piece is featured). The drafted part-title was removed the same night, her verdict — this band has now lost a title TWICE, so it stays kicker-only. Each plate a WorkPlate, tone threaded from ground." />
           <Beat n={5} name="WhatWeDoBand" what="A shell, a kicker and an exit fade around ServicesShowcase. The page's formal stabiliser, between two deliberately asymmetric neighbours." />
           <Beat n={6} name="Testimonial" what="Kind words, dark tone, with the exit fade. The quote is a marked placeholder in the component itself." />
           <Beat n={7} name="BlogRailBand" what="The second CollectionHeader, then a Carousel of BlogTeaserCards. The band returns null when no posts exist, so the guard is no longer the page's." />
@@ -640,7 +640,7 @@ export default function ComponentsPages() {
           <SelectedWorkBand projects={SPECIMEN_PROJECTS} />
         </Stage>
 
-        <Comp name="WorkPlate" where="Inside SelectedWorkBand, in both the rail and the pair grid." />
+        <Comp name="WorkPlate" where="Inside SelectedWorkBand's rail — the one mechanism at every size since 2026-08-11 night." />
         <What>
           One plate: a real capture in a plain frame, a ruled caption of client
           name and services meta, and the project&rsquo;s one-line outcome.
